@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分布式记账管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>分布式记账管理平台全景</b>
+    <span>分布式记账管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>分布式记账管理平台产品功能全景图谱</h1>
+    <p>把「分布式记账管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这门生意的胜负手不是「能跑一条链」，而是让多个互不信任的机构愿意把关键账本共建、共管、共查。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">读这份图谱的正确方式：它不是节点清单，而是「身份如何准入、共识如何达成、合约如何受控、数据如何可信共享」这条多机构协作主线。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：基础设施与节点</td><td>节点网络、共识配置、身份证书、账本存储、通道与隐私</td><td>这一层决定链「能不能建起来、稳不稳、可信不可信」</td></tr>
+<tr><td>第二层（d6–d9）：核心链上能力</td><td>智能合约生命周期、链上治理、跨链互操作、存证与数据上链</td><td>这一层把基础设施变成可承载业务的能力</td></tr>
+<tr><td>第三层（d10–d14）：安全监控与智能</td><td>合约安全审计、数据索引查询、监控告警、性能扩容、隐私机密计算</td><td>这一层决定平台能否安全、可观测、可持续运营</td></tr>
+<tr><td>第四层（d15–d18）：治理与生态</td><td>组织权限治理、合规监管对接、运营开发者服务、开放生态集成</td><td>这一层把能力沉淀为可治理、可合规、可扩展的资产</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：① 成员身份必须基于可验证证书且准入受控；② 合约升级权限必须收归治理而非个人私钥；③ 合规（备案/密评/监管节点）必须先于业务上线。</div>
+    <div class="danger">最容易被误当成成功信号的是「链上交易笔数高」——若多为刷量或无真实多机构协作，热闹不等于价值。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：凡需触碰虚拟货币、代币融资或绕开境内备案/密评的方向一律降权；只在「可监管、可审计、可互操作」三可内优先。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>共识节点</td><td>参与出块与投票的受信节点</td><td>匿名或作恶节点会破坏最终性与追责</td></tr>
+<tr><td>成员证书(MSP)</td><td>标识组织与身份的可验证凭证</td><td>证书失效未被吊销即身份失控</td></tr>
+<tr><td>私有数据集合</td><td>仅授权方可见的私密状态</td><td>明文上链会永久泄露商业机密</td></tr>
+<tr><td>跨链锁定证明</td><td>源链资产的锁定可验证证据</td><td>无证明的映射可双重花费</td></tr>
+<tr><td>合约升级权限</td><td>控制合约版本的治理权</td><td>权限在个人手中等同单点失控</td></tr>
+<tr><td>存证哈希</td><td>文件/事件的链上指纹</td><td>源头造假则上链亦假</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域在「区块链信息服务备案 + 密码法/密评 + 数据安全/个保 + 司法存证」四个监管域交汇，且必须规避虚拟货币红线。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：① 任何代币发行融资与交易炒作均属非法金融活动；② 上线前须完成备案、安全评估与密评；③ 监管节点须具备穿透视野，不可建「不可监管」的链。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个多机构场景做穿（如供应链溯源）</li><li>第二步：建立可举证的基线（身份准入+审计日志）</li><li>第三步：跑通最短闭环（上链-查询-核验）</li><li>第四步：补第二个增值能力（存证出证或跨链）</li><li>第五步：把承诺写进合同（SLA 与合规条款）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：行业联盟链平台（BaaS）</li><li>路径 B：司法/政务存证链</li><li>路径 C：跨链互操作网关</li><li>路径 D：隐私计算融合链</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是「第一资产」——多机构愿意共建的可信账本与治理能力，而非单链性能。</div>
+  </section>
+
+  <footer>
+    <p>分布式记账管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "全景总览"],
+ ["s1", "平台形态与商业本质"],
+ ["s2", "节点与基础设施"],
+ ["s3", "共识与网络"],
+ ["s4", "身份与存储"],
+ ["s5", "智能合约与存证"],
+ ["s6", "治理与跨链"],
+ ["s7", "安全监控与性能"],
+ ["s8", "合规运营与生态"],
+ ["s9", "机会与前沿方向"]
+];
+const PLAYERS = [
+ ["企业联盟链平台", "Hyperledger Fabric", "FISCO BCOS / 长安链", "为多机构共建可信共享账本提供底层"],
+ ["政务/行业存证链", "Corda", "长安链 / 司法存证链", "以不可篡改账本承载凭证与司法存证"],
+ ["跨链互操作网关", "Polkadot / Cosmos IBC", "星火·链网 / 跨链网关", "连接异构链实现资产与数据互通"],
+ ["BaaS 区块链即服务", "IBM Blockchain Platform", "腾讯云 TBaaS / 华为 BaaS", "降低建链与运维门槛"],
+ ["隐私计算融合链", "Hyperledger Avalon", "长安链隐私合约", "在密态下完成联合计算"],
+ ["供应链/溯源链", "VeChain", "蚂蚁链 / 至信链", "以账本追溯商品与权属流转"]
+];
+const DOMAINS = [
+ ["d1", "节点与网络管理", "Node & Network Management", "成熟", "节点的部署、准入、状态与拓扑管理，是联盟链运行的物理基础。", [["节点部署", [["一键建节点", "按模板快速部署共识/观察节点", "行业通用实践"], ["节点准入", "基于证书与策略审批入网", "Fabric CA"], ["多可用区部署", "跨区容灾降低单点风险", "行业通用实践"], ["节点健康监测", "采集 CPU/链高/同步状态", "Prometheus"]]], ["节点角色", [["共识节点", "参与出块与投票的背书节点", "Fabric Orderer"], ["背书节点", "执行并背书交易的 peer", "Fabric Peer"], ["观察节点", "只读同步不参与共识", "行业通用实践"], ["网关节点", "对外提供 RPC 与事件", "行业通用实践"]]], ["拓扑与扩缩", [["拓扑视图", "可视化组织与节点关系", "行业通用实践"], ["弹性扩容", "按需增加节点与通道", "行业通用实践"], ["通道隔离", "按业务划分逻辑账本", "Fabric Channel"], ["跨云组网", "打通多机构私有网络", "行业通用实践"]]]]],
+ ["d2", "共识与配置", "Consensus & Configuration", "成熟", "共识算法选择与参数配置，决定最终性与性能边界。", [["共识算法", [["PBFT 类共识", "拜占庭容错适合小规模联盟", "FISCO BCOS"], ["Raft 类共识", "崩溃容错高性能场景", "etcd Raft"], ["HotStuff 类", "低通信复杂度的 BFT", "LibraBFT"], ["可插拔共识", "按场景切换算法", "长安链"]]], ["区块参数", [["出块间隔配置", "平衡确认时延与吞吐", "行业通用实践"], ["区块大小", "按交易体积调优", "行业通用实践"], ["交易池管理", "限流与去重防拥堵", "行业通用实践"], ["最终性确认", "设定确认深度防分叉", "行业通用实践"]]], ["升级与灰度", [["链上治理升级", "通过提案升级协议参数", "行业通用实践"], ["灰度发布", "分节点分批生效", "行业通用实践"], ["回滚预案", "异常可快速回退", "行业通用实践"], ["兼容性校验", "确保区块/状态兼容", "行业通用实践"]]]]],
+ ["d3", "身份与证书", "Identity & Certificate", "成熟", "基于 PKI 的成员身份、证书生命周期与准入控制。", [["CA 与证书", [["根/中间 CA", "分层签发成员证书", "Fabric CA"], ["证书签发", "为节点与用户发 MSP 证书", "行业通用实践"], ["证书吊销", "CRL/OCSP 管理失效证书", "行业通用实践"], ["证书轮换", "到期自动续期", "行业通用实践"]]], ["成员管理", [["组织注册", "登记联盟成员与 MSP", "Fabric"], ["成员准入", "审批新成员加入", "行业通用实践"], ["角色映射", "组织到角色权限映射", "行业通用实践"], ["退出与注销", "安全移除成员身份", "行业通用实践"]]], ["凭证与 DID", [["可验证凭证(VC)", "签发可验证链下凭证", "W3C VC"], ["分布式身份(DID)", "自主可控身份标识", "W3C DID"], ["准入策略", "按凭证放行操作", "行业通用实践"], ["隐私身份", "选择性披露属性", "行业通用实践"]]]]],
+ ["d4", "账本与存储", "Ledger & Storage", "成熟", "世界状态、区块存储与归档，保障账本完整可验证。", [["状态与区块", [["世界状态库", "用 KV 存储维护当前状态", "LevelDB/CouchDB"], ["区块存储", "顺序追加不可篡改区块", "行业通用实践"], ["默克尔树", "状态根可验证", "行业通用实践"], ["历史查询", "按 KEY 追溯变更", "CouchDB"]]], ["归档与备份", [["冷数据归档", "历史区块离线归档", "行业通用实践"], ["快照备份", "定期状态快照", "行业通用实践"], ["灾难恢复", "从备份重建节点", "行业通用实践"], ["存储压缩", "裁剪历史降低体量", "行业通用实践"]]], ["数据治理", [["分级存储", "热冷数据分层", "行业通用实践"], ["留存策略", "按合规设定留存期", "行业通用实践"], ["删除与脱敏", "满足最小必要与遗忘权", "行业通用实践"], ["审计追踪", "状态变更全程留痕", "行业通用实践"]]]]],
+ ["d5", "通道与隐私数据", "Channel & Private Data", "成熟", "通过通道与私有数据集合实现业务隔离与机密共享。", [["通道管理", [["通道创建", "按联盟划逻辑账本", "Fabric Channel"], ["通道成员", "管理通道内组织", "行业通用实践"], ["跨通道调用", "受限的跨通道读取", "行业通用实践"], ["通道策略", "设定读写权限", "行业通用实践"]]], ["私有数据", [["私有数据集合", "仅授权方存私密状态", "Fabric PDC"], ["哈希上链", "明文不离链仅存哈希", "行业通用实践"], ["授权分发", "按策略同步私有数据", "行业通用实践"], ["保密检索", "在授权范围内查询", "行业通用实践"]]], ["机密计算", [["TEE  enclaves", "可信环境内执行敏感逻辑", "Hyperledger Avalon"], ["加密计算", "密态下完成联合统计", "长安链隐私合约"], ["零知识证明", "不泄密证明合规性", "行业通用实践"], ["密钥托管", "管理机密计算密钥", "行业通用实践"]]]]],
+ ["d6", "智能合约生命周期", "Smart Contract Lifecycle", "成熟", "合约的开发、编译、审计、部署与升级的全流程管理。", [["开发与编译", [["智能合约多语言 SDK", "支持 Go/Java/Chaincode 开发", "Fabric"], ["合约模板", "提供可复用业务模板", "行业通用实践"], ["编译构建", "统一编译与安全扫描", "行业通用实践"], ["本地调试", "提供模拟链环境", "行业通用实践"]]], ["审计与测试", [["静态审计", "扫描重入/整数溢出等", "Slither"], ["形式化验证", "关键合约数学证明", "Certora"], ["单元测试", "覆盖分支与异常", "行业通用实践"], ["安全评分", "输出风险评分报告", "行业通用实践"]]], ["部署与升级", [["受控部署", "经审批后上链部署", "行业通用实践"], ["版本管理", "合约版本与回滚", "行业通用实践"], ["灰度升级", "分通道逐步生效", "行业通用实践"], ["权限固化", "升级权限收归治理", "行业通用实践"]]]]],
+ ["d7", "链上治理", "On-chain Governance", "成长", "提案、投票、执行与参数变更的链上治理机制。", [["治理提案", [["参数提案", "对共识/费用等参数提案", "行业通用实践"], ["合约升级提案", "提案式合约变更", "行业通用实践"], ["成员变更提案", "增删联盟成员", "行业通用实践"], ["提案公示", "公开征求意见期", "行业通用实践"]]], ["投票与执行", [["权重投票", "按组织/ stake 计票", "行业通用实践"], ["法定人数", "达阈值方可执行", "行业通用实践"], ["时间锁", "执行前缓冲期", "行业通用实践"], ["自动执行", "通过后自动落链", "行业通用实践"]]], ["治理激励", [["参与激励", "奖励治理参与", "行业通用实践"], ["声誉体系", "记录组织信用", "行业通用实践"], ["违规处罚", "对作恶节点罚没", "行业通用实践"], ["治理看板", "透明展示治理态", "行业通用实践"]]]]],
+ ["d8", "跨链互操作", "Cross-chain Interop", "成长", "异构链之间的消息、资产与数据互通能力。", [["跨链协议", [["中继/网桥", "可信中继转发跨链消息", "Cosmos IBC"], ["哈希锁定", "原子交换资产", "HTLC"], ["跨链路由", "选择最优跨链路径", "星火·链网"], ["标准化报文", "统一跨链消息格式", "行业通用实践"]]], ["资产与数据互通", [["跨链资产映射", "锁定铸造跨链代币", "行业通用实践"], ["跨链数据查证", "验证源链证明", "行业通用实践"], ["跨链调用", "触发对端合约", "行业通用实践"], ["状态同步", "保持两侧一致性", "行业通用实践"]]], ["跨链治理", [["中继人管理", "遴选与监督中继节点", "行业通用实践"], ["跨链风控", "监测异常跨链流", "行业通用实践"], ["争议仲裁", "处理跨链失败", "行业通用实践"], ["合规闸门", "按辖区限制跨链", "行业通用实践"]]]]],
+ ["d9", "存证与数据上链", "Attestation & Data On-chain", "成熟", "将电子凭证、文件哈希与业务事件可靠上链存证。", [["存证服务", [["哈希存证", "文件哈希上链固证", "司法存证链"], ["原文加密存证", "加密原文+密钥分离", "行业通用实践"], ["时间戳", "可信时间锚定", "行业通用实践"], ["批量存证", "批量降低上链成本", "行业通用实践"]]], ["凭证与确权", [["电子合同存证", "合同哈希+签署记录", "至信链"], ["知识产权确权", "创作哈希上链", "行业通用实践"], ["物权/票据", "票据状态上链", "行业通用实践"], ["司法出证", "一键生成存证报告", "行业通用实践"]]], ["存证核验", [["公开核验", "任何人可验真", "行业通用实践"], ["验真 API", "供业务系统调用", "行业通用实践"], ["溯源展示", "展示存证链路", "行业通用实践"], ["争议取证", "调取原始证据", "行业通用实践"]]]]],
+ ["d10", "合约安全与审计", "Contract Security & Audit", "核心", "持续的安全检测、漏洞响应与合规审计，守护链上逻辑。", [["安全检测", [["漏洞扫描", "检测重入/权限等漏洞", "Slither"], ["依赖审查", "审查第三方库风险", "行业通用实践"], ["权限审计", "核查特权函数暴露", "行业通用实践"], ["行为监控", "运行时异常调用告警", "行业通用实践"]]], ["应急响应", [["暂停开关", "异常时冻结合约", "行业通用实践"], ["漏洞响应", "限时修复与重部署", "行业通用实践"], ["事件复盘", "形成处置报告", "行业通用实践"], ["赏金计划", "鼓励白帽报告", "行业通用实践"]]], ["合规审计", [["操作审计", "全量链上操作留痕", "行业通用实践"], ["第三方审计", "引入独立安全审计", "行业通用实践"], ["等保/密评", "满足等级保护与商用密码测评", "行业通用实践"], ["合规报告", "按监管格式输出", "行业通用实践"]]]]],
+ ["d11", "数据索引与查询", "Data Indexing & Query", "成长", "把链上数据索引为可查询的结构，支撑业务与分析。", [["索引管道", [["区块解析", "解析交易与事件入仓", "The Graph"], ["状态同步", "维护可读索引库", "行业通用实践"], ["增量更新", "低延迟同步新区块", "行业通用实践"], ["多源汇聚", "聚合多链数据", "行业通用实践"]]], ["查询服务", [["GraphQL 接口", "灵活查询链上数据", "The Graph"], ["REST 查询", "业务系统标准接入", "行业通用实践"], ["复杂检索", "按条件组合查询", "行业通用实践"], ["订阅推送", "事件变更主动推送", "行业通用实践"]]], ["数据分析", [["业务看板", "上链业务指标可视化", "行业通用实践"], ["链路分析", "追踪凭证流转", "行业通用实践"], ["异常洞察", "发现异常模式", "行业通用实践"], ["报表导出", "定期经营报表", "行业通用实践"]]]]],
+ ["d12", "监控与告警", "Monitoring & Alerting", "成长", "对链、节点与合约的全栈监控与告警。", [["链上监控", [["出块监控", "监测出块停滞/分叉", "Prometheus"], ["交易监控", "积压与失败告警", "行业通用实践"], ["Gas/费用监控", "异常费用波动", "行业通用实践"], ["合约事件监控", "关键事件订阅", "行业通用实践"]]], ["节点监控", [["资源监控", "CPU/内存/磁盘", "Prometheus"], ["同步监控", "落后区块高度告警", "行业通用实践"], ["网络监控", "节点连通性", "行业通用实践"], ["证书到期", "证书临近失效提醒", "行业通用实践"]]], ["告警与值班", [["分级告警", "按严重度路由", "Alertmanager"], ["值班排班", "On-call 调度", "行业通用实践"], ["告警收敛", "抑制重复噪声", "行业通用实践"], ["复盘看板", "可用性统计", "行业通用实践"]]]]],
+ ["d13", "性能与扩容", "Performance & Scaling", "成长", "通过调优、分层与扩容提升吞吐与降低时延。", [["性能调优", [["参数调优", "出块/池大小优化", "行业通用实践"], ["批处理", "交易批量打包", "行业通用实践"], ["并行执行", "无冲突交易并行", "行业通用实践"], ["缓存加速", "热数据缓存", "行业通用实践"]]], ["分层扩容", [["二层/侧链", "主链下扩容", "行业通用实践"], ["分片", "按组织/业务分片", "行业通用实践"], ["状态通道", "高频交互离链", "行业通用实践"], ["只读副本", "扩容查询能力", "行业通用实践"]]], ["压测与容量", [["性能压测", "模拟峰值流量", "行业通用实践"], ["容量规划", "按增长预留资源", "行业通用实践"], ["瓶颈定位", "定位热点模块", "行业通用实践"], ["SLA 保障", "明确可用性目标", "行业通用实践"]]]]],
+ ["d14", "隐私与机密计算", "Privacy & Confidential Computing", "成长", "在保护商业机密与个人信息前提下的可信计算。", [["数据隐私", [["最小披露", "仅披露必要字段", "行业通用实践"], ["字段加密", "敏感字段加密上链", "行业通用实践"], ["差分隐私", "统计结果加噪", "行业通用实践"], ["选择性披露", "凭证属性按需展示", "W3C VC"]]], ["机密计算", [["TEE 计算", "可信环境执行", "Hyperledger Avalon"], ["同态加密", "密态计算汇总", "行业通用实践"], ["安全多方计算", "多方可信联合", "行业通用实践"], ["联邦学习", "联合建模不共享原始", "行业通用实践"]]], ["合规隐私", [["个人信息保护", "满足个保法要求", "行业通用实践"], ["遗忘权", "支持数据删除", "行业通用实践"], ["跨境合规", "数据出境合规", "行业通用实践"], ["隐私影响评估", "PIA 流程", "行业通用实践"]]]]],
+ ["d15", "组织与权限治理", "Org & Access Governance", "成熟", "多组织的角色、权限与策略治理。", [["组织治理", [["多组织模型", "联盟成员协作模型", "Fabric"], ["组织策略", "读写/背书策略配置", "行业通用实践"], ["子组织", "组织内部门划分", "行业通用实践"], ["治理委员会", "决策与仲裁机制", "行业通用实践"]]], ["权限模型", [["RBAC", "按角色分配权限", "行业通用实践"], ["策略即代码", "策略可版本化管理", "行业通用实践"], ["最小权限", "默认最小授权", "行业通用实践"], ["临时授权", "限时提权回收", "行业通用实践"]]], ["密钥治理", [["管理员密钥", "多签守护管理权", "行业通用实践"], ["密钥轮换", "定期安全轮换", "行业通用实践"], ["应急密钥", "预留恢复密钥", "行业通用实践"], ["密钥托管", "合规密钥管理", "行业通用实践"]]]]],
+ ["d16", "合规与监管对接", "Compliance & Regulator", "成长", "满足境内监管要求与监管节点对接。", [["监管节点", [["监管接入", "监管方作为观察/审计节点", "行业通用实践"], ["穿透式监管", "监管可见业务全貌", "行业通用实践"], ["报送接口", "按监管格式报送", "行业通用实践"], ["监管沙箱", "在沙箱验证创新", "行业通用实践"]]], ["合规红线", [["虚拟货币禁令", "不开展代币发行融资与交易", "行业通用实践"], ["备案与评估", "完成区块链信息服务备案", "行业通用实践"], ["内容安全", "防范链上违规信息", "行业通用实践"], ["反洗钱", "对涉众业务做反洗钱", "行业通用实践"]]], ["司法与存证", [["司法存证对接", "对接法院/公证节点", "司法存证链"], ["电子证据", "符合电子数据规定", "行业通用实践"], ["跨境数据", "数据出境合规评估", "行业通用实践"], ["密评合规", "商用密码应用合规", "行业通用实践"]]]]],
+ ["d17", "运营与开发者服务", "Ops & Dev Services", "成长", "降低使用门槛的运维与开发者支撑。", [["运维服务", [["可视化控制台", "统一管理链资源", "行业通用实践"], ["自动化运维", "巡检与自愈", "行业通用实践"], ["计量计费", "按资源用量计费", "行业通用实践"], ["服务目录", "标准化服务清单", "行业通用实践"]]], ["开发者服务", [["SDK/API", "多语言开发工具", "行业通用实践"], ["文档与样例", "完善开发文档", "行业通用实践"], ["测试网", "提供沙箱测试", "行业通用实践"], ["工单支持", "开发者问题响应", "行业通用实践"]]], ["培训与生态", [["培训认证", "培养链上开发人才", "行业通用实践"], ["解决方案库", "行业方案模板", "行业通用实践"], ["合作伙伴", "联合交付", "行业通用实践"], ["社区运营", "开发者社区", "行业通用实践"]]]]],
+ ["d18", "开放生态与集成", "Open Ecosystem & Integration", "成长", "与现有 IT 系统、数据源和外部网络的集成。", [["系统集成", [["业务系统对接", "ERP/CRM 上链对接", "行业通用实践"], ["IoT 接入", "设备数据可信上链", "行业通用实践"], ["数据中台", "与数据平台打通", "行业通用实践"], ["消息总线", "事件驱动集成", "行业通用实践"]]], ["数据源可信", [["预言机", "引入外部可信数据", "Chainlink"], ["可信采集", "源头签名防篡改", "行业通用实践"], ["多方数据", "跨机构数据汇聚", "行业通用实践"], ["数据质量", "校验与溯源", "行业通用实践"]]], ["扩展市场", [["合约市场", "可复用合约模板", "行业通用实践"], ["插件机制", "扩展能力插件化", "行业通用实践"], ["标准互认", "对接行业标准", "行业通用实践"], ["生态激励", "繁荣应用生态", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["企业联盟链一键建链", "live", "BaaS 已规模化服务政企客户", "面向行业复制标准链网"],
+ ["智能合约审计流水线", "live", "静态+形式化审计已成上线前置", "沉淀安全评分服务"],
+ ["司法存证与出证", "live", "存证链已对接法院与公证", "拓展至版权与知产"],
+ ["节点与链上监控", "live", "Prometheus 体系已成运维标配", "统一多链可观测"],
+ ["隐私数据集合", "live", "通道/PDC 支撑业务隔离", "向机密计算演进"],
+ ["跨链网关(域内)", "live", "异构链互联在行业内部落地", "接入国家级链网"],
+ ["BaaS 计量计费", "live", "按资源用量计费已商业化", "叠加增值安全服务"],
+ ["可视化控制台", "live", "统一控制台降低运维门槛", "内置治理与合规视图"],
+ ["链上治理参数提案", "pilot", "治理机制在多组织试点", "固化升级权限至治理"],
+ ["跨链资产映射", "pilot", "锁定铸造跨链资产验证中", "强化跨链风控与保险"],
+ ["机密计算合约", "pilot", "TEE 内执行敏感逻辑试点", "拓展密态联合建模"],
+ ["零知识合规证明", "pilot", "zk 证明合规性不泄密", "用于监管报送"],
+ ["分布式身份(DID)", "pilot", "自主身份在政务试点", "连接可验证凭证"],
+ ["形式化验证常态化", "pilot", "关键合约数学证明试点", "覆盖高价值合约"],
+ ["预言机可信数据源", "pilot", "外部数据上链验证", "拓展 IoT 源头签名"],
+ ["自动弹性扩容", "pilot", "按负载自动扩节点", "保障峰值 SLA"],
+ ["分片与并行执行", "explore", "分片提升吞吐的前沿方向", "用于超大规模联盟"],
+ ["二层/侧链扩容", "explore", "主链下扩容方案探索", "服务高频微交易"],
+ ["跨链互操作标准聚合", "explore", "统一多协议互操作层", "构建互联互通枢纽"],
+ ["AI 辅助合约审计", "explore", "大模型增强漏洞发现", "用于安全左移"],
+ ["量子抗性密码", "explore", "抗量子签名应对长期威胁", "跟踪标准试点迁移"],
+ ["隐私计算联邦学习", "explore", "多方可信联合建模", "用于跨机构风控"],
+ ["监管科技 RegTech", "explore", "自动合规报送与监测", "提升穿透监管效率"],
+ ["绿色低能耗共识", "explore", "面向双碳的低能耗共识探索", "用于政务绿色链网"]
+];
+const MIDS = [
+ ["节点中心", "保障节点健康与拓扑正确", "部署、监测与扩容"],
+ ["共识中心", "维护共识正确与最终性", "算法、参数与升级"],
+ ["身份中心", "管理成员身份与证书", "CA、MSP 与 DID"],
+ ["账本中心", "维护账本完整可验证", "状态、归档与治理"],
+ ["合约中心", "负责合约全生命周期", "开发、审计与部署"],
+ ["治理中心", "运行链上治理机制", "提案、投票与执行"],
+ ["跨链中心", "打通异构链互通", "协议、路由与风控"],
+ ["存证中心", "提供可靠上链固证", "哈希、凭证与核验"],
+ ["安全中心", "守护合约与链安全", "检测、应急与审计"],
+ ["数据中心", "索引与查询链上数据", "解析、查询与分析"],
+ ["监控中心", "全栈监控与告警", "链、节点与告警"],
+ ["性能中心", "调优与扩容保障 SLA", "调优、分层与压测"],
+ ["隐私中心", "保护机密与个人信息", "加密、TEE 与合规"],
+ ["组织中心", "治理组织与权限", "多组织、RBAC 与密钥"],
+ ["合规中心", "对接监管与司法", "监管节点、备案与存证"],
+ ["运营中心", "支撑运维与开发者", "控制台、SDK 与培训"],
+ ["生态中心", "放大集成与网络", "集成、预言机与扩展"],
+ ["接入网关中心", "统一对外 RPC 与事件网关", "RPC、订阅与限流"]
+];
+const RULES = [
+ ["共识节点必须身份可验证", "匿名节点会破坏联盟信任与追责"],
+ ["私有数据明文不得上链", "明文上链即永久泄露商业机密"],
+ ["合约升级权限必须收归治理", "私钥持有者私自升级即失控"],
+ ["跨链锁定须有可验证证明", "无证明的跨链映射可双重花费"],
+ ["监管节点须具备穿透视野", "不可见业务则无法合规监管"],
+ ["证书吊销必须及时生效", "失效证书仍可用等于身份失控"],
+ ["密钥须多签守护", "单点管理员密钥即单点失控"],
+ ["存证哈希须防篡改源", "源头造假则上链亦假"],
+ ["合约上线前必须安全审计", "未审计合约是主要损失来源"],
+ ["跨链中继须遴选与监督", "作恶中继可伪造跨链消息"],
+ ["个人信息须最小必要", "过度采集违反个保法"],
+ ["数据出境须合规评估", "违规出境触发数据安全风险"],
+ ["权限默认最小授权", "过度授权扩大攻击面"],
+ ["升级须灰度与回滚", "直接全量升级失败即停链"],
+ ["监控须覆盖出块停滞", "出块停滞短时内即资损/业务中断"],
+ ["密评须达标方可上线", "未过密评违反商用密码规定"]
+];
+const KPIS = [
+ ["性能类", "TPS、确认时延、出块间隔、交易失败率"],
+ ["可用类", "节点在线率、链可用性、告警响应时延"],
+ ["安全类", "漏洞数、审计通过率、异常调用拦截率"],
+ ["存证类", "存证量、核验量、出证时效"],
+ ["治理类", "提案数、投票参与率、执行成功率"],
+ ["隐私类", "加密覆盖率、PII 合规率、遗忘权处理时效"],
+ ["生态类", "接入机构数、合约调用量、开发者数"],
+ ["合规类", "备案完成率、监管报送及时率、密评通过率"]
+];
+const LIC_CN = [
+ ["2021 年九部委《关于进一步防范和处置虚拟货币交易炒作风险的通知》：代币发行融资与交易炒作属非法金融活动", "仅可开展联盟链、存证、溯源等境内合规场景", "不得以区块链之名开展虚拟货币、代币融资或交易"],
+ ["《区块链信息服务管理规定》要求备案与安全评估", "可上线合规区块链信息服务", "须完成备案并通过安全评估"],
+ ["《网络安全法》《数据安全法》《个人信息保护法》", "可合规处理用户与业务数据", "履行分类分级、最小必要与出境评估"],
+ ["《密码法》与商用密码应用安全性评估(密评)要求", "可使用合规密码产品保护账本", "上线前须通过密评"],
+ ["信息安全等级保护制度", "可按等保要求建设平台", "须达到相应等保级别"],
+ ["电子签名法与电子数据相关规定", "存证可作为电子证据", "存证须满足真实性完整性"],
+ ["司法区块链存证相关规范", "可对接法院/公证节点", "存证流程须合规可采"],
+ ["《关于防范代币发行融资风险的公告》延续有效", "可服务实体资产上链", "不得开展 ICO/代币融资"],
+ ["金融科技与监管科技相关要求", "可向持牌机构提供合规链服务", "不得为虚拟货币提供清结算"],
+ ["数据出境安全评估/标准合同办法", "跨境业务须走合法出境路径", "不得将境内数据违规出境"],
+ ["信创与国产化替代导向", "可优先采用国产软硬件栈", "关键场景须满足自主可控"],
+ ["关键信息基础设施保护要求", "可为关基提供合规账本", "密码与日志须达防护等级"],
+ ["人工智能与算法相关治理要求", "可用 AI 辅助审计与监控", "算法须可解释可审计"],
+ ["反垄断与平台治理规定", "生态须开放互认", "不得滥用市场地位限制互操作"],
+ ["内容安全相关规定", "须防范链上违规信息", "建立内容审核与处置机制"]
+];
+const LIC_INTL = [
+ ["ISO 22739 区块链与分布式账本术语标准", "可对标国际术语与互操作", "须保证概念与口径一致"],
+ ["ISO/TC 307 区块链与分布式账本国际标准", "可参与标准互认", "须关注跨境合规差异"],
+ ["欧盟 DLT Pilot Regime 沙盒", "可在欧试点合规 DLT 市场", "须满足沙盒准入与报告"],
+ ["W3C 分布式身份(DID)与可验证凭证(VC)标准", "可对接国际自主身份体系", "须关注隐私跨境要求"],
+ ["美国各州区块链立法差异", "可针对州合规开展业务", "须逐州评估许可"],
+ ["新加坡金融管理局监管沙盒", "可在新试点合规创新", "须满足沙盒条件"],
+ ["Hyperledger(开源联盟链)治理模型", "可借鉴开源治理实践", "须遵守开源许可"],
+ ["跨境数据流动相关框架", "可规划合规跨境数据", "须匹配本地数据法"]
+];
+const OPPS = [
+ ["行业联盟链复制", "单链建设成本高难复制", "提供标准化行业链模板快速复制"],
+ ["司法存证规模化", "存证需求分散", "对接法院公证形成网络效应"],
+ ["供应链溯源", "商品溯源需求强", "以账本追溯提升信任"],
+ ["跨链互联互通", "链孤岛割裂价值", "接入国家级链网与跨链标准"],
+ ["隐私计算融合", "多机构数据难共享", "以机密计算实现联合价值"],
+ ["监管科技输出", "监管报送人工成本高", "提供自动合规与穿透监管"],
+ ["BaaS 下沉中小企业", "中小企业建链难", "以托管 BaaS 降低门槛"],
+ ["开发者生态", "应用匮乏限制价值", "建 SDK/模板/市场繁荣生态"],
+ ["物联网可信上链", "设备数据易篡改", "源头签名+IOT 接入"],
+ ["合约安全服务", "安全事件频发", "将审计能力产品化对外"],
+ ["DID 身份底座", "身份孤岛", "以 DID/VC 连接多场景"],
+ ["绿色双碳账本", "碳数据分散难核", "以账本归集可核碳资产"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：共识 / 跨链 / 智能合约 / 存证`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

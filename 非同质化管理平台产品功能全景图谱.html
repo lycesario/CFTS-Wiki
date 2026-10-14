@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>非同质化管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>非同质化管理平台全景</b>
+    <span>非同质化管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>非同质化管理平台产品功能全景图谱</h1>
+    <p>把「非同质化管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。NFT/数字藏品平台的胜负手不是「能发图」，而是能在合规框架下把铸造、权属、流转、权益串成一条可确权、可维权、可兑付的信任链。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是一条从创作确权到持有兑付的可信权益链路。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：资产与元数据基础</td><td>藏品建模、铸造发行、元数据存储、钱包身份、版税权益</td><td>把作品与权益固化为可验证的数字资产</td></tr>
+<tr><td>第二层（d6–d9）：交易与流通</td><td>一级发售、二级流转、拍卖定价、跨平台流转</td><td>在合规边界内完成价值发现与转移</td></tr>
+<tr><td>第三层（d10–d14）：智能与运营</td><td>活动运营、社区会员、数据分析、权益兑付、内容版权</td><td>让资产产生持续互动与真实权益</td></tr>
+<tr><td>第四层（d15–d18）：合规与治理</td><td>合规框架、消费者保护、安全防盗、审计报送</td><td>守住境内联盟链与境外NFT的合规边界</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：①境内须走联盟链并完成备案与实名；②合规口径（境内数字藏品 vs 境外NFT）必须先冻结；③版权授权须先确权再上链。</div>
+    <div class="danger">死亡陷阱：把「发售量与地板价」当成成功信号——境内变相炒作会直接触红线。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">前沿方向优先级：只有能增强确权可信或降低合规成本的方向才值得投入。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>数字藏品</td><td>联盟链上代表权属的数字资产</td><td>写错会超发或权属不清构成欺诈</td></tr>
+<tr><td>元数据</td><td>描述藏品内容与媒体的数据</td><td>写错会丢失或错显藏品</td></tr>
+<tr><td>版税规则</td><td>成交时分账的比例与对象</td><td>写错会损害创作者收益</td></tr>
+<tr><td>实名身份</td><td>境内用户实名标识</td><td>写错会放大洗钱与未成年风险</td></tr>
+<tr><td>版权授权链</td><td>作品授权关系记录</td><td>写错会侵权或维权失败</td></tr>
+<tr><td>合规红线清单</td><td>不可逾越的业务边界</td><td>写错会越红线被整顿</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">监管域组合：版权/金融/未成年保护/数据四域交汇，且必须区分境内联盟链与境外NFT。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的红线：①境内数字藏品不得金融化证券化；②不得向未成年人不当营销；③境外能力不得对境内用户开放。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定合规场景做穿（如文博数字藏品）</li><li>第二步：完成备案与实名基线</li><li>第三步：跑通最短闭环（铸造—确权—兑付）</li><li>第四步：补二级受限流转能力</li><li>第五步：把合规承诺写进用户协议</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径A：境内联盟链数字藏品（文博/版权）</li><li>路径B：版权确权存证SaaS</li><li>路径C：品牌会员权益藏品</li><li>路径D：境外合规NFT市场</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：第一资产是可确权可维权的信任。</div>
+  </section>
+
+  <footer>
+    <p>非同质化管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与图谱读法"],
+ ["s1", "平台形态图谱"],
+ ["s2", "功能域全景"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "运营中心"],
+ ["s6", "致命规则"],
+ ["s7", "监管与合规"],
+ ["s8", "成效指标"],
+ ["s9", "落地路径"]
+];
+const PLAYERS = [
+ ["境外NFT市场", "OpenSea / Blur", "境内无（受加密交易限制）", "二级市场撮合与版税"],
+ ["境内数字藏品平台", "鲸探 / 灵稀", "鲸探 / 新华数藏", "联盟链合规发行与展示"],
+ ["铸造与工具", "Manifold / Thirdweb", "数藏发行工具（联盟链）", "铸造、元数据与发行"],
+ ["钱包与身份", "MetaMask / WalletConnect", "境内合规钱包/实名身份", "用户资产与身份接入"],
+ ["IP与版权服务", "OpenLUK（版权）", "版权联盟链存证", "权属确权与授权"],
+ ["数据分析", "DappRadar / Nansen", "境内合规数据看板", "市场与持仓分析"]
+];
+const DOMAINS = [
+ ["d1", "藏品与资产建模", "Asset & Metadata Modeling", "成熟", "定义藏品属性、版税与权属模型", [["藏品建模", [["藏品模板", "定义藏品属性与稀有度字段", "OpenSea"], ["权属模型", "明确发行方/持有方权属", "鲸探"], ["版税模型", "设定版税比例与接收方", "OpenSea"], ["系列管理", "管理系列与批次", "行业通用实践"]]], ["元数据", [["元数据schema", "定义元数据标准字段", "IPFS/Metadata标准"], ["属性生成", "批量生成稀有度属性", "行业通用实践"], ["元数据校验", "校验必填与格式", "行业通用实践"], ["多语言", "支持多语言元数据", "行业通用实践"]]], ["权益绑定", [["权益映射", "将权益绑定到藏品", "鲸探"], ["使用许可", "定义持有者使用范围", "OpenLUK"], ["转授权", "规范二次授权规则", "行业通用实践"], ["到期与失效", "定义权益有效期", "行业通用实践"]]]]],
+ ["d2", "铸造与发行", "Minting & Issuance", "核心", "安全可控地完成藏品铸造与上链", [["铸造", [["批量铸造", "支持系列批量铸造", "Manifold"], ["白名单铸造", "按白名单控制铸造资格", "Thirdweb"], ["延迟揭示", "支持盲盒延迟揭示", "行业通用实践"], ["铸造限额", "限量与限次铸造", "鲸探"]]], ["上链", [["联盟链发行", "境内走合规联盟链", "鲸探"], ["公链发行", "境外按需公链发行", "OpenSea"], ["合约模板", "提供审核过合约模板", "Thirdweb"], ["Gas策略", "优化铸造gas与体验", "行业通用实践"]]], ["发行控制", [["发行计划", "排期与分批发行", "行业通用实践"], ["库存管理", "管理可售库存", "鲸探"], ["防伪", "链上防伪与序列", "行业通用实践"], ["回滚预案", "异常发行回滚预案", "行业通用实践"]]]]],
+ ["d3", "元数据与IPFS存储", "Metadata & IPFS Storage", "成熟", "保障元数据持久与可验证", [["存储", [["IPFS存储", "元数据与媒体存IPFS", "IPFS"], ["固定化", "pin确保持久可用", "Pinata"], ["去中心化备份", "多节点备份防丢失", "行业通用实践"], ["冷热分层", "热数据加速访问", "行业通用实践"]]], ["完整性", [["哈希校验", "元数据哈希上链防篡改", "行业通用实践"], ["可用性监控", "监控资源可用性", "Pinata"], ["灾备", "存储灾备与恢复", "行业通用实践"], ["合规审查", "媒体内容合规审查", "行业通用实践"]]], ["可验证", [["来源证明", "证明元数据来源", "行业通用实践"], ["版本管理", "元数据版本追溯", "行业通用实践"], ["跨链锚定", "多链锚定同一藏品", "行业通用实践"], ["开放查询", "提供元数据查询API", "行业通用实践"]]]]],
+ ["d4", "钱包与身份接入", "Wallet & Identity Access", "成长", "让用户安全持有与登录", [["钱包", [["多钱包接入", "支持主流钱包连接", "WalletConnect"], ["托管钱包", "提供合规托管钱包", "鲸探"], ["登录态", "钱包签名登录", "WalletConnect"], ["多链地址", "管理多链持有地址", "行业通用实践"]]], ["身份", [["实名身份", "境内实名认证接入", "鲸探"], ["DID集成", "支持去中心化身份", "行业通用实践"], ["年龄校验", "未成年人保护校验", "行业通用实践"], ["风控身份", "身份维度风控", "行业通用实践"]]], ["安全", [["钓鱼防护", "提示伪造站点", "WalletConnect"], ["授权管理", "管理合约授权", "行业通用实践"], ["异常登录", "异常登录拦截", "行业通用实践"], ["设备绑定", "可信设备绑定", "行业通用实践"]]]]],
+ ["d5", "版税与权益规则", "Royalty & Rights Rules", "成长", "设计可执行的版税与权益", [["版税", [["链上版税", "通过合约执行版税", "OpenSea"], ["版税可调", "合规下调整版税", "行业通用实践"], ["版税分配", "多方分账规则", "行业通用实践"], ["豁免规则", "指定地址免版税", "行业通用实践"]]], ["权益", [["持有权益", "持有即享权益", "鲸探"], ["解锁权益", "条件解锁权益", "行业通用实践"], ["社群权益", "社群专属权益", "行业通用实践"], ["实物权益", "绑定线下实物", "行业通用实践"]]], ["争议", [["权益申诉", "权益争议申诉", "行业通用实践"], ["规则公示", "规则透明公示", "行业通用实践"], ["变更通知", "规则变更通知", "行业通用实践"], ["留存", "规则与执行留存", "行业通用实践"]]]]],
+ ["d6", "一级发售", "Primary Sale", "核心", "组织合规的一级销售", [["发售形式", [["定价发售", "固定价公开发售", "鲸探"], ["抽签发售", "抽签控制公平", "行业通用实践"], ["盲盒发售", "盲盒随机揭示", "行业通用实践"], ["白名单发售", "定向白名单发售", "Thirdweb"]]], ["支付", [["法币支付", "境内法币支付通道", "鲸探"], ["稳定币支付", "境外稳定币支付", "OpenSea"], ["限额控量", "单用户限购", "行业通用实践"], ["退款", "未售罄退款规则", "行业通用实践"]]], ["公平", [["机器人防护", "防黄牛与脚本", "行业通用实践"], ["地域限制", "按合规地域限售", "行业通用实践"], ["库存透明", "库存真实透明", "行业通用实践"], ["发售看板", "实时发售看板", "行业通用实践"]]]]],
+ ["d7", "二级市场交易", "Secondary Market", "核心", "提供合规二级流转", [["交易", [["挂单交易", "用户间挂单交易", "OpenSea"], ["撮合引擎", "订单撮合与成交", "行业通用实践"], ["版税执行", "成交自动执行版税", "OpenSea"], ["价格保护", "异常价格拦截", "行业通用实践"]]], ["合规流转", [["转让限制", "境内限制频繁转售", "鲸探"], ["持有期", "设最低持有期", "行业通用实践"], ["实名流转", "流转需实名", "鲸探"], ["反洗钱", "大额流转KYT", "行业通用实践"]]], ["结算", [["资金结算", "法币/稳定币结算", "行业通用实践"], ["链上确权", "成交即确权", "OpenSea"], ["税费", "代扣代缴合规税费", "行业通用实践"], ["回执", "提供交易回执", "行业通用实践"]]]]],
+ ["d8", "拍卖与定价", "Auction & Pricing", "成长", "支持拍卖与价格发现", [["拍卖", [["英式拍卖", "公开竞价拍卖", "OpenSea"], ["荷兰式拍卖", "降价拍卖", "行业通用实践"], ["限时竞价", "限时竞价机制", "行业通用实践"], ["底价保护", "设保留底价", "行业通用实践"]]], ["定价", [["估值参考", "提供历史成交参考", "行业通用实践"], ["价格发现", "市场驱动定价", "OpenSea"], ["地板价", "提供系列地板价", "行业通用实践"], ["异常价预警", "异常报价预警", "行业通用实践"]]], ["风控", [["洗售检测", "识别自我交易", "行业通用实践"], ["拉高抛售", "识别操纵", "行业通用实践"], ["大宗监控", "大宗交易监控", "行业通用实践"], ["干预", "异常时暂停交易", "行业通用实践"]]]]],
+ ["d9", "跨平台流转", "Cross-platform Transfer", "探索", "探索合规跨平台互操作", [["互操作", [["标准兼容", "兼容主流元数据标准", "行业通用实践"], ["跨链桥", "合规跨链转移", "行业通用实践"], ["托管迁移", "资产托管迁移", "行业通用实践"], ["身份贯通", "跨平台身份贯通", "行业通用实践"]]], ["风险", [["桥风险", "评估跨链桥风险", "行业通用实践"], ["权属冲突", "处理权属冲突", "行业通用实践"], ["合规边界", "跨域合规边界", "行业通用实践"], ["溯源", "跨平台溯源", "行业通用实践"]]], ["体验", [["统一视图", "跨平台资产视图", "行业通用实践"], ["一键迁移", "简化迁移流程", "行业通用实践"], ["成本透明", "跨链成本透明", "行业通用实践"], ["告知", "迁移风险告知", "行业通用实践"]]]]],
+ ["d10", "活动运营", "Campaign Ops", "成长", "运营发售活动与社群", [["活动", [["发售活动", "策划发售活动", "鲸探"], ["空投", "合规空投运营", "行业通用实践"], ["任务体系", "用户任务与奖励", "行业通用实践"], ["限时玩法", "限时互动玩法", "行业通用实践"]]], ["增长", [["邀请机制", "邀请裂变机制", "行业通用实践"], ["留存运营", "提升持有留存", "鲸探"], ["数据驱动", "数据驱动运营", "行业通用实践"], ["A/B测试", "活动A/B测试", "行业通用实践"]]], ["合规运营", [["活动报备", "活动合规报备", "行业通用实践"], ["宣传边界", "宣传不诱导炒作", "行业通用实践"], ["抽奖合规", "抽奖合规设计", "行业通用实践"], ["留存证据", "运营动作留存", "行业通用实践"]]]]],
+ ["d11", "社区与会员", "Community & Membership", "成长", "建设持有者社区", [["社区", [["持有者社区", "构建持有者社群", "行业通用实践"], ["治理参与", "持有者参与治理", "行业通用实践"], ["内容运营", "社区内容运营", "行业通用实践"], ["声誉", "用户声誉体系", "行业通用实践"]]], ["会员", [["会员等级", "会员分层权益", "鲸探"], ["积分体系", "积分与兑换", "行业通用实践"], ["专属活动", "会员专属活动", "行业通用实践"], ["续费", "会员续费机制", "行业通用实践"]]], ["安全", [["社群风控", "社群诈骗防范", "行业通用实践"], ["身份核验", "核心成员核验", "行业通用实践"], ["信息分级", "信息分级披露", "行业通用实践"], ["申诉", "社区申诉通道", "行业通用实践"]]]]],
+ ["d12", "数据分析", "Analytics", "成熟", "提供市场与持仓洞察", [["市场", [["成交分析", "系列成交与地板价", "DappRadar"], ["流动性分析", "流动性与深度", "Nansen"], ["持有分布", "持有集中度", "行业通用实践"], ["趋势", "市场趋势洞察", "行业通用实践"]]], ["用户", [["用户画像", "持有者画像", "行业通用实践"], ["行为分析", "买卖行为分析", "行业通用实践"], ["留存分析", "持有留存分析", "行业通用实践"], ["价值分层", "用户价值分层", "行业通用实践"]]], ["风控分析", [["洗售识别", "识别刷量行为", "行业通用实践"], ["异常监测", "异常交易监测", "行业通用实践"], ["预警", "运营风险预警", "行业通用实践"], ["报表", "数据报表导出", "行业通用实践"]]]]],
+ ["d13", "权益兑付", "Rights Fulfillment", "成长", "将链上权益落地为体验", [["兑付", [["线上权益", "线上权益自动兑付", "鲸探"], ["线下权益", "线下权益核销", "行业通用实践"], ["预约", "权益预约机制", "行业通用实践"], ["核销", "权益核销记录", "行业通用实践"]]], ["履约", [["履约跟踪", "权益履约跟踪", "行业通用实践"], ["供应商", "第三方权益供应", "行业通用实践"], ["时效", "权益时效管理", "行业通用实践"], ["兜底", "权益无法履约兜底", "行业通用实践"]]], ["合规", [["权益合规", "权益合规审查", "行业通用实践"], ["税务", "权益涉税处理", "行业通用实践"], ["告知", "权益风险告知", "行业通用实践"], ["留存", "兑付全程留存", "行业通用实践"]]]]],
+ ["d14", "内容审核与版权", "Content Review & IP", "核心", "保障内容与版权合规", [["内容审核", [["入库审核", "上链前内容审核", "鲸探"], ["AI初审", "AI辅助内容识别", "行业通用实践"], ["侵权处理", "侵权快速下架", "OpenLUK"], ["复审", "定期复审机制", "行业通用实践"]]], ["版权", [["版权存证", "作品版权上链存证", "OpenLUK"], ["授权链", "授权关系可追溯", "行业通用实践"], ["维权", "侵权取证与维权", "OpenLUK"], ["确权", "权属清晰确权", "行业通用实践"]]], ["合规", [["敏感内容", "敏感内容拦截", "行业通用实践"], ["实名原创", "原创者实名", "行业通用实践"], ["跨境版权", "跨境版权边界", "行业通用实践"], ["留存", "审核与确权留存", "行业通用实践"]]]]],
+ ["d15", "合规框架", "Compliance Framework", "核心", "区分境内联盟链与境外NFT口径", [["境内口径", [["联盟链合规", "境内走联盟链数字藏品", "鲸探"], ["禁止炒作", "不得变相二级炒作", "行业通用实践"], ["备案", "完成区块链服务备案", "行业通用实践"], ["实名", "全链路实名", "鲸探"]]], ["境外口径", [["持牌市场", "境外持牌NFT市场", "OpenSea"], ["税务", "境外税务处理", "行业通用实践"], ["消费者保护", "符合当地消保", "行业通用实践"], ["制裁", "遵守制裁名单", "行业通用实践"]]], ["边界", [["地域控制", "按地域开放能力", "行业通用实践"], ["资产类别", "明确非证券属性", "行业通用实践"], ["宣传边界", "中性专业宣传", "行业通用实践"], ["红线清单", "维护合规红线清单", "行业通用实践"]]]]],
+ ["d16", "消费者与未成年人保护", "Consumer & Minor Protection", "成长", "保护用户特别是未成年人", [["适当性", [["年龄校验", "未成年人不得参与", "行业通用实践"], ["消费限额", "设消费上限", "鲸探"], ["冷静期", "提供冷静期机制", "行业通用实践"], ["风险揭示", "充分风险揭示", "行业通用实践"]]], ["权益", [["知情权", "保障用户知情", "行业通用实践"], ["退款权", "合规退款机制", "行业通用实践"], ["投诉", "投诉处理通道", "行业通用实践"], ["隐私", "未成年隐私保护", "行业通用实践"]]], ["教育", [["风险教育", "用户风险教育", "行业通用实践"], ["防骗", "防诈骗提示", "行业通用实践"], ["告知", "权责清晰告知", "行业通用实践"], ["留存", "保护动作留存", "行业通用实践"]]]]],
+ ["d17", "安全与防盗", "Security & Anti-theft", "核心", "防范钓鱼与资产盗失", [["防盗", [["钓鱼防护", "识别伪造站点与合约", "行业通用实践"], ["授权管理", "管理代币授权", "行业通用实践"], ["异常转移", "异常转移告警", "行业通用实践"], ["冻结", "可疑资产冻结", "行业通用实践"]]], ["平台安全", [["合约审计", "合约安全审计", "行业通用实践"], ["漏洞赏金", "建立漏洞赏金", "行业通用实践"], ["密钥管理", "平台密钥管理", "行业通用实践"], ["渗透", "定期渗透测试", "行业通用实践"]]], ["应急", [["事件响应", "安全事件响应", "行业通用实践"], ["用户救助", "被盗用户救助", "行业通用实践"], ["复盘", "事件复盘加固", "行业通用实践"], ["演练", "安全演练", "行业通用实践"]]]]],
+ ["d18", "审计与监管报送", "Audit & Regulatory Reporting", "成长", "满足监管可查可报", [["审计", [["交易审计", "全量交易可审计", "行业通用实践"], ["链上留痕", "关键操作链上留痕", "行业通用实践"], ["存证", "数据哈希存证", "行业通用实践"], ["外部审计", "配合外部审计", "行业通用实践"]]], ["报送", [["监管报送", "按属地报送", "行业通用实践"], ["税务报送", "涉税数据报送", "行业通用实践"], ["统计", "运营数据统计", "行业通用实践"], ["备查", "资料备查管理", "行业通用实践"]]], ["透明", [["公示", "规则与费用公示", "行业通用实践"], ["报告", "定期运营报告", "行业通用实践"], ["查询", "用户数据查询", "行业通用实践"], ["留存", "合规资料留存", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["联盟链数字藏品合规发行", "live", "境内以联盟链做合规发行与存证", "文博/版权合规场景"],
+ ["版税链上自动执行", "live", "成交自动执行版税分账", "创作者经济"],
+ ["实名托管钱包", "live", "境内实名托管钱包降低门槛", "大众合规持有"],
+ ["版权确权存证", "live", "作品版权上链确权与维权", "IP保护"],
+ ["持有者权益自动兑付", "live", "链上权益自动落地体验", "提升粘性"],
+ ["防洗售风控", "live", "识别刷量与自我交易", "维护市场健康"],
+ ["数据看板SaaS", "live", "向发行方提供运营看板", "B端增值"],
+ ["消费者保护机制", "live", "年龄校验与冷静期", "合规底线"],
+ ["跨链合规流转", "pilot", "探索合规跨链互操作", "资产流动性"],
+ ["动态NFT权益", "pilot", "权益随条件动态变化", "互动体验"],
+ ["AI内容审核", "pilot", "AI辅助版权与内容审核", "降本提效"],
+ ["社群治理代币化", "pilot", "持有者参与治理", "社区共建"],
+ ["实物权益打通", "pilot", "数字藏品绑定线下权益", "虚实结合"],
+ ["RWA藏品化", "pilot", "实体资产藏品化发行", "资产类别扩展"],
+ ["可验证稀缺性", "pilot", "证明限量真实", "信任增强"],
+ ["沉浸式展示", "pilot", "3D/AR展示藏品", "体验升级"],
+ ["零知识持有证明", "explore", "证明持有而不暴露身份", "隐私保护"],
+ ["跨平台身份贯通", "explore", "统一跨平台身份", "用户体验"],
+ ["自动合规报送", "explore", "自动生成监管报表", "合规自动化"],
+ ["创作者版税市场", "explore", "版税可交易的二级市场", "创作者金融"],
+ ["AI生成内容确权", "explore", "AIGC作品权属界定", "新版权范式"],
+ ["元宇宙资产标准", "explore", "打通元宇宙资产", "生态扩展"],
+ ["链上声誉系统", "explore", "基于持有构建声誉", "信用基础"],
+ ["全自动版权维权", "explore", "侵权自动取证维权", "版权护城河"]
+];
+const MIDS = [
+ ["发行中心", "安全可控铸造与上链", "合约模板、白名单、限额"],
+ ["存储中心", "保障元数据持久可验证", "IPFS、固定化、哈希校验"],
+ ["交易中枢", "提供一级与二级流转", "挂单、撮合、版税执行"],
+ ["身份中心", "用户实名与钱包接入", "实名、DID、风控"],
+ ["权益中心", "将链上权益落地", "兑付、履约、核销"],
+ ["版权中心", "确权与维权", "存证、授权链、取证"],
+ ["运营中心", "活动与社群运营", "发售、任务、会员"],
+ ["数据中心", "市场与用户洞察", "成交、画像、风控"],
+ ["合规中心", "区分境内外口径", "备案、实名、红线"],
+ ["安全中心", "防盗与平台安全", "钓鱼防护、审计、应急"],
+ ["消费者保护中心", "保护用户权益", "年龄、限额、投诉"],
+ ["审计中心", "可查可报", "留痕、报送、透明"],
+ ["定价中心", "价格发现", "拍卖、地板价、预警"],
+ ["跨平台中心", "互操作探索", "标准、桥、迁移"],
+ ["客服中心", "用户服务", "咨询、救助、复盘"],
+ ["内容中心", "审核与入库", "初审、复审、下架"],
+ ["战略中心", "产品与生态", "规划、合作、边界"],
+ ["风控中心", "市场与安全风险", "洗售、异常、干预"]
+];
+const RULES = [
+ ["境内变相二级炒作", "联盟链数字藏品若开放高频转售易触炒作红线"],
+ ["未实名即发售", "境内未实名开放会放大洗钱与未成年人风险"],
+ ["元数据丢失", "IPFS未固定会导致藏品永久失效"],
+ ["版税未执行", "成交忽略版税会损害创作者信任"],
+ ["合约未审计", "上链合约漏洞会被利用盗失资产"],
+ ["虚假限量", "宣称限量实则超发会构成欺诈"],
+ ["炒作收益暗示", "宣传保值增值违反中性合规要求"],
+ ["未成年人参与", "未做年龄校验违反保护要求"],
+ ["授权滥用", "过度合约授权会被转走资产"],
+ ["钓鱼站点", "伪造站点诱导签名转移资产"],
+ ["洗售刷量", "自我交易制造虚假繁荣"],
+ ["版权侵权", "未审核上链侵权内容承担责"],
+ ["跨境合规错位", "境外能力对境内用户开放越红线"],
+ ["密钥单点", "平台密钥单点失控致资产损失"],
+ ["留存不足", "运营与交易留存不足无法举证"],
+ ["冷静期缺失", "无退款/冷静期损害消费者权益"]
+];
+const KPIS = [
+ ["安全指标", "钓鱼事件数、合约漏洞数、盗失金额"],
+ ["合规指标", "实名覆盖率、备案状态、报送准时率"],
+ ["运营指标", "发售成功率、活动转化、留存率"],
+ ["市场指标", "地板价、成交量、流动性"],
+ ["版权指标", "确权数、侵权处理时长"],
+ ["权益指标", "兑付率、履约时效"],
+ ["体验指标", "加载时延、铸造失败率"],
+ ["风控指标", "洗售识别率、异常拦截率"]
+];
+const LIC_CN = [
+ ["2021年九部委通知：虚拟货币相关业务属非法金融活动，NFT/数字藏品不得演变为代币融资或炒作", "境内仅可在联盟链开展数字藏品合规发行、存证与展示，不得开展虚拟货币交易", "产品须中性专业，禁止收益承诺与诱导炒作，二级流转需受限制"],
+ ["防范数字藏品炒作风险的相关提示（行业协会）", "须遏制数字藏品金融化、证券化倾向", "不得开展集中竞价、持续挂牌交易"],
+ ["区块链信息服务管理规定（备案）", "境内区块链服务须备案", "未备案不得提供链上服务"],
+ ["网络安全法/数据安全法/个人信息保护法", "实名与数据处理须合规", "用户数据跨境与留存合规"],
+ ["著作权法相关：作品须有合法授权", "上链作品须获授权并确权", "侵权内容须下架"],
+ ["未成年人保护法：不得向未成年人不当营销", "须做年龄校验与消费限制", "未成年人不得参与购买"],
+ ["消费者权益保护法：知情权与退款", "须充分披露与合规退款", "冷静期与投诉通道"],
+ ["反洗钱要求：大额与可疑交易报告", "平台须履行反洗钱义务", "大额流转须KYC与报告"],
+ ["禁止为虚拟货币交易提供中介", "不得为境内用户提供加密行情/交易中介", "行情能力仅服务境外"],
+ ["文物相关合规：文物数字藏品须授权", "文博类发行须合法授权", "不得交易受保护文物"],
+ ["广告法：不得虚假宣传与保本承诺", "宣传须真实、中性", "不得出现保值增值措辞"],
+ ["网络生态治理要求：整治不良信息", "内容须审核合规", "违规内容下架"],
+ ["支付合规：法币通道须持牌", "支付须接入持牌机构", "不得私自资金池"],
+ ["元宇宙/数字资产政策导向：鼓励合规创新", "鼓励实体赋能与版权保护", "不得金融化炒作"],
+ ["个人信息出境合规", "跨境身份数据须合规评估", "出境前完成评估"]
+];
+const LIC_INTL = [
+ ["美国：NFT依属性可能受SEC证券监管", "境外NFT市场须评估证券属性", "证券类须合规注册"],
+ ["欧盟MiCA/数字服务法", "按属地履行消费者与加密资产义务", "须满足披露与保护"],
+ ["新加坡MAS数字支付代币框架", "按需申请相关牌照", "须满足AML与用户保护"],
+ ["日本FSA加密资产监管", "须持牌运营交易", "须资产隔离与审计"],
+ ["英国FCA金融促销限制", "营销须合规", "须避免不当诱导"],
+ ["韩国NFT监管：关注证券属性", "须关注演化中的规则", "证券类须持牌"],
+ ["版权国际条约（伯尔尼公约）", "跨境版权须尊重属地", "授权链须可追溯"],
+ ["制裁合规（OFAC等）", "须遵守国际制裁名单", "制裁方交易须拦截"]
+];
+const OPPS = [
+ ["文博数字藏品", "文博机构需合规数字化", "联盟链合规发行与存证"],
+ ["版权确权刚需", "创作者需确权维权", "版权上链存证与授权链"],
+ ["品牌会员权益", "品牌需用户运营", "数字藏品绑定会员权益"],
+ ["合规二级流转", "持有者需流转", "受限合规二级流转"],
+ ["B端数据看板", "发行方缺运营工具", "提供数据与活动SaaS"],
+ ["未成年人保护", "监管要求严格", "年龄校验与消费限额"],
+ ["版税自动化", "创作者被拖欠版税", "链上自动版税分账"],
+ ["实物权益打通", "虚实结合需求", "数字绑定线下权益"],
+ ["IP孵化", "IP方需新载体", "藏品化IP运营"],
+ ["元宇宙资产", "元宇宙兴起", "标准互通资产"],
+ ["AIGC确权", "AIGC权属模糊", "AI内容确权方案"],
+ ["跨境版权", "跨境授权复杂", "可追溯授权链"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：数字藏品 / 联盟链 / 版税 / 元数据`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>
