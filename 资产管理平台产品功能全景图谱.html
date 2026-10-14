@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>资产管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>资产管理平台全景</b>
+    <span>资产管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>资产管理平台产品功能全景图谱</h1>
+    <p>把「资产管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手是：能否把投研、交易、风控、估值沉淀为单一可信头寸账本，让净值与合规可被实时举证。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是「有多少功能」，而是「投研到估值是否共用同一套头寸与价格真相」——账本一旦分裂，净值与合规就都不可信。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据与投研底座</td><td>主数据、行情接入、投资研究、组合管理、标的策略库</td><td>这一层决定平台能否用同一套数据与模型支撑投研与风险，是后续所有能力的地基</td></tr>
+<tr><td>第二层（d6–d9）：交易与执行</td><td>订单管理、交易算法、融资融券、估值核算</td><td>这一层把组合意图变成成交与净值，是合规与成本的真正发生地</td></tr>
+<tr><td>第三层（d10–d14）：风控与运营</td><td>风险、合规、TA、清算交割、运营流程</td><td>这一层用限额与对账把不可逆的信任与资金损失挡在门外</td></tr>
+<tr><td>第四层（d15–d18）：治理报告与生态</td><td>绩效归因、客户渠道、监管报送、平台治理</td><td>这一层把能力与证据交付给客户与监管，决定可扩展性</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：①主数据单一来源必须先于一切；②估值方法与净值口径必须先冻结；③合规限制库必须先于交易上线；④审计留痕能力必须先于客户存在。</div>
+    <div class="danger">最容易被误当成成功信号的是「功能清单很长」——真正决定生死的是净值零差错与交收零失败，而不是界面上有多少按钮。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：凡是能让「净值更可信、合规更可举证、运营更省人」的方向优先，纯炫技的 AI 探索次之。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>证券主数据</td><td>全平台共享的证券唯一编码与属性</td><td>错建或重复建券会让持仓与风控口径分裂，敞口被低估</td></tr>
+<tr><td>净值</td><td>单位份额的估值价格</td><td>净值错一分钱即引发错赎与信任崩塌，且难以事后全额追回</td></tr>
+<tr><td>组合头寸</td><td>账户层面实时持仓与可用头寸</td><td>头寸算错会导致超卖或交收失败，直接造成本金损失</td></tr>
+<tr><td>合规限制库</td><td>投资限制与例外集合</td><td>限制库错漏会让违规交易成交，事后纠正伴随处罚</td></tr>
+<tr><td>估值方法</td><td>不同资产的估值模型与参数</td><td>方法随意切换会被认定为操纵净值，属重大合规事件</td></tr>
+<tr><td>审计线索</td><td>全业务不可篡改的操作记录</td><td>线索可改则出事无法举证清白，责任无法厘清</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">资管领域通常有四类监管域在此交汇：公募/私募牌照、托管与外包、信息披露、反洗钱与适当性。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：①估值方法未备案即切换；②关联账户与老鼠仓未监控；③监管报送延误或错漏直接触发牌照风险。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个产品做穿（如一只公募股基的投研到估值闭环）</li><li>第二步：建立可举证的基线（净值直通率与交收失败率）</li><li>第三步：跑通最短闭环（组合构建到交易到估值出净值）</li><li>第四步：补第二个增值能力（实时风控或绩效归因）</li><li>第五步：把净值与合规承诺写进服务合同</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：中小资管 SaaS 一体化（客户与商业模式）</li><li>路径 B：实时风控独立模块（向存量系统外置输出）</li><li>路径 C：估值运营自动化（降本卖点）</li><li>路径 D：监管报送即服务（合规人力替代）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点都是「单一可信账本」这一第一资产。</div>
+  </section>
+
+  <footer>
+    <p>资产管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "图谱导读：怎么读这份图谱"],
+ ["s1", "产业地图与平台形态"],
+ ["s2", "功能全景：当下主流能力"],
+ ["s3", "前沿与未来方向"],
+ ["s4", "平台化能力矩阵"],
+ ["s5", "核心业务规则暗礁"],
+ ["s6", "指标体系"],
+ ["s7", "资质与监管地图"],
+ ["s8", "市场空白与产品机会"],
+ ["s9", "如果要做从哪开始"]
+];
+const PLAYERS = [
+ ["买方投研一体化平台", "BlackRock Aladdin", "恒生 O45 / 汇添富", "把投研、交易、风控、估值打通为单一头寸账本"],
+ ["组合管理与交易前台", "Charles River IMS", "恒生 O32", "组合层到交易层的实时合规与指令闭环"],
+ ["估值核算与会计系统", "State Street Alpha", "赢时胜 / 恒生 UF2.0", "多准则估值与净值披露的合规可追溯"],
+ ["数据与分析中台", "Bloomberg AIM / FactSet", "通联数据", "以数据即服务支撑投研与风险"],
+ ["另类资产与衍生品管理", "Murex / Calypso", "行业通用实践", "非标、场外衍生品全链条穿透"],
+ ["机构财富与配置云", "Addepar", "行业通用实践", "面向资管与财富的多资产组合视图"]
+];
+const DOMAINS = [
+ ["d1", "主数据与参考数据", "Reference & Master Data", "成熟", "证券、发行人、指数、交易日历、静态参数等全平台共享的单一可信源。", [["证券与工具主数据", [["证券主数据建模", "同一 ISIN 在不同市场映射唯一内部编码，禁止重复建券", "恒生 O45"], ["发行人及关联关系", "发行人评级与集团树实时维护，关联持仓自动归集", "Bloomberg AIM"], ["指数与基准管理", "指数成分与权重按生效日版本化，回测不可篡改", "MSCI Barra"], ["交易日历与节假日", "多交易所日历冲突时以交收地为准", "行业通用实践"]]], ["静态参数与口径", [["费用与税率参数", "管理费托管费按合同生效日分段计，不可全局覆盖", "赢时胜"], ["币种与汇率源", "估值汇率与交易汇率分源管理，差异留痕", "State Street Alpha"], ["账户与份额类别", "份额类别决定费用与分红方式，错配即错净值", "恒生 UF2.0"], ["业务字典治理", "状态枚举统一受控，禁止前端硬编码", "行业通用实践"]]], ["数据质量与血缘", [["主数据校验", "新券入库强制校验关键字段完整性", "Bloomberg AIM"], ["血缘与变更追踪", "参数改动记录操作人与审批链", "Aladdin"], ["跨系统一致性", "主数据变更向下游广播，T+0 生效", "恒生 O45"], ["失效与归档", "退市证券保留历史估值所需属性", "行业通用实践"]]]]],
+ ["d2", "行情与数据接入", "Market & Data Feed", "成熟", "整合实时行情、估值价、基本面、另类与 ESG 数据，支撑投研与估值。", [["行情接入与存储", [["实时行情接入", "行情断流需自动切换备用源并告警", "Bloomberg"], ["估值价与收盘价", "估值价优先取交易所收盘，缺失走模型价", "恒生 UF2.0"], ["高频时序存储", "tick 数据压缩存储且可回溯重算", "KX / kdb+"], ["行情质量监控", "价格突变超阈值触发人工复核", "FactSet"]]], ["基本面与另类数据", [["财报与盈利预测", "一致预期按披露日快照，禁止后向改写", "FactSet"], ["ESG 数据整合", "ESG 评分纳入风险因子库", "MSCI ESG"], ["另类数据接入", "卫星、舆情等另类数据做去偏与滞后检验", "行业通用实践"], ["数据供应商管理", "供应商 SLA 与数据延迟可追溯", "Bloomberg"]]], ["数据服务与分发", [["统一数据 API", "投研与风控共用同一数据服务，口径一致", "Aladdin DataCloud"], ["订阅与权限", "敏感数据按组合与角色订阅", "行业通用实践"], ["数据快照", "估值日全量快照供审计回溯", "State Street Alpha"], ["延迟与成本计量", "按调用计费的数据源做成本归集", "FactSet"]]]]],
+ ["d3", "投资研究管理", "Investment Research", "成长", "覆盖研报、盈利预测、评级、模拟组合与研究投票的投研流程平台。", [["研究流程与研报", [["研报与评级管理", "评级调整需研究负责人审批并留痕", "Bloomberg AIM"], ["盈利预测库", "盈利预测与买方预期隔离，避免信息泄露", "FactSet"], ["研究投票", "重大投资决策的投票记录不可更改", "Aladdin"], ["研究到组合联动", "研报结论可一键生成模拟持仓", "恒生 O45"]]], ["模拟组合与回测", [["模拟组合", "模拟组合与实盘组合隔离，禁止互转", "行业通用实践"], ["策略回测", "回测含交易成本与冲击，禁止前视偏差", "QuantConnect"], ["研究归因", "模拟收益归因到研究与择时", "Axioma"], ["观点与组合构建", "研究观点转化为组合约束与权重", "Aladdin"]]], ["研究数据与协作", [["研究数据底座", "研究用数据与主数据同源", "FactSet"], ["协作与评论", "评论与文档关联标的并归档", "行业通用实践"], ["研究合规审查", "研报发布前合规敏感词与利益冲突检查", "行业通用实践"], ["外部研究整合", "第三方研报结构化入库可检索", "Bloomberg"]]]]],
+ ["d4", "组合管理与资产配置", "Portfolio & Allocation", "核心", "战略与战术资产配置、组合构建、优化器与约束管理的核心层。", [["资产配置", [["战略资产配置", "SAA 偏离需投资委员会审批", "Aladdin"], ["战术资产配置", "TAA 调整设上下限，超限阻断", "Charles River"], ["风险预算分配", "风险预算分解到组合与经理", "Axioma"], ["多资产建模", "股债商品另类统一风险因子表达", "MSCI Barra"]]], ["组合构建与优化", [["组合优化器", "优化约束含流动性与跟踪误差", "Axioma"], ["基准与约束", "跟踪误差超限自动预警", "Aladdin"], ["再平衡", "再平衡触发规则可回测", "Charles River"], ["篮子订单生成", "组合调整自动生成交易篮子", "恒生 O32"]]], ["组合视图与监控", [["多维度组合视图", "按账户经理资产类别穿透展示", "Addepar"], ["敞口监控", "行业地区币种敞口实时计算", "Aladdin"], ["偏离预警", "与基准偏离超阈告警", "Charles River"], ["组合快照", "每日组合快照供绩效归因", "State Street Alpha"]]]]],
+ ["d5", "投资标的与策略库", "Instrument & Strategy", "成长", "管理策略定义、基准、因子与模拟回测的可复用策略资产。", [["策略与基准管理", [["策略定义", "策略参数版本化，禁止未审批上线", "Aladdin"], ["基准管理", "自定义基准成分可审计", "MSCI Barra"], ["因子库", "因子暴露按日计算并存储", "Axioma"], ["策略回测引擎", "回测结果可复现且可归因", "QuantConnect"]]], ["合规约束库", [["投资限制模板", "限制模板按产品类型复用", "Charles River"], ["限制生效范围", "限制按账户组合层级生效", "恒生 O45"], ["例外与豁免", "豁免需合规审批并设有效期", "Aladdin"], ["限制冲突检测", "多条限制冲突时取最严", "行业通用实践"]]], ["策略监控", [["策略表现跟踪", "策略净值与容量实时监控", "Addepar"], ["策略风险暴露", "杠杆与流动性暴露预警", "Aladdin"], ["策略下线", "下线策略保留历史业绩", "行业通用实践"], ["策略归因", "收益分解到因子与择时", "Axioma"]]]]],
+ ["d6", "订单管理 OMS", "Order Management", "核心", "指令生成、合规预检、算法路由与篮子管理的交易前台中枢。", [["指令与合规预检", [["指令生成", "组合调仓自动生成指令并带约束", "恒生 O32"], ["合规预检", "指令下单前跑全量限制，违规阻断", "Charles River"], ["指令审批", "大额定单需多级审批", "Aladdin"], ["指令修改撤销", "已成交指令不可撤，仅可反向", "恒生 O45"]]], ["篮子与算法路由", [["篮子管理", "篮子内标的按权重批量处理", "Charles River"], ["算法路由", "算法单按流动性自动切分", "FlexTrade"], ["DMA 直连", "直连交易所需双因素与限速", "恒生 O32"], ["母单子单", "母单成交按均价归集，不可超母单", "Aladdin"]]], ["指令监控", [["指令生命周期", "指令状态全链路可追溯", "Charles River"], ["成交回填", "成交实时回填组合与风控", "恒生 O45"], ["超时与异常", "未成交指令超时转人工", "行业通用实践"], ["合规留痕", "所有操作记录留痕可审计", "Aladdin"]]]]],
+ ["d7", "交易执行与算法", "Execution & Algo", "成长", "算法交易、DMA、执行成本控制与交易成本控制分析。", [["算法交易", [["VWAP/TWAP", "算法参数按盘口动态调整", "FlexTrade"], ["Iceberg 与狙击", "大单拆分隐藏真实意图", "Aladdin"], ["智能寻价", "多做市商比价取最优", "Charles River"], ["算法监控", "执行偏离超阈人工介入", "行业通用实践"]]], ["交易成本分析", [["TCA 分析", "执行价与基准价差归因到时段", "Abel Noser"], ["冲击成本", "冲击成本纳入经理考核", "Aladdin"], ["券商评估", "券商执行质量定期排名", "Charles River"], ["滑点监控", "滑点超阈触发复盘", "行业通用实践"]]], ["执行合规", [["最佳执行", "最佳执行证据链留存", "Aladdin"], ["公平交易", "同策略账户公平分配成交", "恒生 O45"], ["异常交易监测", "对敲自买自卖实时拦截", "行业通用实践"], ["成交归档", "成交明细长期归档可查", "State Street Alpha"]]]]],
+ ["d8", "融资融券与头寸", "Margin & Position", "成熟", "保证金、券源、融券与杠杆头寸的实时计算与管理。", [["保证金管理", [["保证金计算", "按交易所规则实时计算，不足预警", "恒生 O32"], ["保证金追缴", "追保通知自动触发并限交易", "Aladdin"], ["担保品管理", "担保品折算率按规则动态调整", "行业通用实践"], ["杠杆监控", "产品杠杆上限实时阻断", "Charles River"]]], ["券源与融券", [["券源池", "券源来源与期限隔离管理", "恒生 O45"], ["融券展期", "展期需风控审批并计息", "行业通用实践"], ["券源对冲", "融券对应对冲持仓自动匹配", "Aladdin"], ["到期提醒", "融券到期前自动提醒", "恒生 O32"]]], ["头寸与结算", [["可用头寸", "可用头寸含在途与冻结", "恒生 O45"], ["轧差与净额", "多边净额结算降低资金占用", "Aladdin"], ["头寸预警", "头寸为负立即阻断卖出", "Charles River"], ["跨市场头寸", "多市场头寸按币种归集", "State Street Alpha"]]]]],
+ ["d9", "估值与核算", "Valuation & Accounting", "成熟", "资产估值、净值计算、财务会计与账套的核算主干。", [["资产估值", [["估值方法引擎", "不同资产用不同估值模型，方法需备案", "赢时胜"], ["净值计算", "净值精确到小数点后四位，复权一致", "恒生 UF2.0"], ["估值异常处理", "价格缺失走估值委员会模型价", "State Street Alpha"], ["估值复核", "估值结果双人复核留痕", "赢时胜"]]], ["会计核算", [["多准则账务", "中国准则与国际准则并行", "恒生 UF2.0"], ["计提与摊销", "费用利息按日计提，不可月底补", "赢时胜"], ["分红与拆分", "权益登记日前后份额准确调整", "恒生 O45"], ["账套与对账", "总账与明细账每日勾稽", "State Street Alpha"]]], ["估值披露", [["净值披露", "披露净值与估算净值分离管理", "赢时胜"], ["估值表报送", "估值表按期报送托管与监管", "恒生 UF2.0"], ["估值审计轨迹", "估值参数改动全留痕", "Aladdin"], ["业绩比较基准", "基准变动需披露说明", "行业通用实践"]]]]],
+ ["d10", "风险管理系统", "Risk Management", "核心", "市场、信用、流动性风险与 VaR、压力测试的统一风险平台。", [["市场与信用风险管理", [["VaR 计算", "VaR 多方法并行，尾端用压力补充", "Axioma"], ["情景与压力测试", "压力情景含历史与假设，结果强制审阅", "Aladdin"], ["信用风险", "交易对手评级与敞口限额联动", "Murex"], ["敏感度分析", "希腊字母与久期每日监控", "MSCI Barra"]]], ["流动性风险", [["流动性度量", "资产流动性分层，禁投低流动性超限", "Aladdin"], ["赎回压力测试", "极端赎回下现金缓冲测算", "State Street Alpha"], ["融资流动性", "融资额度与抵押品匹配", "Murex"], ["流动性预警", "流动性覆盖不足提前预警", "行业通用实践"]]], ["风险限额与报告", [["限额体系", "限额自上而下分解并硬约束", "Axioma"], ["实时限额监控", "突破限额实时阻断交易", "Aladdin"], ["风险报告", "风险报告按角色差异化推送", "Charles River"], ["风险数据治理", "风险数据单一来源，禁止多套", "MSCI Barra"]]]]],
+ ["d11", "合规与监控", "Compliance & Surveillance", "核心", "公平交易、利益冲突、老鼠仓、关联交易与信息披露监控。", [["投资限制监控", [["事前合规", "交易前跑限制，违规阻断", "恒生 O45"], ["事后合规", "日终全量扫描出违规报告", "Charles River"], ["限制库维护", "限制库变更需合规审批", "Aladdin"], ["合规例外", "例外设期限并定期清理", "行业通用实践"]]], ["行为监控", [["老鼠仓监测", "员工及关联账户交易比对", "行业通用实践"], ["公平交易", "同标的分配公平性与时点监控", "Aladdin"], ["异常交易", "对敲自成交频繁申报识别", "恒生 O45"], ["利益冲突", "研究交易投资利益冲突隔离", "Charles River"]]], ["信息披露", [["持仓披露", "重仓股按期披露", "赢时胜"], ["关联交易", "关联交易审批与披露留痕", "恒生 UF2.0"], ["合规报告", "合规报告按期报送监管", "行业通用实践"], ["合规留痕", "所有合规动作可审计追溯", "Aladdin"]]]]],
+ ["d12", "TA 份额登记", "Transfer Agent", "成熟", "申购赎回、份额登记、账户与权益的注册登记系统。", [["账户与份额", [["投资者账户", "账户实名与适当性绑定", "恒生 TA"], ["份额登记", "份额按交易日准确登记，禁止错配", "赢时胜"], ["权益登记", "分红权益登记日准确切分", "恒生 UF2.0"], ["份额冻结", "司法冻结份额不可赎回", "行业通用实践"]]], ["申购赎回", [["申购处理", "申购按未知价法 T 日确认", "恒生 TA"], ["赎回处理", "赎回款按期支付，违约计息", "赢时胜"], ["大额赎回", "巨额赎回比例与延期规则执行", "恒生 UF2.0"], ["转换与转托管", "转换按净值差额处理", "行业通用实践"]]], ["对账与报送", [["TA 与估值对账", "份额与估值持仓每日勾稽", "赢时胜"], ["监管报送", "份额数据按期报送监管", "恒生 TA"], ["分红派发", "分红按权益登记准确派发", "恒生 UF2.0"], ["账户年报", "账户年度对账单自动生成", "行业通用实践"]]]]],
+ ["d13", "资金与清算交割", "Settlement & Custody", "成熟", "清算、交收、资金调拨与托管对账的资金运转层。", [["清算与交收", [["交易清算", "清算按 T+0/T+1 规则执行", "恒生 O45"], ["DVP 交收", "款券对付失败自动预警", "Aladdin"], ["失败处理", "交收失败转人工并计息", "State Street Alpha"], ["跨境交收", "跨境按当地规则与时区处理", "Murex"]]], ["资金调拨", [["资金划付", "划付需双人复核与限额", "恒生 UF2.0"], ["头寸管理", "交收头寸提前预留", "Aladdin"], ["银行直连", "银企直连指令加密与回执", "行业通用实践"], ["利息计算", "保证金与存款利息按日计", "State Street Alpha"]]], ["托管与对账", [["托管对账", "与托管行每日余额对账", "赢时胜"], ["证券对账", "托管证券余额与账面核对", "恒生 O45"], ["差异处理", "对账差异进入例外流程", "行业通用实践"], ["资金证明", "资金证明按需出具可验", "State Street Alpha"]]]]],
+ ["d14", "运营与流程管理", "Operations & Workflow", "成长", "工作流、SLA、对账与例外处理的运营中台。", [["工作流引擎", [["运营流程编排", "估值到披露流程可视化编排", "行业通用实践"], ["SLA 管理", "各环节 SLA 超时升级", "Aladdin"], ["任务分派", "例外任务自动分派到人", "恒生 UF2.0"], ["流程监控", "流程堵点实时看板", "行业通用实践"]]], ["对账与例外", [["自动对账", "多维度自动勾稽，差异入例外", "赢时胜"], ["例外处理", "例外按严重度分级处理", "行业通用实践"], ["断点续跑", "流程中断可从断点恢复", "恒生 O45"], ["运营报告", "运营 KPI 日报自动生成", "Aladdin"]]], ["运营数据", [["运营指标", "直通率与差错率纳入考核", "行业通用实践"], ["运营归档", "运营记录长期归档", "State Street Alpha"], ["容量规划", "峰值处理容量提前规划", "Aladdin"], ["灾备切换", "运营灾备可切换演练", "行业通用实践"]]]]],
+ ["d15", "绩效归因与评价", "Performance & Attribution", "成长", "Brinson 归因、风险调整收益与基准比较的绩效层。", [["绩效计算", [["时间加权收益", "TWR 与 MWR 分场景使用", "Axioma"], ["风险调整收益", "Sharpe Sortino 等信息比率计算", "MSCI Barra"], ["基准比较", "相对基准超额收益归因", "Aladdin"], ["区间归因", "任意区间收益可重算", "Axioma"]]], ["归因分析", [["Brinson 归因", "配置选择与交互效应分解", "Axioma"], ["因子归因", "收益归因到风险因子", "MSCI Barra"], ["经理归因", "多经理贡献拆分", "Aladdin"], ["归因报告", "归因报告可下钻到持仓", "行业通用实践"]]], ["评价与考核", [["业绩评价", "业绩与基准与同业比较", "Axioma"], ["考核对接", "绩效对接经理考核口径", "Aladdin"], ["归因复盘", "归因结论驱动投研改进", "行业通用实践"], ["客户报告", "对外绩效报告合规脱敏", "State Street Alpha"]]]]],
+ ["d16", "客户与渠道", "Client & Distribution", "成长", "直销、代销、机构与投顾的客户与渠道管理。", [["客户管理", [["客户适当性", "适当性匹配后方可销售", "恒生 TA"], ["机构客户", "机构账户分层与定制报告", "Addepar"], ["高净值", "高净值组合定制视图", "行业通用实践"], ["客户生命周期", "客户开户到流失全周期管理", "行业通用实践"]]], ["销售渠道", [["代销对接", "代销机构数据按接口对齐", "恒生 O45"], ["直销平台", "直销申购赎回线上化", "赢时胜"], ["投顾服务", "投顾组合建议与合规留痕", "行业通用实践"], ["渠道分佣", "渠道佣金按规则结算", "Aladdin"]]], ["客户报告", [["对账单", "客户对账单按周期生成", "State Street Alpha"], ["持仓报告", "持仓报告穿透到底层", "Addepar"], ["风险揭示", "风险揭示书强制阅读", "行业通用实践"], ["客户触达", "关键事件主动通知客户", "行业通用实践"]]]]],
+ ["d17", "监管报告与报送", "Regulatory Reporting", "成熟", "XBRL、监管报送与审计线索的合规报送层。", [["监管报送", [["报表生成", "监管报表按模板自动生成", "赢时胜"], ["XBRL 报送", "XBRL 实例文档校验后报送", "行业通用实践"], ["报送跟踪", "报送状态与回执全程跟踪", "恒生 UF2.0"], ["披露管理", "信息披露按时点与内容管控", "行业通用实践"]]], ["审计与线索", [["审计轨迹", "全业务操作不可篡改留痕", "Aladdin"], ["数据溯源", "披露数据可溯源到原始凭证", "State Street Alpha"], ["内控测试", "关键控制点定期测试", "行业通用实践"], ["监管迎检", "迎检数据包一键导出", "赢时胜"]]], ["合规知识库", [["法规库", "法规条文结构化可检索", "行业通用实践"], ["合规映射", "法规要求映射到控制点", "Aladdin"], ["变更提醒", "法规变更主动提醒", "行业通用实践"], ["培训留痕", "合规培训记录留存", "行业通用实践"]]]]],
+ ["d18", "平台治理与集成", "Platform Governance", "成长", "权限、审计、API 与低代码的平台治理与集成底座。", [["权限与审计", [["RBAC 权限", "最小权限与职责分离", "Aladdin"], ["操作审计", "敏感操作全量审计", "恒生 O45"], ["数据脱敏", "生产数据导出脱敏", "行业通用实践"], ["密钥管理", "加密密钥轮换与托管", "行业通用实践"]]], ["集成与 API", [["开放 API", "API 限流鉴权与版本管理", "Aladdin"], ["事件总线", "关键事件总线广播", "行业通用实践"], ["主数据服务", "主数据以服务方式供给", "恒生 O45"], ["对接托管券商", "外部系统对接标准化", "Charles River"]]], ["低代码与可观测", [["低代码配置", "业务规则可配置不上线", "行业通用实践"], ["可观测性", "全链路监控与追踪", "Aladdin"], ["容量弹性", "估值峰值弹性扩容", "行业通用实践"], ["灰度发布", "变更灰度与回滚", "恒生 O45"]]]]]
+];
+const FRONTIER = [
+ ["AI 投研助手", "live", "大语言模型辅助研报摘要与问答已在头部机构投产", "把研究效率工具做成按席位订阅的增值模块"],
+ ["实时组合风控", "live", "组合层到交易层实时限额已规模化落地", "将实时风控作为独立可售能力输出"],
+ ["云端多资产组合视图", "live", "机构财富云以 SaaS 交付组合视图成熟", "面向中小资管提供轻量 SaaS"],
+ ["自动化估值对账", "live", "估值与托管自动对账已在大型托管行运行", "把对账机器人做成运营降本卖点"],
+ ["因子投资平台", "live", "因子库与风险模型商品化成熟", "因子暴露监控作为差异化能力"],
+ ["监管报送自动化", "live", "XBRL 与监管报表自动生成普遍", "报送即服务降低合规人力"],
+ ["ESG 整合风控", "live", "ESG 因子进入风险模型已成标配", "ESG 评分与排除列表合规化"],
+ ["绩效归因 SaaS", "live", "Brinson 与因子归因 SaaS 化", "对外绩效报告白标输出"],
+ ["生成式投研 alpha", "pilot", "用大模型挖掘另类数据 alpha 在试点", "另类数据信号商店探索"],
+ ["组合大模型投委会", "pilot", "投委会辅助决策在头部试点", "决策支持 copilot 产品化"],
+ ["实时压力测试", "pilot", "盘中压力测试在试点验证", "嵌入式压力测试模块"],
+ ["区块链份额登记", "pilot", "联盟链 TA 在跨境基金试点", "联盟链份额互认"],
+ ["智能合规监控", "pilot", "行为监控引入图计算试点", "关系图谱反老鼠仓"],
+ ["数字员工运营", "pilot", "运营流程数字员工在中型机构试点", "流程自动化外包"],
+ ["组合碳核算", "pilot", "组合层面碳排放核算试点", "碳足迹披露增值"],
+ ["个性化投顾", "pilot", "千人千面投顾组合试点", "智能投顾白标"],
+ ["因果推断风控", "explore", "因果推断替代相关性的风控在探索", "稳健风险因子研究"],
+ ["联邦学习投研", "explore", "跨机构联邦学习投研在标准探索", "数据不出域的联合建模"],
+ ["实时清算代币化", "explore", "资产代币化结算在监管沙盒探索", "代币化基金结算"],
+ ["量子优化组合", "explore", "量子算法组合优化在实验", "超大规模优化前置研究"],
+ ["自主代理交易", "explore", "自主代理执行简单策略在实验", "策略代理沙盒"],
+ ["合成数据回测", "explore", "合成市场数据增强回测在探索", "隐私合规回测数据"],
+ ["组合大模型审计", "explore", "AI 审计线索自动生成在探索", "审计自动化"],
+ ["跨链资产互通", "explore", "跨链基金互认在概念验证", "跨境资产互通"]
+];
+const MIDS = [
+ ["投研中心", "统一研究数据与观点沉淀", "研报、盈利预测、研究投票"],
+ ["组合中心", "管理资产配置与组合构建", "优化器、再平衡、敞口监控"],
+ ["交易中枢", "指令到成交的全链路编排", "OMS、算法、TCA"],
+ ["估值核算中心", "资产估值与净值生成", "估值引擎、多准则账务"],
+ ["风险中心", "统一风险计算与限额", "VaR、压力、限额硬约束"],
+ ["合规中心", "投资限制与行为监控", "事前事后合规、公平交易"],
+ ["运营中心", "流程编排与例外处理", "工作流、SLA、对账"],
+ ["TA 中心", "份额登记与账户", "申购赎回、权益登记"],
+ ["资金中心", "清算交收与头寸", "DVP、资金调拨"],
+ ["绩效中心", "收益与归因评价", "Brinson、因子归因"],
+ ["客户中心", "客户适当性与渠道", "直销代销、投顾"],
+ ["监管报送中心", "监管报表与披露", "XBRL、审计线索"],
+ ["主数据中心", "单一可信数据源", "证券、参数、血缘"],
+ ["数据服务中台", "统一数据 API 供给", "行情、基本面、另类"],
+ ["权限与审计中台", "统一身份与审计", "RBAC、脱敏、密钥"],
+ ["集成中台", "对外开放与对接", "API、事件总线"],
+ ["配置中台", "低代码业务配置", "规则配置、灰度"],
+ ["可观测中台", "全链路监控", "监控、追踪、容量"]
+];
+const RULES = [
+ ["净值计算错误", "净值是申购赎回与披露的定价基准，错一分钱即引发巨额错赎与信任崩塌"],
+ ["交易前合规漏检", "违规交易一旦成交不可逆，事后再纠正往往伴随监管处罚与客户索赔"],
+ ["主数据重复建券", "同一证券多编码导致持仓与风控口径分裂，风险敞口被低估"],
+ ["估值方法未备案", "估值方法随意切换会被监管认定为操纵净值，属重大合规事件"],
+ ["DVP 交收失败", "款券对付失败意味着钱货两空，可能直接造成本金损失"],
+ ["份额错配", "份额与投资者错配会造成兑付错误与法律纠纷，且难以事后全额追回"],
+ ["风控限额滞后", "限额事后才扫描，交易已发生，风险敞口在窗口期内失控"],
+ ["对账差异掩盖", "把对账差异手工平账而非追因，会隐藏真实资金缺口直至爆雷"],
+ ["权限职责未分离", "交易与复核同一人，极易发生挪用与老鼠仓且难取证"],
+ ["回溯改写预测", "盈利预测与回测被后向改写，绩效归因与考核彻底失真"],
+ ["流动性误判", "低流动性资产按高流动性计价，极端赎回时无法变现引发挤兑"],
+ ["关联账户未监控", "员工及关联账户交易不比对，老鼠仓与利益输送无从发现"],
+ ["监管报送延误", "报送超时或错漏直接触发监管措施，影响产品新发与牌照"],
+ ["数据断流无切换", "行情或主数据断流未切换备用源，估值与风控停摆"],
+ ["密钥与脱敏缺失", "生产数据明文导出或密钥失控，造成客户信息泄露与处罚"],
+ ["审计留痕可改", "操作日志可篡改，出事时无法举证清白，责任无法厘清"]
+];
+const KPIS = [
+ ["规模类", "AUM、产品数、投资者数，反映平台承载的业务体量"],
+ ["质量类", "估值直通率、对账直通率、合规拦截率，反映运营质量"],
+ ["风险类", "VaR、回撤、流动性覆盖、限额突破次数，反映风险水位"],
+ ["效率类", "估值完成时长、交收失败率、TCA 执行差，反映执行效率"],
+ ["绩效类", "超额收益、Sharpe、信息比率、归因贡献，反映投资能力"],
+ ["合规类", "违规笔数、监管报送及时率、审计问题数，反映合规健康"],
+ ["成本类", "单位净值运营成本、数据成本、交易冲击成本，反映经济性"],
+ ["客户类", "客户留存、直销占比、渠道分佣率，反映商业健康"]
+];
+const LIC_CN = [
+ ["公募基金管理人资质", "公开募集基金管理", "须持证监会基金管理牌照，投研交易风控隔离"],
+ ["私募基金管理人登记", "非公开募集与投资管理", "须中基协登记，合格投资者与募集专户"],
+ ["基金销售牌照", "基金代销与直销", "销售须持牌，适当性匹配与双录"],
+ ["证券投资咨询资质", "投资建议与投顾", "投顾须持牌，禁止代客理财承诺收益"],
+ ["托管与保管资质", "资产托管保管", "托管须持牌银行或券商，职责分离"],
+ ["估值核算外包资质", "基金外包服务", "外包须备案，系统与风控达标"],
+ ["银行间市场交易资格", "利率汇率与债券交易", "须获银行间市场准入与交易员资质"],
+ ["QFII/RQFII 资质", "跨境投资", "须外管局额度审批与托管行"],
+ ["港股通交易资格", "跨境股票交易", "须交易所会员与额度管理"],
+ ["信息技术合规", "系统安全与数据", "须符合行业信息技术与数据安全要求"],
+ ["反洗钱义务", "客户身份与可疑交易", "须履行 KYC 与大额可疑报告"],
+ ["信息披露规范", "净值与定期报告", "须按监管时点披露，禁止选择性披露"],
+ ["从业人员资质", "基金经理与投研", "须从业资格与静默期管理"],
+ ["关联交易管理", "关联方识别与审批", "须识别关联方并披露与审批"],
+ ["风险控制指标", "风险准备金与资本", "须计提风险准备金满足风控指标"]
+];
+const LIC_INTL = [
+ ["SEC 投资顾问注册", "美国投顾业务", "RIA 须 SEC 或州注册并合规披露"],
+ ["AIFMD 另类基金指令", "欧盟另类基金管理", "须按要求备案与披露"],
+ ["UCITS 基金指令", "欧盟公募基金", "须满足分散化与杠杆限制"],
+ ["MiFID II 最佳执行", "欧洲交易执行", "须证明最佳执行与成本透明"],
+ ["Dodd-Frank 衍生品", "美国场外衍生品", "须中央清算与报告"],
+ ["Basel 市场风险", "银行系资管资本", "须满足资本与杠杆约束"],
+ ["GDPR 数据保护", "欧盟客户数据", "须数据最小化与跨境传输合规"],
+ ["FATCA/CRS 税务", "跨境税务申报", "须履行账户税务信息申报"]
+];
+const OPPS = [
+ ["中小资管一体化缺口", "中小机构买不起 Aladdin 级全栈", "以 SaaS 化投研交易风控一体起步"],
+ ["实时风控外置", "现有系统风控多为事后", "将实时限额硬约束做成独立模块"],
+ ["估值运营降本", "估值运营人力成本高", "自动化对账与估值机器人"],
+ ["另类数据 alpha", "另类数据难转化为信号", "信号商店与去偏工具"],
+ ["监管报送即服务", "报送人力重复劳动", "报送自动化 SaaS"],
+ ["绩效归因白标", "客户要透明绩效", "白标绩效报告输出"],
+ ["私募合规痛点", "私募合规能力弱", "合规监控轻量 SaaS"],
+ ["跨境投资工具", "跨境投资复杂", "跨境额度与税务工具"],
+ ["投顾合规化", "投顾需求增长", "合规投顾建议与留痕"],
+ ["主数据治理", "多系统主数据不一致", "单一可信主数据服务"],
+ ["AI 投研提效", "研究产出慢", "研报摘要与问答助手"],
+ ["数据安全合规", "数据跨境与脱敏要求", "脱敏与密钥托管能力"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：净值 / 估值 / 组合 / 合规`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

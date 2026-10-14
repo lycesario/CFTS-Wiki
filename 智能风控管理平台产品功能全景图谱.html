@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能风控管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能风控管理平台全景</b>
+    <span>智能风控管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能风控管理平台产品功能全景图谱</h1>
+    <p>把「<b>智能风控管理平台</b>」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手不在于堆了多少模型，而在于能否用低延迟决策把欺诈与坏账挡在交易发生之前，同时把误杀率压到客户可承受的底线。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这份图谱的本质不是功能清单，而是「数据资产 → 核心业务 → 智能决策 → 治理运营」一条主线：没有可信的数据与特征，再聪明的模型也只是空中楼阁。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据/资产层</td><td>多源数据接入、设备指纹与设备画像、名单与标签库、风险知识图谱、特征平台</td><td>这一层是风控的燃料，决定上层模型与策略的上限</td></tr>
+<tr><td>第二层（d6–d9）：核心业务层</td><td>实时反欺诈、信贷风控-进件与授信、信贷风控-贷后与催收、实时决策引擎</td><td>这一层直接对业务结果负责，是欺诈拦截与授信的主战场</td></tr>
+<tr><td>第三层（d10–d14）：智能与决策层</td><td>规则与策略中心、评分模型工厂、模型监控与漂移、图计算与团伙挖掘、自适应机器学习</td><td>这一层把静态规则升级为可进化的智能决策</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营层</td><td>案件与调查工作台、平台运营与配置、风险运营与报表、数据安全与合规</td><td>这一层决定平台能否被企业长期可信地使用</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：其一，设备指纹与名单必须早于业务上线才有联防价值；其二，特征口径必须离线在线一致，否则模型不可复现；其三，决策链路必须有兜底，否则单点故障放大损失。</div>
+    <div class="danger">最容易被误当成成功信号的是「拦截率高」——高拦截往往伴随高误杀，真实信号是误杀率与通过率的共同健康。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的标准：先投已能小规模验证ROI的方向（如大模型Copilot、实时图），而非纯概念（如全同态加密）。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>决策请求</td><td>一次实时风控调用的上下文与特征集合</td><td>定义错会让变量缺失导致决策失真</td></tr>
+<tr><td>风险特征</td><td>从数据加工出的可复用风控变量</td><td>口径漂移会让模型效果无法复现</td></tr>
+<tr><td>策略</td><td>由规则与模型组合的决策逻辑</td><td>版本混乱会让线上行为不可预期</td></tr>
+<tr><td>案件</td><td>一笔或多笔关联风险事件的调查单元</td><td>边界不清会让处置责任落空</td></tr>
+<tr><td>名单</td><td>高置信风险实体集合</td><td>误用会大规模误杀好客户</td></tr>
+<tr><td>评分卡</td><td>预测违约或欺诈概率的模型</td><td>校准错误会让跨客群分数不可比</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域通常在个人信息保护、征信、反洗钱、反电诈四个监管域交汇，任何一域失守都会放大法律风险。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的红线：其一，未经授权采集个人信息即触碰个保法；其二，无征信资质归集信贷信息属违规；其三，名单共享若泄露客户全集既违法又失信任。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如支付反欺诈）</li><li>第二步：建立可举证的基线（误杀率、拦截率）</li><li>第三步：跑通最短闭环（数据→特征→决策→处置）</li><li>第四步：补第二个增值能力（如设备指纹联防）</li><li>第五步：把承诺写进合同（SLA与合规条款）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：反欺诈SaaS（按调用量订阅）</li><li>路径 B：决策引擎私有化（按节点授权）</li><li>路径 C：信贷风控一体化（按资产规模）</li><li>路径 D：风控智能体（按席位+调用）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是「实时决策能力」，它是最先被客户付费也最难被替代的第一资产。</div>
+  </section>
+
+  <footer>
+    <p>智能风控管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与分层"],
+ ["s1", "平台形态与代表"],
+ ["s2", "功能域全景"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "能力中心"],
+ ["s6", "致命规则"],
+ ["s7", "监管与合规"],
+ ["s8", "关键指标"],
+ ["s9", "落地路线"]
+];
+const PLAYERS = [
+ ["反欺诈SaaS", "Sift", "同盾", "以API订阅实时拦截交易与账户欺诈"],
+ ["决策引擎", "FICO Falcon", "邦盛科技", "以规则引擎驱动实时授信与反欺诈决策"],
+ ["信贷风控套件", "Experian PowerCurve", "百融云创", "覆盖进件、授信、贷后到催收的全生命周期"],
+ ["设备指纹服务", "Forter", "数美科技", "以设备与环境画像识别机器流量与虚假设备"],
+ ["模型与特征平台", "Dataiku", "第四范式", "以特征工厂与模型工厂支撑风控快速迭代"],
+ ["风险情报网络", "ComplyAdvantage", "智言科技", "以共享黑库与情报降低全局欺诈损失"]
+];
+const DOMAINS = [
+ ["d1", "多源数据接入", "Multi-source Data Ingestion", "成熟", "统一接入并治理多源风险数据，为下游提供可信数据底座", [["数据源接入管理", [["三方数据适配", "统一鉴权、限流与失败降级，避免单源抖动影响决策", "行业通用实践"], ["实时流接入", "Kafka/Pulsar至少一次语义并对乱序事件重排", "Databricks"], ["批量文件接入", "SFTP与对象存储每日T+1对账并支持断点续传", "行业通用实践"], ["数据血缘登记", "字段级登记来源系统与责任人，变更需审批留痕", "行业通用实践"]]], ["数据质量治理", [["字段级校验", "非空、范围、枚举、格式四类校验，异常进隔离区", "行业通用实践"], ["多源一致性融合", "同实体多源字段冲突按优先级与置信度融合", "行业通用实践"], ["时效性监控", "数据延迟超阈值告警并标记下游特征过期", "行业通用实践"], ["质量评分卡", "按完整率、准确率、新鲜度计算数据源评分", "行业通用实践"]]], ["隐私计算接入", [["联邦学习接入", "纵向联邦在不出行前提下联合建模", "FATE"], ["多方安全计算", "MPC协议保证原始数据不出域", "行业通用实践"], ["隐私求交撞库", "PSI实现撞库而不泄露全集", "行业通用实践"], ["去标识化网关", "接入层统一脱敏与令牌化，下游仅见token", "行业通用实践"]]]]],
+ ["d2", "设备指纹与设备画像", "Device Fingerprinting", "成熟", "生成稳定设备标识并刻画环境与行为，识别机器流量与虚假设备", [["设备指纹生成", [["设备指纹生成", "采集UA、传感器、安装列表等多因子生成稳定设备ID", "数美科技"], ["指纹碰撞检测", "同设备多账号识别与相似度打分", "Forter"], ["环境可信评估", "检测模拟器、Root、越狱与代理等风险环境", "数美科技"], ["指纹版本管理", "算法升级支持灰度与回滚避免误判", "行业通用实践"]]], ["行为生物特征", [["操作行为序列", "采集触屏轨迹与键盘节奏形成行为序列", "Forter"], ["人机识别", "贝叶斯判定机器流量与脚本", "DataVisor"], ["行为基线", "按设备建立操作习惯画像", "行业通用实践"], ["异常行为告警", "偏离基线触发二次挑战", "行业通用实践"]]], ["设备风险标签", [["黑产设备库", "标记群控与猫池类风险设备", "同盾"], ["设备风险分", "综合环境与行为给出0到100风险分", "数美科技"], ["设备聚类", "同源设备自动分组辅助识别团伙", "行业通用实践"], ["风险标签下发", "标签实时同步至决策引擎", "同盾"]]]]],
+ ["d3", "名单与标签库", "List & Tag Repository", "成熟", "沉淀名单、标签与情报，支撑跨场景快速联防", [["名单管理", [["黑名单库", "支持千万级名单毫秒查询", "同盾"], ["名单生命周期", "入库审批、到期自动失效与再审", "行业通用实践"], ["名单置信分级", "按来源赋权避免低置信误杀", "行业通用实践"], ["名单加密共享", "联盟内加密名单互查不泄露全集", "行业通用实践"]]], ["标签体系", [["实体标签建模", "人、设备、商户多维标签建模", "行业通用实践"], ["标签血缘", "标签可由规则或模型产出并可追溯", "行业通用实践"], ["动态标签", "实时事件触发标签升降级", "同盾"], ["标签服务", "统一标签查询API供各域调用", "行业通用实践"]]], ["情报网络", [["风险情报订阅", "订阅黑产情报按日更新名单", "ComplyAdvantage"], ["跨客户联防", "脱敏特征共享提升命中率", "行业通用实践"], ["情报置信评估", "多源情报交叉验证去伪", "行业通用实践"], ["情报时效衰减", "情报按有效期衰减权重", "行业通用实践"]]]]],
+ ["d4", "风险知识图谱", "Risk Knowledge Graph", "成长", "以图谱表达实体关系，支撑团伙挖掘与关联调查", [["图谱构建", [["知识图谱构建", "人、设备、商户、资金多跳关联建模", "Neo4j"], ["关系抽取", "从交易与投诉抽取隐藏关系", "行业通用实践"], ["图谱实时更新", "增量更新保证近实时一致", "Neo4j"], ["图分区隔离", "按业务域隔离降低查询负载", "行业通用实践"]]], ["团伙挖掘", [["社区发现", "Louvain识别紧密欺诈团伙", "Neo4j"], ["环路检测", "资金回流闭环识别", "行业通用实践"], ["传播推理", "已知黑点置信传播打分", "行业通用实践"], ["团伙快照", "团伙结构变化留存可查", "行业通用实践"]]], ["图谱服务", [["关联查询", "一跳多跳邻域秒级返回", "Neo4j"], ["图特征导出", "中心度与介数等生成风控特征", "行业通用实践"], ["图谱可视", "调查员交互式探索关系", "行业通用实践"], ["风险传导", "标记实体自动扩散关联", "行业通用实践"]]]]],
+ ["d5", "特征平台", "Feature Store", "成长", "统一管理离线在线特征，保障口径一致与低延迟服务", [["特征定义", [["特征平台注册", "统一元数据中心管理特征", "行业通用实践"], ["特征版本", "特征口径变更可追溯", "行业通用实践"], ["离线在线一致", "同一逻辑在线离线统一计算", "Tecton"], ["特征血缘", "特征依赖数据源与加工链", "行业通用实践"]]], ["特征服务", [["在线特征点查", "低延迟点查支撑实时决策", "Tecton"], ["批量特征导出", "离线训练批量导出", "行业通用实践"], ["特征回填", "历史数据重算补齐", "行业通用实践"], ["特征监控", "特征分布漂移告警", "行业通用实践"]]], ["特征工程", [["时序特征", "滑窗统计近N日行为", "行业通用实践"], ["图特征", "基于关系网络生成特征", "Neo4j"], ["派生特征", "SQL与算子组合派生", "行业通用实践"], ["特征共享", "跨场景复用特征资产", "行业通用实践"]]]]],
+ ["d6", "实时反欺诈", "Real-time Fraud Prevention", "核心", "对交易、营销、账户等场景实时识别并处置欺诈", [["交易反欺诈", [["交易评分", "实时给每笔交易欺诈分", "Forter"], ["规则拦截", "命中规则即时阻断或挑战", "Sift"], ["限额管控", "单笔与日累计动态限额", "行业通用实践"], ["名单联防", "命中共享黑库直接拒绝", "同盾"]]], ["营销与账户欺诈", [["薅羊毛识别", "识别批量领券虚假设备", "DataVisor"], ["虚假注册", "新注册设备群控识别", "数美科技"], ["盗号防护", "登录异常行为挑战", "Forter"], ["引流反作弊", "识别刷量虚假曝光", "行业通用实践"]]], ["反欺诈决策", [["决策流编排", "可视化编排多分支决策", "Sift"], ["风险挑战", "按风险等级触发验证", "行业通用实践"], ["人工复核", "高风险转人工调查", "同盾"], ["处置分级", "拦截、放行、降额、标记分级", "行业通用实践"]]]]],
+ ["d7", "信贷风控-进件与授信", "Credit Risk: Application & Approval", "核心", "覆盖信贷申请准入、信用评分与授信决策", [["进件准入", [["准入规则", "年龄、地域、渠道准入前置", "行业通用实践"], ["反欺诈前置", "进件阶段设备与名单筛查", "同盾"], ["资料核验", "身份证、活体、银行卡四要素", "行业通用实践"], ["重复进件", "同人多渠道重复申调", "行业通用实践"]]], ["信用评分", [["申请评分卡", "预测未来违约概率", "FICO Falcon"], ["替代数据评分", "用运营商消费行为补白户", "百融云创"], ["联合建模", "与资金方联合训练模型", "行业通用实践"], ["评分校准", "保证不同客群分数可比", "行业通用实践"]]], ["授信决策", [["额度策略", "按评分与负债给初始额度", "行业通用实践"], ["定价策略", "风险定价匹配利率", "行业通用实践"], ["拒绝推断", "被拒样本推断减少偏差", "行业通用实践"], ["决策解释", "输出拒贷原因可解释", "行业通用实践"]]]]],
+ ["d8", "信贷风控-贷后与催收", "Credit Risk: Post-loan & Collection", "成长", "覆盖贷中监控、智能催收与不良资产处置", [["贷中监控", [["行为评分", "跟踪还款与消费变化", "FICO"], ["额度管理", "好客户提额坏客户降额", "行业通用实践"], ["预警触发", "逾期前异常触发干预", "行业通用实践"], ["共债监测", "多头借贷攀升预警", "百融云创"]]], ["催收策略", [["催收分级", "M1M2M3分层策略", "行业通用实践"], ["智能外呼", "机器人初催降低人力", "行业通用实践"], ["委外管理", "委外机构绩效与合规", "行业通用实践"], ["还款意愿", "意愿能力双维度分案", "行业通用实践"]]], ["不良资产", [["核销管理", "符合条件贷款核销", "行业通用实践"], ["资产转让", "不良资产包转让登记", "行业通用实践"], ["回收预测", "预测各账龄回收率", "行业通用实践"], ["失联修复", "多源找回失联客户", "行业通用实践"]]]]],
+ ["d9", "实时决策引擎", "Real-time Decision Engine", "核心", "以规则、模型与名单组合提供低延迟实时决策", [["决策引擎内核", [["决策引擎内核", "支持复杂布尔与权重规则", "Drools"], ["决策表", "可视化决策矩阵维护", "行业通用实践"], ["低延迟", "万级QPS下P99小于50ms", "行业通用实践"], ["热更新", "策略变更秒级生效无需重启", "行业通用实践"]]], ["变量计算", [["实时变量", "请求时计算上下文变量", "行业通用实践"], ["特征调用", "引擎调用特征平台点查", "Tecton"], ["名单调用", "引擎调用名单库毫秒查", "同盾"], ["序列变量", "调用近N笔行为序列", "行业通用实践"]]], ["决策编排", [["决策流编排", "拖拽编排多模型规则流", "Sift"], ["灰度发布", "策略分流量灰度验证", "行业通用实践"], ["回退兜底", "引擎异常时安全默认", "行业通用实践"], ["决策日志", "全链路决策留痕可审计", "行业通用实践"]]]]],
+ ["d10", "规则与策略中心", "Rule & Strategy Center", "核心", "集中设计、测试与优化风控策略与规则", [["策略设计", [["策略版本", "策略分支版本管理与对比", "行业通用实践"], ["策略实验室", "离线回放验证策略效果", "行业通用实践"], ["策略模板", "沉淀行业策略模板库", "同盾"], ["策略审批", "策略上线双人复核", "行业通用实践"]]], ["规则管理", [["规则库", "集中管理命中规则", "行业通用实践"], ["规则优先级", "冲突时按优先级与权重", "行业通用实践"], ["规则阈值", "阈值可配置与动态调整", "行业通用实践"], ["规则效果", "统计规则命中与误杀", "行业通用实践"]]], ["策略优化", [["策略仿真", "模拟调参对通过率影响", "行业通用实践"], ["冠军挑战", "新旧策略并行挑战", "行业通用实践"], ["自动调参", "基于目标自动寻优阈值", "行业通用实践"], ["策略复盘", "定期复盘策略衰减", "同盾"]]]]],
+ ["d11", "评分模型工厂", "Scorecard & Model Factory", "成长", "覆盖评分模型开发、部署与治理全周期", [["模型开发", [["样本管理", "正负样本与时间切分", "行业通用实践"], ["特征筛选", "IV与PSI筛选入模", "行业通用实践"], ["模型训练", "支持逻辑回归与XGBoost", "行业通用实践"], ["模型评估", "KS、AUC、Lift多指标", "行业通用实践"]]], ["模型部署", [["模型上线", "PMML与容器化部署", "行业通用实践"], ["模型AB", "新旧模型流量对照", "行业通用实践"], ["模型回滚", "效果劣化一键回滚", "行业通用实践"], ["模型注册", "模型资产集中登记", "行业通用实践"]]], ["模型治理", [["模型文档", "记录假设与局限", "行业通用实践"], ["模型审批", "上线前合规与风控审批", "行业通用实践"], ["模型退役", "淘汰模型归档保留", "行业通用实践"], ["模型合规", "避免训练数据侵权", "行业通用实践"]]]]],
+ ["d12", "模型监控与漂移", "Model Monitoring & Drift", "成长", "持续监控模型性能与数据漂移，保障线上稳健", [["性能监控", [["KS监控", "线上KS跌破阈值告警", "行业通用实践"], ["排序监控", "模型排序能力衰减监测", "行业通用实践"], ["稳定性PSI", "特征与分数PSI周监控", "行业通用实践"], ["业务指标", "坏账通过与预期偏差", "行业通用实践"]]], ["数据漂移", [["特征漂移", "单特征分布偏移检测", "行业通用实践"], ["概念漂移", "变量与目标关系变化", "行业通用实践"], ["群体漂移", "客群结构变化监测", "行业通用实践"], ["数据源退化", "三方数据质量下降预警", "行业通用实践"]]], ["告警与处置", [["分级告警", "按严重度通知到人", "行业通用实践"], ["根因分析", "漂移定位到具体特征", "行业通用实践"], ["自动重训", "触发重训流水线", "行业通用实践"], ["处置预案", "预案库支撑快速响应", "行业通用实践"]]]]],
+ ["d13", "图计算与团伙挖掘", "Graph Analytics & Syndicate Mining", "成长", "以图算法实时识别欺诈团伙与异常结构", [["图算法", [["中心度", "识别关键枢纽节点", "Neo4j"], ["路径发现", "最短关系路径定位", "行业通用实践"], ["社群检测", "识别紧密关联社群", "Neo4j"], ["异常子图", "偏离正常结构的子图", "行业通用实践"]]], ["团伙识别", [["欺诈环检测", "资金闭环识别", "行业通用实践"], ["养号识别", "批量养号关联簇", "DataVisor"], ["中介识别", "包装资料中介网络", "同盾"], ["团伙画像", "团伙手法标签沉淀", "行业通用实践"]]], ["实时图", [["流式构图", "实时事件构图更新", "Neo4j"], ["实时邻域", "查询时扩展邻域打分", "行业通用实践"], ["图特征实时", "实时计算图特征", "行业通用实践"], ["图告警", "新边触发风险重评", "行业通用实践"]]]]],
+ ["d14", "自适应机器学习", "Adaptive ML", "成长", "以在线学习与可解释方法应对对抗与监管", [["在线学习", [["增量训练", "新样本流式更新模型", "行业通用实践"], ["自监督", "利用无标签数据增样本", "行业通用实践"], ["集成进化", "多模型加权动态集成", "行业通用实践"], ["对抗适应", "适应黑产对抗升级", "DataVisor"]]], ["无监督异常", [["孤立森林", "无标签异常检测", "行业通用实践"], ["聚类离群", "离群点识别新风险", "行业通用实践"], ["密度估计", "低密度区标记可疑", "行业通用实践"], ["异常解释", "异常原因可解释输出", "行业通用实践"]]], ["可解释AI", [["特征归因", "SHAP解释单笔决策", "行业通用实践"], ["反事实", "给出改判所需条件", "行业通用实践"], ["规则提取", "从模型提取可审规则", "行业通用实践"], ["决策理由", "对外输出拒贷理由", "行业通用实践"]]]]],
+ ["d15", "案件与调查工作台", "Case & Investigation Workbench", "成熟", "支撑案件建单、调查与处置闭环", [["案件管理", [["案件建单", "自动与人工建案", "同盾"], ["案件分派", "按技能与负载分派", "行业通用实践"], ["案件协作", "多人协调查看时间线", "行业通用实践"], ["案件归档", "结案留档可复盘", "行业通用实践"]]], ["调查工具", [["关系透视", "一键展开实体关系网", "Neo4j"], ["证据链", "自动汇总证据时间线", "行业通用实践"], ["时间轴", "还原事件先后序列", "行业通用实践"], ["标注沉淀", "调查结论反哺标签", "同盾"]]], ["处置闭环", [["处置执行", "执行封禁限额等动作", "行业通用实践"], ["处置复核", "处置双人复核", "行业通用实践"], ["效果回看", "处置后风险变化回看", "行业通用实践"], ["经验库", "案件经验沉淀检索", "行业通用实践"]]]]],
+ ["d16", "平台运营与配置", "Platform Ops & Configuration", "成长", "支撑多租户、配置与运维运营", [["租户与权限", [["多租户", "隔离不同客户数据", "行业通用实践"], ["权限模型", "角色数据功能三维授权", "行业通用实践"], ["操作审计", "所有操作留痕", "行业通用实践"], ["密钥管理", "密钥轮换与加密", "行业通用实践"]]], ["配置中心", [["参数配置", "阈值权重统一配置", "行业通用实践"], ["灰度配置", "按租户灰度策略", "行业通用实践"], ["配置回滚", "配置错误快速回滚", "行业通用实践"], ["配置校验", "配置冲突预校验", "行业通用实践"]]], ["监控运维", [["健康巡检", "组件健康定时巡检", "行业通用实践"], ["容量规划", "流量预测扩缩容", "行业通用实践"], ["调用链", "全链路追踪定位慢点", "行业通用实践"], ["告警通知", "多通道告警触达", "行业通用实践"]]]]],
+ ["d17", "风险运营与报表", "Risk Ops & Reporting", "成熟", "以指标、报表与价值度量驱动风险运营", [["风险大盘", [["实时大盘", "欺诈与逾期指标实时", "行业通用实践"], ["趋势分析", "风险指标同比环比", "行业通用实践"], ["多维下钻", "按渠道地域下钻", "行业通用实践"], ["舆情监测", "外部风险舆情监测", "行业通用实践"]]], ["运营报表", [["日报周报", "自动化风险报表", "行业通用实践"], ["策略报表", "策略命中与收益", "同盾"], ["客户报表", "客户风险视图", "行业通用实践"], ["自定义报表", "拖拽配置报表", "行业通用实践"]]], ["价值度量", [["拦截价值", "量化拦截欺诈金额", "行业通用实践"], ["通过率平衡", "风险与通过率权衡", "行业通用实践"], ["ROI度量", "风控投入产出比", "行业通用实践"], ["误杀度量", "好人误杀率监控", "行业通用实践"]]]]],
+ ["d18", "数据安全与合规", "Data Security & Compliance", "核心", "保障数据保护、合规与审计留痕", [["数据保护", [["字段加密", "敏感字段加密存储", "行业通用实践"], ["脱敏展示", "界面与导出脱敏", "行业通用实践"], ["最小授权", "按需授权最小集合", "行业通用实践"], ["防泄露", "DLP防止批量导出", "行业通用实践"]]], ["合规管理", [["个保合规", "按个人信息保护法处理", "行业通用实践"], ["授权管理", "明示授权与撤回", "行业通用实践"], ["留存期限", "数据按期限销毁", "行业通用实践"], ["跨境合规", "跨境传输评估", "行业通用实践"]]], ["审计与认证", [["合规审计", "定期合规自查", "行业通用实践"], ["等保认证", "通过等保三级", "行业通用实践"], ["认证管理", "ISO27001等认证", "行业通用实践"], ["事件响应", "数据安全事件应急", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["大模型反欺诈助手", "live", "用LLM辅助分析案件并生成策略说明", "产品化调查员Copilot提效"],
+ ["决策引擎云化", "live", "引擎容器化弹性支撑大促流量", "产品化弹性算力包"],
+ ["隐私计算联合建模", "live", "与数据方联邦联合建模不出行", "产品化联合建模市场"],
+ ["设备指纹全网联防", "live", "联盟内设备黑库共享", "产品化联防订阅"],
+ ["实时图团伙识别", "live", "实时构图识别养号团伙", "产品化实时图服务"],
+ ["模型监控自动化", "live", "PSI与KS自动监控告警", "产品化监控告警中心"],
+ ["智能催收外呼", "live", "机器人初催降人力", "产品化外呼SaaS"],
+ ["风险大盘实时化", "live", "实时指标大屏", "产品化实时BI"],
+ ["生成式策略推荐", "pilot", "用LLM基于数据推荐策略初稿", "产品化策略助手"],
+ ["多模态反欺诈", "pilot", "图像语音文本联合识别", "产品化多模态模型"],
+ ["联邦特征市场", "pilot", "跨机构特征安全流通", "产品化特征市场"],
+ ["实时自适应对抗", "pilot", "自适应黑产对抗升级", "产品化对抗引擎"],
+ ["因果推断反欺诈", "pilot", "用因果识别真正因果特征", "产品化因果特征"],
+ ["数字孪生压测", "pilot", "用仿真压测策略稳健性", "产品化仿真平台"],
+ ["风险智能体", "pilot", "多智能体协作处置风险", "产品化风控智能体"],
+ ["边缘风控", "pilot", "端侧轻量风控推理", "产品化边缘SDK"],
+ ["全同态加密风控", "explore", "密态下完成决策计算", "产品化密态引擎"],
+ ["去中心化情报网络", "explore", "区块链共享情报不暴露成员", "产品化情报链"],
+ ["神经符号风控", "explore", "符号规则与神经网络融合", "产品化混合模型"],
+ ["自进化风控体", "explore", "自主演进的策略体", "产品化自进化系统"],
+ ["量子抗性加密", "explore", "抗量子攻击的加密", "产品化抗量子模块"],
+ ["元宇宙身份风控", "explore", "虚拟身份跨域风控", "产品化身份网关"],
+ ["监管科技实时报送", "explore", "实时监管数据报送", "产品化监管接口"],
+ ["对抗样本检测", "explore", "检测针对模型的对抗样本", "产品化鲁棒性测试"]
+];
+const MIDS = [
+ ["数据接入中心", "接入并治理多源风险数据", "数据源适配、质量校验、血缘登记"],
+ ["设备认知中心", "识别设备与行为真伪", "指纹生成、行为生物特征、风险标签"],
+ ["名单情报中心", "管理名单与风险情报", "名单库、标签体系、情报网络"],
+ ["图谱中心", "构建并服务风险知识图谱", "图谱构建、团伙挖掘、关联查询"],
+ ["特征中心", "统一管理与服务特征", "特征注册、在线服务、特征工程"],
+ ["反欺诈中心", "实时拦截欺诈交易", "交易评分、规则拦截、决策编排"],
+ ["信贷风控中心", "覆盖信贷全生命周期", "进件准入、信用评分、授信决策"],
+ ["贷后管理中心", "贷中与催收管理", "贷中监控、催收策略、资产处置"],
+ ["决策引擎中心", "提供实时决策能力", "规则引擎、变量计算、决策编排"],
+ ["策略中心", "设计优化风控策略", "策略设计、规则管理、策略优化"],
+ ["模型工厂中心", "研发部署评分模型", "模型开发、部署、治理"],
+ ["模型监控中心", "监控模型与数据漂移", "性能监控、数据漂移、告警处置"],
+ ["图计算中心", "实时图分析与团伙识别", "图算法、团伙识别、实时图"],
+ ["自适应中心", "自适应与可解释机器学习", "在线学习、无监督异常、可解释"],
+ ["调查中心", "案件调查与处置闭环", "案件管理、调查工具、处置闭环"],
+ ["平台运营中心", "平台配置与运维", "租户权限、配置中心、监控运维"],
+ ["风险运营中心", "风险度量与报表", "风险大盘、运营报表、价值度量"],
+ ["安全合规中心", "数据安全与合规保障", "数据保护、合规管理、审计认证"]
+];
+const RULES = [
+ ["误杀率失控", "误杀一个好客户的终身价值远高于拦下一个欺诈，误杀失控会逼走真实用户并招致投诉与监管"],
+ ["名单误用", "把低置信名单直接用于拒绝会大规模误杀，且一旦名单错误难以追溯责任人"],
+ ["冷启动无基线", "新客群没有历史基线就上线模型，分数不可比，决策等于盲猜"],
+ ["实时链路单点故障", "决策引擎任一依赖超时无兜底，会让全部交易卡死或错误放行"],
+ ["特征穿越", "训练用了未来才有的特征，上线后性能断崖下跌却查不出原因"],
+ ["阈值拍脑袋", "阈值无回放验证随意调整，通过率与坏账同时失控"],
+ ["数据合规越界", "未经授权采集与使用个人信息，会触发个保法重罚并摧毁信任"],
+ ["模型无人监控", "模型漂移数月无人发现，坏账已累积到不可承受"],
+ ["团伙识别滞后", "团伙手法迭代快于规则更新，等规则生效团伙已换壳"],
+ ["决策不可解释", "无法向监管和客户解释拒贷原因，合规与口碑双输"],
+ ["数据源单点依赖", "单一三方数据源中断，整条决策链失效"],
+ ["灰度缺失", "策略直接全量上线，坏策略瞬间放大损失"],
+ ["权限过大", "运维可直接改生产策略与名单，缺乏双人复核易被滥用"],
+ ["实时离线不一致", "在线特征与离线训练特征口径不同，模型效果无法复现"],
+ ["稽查无留痕", "决策与处置无日志，出事后无法还原与定责"],
+ ["联防泄露全集", "情报共享若泄露客户全集，既违法又失去合作方信任"]
+];
+const KPIS = [
+ ["欺诈指标", "欺诈率、拦截率、欺诈资损金额与拦截资损比"],
+ ["信用指标", "首逾率、坏账率、通过率、迁徙率"],
+ ["模型指标", "KS、AUC、PSI、Lift、捕获率"],
+ ["效率指标", "决策延迟P99、规则命中耗时、案件处理时长"],
+ ["质量指标", "误杀率、漏过率、名单准确率、特征完整率"],
+ ["运营指标", "策略覆盖率、人工复核率、自动化处置率"],
+ ["商业指标", "风控ROI、拦截资损价值、客均风控成本"],
+ ["合规指标", "授权覆盖率、数据留存合规率、审计通过率"]
+];
+const LIC_CN = [
+ ["个人信息保护法", "可开展经授权风控数据处理", "须明示授权、最小必要、可撤回"],
+ ["数据安全法", "可开展数据分类分级风控", "重要数据出境需评估"],
+ ["网络安全法", "可开展等保三级系统建设", "须通过等保测评"],
+ ["征信业管理条例", "可开展信用评分（非持牌）", "信贷征信须持牌机构"],
+ ["反电信网络诈骗法", "可开展反诈联防联控", "须配合公安机关阻断"],
+ ["银行业金融机构外包指引", "可向银行提供风控外包", "须银行同意并监督"],
+ ["金融控股公司监管", "可服务金控风险并表", "须符合并表管理要求"],
+ ["云计算服务安全评估", "可提供金融云风控", "须通过云评估"],
+ ["反洗钱法", "可开展反洗钱监测", "须履行可疑交易报送"],
+ ["消费者权益保护", "可开展差异化定价", "须公平对待不得歧视"],
+ ["算法推荐管理规定", "可开展算法风控决策", "须提供关闭与解释"],
+ ["数据出境安全评估", "可跨境风控协作", "须通过出境评估"],
+ ["网络安全等级保护", "可承载敏感数据", "三级以上年度测评"],
+ ["征信业务资质", "持牌后可采集征信数据", "无牌不得归集信贷信息"],
+ ["密码法", "可使用商用密码保护", "须合规使用商用密码"]
+];
+const LIC_INTL = [
+ ["GDPR", "可服务欧盟客户风控", "须充分性认定或SCC"],
+ ["PSD2", "可服务欧洲支付风控", "须强客户认证SCA"],
+ ["CCPA", "可服务加州客户", "须提供退出与告知"],
+ ["SOC2", "可服务美国企业", "须通过SOC2审计"],
+ ["PCI DSS", "可处理支付卡数据", "须符合支付卡安全标准"],
+ ["Basel III", "可服务银行资本计量", "须符合巴塞尔框架"],
+ ["ISO27001", "可全球交付安全", "须维持认证"],
+ ["MAS TRM", "可服务新加坡金融机构", "须符合技术风险管理"]
+];
+const OPPS = [
+ ["中小微反欺诈", "中小电商无自研能力", "从轻量SaaS接入起步"],
+ ["实时图风控", "多数厂商图是离线", "主打实时构图与团伙"],
+ ["隐私计算联合", "数据孤岛难联合建模", "建联邦建模市场"],
+ ["模型可解释", "监管要拒贷理由", "强化解释与合规输出"],
+ ["自适应对抗", "黑产对抗升级快", "做自适应对抗引擎"],
+ ["风险情报联防", "单家名单覆盖有限", "建联盟情报网络"],
+ ["大模型Copilot", "调查员效率低", "做案件分析助手"],
+ ["边缘风控", "端侧风险难捕捉", "推边缘SDK"],
+ ["信贷全生命周期", "厂商多割裂", "做一体化套件"],
+ ["合规自动化", "合规人力贵", "做合规自动化工具"],
+ ["行业模板", "新行业接入慢", "沉淀行业策略模板"],
+ ["风控ROI度量", "价值难量化", "做价值度量与报表"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：设备指纹 / 决策引擎 / 知识图谱 / 特征平台`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

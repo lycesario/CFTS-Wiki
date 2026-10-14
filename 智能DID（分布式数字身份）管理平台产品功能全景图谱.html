@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能DID（分布式数字身份）管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能DID（分布式数字身份）管理平台全景</b>
+    <span>智能DID（分布式数字身份）管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能DID（分布式数字身份）管理平台产品功能全景图谱</h1>
+    <p>把「智能DID管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手是：在保护隐私的前提下，用一套可被多方共同信任的标识与凭证体系，替代各自为政的身份孤岛。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">怎么读：这套产品不是功能清单，而是「身份如何被自主持有、被可信签发、被最小披露地验证」的一条主线。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：身份数据与标识底座</td><td>DID标识与文档、密钥凭证存储、身份钱包、信任注册表、解析路由</td><td>这一层是自主身份的可信根，决定身份能否被安全生成、持有与发现</td></tr>
+<tr><td>第二层（d6–d9）：凭证核心业务</td><td>凭证模板与签发、选择性披露BBS+、验证服务、撤销与状态</td><td>这一层把身份底座转化为可验证、可管控、可撤销的凭证能力</td></tr>
+<tr><td>第三层（d10–d14）：智能与互操作</td><td>身份图谱、风险信任评分、跨链跨域互认、数据治理、ZKP表达</td><td>这一层用关联与零知识提升信任效率并实现跨域互认</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>合规隐私、安全密钥、运营审计、生态开发者</td><td>这一层决定平台能否在隐私合规与生态扩展下持续运营</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：1) 必须先有可信信任注册表与DID方法，否则没有信任锚；2) 必须先有密钥安全（HSM/MPC），否则身份可被伪造；3) 必须先满足隐私合规（PIPL/GDPR），否则无法处理个人身份数据。</div>
+    <div class="danger">死亡陷阱：把「签发凭证数量」误当成成功信号——没有验证方采纳与互认网络，签发的凭证只是无人认可的摆设。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">前沿方向优先级：优先投入监管明确鼓励且能直接降本的方向（如KYC复用、ZKP年龄证明、政务eID），慎入纯链上身份代币等监管未明的玩法。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>DID</td><td>去中心化标识符与文档</td><td>方法选错或文档篡改导致身份失效</td></tr>
+<tr><td>信任注册表</td><td>可信签发方/验证方清单</td><td>被篡改使伪造主体可信</td></tr>
+<tr><td>可验证凭证</td><td>由签发方签名的可验证声明</td><td>未绑定持有方DID可被冒用</td></tr>
+<tr><td>撤销状态列表</td><td>凭证有效性的位图状态</td><td>过期或漏查使撤销失效</td></tr>
+<tr><td>密钥对</td><td>签名与解密的根基</td><td>泄露可伪造任意凭证</td></tr>
+<tr><td>验证结果</td><td>验证方给出的通过/拒绝结论</td><td>无留存无法举证合规</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">监管域组合：个人信息保护、数据安全、密码合规、区块链备案四条线在此交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：1) 跨境传输未走安全评估或标准合同；2) 默认全量披露违反最小必要；3) 区块链服务未备案即上线。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如学历或员工凭证）</li><li>第二步：建立可举证的基线（DID+信任注册表+签发留痕）</li><li>第三步：跑通最短闭环（签发→持有→验证）</li><li>第四步：补第二个增值能力（如选择性披露）</li><li>第五步：把互认协议写进生态合作</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：政务与行业eID平台</li><li>路径 B：金融KYC凭证复用</li><li>路径 C：企业身份中台</li><li>路径 D：开发者云服务</li></ul></div></div>
+    </div>
+    <div class="note">四条路径共同点：都先把「信任注册表+DID方法」作为第一资产。</div>
+  </section>
+
+  <footer>
+    <p>智能DID（分布式数字身份）管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "政务服务与eID"],
+ ["s1", "金融KYC与开户"],
+ ["s2", "医疗健康身份"],
+ ["s3", "教育与学历认证"],
+ ["s4", "企业员工与访问"],
+ ["s5", "物联网设备身份"],
+ ["s6", "供应链与产品溯源"],
+ ["s7", "出行与票务"],
+ ["s8", "社交与创作者"],
+ ["s9", "跨境身份互认"]
+];
+const PLAYERS = [
+ ["去中心化身份平台", "Microsoft Entra Verified ID/Sovrin", "星火·链网/腾讯至信链", "以W3C DID与可验证凭证构建自主可控的数字身份基础设施"],
+ ["凭证签发与验证云服务", "MATTR/Dock", "腾讯云TDID", "为机构提供凭证模板、签发与验证的托管服务"],
+ ["身份钱包", "Microsoft Authenticator/Spruce", "微信/支付宝数字身份", "终端用户持有与管理凭证的移动钱包"],
+ ["信任注册表服务", "Trust over IP", "BSN身份链", "维护可信任签发方与验证方注册表"],
+ ["选择性披露SDK", "MATTR BBS+", "长安链ZKP", "提供零知识选择性披露的开发者工具"],
+ ["企业身份中台", "Okta/ForgeRock", "竹云/亚信", "将DID能力嵌入企业IAM与业务流程"]
+];
+const DOMAINS = [
+ ["d1", "DID标识与文档管理", "DID Identifier & Document", "核心", "生成与管理W3C DID及对应DID Document，支持多方法。", [["DID生命周期", [["DID生成", "按方法生成唯一DID与密钥对", "Microsoft Entra"], ["DID文档发布", "将DID Document写入对应ledger/registrar", "Sovrin"], ["DID更新", "按控制权轮换更新文档", "行业通用实践"], ["DID注销", "支持DID停用与密钥撤回", "行业通用实践"]]], ["多方法支持", [["方法插件框架", "支持did:web/did:key/did:ion等", "Microsoft Entra"], ["方法路由", "按场景选择DID方法", "行业通用实践"], ["文档解析", "按方法解析DID Document", "DIF"], ["跨方法互操作", "统一抽象层屏蔽方法差异", "行业通用实践"]]], ["文档与断言", [["服务端点管理", "在文档中声明服务端点", "W3C DID"], ["验证方法声明", "声明验证密钥与用途", "W3C DID"], ["文档完整性", "文档签名可验证防篡改", "行业通用实践"], ["历史版本", "维护文档变更历史", "行业通用实践"]]]]],
+ ["d2", "密钥与凭证存储", "Key & Credential Vault", "核心", "安全存储密钥、凭证与证明材料。", [["密钥管理", [["密钥安全生成", "在可信环境生成密钥不导出明文", "HashiCorp Vault"], ["密钥分片", "密钥分片存储防单点泄露", "行业通用实践"], ["密钥轮换", "定期轮换与旧密钥撤销", "行业通用实践"], ["硬件保护", "支持HSM/安全元件保护根密钥", "行业通用实践"]]], ["凭证库", [["凭证加密存储", "凭证加密存储按主体隔离", "行业通用实践"], ["凭证检索", "按类型与签发方检索", "行业通用实践"], ["凭证过期管理", "提示即将过期凭证", "行业通用实践"], ["凭证备份恢复", "加密备份可恢复", "行业通用实践"]]], ["安全访问", [["生物绑定", "凭证访问绑定生物特征", "Apple Wallet"], ["设备绑定", "凭证绑定可信设备", "行业通用实践"], ["访问审计", "所有访问留痕", "行业通用实践"], ["远程吊销", "设备丢失远程吊销凭证", "行业通用实践"]]]]],
+ ["d3", "身份钱包集成", "Identity Wallet Integration", "成长", "与终端用户身份钱包对接，实现凭证收发与出示。", [["钱包连接", [["钱包协议适配", "支持OIDC SIOP/OID4VP等", "OpenID Foundation"], ["移动钱包接入", "与iOS/Android钱包对接", "Apple/Google Wallet"], ["桌面与Web钱包", "支持浏览器扩展钱包", "行业通用实践"], ["扫码出示", "支持扫码与近场出示凭证", "行业通用实践"]]], ["凭证流转", [["凭证发放推送", "签发方推送凭证至钱包", "Microsoft Entra"], ["凭证接收", "钱包接收并校验凭证", "行业通用实践"], ["凭证出示", "按需出示子集凭证", "OID4VP"], ["流转记录", "记录凭证流转可审计", "行业通用实践"]]], ["用户体验", [["凭证卡片化", "凭证以可读卡片展示", "Apple Wallet"], ["多语言", "凭证多语言展示", "行业通用实践"], ["离线出示", "支持离线验证出示", "行业通用实践"], ["可访问性", "满足无障碍使用", "行业通用实践"]]]]],
+ ["d4", "信任注册表", "Trust Registry", "核心", "维护可信任的签发方、验证方与策略注册表。", [["注册表管理", [["签发方注册", "注册并审核可信签发方进入信任注册表", "Trust over IP"], ["验证方注册", "注册可信验证方与用途", "行业通用实践"], ["策略注册", "注册凭证类型与验证策略", "行业通用实践"], ["注册版本", "注册表版本化与可审计", "行业通用实践"]]], ["信任发现", [["可信列表发现", "提供可发现的可信列表", "ETSI Trusted List"], ["信任锚管理", "维护信任根与锚点", "行业通用实践"], ["跨域信任", "跨域信任映射与桥接", "ToIP"], ["信任撤销", "吊销不可信主体", "行业通用实践"]]], ["治理运营", [["准入审核", "新主体准入人工+自动审核", "行业通用实践"], ["信任监控", "监控主体合规状态", "行业通用实践"], ["争议处理", "处理信任争议", "行业通用实践"], ["公开透明", "注册表可公开查询校验", "行业通用实践"]]]]],
+ ["d5", "身份解析与路由", "Identity Resolution & Routing", "成长", "解析DID并路由到对应服务与凭证。", [["解析服务", [["DID解析器", "按方法解析DID到文档", "Universal Resolver"], ["缓存与一致性", "解析结果缓存并校验时效", "行业通用实践"], ["失败回退", "解析失败回退到备用源", "行业通用实践"], ["批量解析", "支持批量解析提升性能", "行业通用实践"]]], ["服务路由", [["端点路由", "按文档服务端点路由请求", "行业通用实践"], ["能力发现", "发现对方支持凭证类型", "行业通用实践"], ["协议协商", "协商出示与验证协议版本", "行业通用实践"], ["路由监控", "监控路由成功率与延迟", "行业通用实践"]]], ["互操作网关", [["跨生态网关", "桥接不同身份生态", "行业通用实践"], ["协议转换", "转换不同凭证格式", "行业通用实践"], ["语义映射", "映射不同凭证语义", "行业通用实践"], ["网关治理", "网关接入审批与监控", "行业通用实践"]]]]],
+ ["d6", "凭证模板与签发", "Credential Schema & Issuance", "核心", "定义凭证模板并向持有方签发可验证凭证。", [["模板管理", [["Schema定义", "基于JSON-LD定义凭证结构", "W3C VC"], ["模板版本", "模板版本管理与兼容", "行业通用实践"], ["模板审核", "模板上线前审核", "行业通用实践"], ["模板库", "提供可复用模板库", "行业通用实践"]]], ["签发流程", [["签发请求", "基于模板生成签发请求", "MATTR"], ["身份绑定", "凭证绑定持有方DID与可验证凭证", "W3C VC"], ["签名签发", "签发方密钥签名凭证", "行业通用实践"], ["签发回执", "返回凭证与可验证证明", "行业通用实践"]]], ["签发治理", [["签发授权", "按角色授权签发权限", "行业通用实践"], ["签发审计", "所有签发留痕", "行业通用实践"], ["批量签发", "支持批量签发", "行业通用实践"], ["质量校验", "签发前校验必填与格式", "行业通用实践"]]]]],
+ ["d7", "选择性披露与BBS+", "Selective Disclosure (BBS+)", "成长", "支持零知识选择性披露，仅出示必要属性。", [["密码学基础", [["BBS+签名", "支持BBS+实现选择性披露与高效撤销", "MATTR"], ["范围证明", "证明数值在区间不泄露值", "行业通用实践"], ["谓词证明", "证明属性满足条件", "行业通用实践"], ["撤销友好", "签名支持高效撤销", "行业通用实践"]]], ["出示控制", [["属性选择", "持有方选择出示属性子集", "OID4VP"], ["最小披露", "默认最小必要披露", "行业通用实践"], ["派生证明", "从凭证派生可验证证明", "行业通用实践"], ["防关联", "防多次出示被关联", "行业通用实践"]]], ["验证兼容", [["验证器支持", "验证方支持BBS+校验", "MATTR"], ["格式兼容", "与LD-Proof/VC兼容", "W3C VC"], ["降级兼容", "不支持ZKP时降级普通披露", "行业通用实践"], ["性能优化", "优化证明生成与验证性能", "行业通用实践"]]]]],
+ ["d8", "验证服务", "Verification Service", "核心", "为验证方提供凭证校验与真伪鉴别。", [["验证流程", [["凭证呈现接收", "接收持有方出示的凭证", "OID4VP"], ["签名校验", "校验签发方签名与文档", "W3C VC"], ["状态校验", "检查凭证撤销状态有效性", "行业通用实践"], ["策略执行", "按业务策略校验属性", "行业通用实践"]]], ["验证能力", [["链式验证", "验证凭证链与背书", "行业通用实践"], ["时间戳验证", "验证签发时间与有效期", "行业通用实践"], ["撤销列表", "查询状态列表确认有效", "W3C Status List"], ["多格式支持", "支持JWT/JSON-LD等", "行业通用实践"]]], ["验证结果", [["验证报告", "生成结构化验证结果", "行业通用实践"], ["决策建议", "给出通过/拒绝建议", "行业通用实践"], ["结果留存", "验证结果可审计留存", "行业通用实践"], ["回调通知", "验证结果回调业务方", "行业通用实践"]]]]],
+ ["d9", "撤销与状态列表", "Revocation & Status List", "成长", "管理凭证撤销与状态，保障有效性。", [["状态机制", [["状态列表", "基于W3C状态列表2021", "W3C Status List"], ["位图状态", "用位图压缩状态高效查询", "行业通用实践"], ["增量更新", "状态变更增量发布", "行业通用实践"], ["状态时效", "状态列表设时效防过期误用", "行业通用实践"]]], ["撤销操作", [["签发方撤销", "签发方主动撤销凭证", "行业通用实践"], ["持有方挂失", "持有方可申请挂失", "行业通用实践"], ["撤销审计", "撤销操作留痕", "行业通用实践"], ["批量撤销", "支持批量撤销", "行业通用实践"]]], ["状态治理", [["状态监控", "监控状态列表可用性", "行业通用实践"], ["历史状态", "可查询历史状态", "行业通用实践"], ["跨域状态", "跨域状态互认", "行业通用实践"], ["失效处理", "状态源失效的应急", "行业通用实践"]]]]],
+ ["d10", "身份图谱与关联", "Identity Graph & Correlation", "成长", "构建身份关联图谱辅助风险识别。", [["图谱构建", [["实体抽取", "从凭证抽取实体关系", "行业通用实践"], ["关联建模", "建模身份间关系", "行业通用实践"], ["图谱存储", "图结构存储支持遍历", "Neo4j"], ["实时更新", "凭证变更实时更新图谱", "行业通用实践"]]], ["关联分析", [["重复身份识别", "识别同一人多身份", "行业通用实践"], ["关系路径", "查找实体间关系路径", "行业通用实践"], ["社群发现", "发现可疑身份社群", "行业通用实践"], ["异常关联", "异常关联预警", "行业通用实践"]]], ["风险应用", [["欺诈团伙识别", "识别欺诈关联团伙", "行业通用实践"], ["风险传播", "风险沿关系传播评分", "行业通用实践"], ["调查辅助", "辅助人工调查关联", "行业通用实践"], ["隐私保护", "图谱处理满足最小必要", "行业通用实践"]]]]],
+ ["d11", "风险与信任评分", "Risk & Trust Scoring", "成长", "对身份与凭证进行风险与信任量化。", [["评分模型", [["身份风险分", "基于行为与历史算风险", "行业通用实践"], ["签发方信任分", "基于历史评估签发方可信度", "行业通用实践"], ["凭证可信分", "评估凭证来源与时效", "行业通用实践"], ["动态更新", "评分随新事件动态更新", "行业通用实践"]]], ["决策支持", [["风险阈值", "按场景设风险阈值", "行业通用实践"], ["分级处置", "按分分级放行/复核", "行业通用实践"], ["模型解释", "评分可解释可追溯", "行业通用实践"], ["人工复核", "高风险转人工", "行业通用实践"]]], ["模型治理", [["模型监控", "监控评分分布与漂移", "行业通用实践"], ["偏差检测", "检测评分偏见", "行业通用实践"], ["反馈闭环", "用结果反馈迭代模型", "行业通用实践"], ["版本管理", "模型版本化管理", "行业通用实践"]]]]],
+ ["d12", "跨链与跨域互认", "Cross-Chain & Cross-Domain Interop", "成长", "实现不同链与域之间的身份互认。", [["跨链互认", [["多链锚定", "同一DID跨链锚定", "Sovrin"], ["跨链验证", "跨链验证凭证状态", "行业通用实践"], ["桥接服务", "链间信任桥接", "行业通用实践"], ["一致性保证", "跨链状态一致防双花", "行业通用实践"]]], ["跨域互认", [["域间信任协议", "建立域间信任框架", "ToIP"], ["凭证映射", "域间凭证语义映射", "行业通用实践"], ["互认合约", "签署互认协议", "行业通用实践"], ["互认监控", "监控互认状态", "行业通用实践"]]], ["标准对齐", [["标准遵循", "遵循W3C/DIF标准", "W3C"], ["合规对齐", "对齐各地合规要求", "行业通用实践"], ["互通测试", "定期跨域互通测试", "行业通用实践"], ["生态接入", "新域接入审批", "行业通用实践"]]]]],
+ ["d13", "身份数据治理", "Identity Data Governance", "成长", "管理身份数据的生命周期与质量。", [["数据目录", [["身份资产目录", "登记身份相关数据资产", "行业通用实践"], ["数据血缘", "追踪数据来源与流向", "行业通用实践"], ["分类分级", "按敏感度分类分级", "行业通用实践"], ["责任人", "明确数据责任人", "行业通用实践"]]], ["生命周期", [["采集最小化", "采集遵循最小必要", "GDPR"], ["留存与销毁", "按策略留存与销毁", "行业通用实践"], ["主体权利", "支持查询/更正/删除", "GDPR"], ["变更管理", "数据变更审批", "行业通用实践"]]], ["质量管理", [["数据质量校验", "校验完整性与一致性", "行业通用实践"], ["异常检测", "检测异常数据", "行业通用实践"], ["质量度量", "量化数据质量", "行业通用实践"], ["整改闭环", "质量问题整改", "行业通用实践"]]]]],
+ ["d14", "可验证表达与ZKP", "Verifiable Presentation & ZKP", "成长", "构建可验证表达并使用零知识证明。", [["表达构建", [["VP生成", "按请求生成可验证表达", "W3C VC"], ["多凭证聚合", "聚合多凭证满足请求", "行业通用实践"], ["约束满足", "满足验证方约束", "行业通用实践"], ["签名封装", "VP由持有方签名", "W3C VC"]]], ["零知识能力", [["ZKP生成", "生成零知识证明", "行业通用实践"], ["证明验证", "验证ZKP正确性", "行业通用实践"], ["电路管理", "管理证明电路与参数", "行业通用实践"], ["性能优化", "优化证明生成速度", "行业通用实践"]]], ["场景应用", [["年龄证明", "证明满龄不泄露生日", "行业通用实践"], ["成员证明", "证明属某群体不泄露身份", "行业通用实践"], ["资格证明", "证明资格不泄露其他信息", "行业通用实践"], ["合规证明", "证明合规不泄露细节", "行业通用实践"]]]]],
+ ["d15", "合规与隐私", "Compliance & Privacy", "核心", "满足GDPR/PIPL等隐私与数据合规。", [["隐私设计", [["默认隐私", "默认最小披露与数据最小化", "GDPR"], ["目的限制", "数据按声明目的使用", "PIPL"], ["同意管理", "记录同意与撤回", "行业通用实践"], ["数据不出域", "敏感数据本地化处理", "PIPL"]]], ["主体权利", [["访问权", "支持主体查询自身数据", "GDPR"], ["删除权", "支持被遗忘权删除", "GDPR"], ["可携权", "支持数据可携导出", "GDPR"], ["反对权", "支持反对特定处理", "行业通用实践"]]], ["跨境合规", [["跨境传输", "满足跨境传输合规", "GDPR/Schrems"], ["本地化", "满足数据本地化要求", "PIPL"], ["合规映射", "映射各地合规差异", "行业通用实践"], ["合规审计", "定期隐私合规审计", "行业通用实践"]]]]],
+ ["d16", "安全与密钥管理", "Security & Key Management", "核心", "保障身份系统密钥与运行安全。", [["密钥安全", [["根密钥保护", "HSM保护根密钥", "HSM"], ["密钥生命周期", "密钥生成轮换销毁", "行业通用实践"], ["多方计算", "用MPC分散密钥控制", "行业通用实践"], ["应急恢复", "密钥丢失应急恢复", "行业通用实践"]]], ["运行安全", [["漏洞管理", "定期漏洞扫描", "行业通用实践"], ["渗透测试", "定期渗透测试", "行业通用实践"], ["入侵检测", "异常行为检测", "行业通用实践"], ["安全配置", "安全基线配置", "行业通用实践"]]], ["事件响应", [["安全事件", "安全事件分级", "行业通用实践"], ["应急响应", "密钥泄露应急响应", "行业通用实践"], ["通报机制", "事件按规定通报", "行业通用实践"], ["复盘改进", "事件复盘改进", "行业通用实践"]]]]],
+ ["d17", "运营监控与审计", "Ops Monitoring & Audit", "成长", "监控身份服务并审计关键操作。", [["服务监控", [["可用性监控", "监控签发验证可用性", "Datadog"], ["性能监控", "监控延迟与吞吐", "行业通用实践"], ["业务指标", "签发验证量等业务看板", "行业通用实践"], ["告警", "异常告警", "行业通用实践"]]], ["操作审计", [["操作留痕", "关键操作全留痕", "行业通用实践"], ["审计查询", "可按主体/时间审计", "行业通用实践"], ["合规报告", "生成合规运营报告", "行业通用实践"], ["防篡改", "审计日志防篡改", "行业通用实践"]]], ["演练与连续", [["灾备演练", "定期灾备演练", "行业通用实践"], ["容量规划", "按增长规划容量", "行业通用实践"], ["连续性", "BCP预案", "行业通用实践"], ["第三方审计", "支持外部审计", "行业通用实践"]]]]],
+ ["d18", "生态与开发者", "Ecosystem & Developer", "成长", "面向开发者与生态提供SDK与接入。", [["开发者工具", [["SDK提供", "提供多语言SDK", "Microsoft Entra"], ["API网关", "提供签发验证API", "MATTR"], ["沙箱", "提供测试沙箱", "行业通用实践"], ["文档", "提供开发文档与示例", "行业通用实践"]]], ["接入管理", [["应用注册", "开发者应用注册", "OAuth"], ["权限scope", "按scope授权", "行业通用实践"], ["配额限流", "API配额与限流", "行业通用实践"], ["密钥管理", "开发者密钥管理", "行业通用实践"]]], ["生态运营", [["模板市场", "运营凭证模板市场", "行业通用实践"], ["伙伴计划", "生态伙伴管理", "行业通用实践"], ["度量分析", "生态使用度量", "行业通用实践"], ["社区", "开发者社区运营", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["学历证书可验证凭证", "live", "高校签发可验证学历供雇主验证", "向教育场景输出学历验证"],
+ ["员工入职数字身份", "live", "企业用DID管理员工身份与权限", "向HR与IAM输出"],
+ ["年龄验证选择性披露", "live", "证明满龄不泄露生日", "向酒旅与成人场景输出"],
+ ["数字登机牌凭证", "live", "航司签发可验证登机凭证", "向出行场景输出"],
+ ["政务eID凭证", "live", "政府签发居民可验证凭证", "向政务服务输出"],
+ ["会员忠诚度凭证", "live", "品牌签发可验证会员凭证", "向零售会员输出"],
+ ["疫苗/健康凭证", "live", "签发可验证健康凭证", "向医疗与出行输出"],
+ ["开发者签发API凭证", "live", "为开发者签发API访问凭证", "向生态输出"],
+ ["BBS+选择性披露规模化", "pilot", "在金融KYC中规模化使用ZKP披露", "降低KYC数据泄露"],
+ ["跨境学历互认", "pilot", "多国学历凭证互认", "参与跨境教育互认"],
+ ["物联网设备DID", "pilot", "为设备签发DID与凭证", "面向工业互联网"],
+ ["供应链溯源凭证", "pilot", "产品溯源可验证凭证", "面向消费品溯源"],
+ ["医疗记录授权共享", "pilot", "患者用凭证授权共享病历", "面向医疗数据互通"],
+ ["投票与资格证明", "pilot", "用ZKP证明投票资格", "面向会员治理"],
+ ["车载身份与V2X", "pilot", "车辆DID用于车联网身份", "面向智能网联汽车"],
+ ["AI代理身份", "pilot", "为AI agent签发可验证身份", "面向自主代理可信交互"],
+ ["去中心化声誉系统", "explore", "基于凭证构建可移植声誉", "探索声誉可携"],
+ ["灵魂绑定代币SBT身份", "explore", "探索SBT作为身份锚（仅面向合规市场）", "谨慎面向合规市场"],
+ ["隐私计算联合KYC", "explore", "多方隐私计算联合尽调", "降低重复KYC"],
+ ["DID用于AI训练数据溯源", "explore", "用DID溯源数据权属", "面向数据合规"],
+ ["跨链身份预言机", "explore", "聚合多链身份状态的预言机", "为验证提供实时状态"],
+ ["可编程凭证策略", "explore", "凭证附带可执行策略", "探索条件化凭证"],
+ ["去中心化身份恢复社交", "explore", "社交恢复DID密钥", "提升易用性"],
+ ["量子安全签名", "explore", "抗量子签名用于DID", "面向长期安全"]
+];
+const MIDS = [
+ ["标识中心", "DID生成解析与文档管理", "多方法、解析、路由"],
+ ["密钥中心", "密钥与凭证安全存储", "HSM、分片、轮换"],
+ ["钱包中心", "身份钱包接入与流转", "协议适配、出示、体验"],
+ ["信任注册中心", "信任注册表治理", "签发方、验证方、策略"],
+ ["签发中心", "凭证模板与签发", "Schema、授权、审计"],
+ ["披露中心", "选择性披露与ZKP", "BBS+、属性选择、验证"],
+ ["验证中心", "凭证验证与真伪", "签名、状态、策略"],
+ ["状态中心", "撤销与状态列表", "位图、撤销、治理"],
+ ["图谱中心", "身份图谱与关联", "抽取、分析、风险"],
+ ["评分中心", "风险与信任评分", "模型、决策、治理"],
+ ["互认中心", "跨链跨域互认", "桥接、映射、标准"],
+ ["治理中心", "身份数据治理", "目录、生命周期、质量"],
+ ["表达中心", "可验证表达与ZKP", "VP、证明、场景"],
+ ["合规中心", "隐私与数据合规", "最小披露、主体权利、跨境"],
+ ["安全中心", "密钥与安全运营", "根密钥、检测、响应"],
+ ["监控中心", "运营监控与审计", "可用性、审计、演练"],
+ ["生态中心", "开发者与生态", "SDK、接入、运营"],
+ ["标准中心", "标准与互通测试", "W3C/DIF、测试、接入"]
+];
+const RULES = [
+ ["DID文档变更须由控制权签名", "非授权变更可冒用身份导致欺诈"],
+ ["密钥泄露必须立即轮换与吊销", "泄露密钥可伪造任意凭证"],
+ ["选择性披露不得泄露未选属性", "过度披露违反隐私与合规"],
+ ["验证必须检查撤销状态", "未检查会使已撤销凭证仍可用"],
+ ["签发权限须严格授权", "越权签发破坏信任体系"],
+ ["信任注册表须可审计防篡改", "被篡改注册表使伪造主体可信"],
+ ["跨境传输须满足数据合规", "违规传输面临监管处罚"],
+ ["主体删除权须可执行", "无法删除违反GDPR被遗忘权"],
+ ["ZKP参数须安全生成", "有毒参数可伪造证明"],
+ ["凭证须绑定持有方DID", "未绑定可被冒用转让"],
+ ["验证结果须留存可审计", "无留存无法举证验证合规"],
+ ["状态列表须设时效", "过期状态可能误判凭证有效"],
+ ["互认须签署协议", "无协议互认导致信任误判"],
+ ["密钥恢复须多重控制", "单点恢复可被滥用"],
+ ["最小必要披露默认", "默认全量披露放大泄露面"],
+ ["升级须向后兼容", "不兼容致存量凭证失效"]
+];
+const KPIS = [
+ ["签发成功率", "凭证签发成功比例"],
+ ["验证通过率", "验证通过与拒绝比例反映信任质量"],
+ ["ZKP生成时延", "零知识证明生成耗时"],
+ ["撤销检查覆盖率", "验证中撤销检查覆盖比例"],
+ ["密钥轮换及时率", "密钥按时轮换比例"],
+ ["跨域互认成功率", "跨域验证成功比例"],
+ ["隐私合规缺陷数", "合规检查发现缺陷数"],
+ ["生态接入活跃度", "开发者与接入增长"]
+];
+const LIC_CN = [
+ ["个人信息保护法PIPL", "处理个人信息须告知同意最小必要", "跨境提供须安全评估"],
+ ["数据安全法", "重要数据须分类分级保护", "数据本地化与出境合规"],
+ ["密码法", "商用密码须合规使用", "加密产品须符合标准"],
+ ["区块链信息服务备案", "提供区块链服务须备案", "不得从事非法金融活动"],
+ ["网络安全等级保护", "系统须落实等保要求", "按级别防护"],
+ ["电子签名法", "可靠电子签名与手写同效", "签名制作数据须专有控制"],
+ ["关键信息基础设施", "涉关基须额外保护", "采购与安全审查"],
+ ["数据出境安全评估办法", "出境须评估或标准合同", "重要数据出境严控"],
+ ["人工智能伦理与算法备案", "算法须备案与合规", "防歧视与偏见"],
+ ["征信业管理条例", "信用相关须持牌", "不得违规采集提供"],
+ ["网络安全审查办法", "赴境外上市等须审查", "防范供应链风险"],
+ ["未成年人保护", "涉未成年人须特别保护", "年龄验证须合规"],
+ ["反垄断与数据垄断", "不得滥用身份数据垄断", "互操作须开放"],
+ ["金融行业身份认证", "金融业务须落实身份核验", "KYC须合规"],
+ ["政务数据共享与开放", "政务凭证须依规共享", "最小必要与安全"]
+];
+const LIC_INTL = [
+ ["GDPR", "欧盟个人数据须合法基础与被遗忘权", "跨境传输须充分性"],
+ ["eIDAS电子身份条例", "欧盟可信电子身份与签名", "合格电子签名具法律效力"],
+ ["W3C DID/VC标准", "遵循去中心化标识与可验证凭证标准", "互操作须标准对齐"],
+ ["ISO/IEC 18013移动驾驶执照", "移动凭证国际标准", "跨境旅行凭证互认"],
+ ["Self-Sovereign Identity原则", "遵循SSI十大原则", "用户控制与可移植"],
+ ["DIF/Aries/Hyperledger", "遵循互操作协议栈", "跨实现互通"],
+ ["CCPA加州隐私", "加州居民数据权利", "披露与删除权"],
+ ["FIDO无密码认证", "无口令身份验证标准", "提升身份安全"]
+];
+const OPPS = [
+ ["学历验证降本", "雇主重复核验学历成本高", "输出可验证学历凭证"],
+ ["金融KYC复用", "重复KYC体验差成本高", "用凭证复用KYC"],
+ ["政务eID互通", "政务服务重复提交材料", "签发政务可验证凭证"],
+ ["年龄验证隐私", "年龄验证泄露生日", "ZKP选择性披露"],
+ ["企业IAM集成", "企业身份孤岛", "DID嵌入IAM"],
+ ["物联网设备身份", "设备缺乏可信身份", "为设备签发DID"],
+ ["供应链溯源", "溯源数据易篡改", "产品可验证溯源凭证"],
+ ["医疗数据共享", "病历共享难合规", "凭证授权共享"],
+ ["跨境身份互认", "跨境身份不互认", "建立互认框架"],
+ ["开发者生态", "机构自建DID难", "提供SDK与云服务"],
+ ["会员忠诚度", "会员凭证易伪造", "可验证会员凭证"],
+ ["AI代理身份", "AI代理缺乏可信身份", "为agent签发可验证身份"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：选择性披露 / 信任注册表 / 撤销状态 / 可验证凭证`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

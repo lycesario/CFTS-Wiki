@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能数据可信管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能数据可信管理平台全景</b>
+    <span>智能数据可信管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能数据可信管理平台产品功能全景图谱</h1>
+    <p>把「智能数据可信管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。数据要素市场的胜负手不是“把数据搬来搬去”，而是把确权、隐私计算、分级管控与合规出境做成可举证、可流通的可信能力。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是工具清单，而是一条主线：在合规框架内，让数据“可用不可见、可控可计量”，把分散的数据资产变成可流通、可入表、可审计的可信生产要素。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据资产与确权基础</td><td>资产登记目录、确权权益、分类分级、主数据元数据、标准模型</td><td>这一层是信任底座，权属与分级不清，上层流通全无效</td></tr>
+<tr><td>第二层（d6–d9）：可信流通与隐私计算</td><td>隐私计算、可信交换、数据产品API市场、数据沙箱</td><td>这一层把“可用不可见”变成现实，是流通的核心引擎</td></tr>
+<tr><td>第三层（d10–d14）：智能治理与决策</td><td>血缘质量、资产入表、智能发现、合规监测、价值评估</td><td>这一层把治理变成智能与可量化，支撑入表与运营</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>合规出境、安全访问、审计存证、平台运营生态</td><td>这一层是生命线，越接近流通越要先有安全与合规</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：①权属与分类分级必须先于流通，否则交易无效且违规；②隐私计算须可验证，不可验证则结果不可信；③出境与重要数据须评估，未评估不得出域。</div>
+    <div class="danger">最容易被误当成成功信号的是“接入了多少数据源、挂了多少产品”——若不计较权属、分级、存证与合规出境，规模越大风险越大。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：凡涉及跨境流通、AI自动定级、数据信托等方向，必须先确认合规框架与存证能力是否到位，否则一律降优先级。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>数据资产</td><td>登记编目并具权属的数据实体</td><td>写错会把无权属数据投入流通，交易无效</td></tr>
+<tr><td>隐私计算任务</td><td>多方联合的密态计算作业</td><td>写错会致结果不可验证或泄露</td></tr>
+<tr><td>数据分级</td><td>按重要与敏感划分的级别</td><td>写错会使管控无依据、违规出境</td></tr>
+<tr><td>数据存证</td><td>关键操作上链不可篡改记录</td><td>写错会致举证无效、纠纷难解</td></tr>
+<tr><td>数据产品</td><td>封装后可流通的数据服务</td><td>写错会致授权范围失控</td></tr>
+<tr><td>出境评估</td><td>数据出境的风险评估与申报</td><td>写错会致违规出境担责</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域监管域组合通常是：网信办与数据局（数据安全与出境）、行业主管部门（金融医疗等）、财政与会计（入表）、知识产权与司法（确权存证）四域交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：①重要数据须境内存储，违规出境承担法律责任；②隐私计算须可验证，不可验证则结果不可信且易越界；③数据须最小必要采集，过度采集违反个人信息保护法。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如公共数据授权运营或金融联合风控）</li><li>第二步：建立可举证的基线（确权、分类分级、存证）</li><li>第三步：跑通最短闭环（登记—分级—隐私计算/流通—存证—审计）</li><li>第四步：补第二个增值能力（如资产入表或价值评估）</li><li>第五步：把承诺写进合同（SLA、合规出境、审计存证）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：数据资产编目与治理（面向政企的数据底座）</li><li>路径 B：隐私计算即服务（面向金融医疗的联合计算）</li><li>路径 C：数据流通与交易服务（面向交易所与授权运营）</li><li>路径 D：资产入表与估值（面向企业的财务赋能）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：都依赖第一资产——在合规框架内可确权、可分级、可存证的可信数据资产。</div>
+  </section>
+
+  <footer>
+    <p>智能数据可信管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与阅读主线"],
+ ["s1", "数据资产与确权基础"],
+ ["s2", "可信流通与隐私计算"],
+ ["s3", "智能治理与决策"],
+ ["s4", "治理与运营"],
+ ["s5", "平台形态与生态格局"],
+ ["s6", "前沿方向矩阵"],
+ ["s7", "监管与合规红线"],
+ ["s8", "中心与组织能力"],
+ ["s9", "落地路径与决策"]
+];
+const PLAYERS = [
+ ["数据资产登记与目录平台", "Collibra、Alation、Informatica", "御数科技、普元", "数据资产编目与治理"],
+ ["隐私计算平台", "Private AI、Duality", "华控清交、富数、蚂蚁隐语", "联邦学习、MPC、TEE密态计算"],
+ ["数据流通与交易所", "data marketplace（Snowflake等）", "贵阳大数据交易所、上海数据交易所", "数据产品挂牌与交易"],
+ ["数据治理与质量平台", "Microsoft Purview、Talend", "阿里DataWorks、华为DAYU", "血缘、质量与合规"],
+ ["可信数据空间", "Gaia-X、Catena-X", "行业可信数据空间试点", "跨域可信协作"],
+ ["数据合规与出境管理", "OneTrust、BigID", "合规科技厂商", "分类分级与出境合规"]
+];
+const DOMAINS = [
+ ["d1", "数据资产登记与目录", "Data Asset Registry & Catalog", "成熟", "数据源按目录登记编目，是可信数据管理的入口", [["资产登记", [["资产登记入库", "数据源按目录登记与编目", "行业通用实践"], ["资产元信息", "维护负责人、口径、更新频率", "行业通用实践"], ["资产标签", "按主题与敏感级打标签", "行业通用实践"], ["资产检索", "全文与标签检索资产", "行业通用实践"]]], ["数据目录", [["业务目录", "按业务域组织目录", "行业通用实践"], ["技术目录", "按系统表字段组织", "行业通用实践"], ["目录权限", "目录按角色可见", "行业通用实践"], ["目录订阅", "资产变更订阅通知", "行业通用实践"]]], ["资产运营", [["资产健康分", "资产质量健康评分", "行业通用实践"], ["资产热度", "资产被调用热度", "行业通用实践"], ["资产下线", "废弃资产下线治理", "行业通用实践"], ["资产盘点", "定期资产盘点", "行业通用实践"]]]]],
+ ["d2", "数据确权与权益", "Data Rights Confirmation", "成长", "持有权使用权经营权界定与授权,是流通的前提", [["权属管理", [["持有权登记", "登记数据持有权主体", "行业通用实践"], ["使用权管理", "管理数据使用权授权", "行业通用实践"], ["经营权界定", "界定数据经营权边界", "行业通用实践"], ["权属链记录", "权属变更链上记录", "行业通用实践"]]], ["授权机制", [["授权协议", "数据使用授权协议模板", "行业通用实践"], ["授权范围", "限定用途与期限授权", "行业通用实践"], ["授权撤回", "授权可撤回与生效", "行业通用实践"], ["授权审计", "授权全程可审计", "行业通用实践"]]], ["权益保护", [["水印溯源", "数据嵌入水印溯源", "行业通用实践"], ["侵权监测", "监测数据未经授权使用", "行业通用实践"], ["争议处理", "权属争议调处机制", "行业通用实践"], ["权益证明", "出具数据权益证明", "行业通用实践"]]]]],
+ ["d3", "数据分类分级", "Data Classification & Grading", "成熟", "按重要与敏感分级,是管控与合规的基线", [["分类体系", [["业务分类", "按业务主题分类", "行业通用实践"], ["数据分级", "核心重要一般三级分级", "数据安全法"], ["敏感级别", "标识个人敏感与重要数据", "个人信息保护法"], ["行业分类", "按行业监管分类", "行业通用实践"]]], ["分级管控", [["管控策略映射", "级别映射到管控策略", "行业通用实践"], ["自动定级", "规则自动识别定级", "行业通用实践"], ["定级复核", "定级人工复核", "行业通用实践"], ["级别变更", "级别动态调整", "行业通用实践"]]], ["合规落地", [["重要数据识别", "识别重要数据目录", "数据安全法"], ["个人信息识别", "识别个人信息与敏感", "个人信息保护法"], ["分级报表", "分级分布监管报表", "行业通用实践"], ["分级培训", "分级管控培训", "行业通用实践"]]]]],
+ ["d4", "主数据与元数据管理", "Master & Metadata", "成熟", "统一主数据与元数据,保障数据一致性", [["主数据管理", [["主数据建模", "统一客户物料等主数据模型", "行业通用实践"], ["主数据清洗", "主数据去重与标准化", "行业通用实践"], ["主数据分发", "主数据分发各系统", "行业通用实践"], ["主数据一致性", "跨系统一致性校验", "行业通用实践"]]], ["元数据管理", [["元数据采集", "自动采集技术元数据", "行业通用实践"], ["业务元模型", "维护业务口径定义", "行业通用实践"], ["元数据存储", "元数据统一存储", "行业通用实践"], ["元数据搜索", "元数据血缘搜索", "行业通用实践"]]], ["数据标准", [["标准字典", "维护标准代码字典", "行业通用实践"], ["标准映射", "异构标准映射转换", "行业通用实践"], ["标准校验", "数据符合标准校验", "行业通用实践"], ["标准发布", "标准版本发布", "行业通用实践"]]]]],
+ ["d5", "数据标准与模型", "Data Standard & Model", "成长", "概念逻辑物理建模与指标体系,沉淀数据语言", [["数据建模", [["概念模型", "业务概念层建模", "行业通用实践"], ["逻辑模型", "逻辑实体关系建模", "行业通用实践"], ["物理模型", "物理表结构建模", "行业通用实践"], ["模型版本", "数据模型版本管理", "行业通用实践"]]], ["指标体系", [["指标定义", "统一指标口径定义", "行业通用实践"], ["指标血缘", "指标来源血缘", "行业通用实践"], ["指标共享", "指标复用与共享", "行业通用实践"], ["指标质量", "指标质量校验", "行业通用实践"]]], ["标准治理", [["标准评审", "标准变更评审", "行业通用实践"], ["标准落地", "标准落地到开发", "行业通用实践"], ["标准监控", "标准遵循监控", "行业通用实践"], ["标准废弃", "旧标准废弃迁移", "行业通用实践"]]]]],
+ ["d6", "隐私计算", "Privacy Computing", "成长", "联邦学习、MPC、TEE实现可用不可见的密态计算", [["联邦学习", [["横向联邦", "同特征多方横向联邦", "FATE/微众"], ["纵向联邦", "同样本纵向联邦", "FATE/微众"], ["联邦建模", "多方联合训练模型", "行业通用实践"], ["联邦评估", "联邦模型效果评估", "行业通用实践"]]], ["安全计算", [["MPC多方计算", "多方安全计算求交集统计", "华控清交/富数"], ["TEE可信执行", "基于TEE的密态计算", "Intel SGX/海光"], ["同态加密", "密文上计算", "行业通用实践"], ["差分隐私", "加噪保护个体", "行业通用实践"]]], ["可信调度", [["计算任务编排", "隐私计算任务编排", "行业通用实践"], ["节点管理", "参与方节点管理", "行业通用实践"], ["算力调度", "隐私计算算力调度", "行业通用实践"], ["结果可信", "结果可验证可信", "行业通用实践"]]]]],
+ ["d7", "可信数据交换与流通", "Trusted Data Exchange", "成长", "不转移原始数据的可信交换与交易撮合", [["流通机制", [["数据可用不可见", "流通不转移原始数据", "行业通用实践"], ["可信交换协议", "基于共识的交换协议", "行业通用实践"], ["数据交付", "计算结果或密文交付", "行业通用实践"], ["流通存证", "流通全程存证", "行业通用实践"]]], ["交易撮合", [["需求发布", "数据需求方发布需求", "贵阳大数据交易所"], ["产品挂牌", "数据产品挂牌上架", "贵阳大数据交易所"], ["撮合匹配", "供需智能撮合", "行业通用实践"], ["合约签订", "线上数据交易合约", "行业通用实践"]]], ["流通监管", [["流通监测", "流通行为监测", "行业通用实践"], ["合规校验", "流通前合规校验", "行业通用实践"], ["异常阻断", "异常流通阻断", "行业通用实践"], ["监管报送", "流通数据监管报送", "行业通用实践"]]]]],
+ ["d8", "数据产品与API市场", "Data Product & API Market", "成长", "数据集封装为产品与API,支撑交易结算", [["产品管理", [["产品封装", "数据集封装为产品", "行业通用实践"], ["产品上架", "产品审核上架", "行业通用实践"], ["产品定价", "按调用或订阅定价", "行业通用实践"], ["产品下架", "产品生命周期管理", "行业通用实践"]]], ["API服务", [["API发布", "发布数据查询API", "行业通用实践"], ["API网关", "API鉴权限流", "行业通用实践"], ["API计量", "API调用计量", "行业通用实践"], ["API监控", "API可用与延迟监控", "行业通用实践"]]], ["市场运营", [["供需匹配", "供需智能推荐", "行业通用实践"], ["评价信誉", "产品评价与信誉", "行业通用实践"], ["交易结算", "交易结算与分账", "行业通用实践"], ["市场分析", "市场活跃分析", "行业通用实践"]]]]],
+ ["d9", "数据沙箱与安全计算环境", "Data Sandbox", "成长", "隔离脱敏的可信计算环境,支撑外部分析", [["沙箱环境", [["隔离计算", "隔离环境内计算", "行业通用实践"], ["脱敏样本", "提供脱敏样本分析", "行业通用实践"], ["受限导出", "结果经审核导出", "行业通用实践"], ["环境销毁", "任务结束环境销毁", "行业通用实践"]]], ["可信执行", [["远程证明", "TEE远程可信证明", "Intel SGX"], ["内存加密", "内存数据加密", "行业通用实践"], ["审计日志", "沙箱操作审计", "行业通用实践"], ["资源配额", "沙箱资源配额", "行业通用实践"]]], ["协同分析", [["跨域协同", "多域数据协同分析", "行业通用实践"], ["安全多方查询", "多方安全查询", "行业通用实践"], ["结果校验", "结果一致性校验", "行业通用实践"], ["退出机制", "合规退出与留存", "行业通用实践"]]]]],
+ ["d10", "数据血缘与质量", "Lineage & Quality", "成长", "自动血缘解析与质量检核,支撑可信与溯源", [["血缘采集", [["血缘自动解析", "解析SQL与任务血缘", "行业通用实践"], ["字段级血缘", "字段级影响分析", "行业通用实践"], ["任务依赖", "任务依赖关系图", "行业通用实践"], ["血缘可视化", "血缘图谱可视化", "行业通用实践"]]], ["质量规则", [["规则配置", "配置完整性准确性规则", "行业通用实践"], ["质量检核", "定时质量检核", "行业通用实践"], ["质量评分", "数据质量评分", "行业通用实践"], ["质量告警", "质量不达标告警", "行业通用实践"]]], ["质量运营", [["问题定位", "血缘定位质量根因", "行业通用实践"], ["质量报表", "质量趋势报表", "行业通用实践"], ["质量治理", "质量工单治理", "行业通用实践"], ["SLA管理", "数据质量SLA", "行业通用实践"]]]]],
+ ["d11", "数据资产入表支撑", "Data Asset Recognition", "成长", "确权成本归集与计量披露,支撑财务入表", [["入表准备", [["资产确认", "确认符合资产定义", "行业通用实践"], ["成本归集", "归集数据采集加工成本", "行业通用实践"], ["收益测算", "测算资产预期收益", "行业通用实践"], ["寿命估计", "估计使用寿命", "行业通用实践"]]], ["计量与披露", [["初始计量", "按成本初始计量", "行业通用实践"], ["后续计量", "摊销与减值测试", "行业通用实践"], ["报表披露", "财务报表披露支撑", "行业通用实践"], ["审计证据", "提供入表审计证据", "行业通用实践"]]], ["合规支撑", [["准则对齐", "对齐会计准则要求", "行业通用实践"], ["权属证明", "提供权属与合规证明", "行业通用实践"], ["估值支撑", "提供估值依据", "行业通用实践"], ["入表台账", "入表资产台账管理", "行业通用实践"]]]]],
+ ["d12", "智能数据发现与推荐", "Data Discovery", "成长", "语义检索与AI编目,降低找数用数门槛", [["智能检索", [["语义检索", "自然语言检索数据", "行业通用实践"], ["相似推荐", "推荐相似数据集", "行业通用实践"], ["资产画像", "数据资产智能画像", "行业通用实践"], ["问答式发现", "问答式找数据", "行业通用实践"]]], ["智能编目", [["自动打标", "AI自动识别并打标", "行业通用实践"], ["自动分类", "自动业务分类", "行业通用实践"], ["知识抽取", "从文档抽取元数据", "行业通用实践"], ["目录自维护", "目录动态自维护", "行业通用实践"]]], ["价值发现", [["关联发现", "发现数据关联价值", "行业通用实践"], ["用例推荐", "推荐适用分析用例", "行业通用实践"], ["闲置发现", "发现闲置可治理资产", "行业通用实践"], ["洞察推送", "主动推送数据洞察", "行业通用实践"]]]]],
+ ["d13", "合规监测与风险预警", "Compliance Monitoring", "成长", "法规库与风险扫描,守住院子里的红线", [["合规监测", [["法规库", "维护数据与隐私法规库", "行业通用实践"], ["合规扫描", "定期合规风险扫描", "行业通用实践"], ["越权监测", "监测越权访问使用", "行业通用实践"], ["违规预警", "违规行为实时预警", "行业通用实践"]]], ["风险预警", [["出境预警", "数据出境风险预警", "行业通用实践"], ["敏感扩散", "敏感数据扩散预警", "行业通用实践"], ["异常流动", "异常数据流动预警", "行业通用实践"], ["风险评分", "资产风险评分", "行业通用实践"]]], ["处置闭环", [["工单处置", "风险工单处置", "行业通用实践"], ["整改跟踪", "整改闭环跟踪", "行业通用实践"], ["合规报告", "生成合规报告", "行业通用实践"], ["监管对接", "对接监管报送", "行业通用实践"]]]]],
+ ["d14", "价值评估与运营分析", "Valuation & Analytics", "成长", "成本法收益法市场法估值与运营驾驶舱", [["价值评估", [["成本法估值", "按成本与效用估值", "行业通用实践"], ["收益法估值", "按收益现值估值", "行业通用实践"], ["市场法估值", "参照市场交易估值", "行业通用实践"], ["价值地图", "数据价值分布地图", "行业通用实践"]]], ["运营分析", [["资产利用率", "资产被使用率分析", "行业通用实践"], ["流通分析", "流通规模与趋势", "行业通用实践"], ["收益分析", "数据产品收益分析", "行业通用实践"], ["驾驶舱", "数据运营驾驶舱", "行业通用实践"]]], ["决策支持", [["投资测算", "数据建设投资测算", "行业通用实践"], ["策略推荐", "推荐运营策略", "行业通用实践"], ["标杆对比", "同业数据能力对比", "行业通用实践"], ["汇报材料", "自动生成汇报材料", "行业通用实践"]]]]],
+ ["d15", "合规出境与跨境流通", "Cross-border Compliance", "成长", "出境评估申报与可信跨境通道,守出境红线", [["出境评估", [["出境自评估", "数据出境风险自评估", "数据出境合规要求"], ["重要数据研判", "判断是否重要数据", "数据安全法"], ["出境申报", "按规申报安全评估", "数据出境合规要求"], ["标准合同", "签个人信息出境标准合同", "个人信息出境标准合同办法"]]], ["跨境流通", [["跨境可信通道", "建设可信跨境通道", "行业通用实践"], ["境外接收方管理", "管理境外接收方", "行业通用实践"], ["跨境存证", "跨境流通存证", "行业通用实践"], ["跨境监测", "跨境行为监测", "行业通用实践"]]], ["合规运营", [["出境清单", "出境数据清单管理", "行业通用实践"], ["有效期管理", "评估与合同有效期", "行业通用实践"], ["应急暂停", "风险时暂停出境", "行业通用实践"], ["合规审计", "出境合规审计", "行业通用实践"]]]]],
+ ["d16", "数据安全与访问控制", "Security & Access Control", "成熟", "统一身份、最小权限与动态脱敏,守数据安全", [["身份认证", [["统一身份", "统一身份与认证", "行业通用实践"], ["多因子认证", "多因子增强认证", "行业通用实践"], ["服务账号", "服务账号治理", "行业通用实践"], ["权限生命周期", "账号权限生命周期", "行业通用实践"]]], ["访问控制", [["最小权限", "按最小权限授权", "行业通用实践"], ["动态授权", "基于上下文动态授权", "行业通用实践"], ["数据脱敏", "查询动态脱敏", "行业通用实践"], ["行级权限", "行列级细粒度权限", "行业通用实践"]]], ["安全防护", [["加密存储", "静态数据加密", "行业通用实践"], ["传输加密", "传输通道加密", "行业通用实践"], ["防泄露", "防批量下载与泄露", "行业通用实践"], ["安全审计", "访问行为审计", "行业通用实践"]]]]],
+ ["d17", "审计与存证", "Audit & Notarization", "成长", "全链路审计与不可篡改存证,支撑举证", [["操作审计", [["全链路审计", "数据操作全链路审计", "行业通用实践"], ["留痕不可篡改", "关键留痕上链不可篡改", "行业通用实践"], ["审计检索", "审计记录检索", "行业通用实践"], ["异常追溯", "异常行为追溯", "行业通用实践"]]], ["存证确权", [["数据存证", "数据哈希上链存证", "行业通用实践"], ["时间戳", "关键操作时间戳", "行业通用实践"], ["权属存证", "权属与授权存证", "行业通用实践"], ["司法对接", "对接司法存证平台", "行业通用实践"]]], ["合规审计", [["合规审计", "定期开展合规审计", "行业通用实践"], ["审计报表", "生成审计报告", "行业通用实践"], ["问题整改", "审计问题整改", "行业通用实践"], ["第三方审计", "引入独立第三方审计", "行业通用实践"]]]]],
+ ["d18", "平台运营与生态治理", "Platform Ops & Governance", "成熟", "多租户运营、参与方准入与生态规则", [["平台运营", [["租户管理", "多租户隔离与管理", "行业通用实践"], ["资源运营", "计算存储资源运营", "行业通用实践"], ["工单支持", "运营工单支持", "行业通用实践"], ["用户运营", "用户活跃与培训", "行业通用实践"]]], ["生态治理", [["参与方准入", "数据提供方需求方准入", "行业通用实践"], ["信誉体系", "参与方信誉评分", "行业通用实践"], ["规则治理", "流通规则与争议规则", "行业通用实践"], ["激励政策", "生态参与激励", "行业通用实践"]]], ["标准与协同", [["标准对接", "对接行业数据标准", "行业通用实践"], ["跨域协同", "跨机构跨域协同", "行业通用实践"], ["政策研究", "数据要素政策研究", "行业通用实践"], ["生态监测", "生态健康度监测", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["企业数据资产目录建设", "live", "大型企业已建数据目录", "机会：资产编目平台"],
+ ["隐私计算金融风控", "live", "银行间联合风控试点成熟", "机会：隐私计算SaaS"],
+ ["公共数据授权运营", "live", "多地公共数据授权运营", "机会：授权运营中台"],
+ ["数据分类分级落地", "live", "政企已开展分级", "机会：分级工具"],
+ ["数据安全访问控制", "live", "访问控制已成基线", "机会：安全中台"],
+ ["数据交易所挂牌", "live", "贵阳等交易所常态化", "机会：流通服务"],
+ ["数据质量治理", "live", "质量检核已运行", "机会：质量平台"],
+ ["数据血缘解析", "live", "血缘图谱已可用", "机会：血缘平台"],
+ ["数据资产入表试点", "pilot", "企业入表试点推进", "机会：入表支撑"],
+ ["数据沙箱开放", "pilot", "政务沙箱开放试点", "机会：安全沙箱"],
+ ["联邦学习医疗科研", "pilot", "多院联合科研试点", "机会：科研协作"],
+ ["数据API市场", "pilot", "内部API市场试点", "机会：产品市场"],
+ ["跨境可信流通", "pilot", "跨境试点探索", "机会：跨境通道"],
+ ["智能数据发现", "pilot", "AI编目试点", "机会：智能目录"],
+ ["数据确权登记", "pilot", "确权平台试点", "机会：确权服务"],
+ ["可信数据空间", "pilot", "行业可信空间试点", "机会：空间平台"],
+ ["数据要素xAI训练", "explore", "探索合规训练数据供给", "机会：数据供给"],
+ ["隐私计算加区块链", "explore", "探索隐私与存证结合", "机会：可信流通"],
+ ["AI自动分类分级", "explore", "探索大模型自动定级", "机会：智能分级"],
+ ["数据价值实时估值", "explore", "探索动态估值", "机会：估值引擎"],
+ ["数据护照与跨境互认", "explore", "探索数据护照标准", "机会：跨境互认"],
+ ["去中心化数据市场", "explore", "探索去中心化交易", "机会：数据市场"],
+ ["数据脱敏合成数据", "explore", "探索合成数据流通", "机会：合成数据"],
+ ["数据信托治理", "explore", "探索数据信托模式", "机会：治理框架"]
+];
+const MIDS = [
+ ["数据资产中心", "负责资产登记与目录", "登记、编目、检索"],
+ ["确权权益中心", "负责权属与授权", "确权、授权、存证"],
+ ["分类分级中心", "负责数据定级", "分类、定级、管控"],
+ ["主数据元数据中心", "负责标准与主数据", "建模、清洗、分发"],
+ ["隐私计算中心", "负责联邦与密算", "联邦、MPC、TEE"],
+ ["可信流通中心", "负责交换与交易", "交换、撮合、监管"],
+ ["产品市场中心", "负责产品与API", "封装、上架、计量"],
+ ["沙箱计算中心", "负责安全计算环境", "隔离、可信、配额"],
+ ["血缘质量中心", "负责血缘与质量", "解析、检核、告警"],
+ ["入表支撑中心", "负责资产入表", "确认、计量、披露"],
+ ["智能发现中心", "负责发现与推荐", "检索、编目、推荐"],
+ ["合规监测中心", "负责合规与预警", "扫描、预警、处置"],
+ ["价值评估中心", "负责估值与运营", "估值、分析、决策"],
+ ["出境合规中心", "负责跨境流通", "评估、申报、监测"],
+ ["安全访问中心", "负责安全与权限", "认证、授权、防护"],
+ ["审计存证中心", "负责审计与存证", "审计、上链、确权"],
+ ["平台运营中心", "负责运营与租户", "租户、资源、支持"],
+ ["生态治理中心", "负责标准与生态", "准入、信誉、规则"]
+];
+const RULES = [
+ ["数据须最小必要采集", "过度采集违反个人信息保护法"],
+ ["重要数据须境内存储", "违规出境承担法律责任"],
+ ["隐私计算须可验证", "不可验证则结果不可信"],
+ ["权属须清晰界定", "权属不清致交易无效纠纷"],
+ ["流通须可用不可见", "原始数据出域即失控"],
+ ["出境须安全评估", "未经评估出境违规"],
+ ["访问须最小权限", "过度授权致泄露"],
+ ["存证须不可篡改", "可篡改则举证无效"],
+ ["分类分级须落地", "不落地则管控无依据"],
+ ["入表须准则对齐", "不对齐致财务不实"],
+ ["交易须合规审查", "未审查致违规流通"],
+ ["沙箱须隔离销毁", "不销毁致数据残留"],
+ ["跨境须接收方管理", "无管理致境外滥用"],
+ ["质量须可持续", "一次性治理后退化"],
+ ["密钥须集中管理", "分散管理致失控"],
+ ["平台须可审计", "不可审计丧失信任"]
+];
+const KPIS = [
+ ["资产规模", "资产数量、覆盖率、活跃率"],
+ ["质量水平", "完整性准确性及时性合格率"],
+ ["流通效率", "流通笔数、时效、成功率"],
+ ["合规水平", "合规率、预警处置率"],
+ ["安全事件", "泄露次数、越权次数"],
+ ["价值产出", "资产利用率、收益"],
+ ["入表进展", "入表资产数、估值总额"],
+ ["运营健康", "平台可用性与满意度"]
+];
+const LIC_CN = [
+ ["数据安全法及分类分级", "可开展数据治理", "重要数据须境内存储"],
+ ["个人信息保护法", "可依法处理个人信息", "最小必要并授权"],
+ ["数据出境安全评估办法", "跨境须评估或标准合同", "未经评估不得出境"],
+ ["个人信息出境标准合同办法", "可签标准合同出境", "须备案与评估"],
+ ["数据要素市场化配置改革（数据二十条）", "可探索授权运营", "须合规流通"],
+ ["公共数据授权运营相关要求", "可开展授权运营", "须明确运营边界"],
+ ["网络安全法及等保", "系统须过等保", "未过等保不得上线"],
+ ["商用密码管理条例", "可使用商密", "须合规使用"],
+ ["数据知识产权登记试点", "可登记数据知识产权", "须确权清晰"],
+ ["企业数据资源入表相关规定", "可支撑数据资产入表", "须准则对齐"],
+ ["个人信息安全规范 GB/T 35273", "可落实安全要求", "须合规处理"],
+ ["征信业管理条例（如涉及）", "涉信用须持牌", "不得违规采集"],
+ ["反垄断与公平竞争：反垄断法", "须公平接入", "不得滥用地位"],
+ ["司法区块链存证规则", "可对接司法存证", "须合规取证"],
+ ["行业数据监管（金融医疗等）", "须满足行业要求", "不得跨规使用"]
+];
+const LIC_INTL = [
+ ["EU GDPR：欧盟通用数据保护条例", "涉欧须合规处理", "须充分性认定或SCC"],
+ ["EU Data Act：欧盟数据法案", "可参与数据空间", "须权利义务合规"],
+ ["US state privacy：美国州隐私法（CCPA等）", "可合规开展", "须披露与选择权"],
+ ["APEC CBPR等跨境框架", "可跨境认证流通", "须加入框架"],
+ ["ISO 38505数据治理标准", "可对标治理", "须体系认证"],
+ ["EU-US DPF数据隐私框架", "可合规对欧传输", "须认证"],
+ ["Gaia-X数据空间", "可参与可信空间", "须互操作合规"],
+ ["行业监管（Basel/HIPAA等）", "涉行业须持牌", "须行业合规"]
+];
+const OPPS = [
+ ["数据资产编目", "资产分散难管理", "智能编目平台"],
+ ["隐私计算即服务", "联合计算门槛高", "隐私计算SaaS"],
+ ["数据资产入表", "入表无支撑", "入表支撑系统"],
+ ["公共数据授权运营", "公共数据难活化", "授权运营中台"],
+ ["数据API市场", "数据流通低效", "产品市场"],
+ ["智能分类分级", "定级靠人工", "自动分级"],
+ ["跨境可信流通", "跨境合规难", "可信通道"],
+ ["数据沙箱", "外部分析怕泄露", "安全沙箱"],
+ ["数据确权登记", "权属不清", "确权服务"],
+ ["数据质量治理", "质量不稳", "质量平台"],
+ ["合规出境管理", "出境风险高", "出境合规"],
+ ["价值评估", "价值说不清", "估值引擎"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：隐私计算 / 血缘 / 数据分级 / 存证`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

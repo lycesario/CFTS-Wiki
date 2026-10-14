@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能链上链下管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能链上链下管理平台全景</b>
+    <span>智能链上链下管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能链上链下管理平台产品功能全景图谱</h1>
+    <p>把「智能链上链下管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手是:链下数据能否以去中心化、抗操纵且可验证的方式被链上合约信任——信任的确定性,而非功能的数量。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单,而是一条主线:把物理世界与链下系统的可信数据,变成链上合约可以无条件信任的输入。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据接入与基座</td><td>数据源接入、清洗标准化、链上存证、RPC 多链连接、数据可用性</td><td>这一层是信任的原料车间,决定进入网络的数据是否干净、可控、可检索</td></tr>
+<tr><td>第二层（d6–d9）：预言机网络核心</td><td>节点运营、价格喂送、可验证随机数、跨链消息</td><td>这一层是把原料变成链上可信事实的执行网络,是产品的价值心脏</td></tr>
+<tr><td>第三层（d10–d14）：智能与决策</td><td>链下可验证计算、证明生成、聚合共识、异常检测、TEE</td><td>这一层解决信任最小化与抗操纵,决定网络是否经得起攻击与质疑</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>数据源 SLA 监控、预言机治理激励、安全应急、合规隐私</td><td>这一层是长期可信的运营保障,决定网络能否持续、合规、可被问责</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断:①数据必须先可验证再上链;②节点必须先去相关再入网;③合规边界必须先冻结再对客。</div>
+    <div class="danger">死亡陷阱:把「喂送上线」当成成功信号——真正信号是极端行情下价格未被操纵、未被延迟、未被回滚。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准:能否在不引入新信任假设的前提下,降低现有信任成本。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>预言机喂送</td><td>链上合约读取的外部价格或数据</td><td>写错会让清算与借贷以错误价格执行,造成连锁坏账</td></tr>
+<tr><td>数据源</td><td>喂送的原始输入方</td><td>写错会让整个网络建立在污染原料上</td></tr>
+<tr><td>聚合结果</td><td>多节点返回的中位数或加权值</td><td>写错会让抗操纵设计形同虚设</td></tr>
+<tr><td>证明</td><td>数据或计算的可验证凭证</td><td>写错会让信任最小化退化为盲目信任</td></tr>
+<tr><td>SLA</td><td>数据源与喂送的可用性与延迟承诺</td><td>写错会让故障无感、损失无声</td></tr>
+<tr><td>跨链消息</td><td>异构链间传递的状态</td><td>写错会让资产在跨链中丢失或被重放</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域的监管域组合:区块链信息服务备案、数据安全与跨境、密码合规、反洗钱,以及虚拟货币相关业务活动限制在此交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线:①境内不得提供加密货币交易价格用于引导交易;②不得发行或销售代币融资;③数据跨境须先评估再传输。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步:选定一个场景做穿(如联盟链存证)</li><li>第二步:建立可举证的基线(数据哈希上链可验)</li><li>第三步:跑通最短闭环(数据源到存证出证)</li><li>第四步:补第二个增值能力(数据质量监控)</li><li>第五步:把承诺写进合同(数据源 SLA 报表)</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A:境内联盟链存证(司法/供应链)</li><li>路径 B:境外持牌价格喂送服务</li><li>路径 C:跨链消息层(机构联盟链互联)</li><li>路径 D:可验证计算协处理器</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点:第一资产都是「可被验证的链下数据信任」。</div>
+  </section>
+
+  <footer>
+    <p>智能链上链下管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览中枢"],
+ ["s1", "数据接入区"],
+ ["s2", "存证与链上区"],
+ ["s3", "预言机网络区"],
+ ["s4", "喂送服务区"],
+ ["s5", "跨链枢纽"],
+ ["s6", "计算与验证区"],
+ ["s7", "质量监控区"],
+ ["s8", "治理激励区"],
+ ["s9", "合规安全区"]
+];
+const PLAYERS = [
+ ["去中心化预言机网络", "Chainlink / Pyth / Band Protocol", "联盟链存证预言机（蚂蚁链、FISCO BCOS 生态）", "将链下高可信数据以去中心化方式送达链上合约"],
+ ["价格喂送即服务", "Pyth Network / Chainlink Feeds", "交易所行情合规接入（持牌行情商）", "低延迟资产价格喂送到链上合约"],
+ ["跨链消息协议", "LayerZero / Axelar / Wormhole", "跨机构联盟链互联", "异构链间安全传递消息与资产状态"],
+ ["可验证随机数服务", "Chainlink VRF", "联盟链抽奖与摇号存证", "提供可证明公平且不可预测的随机数"],
+ ["链下可验证计算", "HyperOracle / RISC Zero / Succinct", "隐私计算加区块链存证", "重计算链下执行并附可验证证明"],
+ ["数据可用性层", "Celestia / EigenDA / Arweave", "政务与司法数据可用层", "以冗余与证明保障链下数据可检索"]
+];
+const DOMAINS = [
+ ["d1", "数据源接入与适配", "Data Source Ingestion", "核心", "对接交易所、开放 API、物联网与传统系统的多源数据接入、鉴权与格式适配", [["API 接入网关", [["REST/WebSocket 多协议接入", "统一鉴权与限流,单源故障不影响整体", "Chainlink External Adapter"], ["交易所行情接入", "直连主流交易所匹配引擎,降低中间延迟", "Pyth Network"], ["物联网数据流接入", "设备签名上报,边缘网关做首道校验", "Helium / IOTA"], ["数据源健康探测", "周期性探活与延迟统计,异常自动降级", "Datadog"]]], ["数据格式标准化", [["统一数据模型", "将异构 JSON/CSV 映射为规范 Schema", "行业通用实践"], ["单位与精度归一", "价格统一 quote 币种与小数位", "Pyth"], ["时区与时间戳对齐", "统一 UTC 与纳秒级打点", "行业通用实践"], ["枚举与代码映射", "交易对与 Symbol 标准化字典", "行业通用实践"]]], ["数据源治理", [["数据源白名单", "仅白名单源可入网,变更需审批", "Chainlink DON"], ["来源信誉评分", "按延迟、偏差、可用性打分", "API3"], ["多源交叉校验", "同源多节点与异源对比", "Band Protocol"], ["数据源替换热更新", "不停服切换备用源", "行业通用实践"]]]]],
+ ["d2", "数据清洗与标准化", "Data Normalization", "核心", "去噪、去重、插值与异常修正,保障入网数据一致可信", [["去噪与插补", [["异常值剔除", "基于统计阈值与历史分布剔除离群", "行业通用实践"], ["缺失数据插补", "线性或同源插值并标注置信", "DIA"], ["重复上报合并", "同时间戳多源去重", "行业通用实践"], ["滑点修正", "按成交量加权修正瞬时滑点", "Pyth"]]], ["时间序列对齐", [["统一采样频率", "按业务需求重采样", "行业通用实践"], ["时序回放", "支持历史时点重建", "The Graph"], ["对齐窗口", "定义可接受时间漂移窗口", "行业通用实践"], ["时钟漂移补偿", "节点间时钟同步补偿", "行业通用实践"]]], ["数据质量基线", [["质量分计算", "按完整性、及时性计分", "行业通用实践"], ["质量报告", "周期性生成数据质量报告", "Chainlink"], ["质量阈值熔断", "低于阈值暂停喂送", "行业通用实践"], ["偏差告警", "偏离基线自动告警", "行业通用实践"]]]]],
+ ["d3", "链上存证与数据上链", "On-chain Attestation", "成熟", "将链下关键数据与事件以哈希存证形式上链,支撑可信溯源", [["存证哈希锚定", [["数据哈希上链", "原始数据链下,哈希与主键上链", "蚂蚁链 / FISCO BCOS"], ["时间戳服务", "对接权威时间源做可信时间戳", "行业通用实践"], ["批量锚定", "多记录 Merkle 树批量上链降本", "行业通用实践"], ["存证检索", "按主键或时间段检索存证", "行业通用实践"]]], ["结构化存证", [["存证模板", "业务模板定义存证字段", "联盟链存证服务"], ["电子合同上链", "合同哈希与签署态存证", "司法存证链"], ["知识产权存证", "原创内容哈希确权", "行业通用实践"], ["存证出证", "一键生成可被验证的证明", "司法区块链"]]], ["上链适配", [["多链存证路由", "按成本与合规选链", "行业通用实践"], ["Gas 优化上链", "合并交易降低 Gas", "行业通用实践"], ["链上校验接口", "合约内验证存证真伪", "行业通用实践"], ["跨链存证同步", "存证摘要跨链复制", "行业通用实践"]]]]],
+ ["d4", "RPC 节点适配与多链连接", "RPC & Multi-chain Connectivity", "核心", "统一管理与多链的 RPC/节点连接,保障读取与广播稳定", [["多链 RPC 网关", [["多节点负载均衡", "同链多节点轮询与故障转移", "Infura / Alchemy"], ["自动故障转移", "节点不可达秒级切换", "行业通用实践"], ["请求缓存", "只读请求边缘缓存降载", "行业通用实践"], ["私有节点托管", "自建归档节点保障可控", "行业通用实践"]]], ["链适配层", [["链抽象适配", "屏蔽 EVM 与非 EVM 差异", "LI.FI"], ["区块确认策略", "按资产设定确认数", "行业通用实践"], ["交易构造", "按链规范构造签名交易", "行业通用实践"], ["回执解析", "统一解析回执与事件", "行业通用实践"]]], ["连接治理", [["连接配额管理", "按优先级分配 RPC 配额", "行业通用实践"], ["限流与熔断", "异常流量熔断保护", "行业通用实践"], ["节点健康度看板", "各链节点延迟与成功率", "行业通用实践"], ["区域就近接入", "按用户区域就近路由", "行业通用实践"]]]]],
+ ["d5", "数据可用性保障", "Data Availability", "成长", "通过冗余存储与可用性证明,保障链下数据可检索可验证", [["数据冗余存储", [["多副本存储", "跨区多副本保障可用", "IPFS / Arweave"], ["冷热分层", "热数据缓存近线", "行业通用实践"], ["去重存储", "内容寻址去重", "IPFS"], ["生命周期管理", "低频数据归档", "行业通用实践"]]], ["可用性证明", [["数据可用性采样", "轻节点采样验证可用", "Celestia / EigenDA"], ["承诺与证明", "发布数据承诺供验证", "行业通用实践"], ["挑战期机制", "不可用时可挑战", "行业通用实践"], ["可用性监控", "持续探测数据可获取", "行业通用实践"]]], ["检索与交付", [["内容寻址检索", "按 CID 检索内容", "IPFS"], ["带宽计量", "按流量计费与限速", "行业通用实践"], ["私有通道交付", "授权用户专属通道", "行业通用实践"], ["交付审计", "记录交付与访问", "行业通用实践"]]]]],
+ ["d6", "预言机网络与节点运营", "Oracle Network & Node Operation", "核心", "去中心化节点的注册、调度、激励与安全运营", [["节点网络", [["节点注册与质押", "节点押金防作恶", "Chainlink"], ["节点调度编排", "按任务选节点集合", "行业通用实践"], ["节点地理分布", "跨地域降低共谋", "行业通用实践"], ["节点信誉系统", "按历史表现加权", "Chainlink"]]], ["喂送任务编排", [["任务订阅", "合约订阅指定喂送", "Chainlink Feed"], ["触发式更新", "偏差或心跳触发更新", "Pyth"], ["批量广播", "聚合后批量上链", "行业通用实践"], ["回执确认", "确认上链成功并重试", "行业通用实践"]]], ["节点运维", [["节点监控", "节点存活与延迟监控", "行业通用实践"], ["自动自愈", "异常节点自动重启或剔除", "行业通用实践"], ["版本灰度", "节点客户端灰度升级", "行业通用实践"], ["运维审计", "操作留痕", "行业通用实践"]]]]],
+ ["d7", "价格喂送服务", "Price Feed / Data Feed", "核心", "将资产价格以低延迟、抗操纵方式送达链上合约", [["聚合价格", [["多源加权聚合", "成交量加权中位数", "Chainlink Data Feeds"], ["异常源剔除", "偏离剔除再聚合", "Pyth"], ["TWAP 计算", "时间加权均价降操纵", "Uniswap TWAP"], ["跨所套利价差标注", "标注价差提示风险", "行业通用实践"]]], ["低延迟发布", [["拉模式喂送", "合约按需读取最新价", "Pyth Pull Oracle"], ["推模式更新", "偏差阈值自动推送", "Chainlink"], ["快照发布", "区块级价格快照", "行业通用实践"], ["更新频率档位", "按资产设定频率", "行业通用实践"]]], ["价格质量", [["偏差熔断", "价格突变超阈暂停", "行业通用实践"], ["流动性加权", "低流动性源降权", "Pyth"], ["回路检测", "检测价格环路异常", "行业通用实践"], ["价格回溯校验", "事后校验定价合理性", "行业通用实践"]]]]],
+ ["d8", "可验证随机数", "Verifiable Random Function", "成长", "为链上应用提供可证明公平、不可预测的随机数", [["VRF 生成", [["链上 VRF 验证", "证明与随机值一同上链可验", "Chainlink VRF"], ["密钥轮换", "周期性轮换 VRF 密钥", "行业通用实践"], ["请求-证明绑定", "随机值绑定请求防重放", "行业通用实践"], ["多源熵混合", "多熵源混合后证明", "行业通用实践"]]], ["随机性应用", [["公平抽奖", "游戏与营销公平抽选", "行业通用实践"], ["随机分片", "验证者随机分片", "行业通用实践"], ["NFT 铸造随机", "属性随机分配可证", "行业通用实践"], ["共识随机", "共识轮次随机选点", "行业通用实践"]]], ["安全与审计", [["熵源审计", "审计熵源充分性", "行业通用实践"], ["可复现验证", "第三方复现验证", "Chainlink VRF"], ["抗预测防护", "防前跑与预测", "行业通用实践"], ["密钥托管", "阈值签名托管私钥", "行业通用实践"]]]]],
+ ["d9", "跨链消息传递", "Cross-chain Messaging", "成长", "在异构链间安全传递消息与资产状态,支撑跨链互操作", [["消息中继", [["轻客户端验证", "源链轻客户端验证消息", "LayerZero / Axelar"], ["预言机加中继双保险", "分离验证与传递", "LayerZero"], ["消息去重", "防止重放跨链消息", "行业通用实践"], ["消息排序", "保证跨链顺序一致", "Axelar"]]], ["资产跨链", [["锁定-铸造", "源锁定目标铸造", "Wormhole"], ["流动性网络", "流动性池即时跨链", "Stargate / Across"], ["跨链额度风控", "设定单笔与日限额", "行业通用实践"], ["失败回滚", "跨链失败原路退回", "行业通用实践"]]], ["跨链治理", [["跨链消息审计", "全量消息可追溯", "行业通用实践"], ["中继者激励", "中继者经济激励", "行业通用实践"], ["跨链桥安全", "桥合约多重审计", "行业通用实践"], ["争端仲裁", "异常消息仲裁机制", "行业通用实践"]]]]],
+ ["d10", "链下计算与可验证计算", "Off-chain Compute & Verifiable Computation", "成长", "将重计算放到链下并以可验证方式回传,降低成本", [["链下协处理器", [["计算卸载", "将重计算移至链下", "HyperOracle / RISC Zero"], ["计算任务编排", "调度链下计算图", "行业通用实践"], ["输入可信获取", "计算输入来自预言机", "行业通用实践"], ["结果回传上链", "结果连同证明上链", "行业通用实践"]]], ["可验证计算", [["零知识证明计算", "zk 证明计算正确性", "RISC Zero / Succinct"], ["乐观验证", "挑战期可质疑结果", "行业通用实践"], ["TEE 证明", "enclave 出具证明", "行业通用实践"], ["计算证明校验", "链上校验证明", "行业通用实践"]]], ["计算治理", [["计算成本计量", "按复杂度计量计费", "行业通用实践"], ["计算审计", "计算过程可审计", "行业通用实践"], ["失败重试", "计算失败重试策略", "行业通用实践"], ["结果缓存", "相同计算复用结果", "行业通用实践"]]]]],
+ ["d11", "可验证性与证明生成", "Attestation & Proof Generation", "成长", "生成并校验数据/计算的可验证证明,支撑信任最小化", [["数据证明", [["数据来源签名", "数据源对数据签名", "行业通用实践"], ["TLS 证明", "证明 Web 数据未经篡改", "TLSNotary / DECO"], ["TEE 远程证明", "enclave 远程证明数据", "行业通用实践"], ["默克尔证明", "数据属集合的可证", "行业通用实践"]]], ["证明聚合", [["多证明合并", "聚合多源证明", "行业通用实践"], ["证明验证服务", "统一验证入口", "行业通用实践"], ["证明有效期", "设定证明时效", "行业通用实践"], ["证明撤销", "异常证明可撤销", "行业通用实践"]]], ["证明治理", [["证明方注册", "证明方需注册资质", "行业通用实践"], ["证明审计", "审计证明流程", "行业通用实践"], ["证明留存", "证明长期留存可查", "行业通用实践"], ["跨链证明", "证明跨链可用", "行业通用实践"]]]]],
+ ["d12", "数据聚合与共识算法", "Aggregation & Consensus", "核心", "多节点返回结果的聚合与抗操纵共识机制", [["聚合算法", [["中位数聚合", "抗极值的中位聚合", "Chainlink"], ["加权均值", "按信誉加权", "行业通用实践"], ["截尾均值", "去头尾再平均", "行业通用实践"], ["贝叶斯聚合", "不确定性建模聚合", "行业通用实践"]]], ["共识与门限", [["门限签名", "t-of-n 门限聚合", "Chainlink OCR"], ["拜占庭容错", "容错少数恶意节点", "行业通用实践"], ["提交-揭示", "防勾结的两阶段", "行业通用实践"], ["最终性确认", "聚合达最终性再上链", "行业通用实践"]]], ["抗操纵", [["节点去相关", "降低节点共谋", "行业通用实践"], ["闪烁检测", "检测协同偏离", "行业通用实践"], ["经济惩罚", "作恶罚没质押", "Chainlink"], ["异常隔离", "异常节点结果隔离", "行业通用实践"]]]]],
+ ["d13", "异常检测与数据质量", "Anomaly Detection & Data Quality", "成长", "实时监测数据异常、操纵迹象与质量退化", [["异常监测", [["价格闪崩检测", "检测瞬时异常波动", "行业通用实践"], ["横截面偏离", "跨源偏差告警", "行业通用实践"], ["交易量异动", "异常成交量提示", "行业通用实践"], ["时序突变", "时序结构性突变", "行业通用实践"]]], ["操纵识别", [["洗售检测", "识别虚假交易量", "Chainalysis / 行业通用实践"], ["预言机操纵监测", "监测针对预言机的攻击", "行业通用实践"], ["幽灵流动性", "识别虚假深度", "行业通用实践"], ["跨市场联动", "异常联动提示共谋", "行业通用实践"]]], ["质量改进", [["质量看板", "数据源质量可视化", "行业通用实践"], ["自动降权", "劣质源自动降权", "行业通用实践"], ["人工复核流", "异常转人工复核", "行业通用实践"], ["质量回溯", "历史质量问题回溯", "行业通用实践"]]]]],
+ ["d14", "可信执行环境 TEE", "Trusted Execution Environment", "成长", "以硬件可信执行环境保障数据机密与计算可信", [["enclave 运行", [["机密计算", "数据在 enclave 内处理", "行业通用实践"], ["远程证明", "验证 enclave 真实性", "行业通用实践"], ["密钥保护", "密钥不出 enclave", "行业通用实践"], ["防篡改", "运行时防篡改", "行业通用实践"]]], ["数据保密", [["私有数据喂送", "加密数据可验证喂送", "行业通用实践"], ["选择性披露", "仅披露必要结果", "行业通用实践"], ["密文聚合", "密文下聚合", "行业通用实践"], ["密钥轮换", "周期轮换加密密钥", "行业通用实践"]]], ["运维治理", [["硬件清单", "维护可信硬件清单", "行业通用实践"], ["漏洞响应", "硬件漏洞应急", "行业通用实践"], ["审计合规", "满足安全审计", "行业通用实践"], ["退役擦除", "设备退役安全擦除", "行业通用实践"]]]]],
+ ["d15", "数据源 SLA 与监控", "Data Source SLA & Monitoring", "成长", "对数据源与喂送链路定义 SLA 并持续监控告警", [["SLA 定义", [["可用性 SLA", "定义可用性目标如 99.9%", "行业通用实践"], ["延迟 SLA", "定义端到端延迟上限", "行业通用实践"], ["准确性 SLA", "定义偏差容忍度", "行业通用实践"], ["覆盖 SLA", "定义资产覆盖要求", "行业通用实践"]]], ["监控告警", [["全链路埋点", "各段埋点监控", "Datadog"], ["多维告警", "按 SLA 触发分级告警", "行业通用实践"], ["仪表盘", "实时运营仪表盘", "Grafana"], ["根因定位", "异常快速定位", "行业通用实践"]]], ["履约评估", [["SLA 报表", "周期生成履约报表", "行业通用实践"], ["违约处理", "违约源处置流程", "行业通用实践"], ["奖惩机制", "按 SLA 奖惩节点", "行业通用实践"], ["持续改进", "基于数据优化 SLA", "行业通用实践"]]]]],
+ ["d16", "预言机治理与节点激励", "Oracle Governance & Node Incentives", "核心", "通过治理与激励维持网络去中心化与安全", [["治理机制", [["参数治理", "社区治理关键参数", "Chainlink"], ["提案投票", "节点或持币者提案投票", "行业通用实践"], ["治理金库", "金库支撑生态激励", "行业通用实践"], ["紧急暂停", "极端情况暂停喂送", "行业通用实践"]]], ["激励设计", [["喂送奖励", "节点按贡献获奖励", "Chainlink"], ["质押收益", "质押获得收益", "行业通用实践"], ["罚没机制", "作恶罚没", "Chainlink"], ["委托质押", "用户委托节点质押", "行业通用实践"]]], ["网络健康", [["去中心化度监测", "监测节点集中度", "行业通用实践"], ["女巫抵抗", "抵抗女巫攻击", "行业通用实践"], ["准入治理", "节点准入标准", "行业通用实践"], ["退出机制", "节点有序退出", "行业通用实践"]]]]],
+ ["d17", "安全审计与应急", "Security Audit & Incident Response", "核心", "保障网络持续安全并具备快速应急响应能力", [["安全审计", [["合约审计", "喂送合约多轮审计", "行业通用实践"], ["节点安全基线", "节点安全配置基线", "行业通用实践"], ["渗透测试", "定期渗透测试", "行业通用实践"], ["密钥管理审计", "审计密钥使用", "行业通用实践"]]], ["应急机制", [["熔断开关", "异常触发全局熔断", "行业通用实践"], ["紧急更新", "快速发布修复", "行业通用实践"], ["事件复盘", "事后复盘改进", "行业通用实践"], ["演练机制", "定期应急演练", "行业通用实践"]]], ["威胁情报", [["攻击监测", "监测针对预言机攻击", "行业通用实践"], ["漏洞披露", "负责任披露流程", "行业通用实践"], ["情报共享", "行业威胁情报共享", "行业通用实践"], ["黑名单", "恶意地址黑名单", "Chainalysis"]]]]],
+ ["d18", "合规与隐私", "Compliance & Privacy", "成长", "在监管边界内开展业务,保护数据隐私", [["合规框架", [["境外持牌对接", "面向境外持牌市场", "行业通用实践"], ["境内联盟链场景", "境内仅限联盟链与存证", "行业通用实践"], ["数据合规", "遵守数据跨境与个保法", "行业通用实践"], ["反洗钱配合", "配合 AML 要求", "行业通用实践"]]], ["隐私保护", [["数据最小化", "仅采集必要数据", "行业通用实践"], ["加密传输", "全程加密传输", "行业通用实践"], ["访问控制", "细粒度访问控制", "行业通用实践"], ["留存期限", "数据留存合规期限", "行业通用实践"]]], ["审计留痕", [["操作留痕", "全操作可追溯", "行业通用实践"], ["合规报告", "生成合规报表", "行业通用实践"], ["监管报送", "按要求报送", "行业通用实践"], ["第三方审计", "接受独立审计", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["聚合价格喂送规模化", "live", "已成主流基础设施", "为多链多资产提供标准化价格喂送"],
+ ["拉模式预言机", "live", "Pyth 验证低 Gas 高效", "推向更多 L2 与 Appchain"],
+ ["链上存证司法应用", "live", "司法区块链已落地", "拓展至供应链与知产存证"],
+ ["跨链桥流动性网络", "live", "Stargate 等已运行", "覆盖更多资产与链"],
+ ["VRF 游戏与营销", "live", "已规模化使用", "拓展至合规抽奖摇号"],
+ ["多节点去中心化网络", "live", "节点经济成熟", "提升地理与客户端多样性"],
+ ["TEE 机密喂送", "live", "硬件可信渐成熟", "用于私有数据喂送"],
+ ["数据质量监控", "live", "可观测性成熟", "标准化 SLA 报表"],
+ ["zk 可验证计算协处理器", "pilot", "zk 协处理器在测试网", "主网化与成本下降"],
+ ["去中心化数据源市场", "pilot", "API3 dAPI 探索中", "扩大数据源去中心化"],
+ ["意图导向跨链", "pilot", "基于意图路由试点", "提升跨链体验"],
+ ["链下机器学习推理", "pilot", "可验证 ML 推理试点", "风控与定价模型上链"],
+ ["实时数据流预言机", "pilot", "高频数据试点", "低延迟金融市场数据"],
+ ["多证明聚合验证", "pilot", "多证明源聚合", "统一验证入口"],
+ ["动态 SLA 保险", "pilot", "喂送保险试点", "对 SLA 违约承保"],
+ ["抗女巫节点准入", "pilot", "身份证明试点", "提升网络抗共谋"],
+ ["全链可验证 AI 预言机", "explore", "研究阶段", "可信 AI 输出上链"],
+ ["量子安全预言机", "explore", "前瞻研究", "抗量子签名"],
+ ["去中心化物理基础设施数据", "explore", "DePIN 探索", "物联网数据货币化"],
+ ["链间共享流动性预言机", "explore", "构想阶段", "跨链统一流动性视图"],
+ ["零知识隐私喂送", "explore", "研究阶段", "隐藏交易方隐私喂送"],
+ ["自治预言机代理", "explore", "研究阶段", "AI 调度喂送任务"],
+ ["可验证碳数据预言机", "explore", "ESG 探索", "碳排数据可信上链"],
+ ["跨域身份预言机", "explore", "研究阶段", "可验证身份属性喂送"]
+];
+const MIDS = [
+ ["数据接入中心", "对接与适配多源数据", "多协议接入、鉴权、格式归一"],
+ ["数据治理中心", "清洗与质量基线", "去噪插补、质量计分"],
+ ["存证中心", "链上哈希锚定", "存证模板、出证、多链路由"],
+ ["连接中心", "多链 RPC 管理", "负载均衡、故障转移、链抽象"],
+ ["可用中心", "数据可用性保障", "冗余存储、可用性采样"],
+ ["节点运营中心", "预言机节点网络运营", "注册质押、调度、信誉"],
+ ["喂送中心", "价格喂送服务", "聚合、低延迟发布、质量熔断"],
+ ["随机中心", "可验证随机数", "VRF 生成验证、熵管理"],
+ ["跨链中心", "跨链消息传递", "轻客户端验证、资产跨链、风控"],
+ ["计算中心", "链下可验证计算", "计算卸载、证明生成、校验"],
+ ["证明中心", "可验证性证明", "数据/计算证明、聚合验证"],
+ ["共识中心", "聚合与共识", "聚合算法、门限签名、抗操纵"],
+ ["质检中心", "异常与质量监测", "异常检测、操纵识别、质量改进"],
+ ["机密中心", "TEE 可信执行", "enclave 运行、保密、运维"],
+ ["SLA 中心", "数据源 SLA 与监控", "SLA 定义、告警、履约评估"],
+ ["治理中心", "预言机治理激励", "参数治理、激励、网络健康"],
+ ["安全中心", "安全审计应急", "审计、应急、威胁情报"],
+ ["合规中心", "合规与隐私", "合规框架、隐私、审计留痕"]
+];
+const RULES = [
+ ["单一数据源即单点故障", "一旦源被攻陷或出错,全链依赖被污染"],
+ ["价格预言机可被闪电贷操纵", "借巨资拉抬现货价即可撬动借贷清算"],
+ ["聚合节点共谋可扭曲结果", "节点若同控可伪造多数意见"],
+ ["未验证数据上链不可逆", "错误数据上链后难以回滚且已触发清算"],
+ ["跨链桥合约是高频被攻击面", "历史上最大额损失多来自桥"],
+ ["喂送延迟在极端行情致命", "价格滞后导致坏账与连环清算"],
+ ["VRF 密钥泄露即随机可被预测", "抽奖或分片可被前跑"],
+ ["节点集中度过高背离去中心化", "实质中心化易被监管与攻击"],
+ ["TEE 硬件漏洞可破机密性", "enclave 被攻破则数据泄露"],
+ ["缺乏 SLA 与监控则故障无感", "问题发现晚于损失发生"],
+ ["证明过期未校验导致信任失效", "旧证明被复用造成错误决策"],
+ ["境外业务须持牌,境内禁代币融资", "违反即构成非法金融活动"],
+ ["密钥单点保管风险", "私钥丢失或被盗即失控"],
+ ["数据跨境须合规", "违规跨境传输面临法律处罚"],
+ ["缺乏紧急熔断则错误放大", "小错经合约自动传播成系统性"],
+ ["未做女巫抵抗则网络可伪造", "虚假节点稀释诚实多数"]
+];
+const KPIS = [
+ ["数据延迟", "端到端从源到链上确认时延"],
+ ["数据可用性", "喂送服务可用率与覆盖资产数"],
+ ["数据准确性", "与多源基准偏差的中位数"],
+ ["节点去中心化度", "节点地理与运营方分散度"],
+ ["错误率", "异常与失败喂送占比"],
+ ["抗操纵指标", "异常波动与操纵事件数"],
+ ["成本效率", "单次喂送 Gas 与运维成本"],
+ ["合规覆盖率", "合规场景与审计覆盖比例"]
+];
+const LIC_CN = [
+ ["九部委《关于进一步防范和处置虚拟货币交易炒作风险的通知》明确相关业务属非法金融活动", "可开展联盟链存证、数据可信上链、面向境外的合规数据服务(境内不涉代币)", "不得提供加密货币交易价格用于境内交易引导,不得代币发行融资"],
+ ["境内区块链信息服务需按《区块链信息服务管理规定》备案", "可开展备案后存证与数据服务", "未履行备案不得上线"],
+ ["数据安全法要求重要数据出境安全评估", "可开展境内数据境内处理", "数据跨境须评估与授权"],
+ ["个人信息保护法要求个保影响评估与最小化", "可开展去标识数据接入", "不得超范围采集个人数据"],
+ ["密码法要求商用密码合规使用", "可开展合规加密与签名", "须用合规密码产品"],
+ ["金融数据安全分级指引", "可开展金融机构数据合规上链", "敏感金融数据须分级管控"],
+ ["禁止代币发行融资(ICO)及变相代币融资", "可开展无代币激励的联盟链治理", "不得发行或销售代币"],
+ ["网络安全等级保护要求", "可开展按等保建设系统", "未定级不得入网"],
+ ["司法存证须满足电子数据真实性要求", "可开展司法区块链存证", "存证须可被司法验证"],
+ ["数据出境须符合安全评估或标准合同", "可开展经评估的跨境数据服务", "未评估不得出境"],
+ ["关键信息基础设施保护要求", "可开展关键系统合规建设", "须通过安全审查"],
+ ["反洗钱法要求可疑交易报送", "可开展配合 AML 的数据留痕", "涉加密货币 AML 业务受限"],
+ ["联盟链须明确运营主体与责任", "可开展有主体的联盟链治理", "匿名无主体不可运营"],
+ ["智能合约安全须审计", "可开展审计后上线合约", "未审计高风险合约不得上生产"],
+ ["数字经济相关数据安全要求", "可开展合规数据要素流通", "不得用于炒作虚拟货币"]
+];
+const LIC_INTL = [
+ ["境外需取得相应货币或支付类牌照方可服务当地市场", "可开展面向持牌机构的预言机与数据服务", "无牌不得面向公众"],
+ ["欧盟 MiCA 对加密资产服务有许可与披露要求", "可开展合规注册后服务欧盟客户", "须满足披露与储备要求"],
+ ["美国需根据活动取得货币传输或 MSB 注册", "可开展持牌州内提供服务", "跨州或联邦须相应注册"],
+ ["数据跨境须符合 GDPR 等要求", "可开展合规数据处理与传输", "须有合法传输依据"],
+ ["证券型代币相关须按所在国证券法", "可开展非证券类数据服务", "涉证券须注册"],
+ ["反洗钱须做 KYC 与可疑交易监测", "可开展对机构客户做 KYC", "匿名大规模服务受限"],
+ ["智能合约须满足当地消费者保护", "可开展透明条款与风险提示", "不得误导性收益表述"],
+ ["网络与数据安全须满足当地法规", "可开展本地化部署与审计", "须配合监管检查"]
+];
+const OPPS = [
+ ["境内联盟链存证刚需", "司法与供应链存证方案分散", "以标准化存证模板与出证切入"],
+ ["机构级数据 SLA 缺失", "多数喂送无明确 SLA 承保", "提供 SLA 报表加保险"],
+ ["跨链互操作性碎片化", "桥各自为战安全风险高", "以轻客户端验证统一消息层"],
+ ["zk 可验证计算早期", "主网成本高", "先在试运行网络打磨协处理器"],
+ ["私有数据喂送需求", "保密与可验证难兼顾", "TEE 加零知识组合方案"],
+ ["数据质量工具不足", "操纵识别能力弱", "异常与洗售检测产品化"],
+ ["合规跨境数据服务", "境内外合规衔接复杂", "以持牌境外主体做合规通道"],
+ ["预言机治理工具化", "参数治理依赖社区低效", "提供治理仪表盘与提案"],
+ ["节点运营托管", "自建节点门槛高", "节点运维 SaaS 化"],
+ ["实时金融数据预言机", "低频喂送难满足高频", "低延迟推送式喂送"],
+ ["抗操纵聚合算法", "简单中位仍可被操纵", "贝叶斯加截尾鲁棒聚合"],
+ ["可验证随机数普及", "仅游戏使用", "拓展至合规摇号与抽样"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：预言机 / 喂送 / 存证 / 跨链`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能加密货币管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能加密货币管理平台全景</b>
+    <span>智能加密货币管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能加密货币管理平台产品功能全景图谱</h1>
+    <p>把「智能加密货币管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。机构加密资产管理的胜负手不是「能存币」，而是能在合规框架下把托管、交易、风控、审计串成一条可举证的资金链路。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是一条从资产入账到监管报送的可举证信任链路。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据与资产基础</td><td>资产台账、链上数据接入、冷热钱包、密钥与MPC、资产估值</td><td>把分散在多链多地址的资产收敛成单一可信账本</td></tr>
+<tr><td>第二层（d6–d9）：核心业务</td><td>交易执行、做市接入、资金调拨、对账清算</td><td>在托管之上完成资产的流动与结算</td></tr>
+<tr><td>第三层（d10–d14）：智能与决策</td><td>风控引擎、链上合规KYT、投研分析、组合管理、财会报表</td><td>把流动转化为可度量、可解释、可报审的决策</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>审计留痕、安全应急、权限治理、合规法务</td><td>让整条链路经得起内外部审计与监管</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：①托管密钥体系必须先于任何客户资产存在；②链上数据源与行情源需先建立可校验基线；③合规口径（业务所在地持牌状态）必须先冻结。</div>
+    <div class="danger">死亡陷阱：把「支持的链和代币数量」当成成功信号——真正壁垒是被盗零容忍与监管可举证。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">前沿方向优先级：只有能降低合规成本或提升可举证性的方向才值得投入。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>托管钱包</td><td>以MPC/多签保管客户资产的密钥载体</td><td>写错会导致单点暴露与不可撤回损失</td></tr>
+<tr><td>资产台账</td><td>多链资产收敛后的唯一账本</td><td>写错会使账链长期不一致掩盖挪用</td></tr>
+<tr><td>KYT告警</td><td>对进出金资金做风险评分与告警</td><td>写错会放行洗钱资金承担连带责任</td></tr>
+<tr><td>多签策略</td><td>关键操作的多方审批与时间锁</td><td>写错会使单人可动用巨额资产</td></tr>
+<tr><td>估值快照</td><td>按方法学的资产公允价值时点</td><td>写错会扭曲净值与损益归属</td></tr>
+<tr><td>监管报送包</td><td>按属地生成的合规报表与证据</td><td>写错会导致监管处罚与牌照风险</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">监管域组合：支付/证券/反洗钱/数据跨境四域交汇，且必须尊重境内禁止性规定。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的红线：①境内不得开展加密交易与代币融资；②境外需持牌（VASP/MSB/MiCA）方可展业；③链上溯源证据需可被监管采信。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个境外持牌场景做穿（如机构托管）</li><li>第二步：建立可举证的密钥与对账基线</li><li>第三步：跑通最短闭环（入账—估值—对账）</li><li>第四步：补KYT/AML第二个增值能力</li><li>第五步：把合规承诺写进客户合同</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径A：境外机构托管+SaaS（客户与商业模式）</li><li>路径B：合规即服务（KYT/报送订阅）</li><li>路径C：联盟链存证（境内合规技术服务）</li><li>路径D：RWA托管接入（资产类别扩展）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：第一资产是可举证的托管信任。</div>
+  </section>
+
+  <footer>
+    <p>智能加密货币管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与图谱读法"],
+ ["s1", "平台形态图谱"],
+ ["s2", "功能域全景"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "运营中心"],
+ ["s6", "致命规则"],
+ ["s7", "监管与合规"],
+ ["s8", "成效指标"],
+ ["s9", "落地路径"]
+];
+const PLAYERS = [
+ ["机构托管平台", "Fireblocks / Coinbase Prime", "境内无直接对应（仅联盟链存证场景）", "为机构提供资产托管、策略执行与可举证账本"],
+ ["合规交易与经纪", "Kraken / Bitstamp", "境内禁止", "撮合、经纪与流动性接入"],
+ ["链上分析溯源", "Chainalysis / Elliptic", "境内合规存证与反洗钱辅助", "风险识别、资金溯源与合规举证"],
+ ["稳定币与支付", "Circle / Paxos", "数字人民币（不同监管范畴）", "价值稳定传输与结算"],
+ ["财会审计基建", "Lukka / Bitwave", "境内审计机构（法币侧）", "资产计量、税务与报表"],
+ ["受托保管与信托", "Copper / Fidelity Digital", "境内银行托管（法币侧）", "受托保管与隔离"]
+];
+const DOMAINS = [
+ ["d1", "资产台账", "Asset Ledger", "成熟", "建立多链多地址资产收敛为单一可信账本", [["多链资产登记", [["多链地址归集登记", "按链+地址+代币维度建立唯一资产台账并支持余额快照", "Fireblocks"], ["代币元数据标准化", "统一symbol/decimals/合约地址映射避免同名假币", "Coinbase Prime"], ["余额日终快照", "每日定时快照并与链上校验形成可审计基线", "行业通用实践"], ["历史余额回放", "支持按时间切片回放任意时点持仓", "行业通用实践"]]], ["持仓与成本", [["成本基础归集", "按批次/FIFO/LIFO记录成本支撑税务与估值", "Lukka"], ["公允市值标记", "以行情源标记公允价值并生成市值变动", "Chainalysis"], ["未实现损益核算", "自动计算未实现盈亏并分摊到组合", "Lukka"], ["持仓归因", "区分价格、资金流、费率对净值贡献", "行业通用实践"]]], ["账户与子账户", [["多主体子账户", "支持机构下多主体、多策略子账户隔离", "Coinbase Prime"], ["账户权限映射", "子账户与交易、提币权限绑定", "Fireblocks"], ["资金归属标记", "标记资金归属方与用途便于清分", "行业通用实践"], ["跨账户归集视图", "汇总集团层面总持仓与敞口", "行业通用实践"]]]]],
+ ["d2", "链上数据接入", "On-chain Data Ingestion", "成熟", "接入多链节点与索引服务形成可靠数据底座", [["节点与索引", [["多链全节点接入", "自建/托管节点保证数据主权与可用性", "Fireblocks"], ["区块索引与解析", "将原始交易解析为可读资产流", "Chainalysis"], ["交易确认策略", "按链设定确认数阈值避免重组风险", "行业通用实践"], ["回滚与重组处理", "监听重组事件并修正已入账数据", "行业通用实践"]]], ["行情与价格源", [["多源行情聚合", "聚合多家行情源并去噪", "Coinbase Prime"], ["价格异常检测", "识别闪崩与操纵性异常报价", "Chainalysis"], ["法币汇率映射", "维护代币对法币汇率基准", "Lukka"], ["快照时点对齐", "估值与交易时点严格对齐", "行业通用实践"]]], ["数据质量", [["数据完整性校验", "比对节点与索引一致性", "行业通用实践"], ["延迟监控", "监控数据接入端到端延迟", "行业通用实践"], ["缺失补偿", "断点续传与历史补数", "行业通用实践"], ["审计留痕", "记录数据来源与变更", "行业通用实践"]]]]],
+ ["d3", "冷热钱包管理", "Hot/Cold Wallet Management", "核心", "以冷热分离原则管理资产出/入金与签名", [["冷热分离", [["冷热分离架构", "大部分资产驻留冷库仅少量热钱包周转", "Fireblocks"], ["热钱包限额", "按策略设定热钱包余额上限与告警", "Coinbase Prime"], ["冷库物理隔离", "冷私钥离线保管与多地点备份", "Fireblocks"], ["提币审批流", "大额出金需多级审批与冷却期", "行业通用实践"]]], ["地址与UTXO", [["地址生命周期管理", "生成、归档与回收地址并防地址复用", "Fireblocks"], ["UTXO选币策略", "优化手续费与隐私的选币算法", "行业通用实践"], ["Gas代付与代管", "为代币操作代付原生币gas", "Coinbase Prime"], ["找零地址管控", "找零回笼至受控地址", "行业通用实践"]]], ["运维安全", [["双人操作", "关键操作需两名授权人协同", "Fireblocks"], ["操作录像", "记录签名操作全过程", "行业通用实践"], ["异常出金拦截", "命中规则自动冻结出金", "Chainalysis"], ["灾备恢复", "冷备损坏时按预案恢复", "行业通用实践"]]]]],
+ ["d4", "密钥与MPC管理", "Key & MPC Management", "核心", "以MPC/多签实现无单点私钥风险的密钥体系", [["MPC门限签名", [["MPC门限签名", "以阈值签名消除单点私钥暴露", "Fireblocks"], ["密钥分片托管", "分片分布多方避免单方掌控", "Fireblocks"], ["签名策略绑定", "签名需满足预设策略与审批", "Fireblocks"], ["密钥轮转", "定期轮换分片降低泄露风险", "行业通用实践"]]], ["多签与硬件", [["多签钱包支持", "兼容主流多签方案", "Coinbase Prime"], ["HSM硬件保护", "根密钥置于HSM安全区", "Fireblocks"], ["隔离执行环境", "签名在可信执行环境完成", "行业通用实践"], ["密钥销毁流程", "离职/退库的可审计销毁", "行业通用实践"]]], ["恢复与治理", [["分片恢复", "按法定人数恢复签名能力", "Fireblocks"], ["密钥使用审计", "记录每次密钥调用上下文", "行业通用实践"], ["权限分级", "密钥操作按角色分级", "行业通用实践"], ["合规留存", "密钥策略变更留存可查", "行业通用实践"]]]]],
+ ["d5", "资产估值与定价", "Asset Valuation & Pricing", "成长", "提供多_method估值与市值变动视图", [["定价方法", [["挂牌价估值", "以主流交易所挂牌价估值", "Chainalysis"], ["指数加权估值", "按流动性加权避免单一源偏差", "Lukka"], ["非流动折价", "对低流动资产应用折价因子", "行业通用实践"], ["成本与市价孰低", "按会计谨慎性原则取值", "Lukka"]]], ["净值计算", [["组合净值计算", "按子账户/组合计算净值", "Lukka"], ["复权处理", "处理分叉、空投与换币", "行业通用实践"], ["时点一致性", "估值时点与交易时点对齐", "行业通用实践"], ["估值异常告警", "价格跳变触发复核", "Chainalysis"]]], ["披露", [["估值报告", "生成可审计估值报告", "Lukka"], ["方法学披露", "披露所采用估值政策", "行业通用实践"], ["第三方核证", "引入独立估值核证", "行业通用实践"], ["留痕存证", "估值过程全留痕", "行业通用实践"]]]]],
+ ["d6", "交易执行", "Trade Execution", "核心", "在托管内完成安全的交易路由与执行", [["路由与撮合", [["智能订单路由", "跨场所寻最优执行价", "Coinbase Prime"], ["TWAP/VWAP执行", "大单拆单降低滑点", "行业通用实践"], ["暗池与RFQ", "大额通过RFQ减少市场冲击", "Fireblocks"], ["执行算法库", "内置多种执行算法可配", "行业通用实践"]]], ["风控前置", [["预交易校验", "下单前校验额度与黑白名单", "Fireblocks"], ["价格保护", "设滑点上限与限价", "Coinbase Prime"], ["对手方筛查", "交易对手KYT筛查", "Chainalysis"], ["限额管控", "按账户设日/笔限额", "行业通用实践"]]], ["成交与回执", [["成交回执", "回传链上txid与执行明细", "Coinbase Prime"], ["失败重试", "区分链上失败与网络失败", "行业通用实践"], ["执行凭证", "生成可举证执行证据", "Fireblocks"], ["对账钩子", "成交即时触发对账", "行业通用实践"]]]]],
+ ["d7", "做市与流动性接入", "Market Making & Liquidity", "成长", "对接做市商与流动性提供方", [["做市接入", [["做市商接入", "对接外部做市商API", "Fireblocks"], ["报价管理", "维护买卖报价与价差", "行业通用实践"], ["库存再平衡", "按目标库存自动再平衡", "行业通用实践"], ["损益归因", "做市损益独立核算", "Lukka"]]], ["流动性聚合", [["聚合订单簿", "聚合多场所深度", "Coinbase Prime"], ["流动性探测", "评估场所真实深度", "Chainalysis"], ["跨所套利护栏", "设合规与限额护栏", "行业通用实践"], ["滑点监控", "监控实际滑点偏离", "行业通用实践"]]], ["风险护栏", [["敞口上限", "做市总敞口设上限", "行业通用实践"], ["对手集中度", "限制单一对手占比", "行业通用实践"], ["异常撤单监控", "识别刷量行为", "Chainalysis"], ["熔断机制", "极端行情暂停做市", "行业通用实践"]]]]],
+ ["d8", "资金调拨与内部转账", "Fund Transfer & Internal Transfer", "核心", "在机构内部安全调拨与清分资产", [["内部调拨", [["子账户互转", "机构内子账户间快速调拨", "Coinbase Prime"], ["批量出金", "批量处理薪酬/结算出金", "Fireblocks"], ["调拨审批", "按金额分级审批", "行业通用实践"], ["调度队列", "错峰调度降低网络拥堵", "行业通用实践"]]], ["清分", [["收益清分", "按约定比例自动清分", "Lukka"], ["费用扣收", "自动扣收管理费与业绩报酬", "行业通用实践"], ["多币种结算", "支持多币种结算路径", "Coinbase Prime"], ["清分凭证", "生成清分可审计凭证", "行业通用实践"]]], ["对外支付", [["供应商付款", "向外部供应商链上付款", "Fireblocks"], ["薪酬发放", "批量薪酬发放", "行业通用实践"], ["合规筛查", "出金前做制裁与KYT筛查", "Chainalysis"], ["回执管理", "管理付款回执与状态", "行业通用实践"]]]]],
+ ["d9", "对账与清算", "Reconciliation & Settlement", "成熟", "保证账、链、交易三方一致", [["对账", [["账链对账", "台账余额与链上余额日终对账", "Lukka"], ["交易对账", "成交记录与链上tx逐笔核对", "Coinbase Prime"], ["差异处理", "差异自动挂账与人工复核", "行业通用实践"], ["跨系统对账", "与财务系统勾稽", "Lukka"]]], ["清算", [["净额清算", "多边头寸净额结算", "行业通用实践"], ["结算最终性", "确认链上结算不可撤销", "行业通用实践"], ["应计处理", "利息/费用的应计与确认", "Lukka"], ["账期关账", "按账期关账并锁定", "行业通用实践"]]], ["凭证", [["对账单", "生成客户对账单", "Lukka"], ["清算报告", "生成清算差异报告", "行业通用实践"], ["审计导出", "导出可导审计数据", "行业通用实践"], ["异常看板", "对账异常实时看板", "行业通用实践"]]]]],
+ ["d10", "风控引擎", "Risk Engine", "核心", "实时监测敞口、限额与异常行为", [["敞口与限额", [["实时敞口", "实时计算多维敞口", "Fireblocks"], ["限额引擎", "支持多维限额与硬熔断", "行业通用实践"], ["VaR测算", "按历史/蒙特卡洛测算风险价值", "行业通用实践"], ["压力测试", "情景压力测试组合韧性", "行业通用实践"]]], ["行为风控", [["异常行为识别", "识别偏离基线的操作行为", "Chainalysis"], ["频率限制", "限制高频同质操作", "行业通用实践"], ["地理风控", "按登录与签名地理异常拦截", "行业通用实践"], ["设备指纹", "绑定可信设备", "Fireblocks"]]], ["策略与处置", [["规则引擎", "可配置风险规则", "行业通用实践"], ["自动处置", "命中规则自动冻结/告警", "Fireblocks"], ["人工复核队列", "高风险转人工", "行业通用实践"], ["处置留痕", "风险处置全程留痕", "行业通用实践"]]]]],
+ ["d11", "链上合规监控KYT/AML", "On-chain Compliance KYT/AML", "核心", "以链上溯源与名单筛查满足反洗钱要求", [["链上溯源", [["资金来源追踪", "对入账资金做来源与混币检测", "Chainalysis"], ["风险评分", "按地址历史给风险评分", "Elliptic"], ["混币识别", "识别tumbler/混币路径", "Chainalysis"], ["制裁名单筛查", "对照OFAC等制裁名单", "Elliptic"]]], ["交易监控", [["实时KYT", "进出金实时KYT筛查", "Chainalysis"], ["可疑模式", "识别结构化拆分等可疑模式", "Elliptic"], ["阈值告警", "超阈值交易告警", "行业通用实践"], ["案例管理", "可疑交易案例化跟踪", "行业通用实践"]]], ["报告与举证", [["SAR报送辅助", "辅助生成可疑活动报告", "Elliptic"], ["溯源报告", "生成可举证链上溯源报告", "Chainalysis"], ["监管查证", "提供监管可查证证据包", "行业通用实践"], ["留痕存证", "合规动作全留痕", "行业通用实践"]]]]],
+ ["d12", "投研与行情分析", "Research & Market Analysis", "成长", "为决策提供行情与研究支持", [["行情研究", [["多周期K线", "提供多周期行情与指标", "Coinbase Prime"], ["链上指标", "提供活跃地址/巨鲸流向等指标", "Chainalysis"], ["相关性分析", "资产间相关性建模", "行业通用实践"], ["情绪指标", "聚合情绪与多源信号", "行业通用实践"]]], ["策略研究", [["回测框架", "对策略做历史回测", "行业通用实践"], ["信号库", "维护可复用研究信号", "行业通用实践"], ["因子分析", "多因子归因", "行业通用实践"], ["研究报告", "生成可分发研究报告", "行业通用实践"]]], ["数据服务", [["研究数据API", "对外提供研究数据", "行业通用实践"], ["订阅管理", "研究内容订阅与权限", "行业通用实践"], ["合规边界", "研究不构投资建议边界", "行业通用实践"], ["留存", "研究过程与来源留存", "行业通用实践"]]]]],
+ ["d13", "组合与头寸管理", "Portfolio & Position Management", "成长", "跨账户组合构建与再平衡", [["组合构建", [["目标权重", "按策略设目标权重", "行业通用实践"], ["约束建模", "设流动性/合规约束", "行业通用实践"], ["再平衡", "定期或触发式再平衡", "Coinbase Prime"], ["税务优化", "在合规下优化税后收益", "Lukka"]]], ["头寸管理", [["保证金监控", "监控杠杆与保证金", "行业通用实践"], ["借贷头寸", "管理链上借贷头寸", "行业通用实践"], ["质押头寸", "管理质押与解锁周期", "行业通用实践"], ["收益归集", "自动归集质押收益", "行业通用实践"]]], ["绩效", [["绩效归因", "多因子绩效归因", "Lukka"], ["基准比较", "与基准组合比较", "行业通用实践"], ["夏普等指标", "计算风险调整收益", "行业通用实践"], ["报告", "生成绩效报告", "Lukka"]]]]],
+ ["d14", "报表与财会", "Reporting & Accounting", "成熟", "生成可审计的财务报表与税务数据", [["财务报表", [["资产负债表", "生成加密资产资产负债表", "Lukka"], ["损益表", "生成损益与未实现盈亏", "Lukka"], ["现金流表", "编制资金流报表", "行业通用实践"], ["附注披露", "披露会计政策与估计", "行业通用实践"]]], ["税务", [["应税事件", "识别应税处置事件", "Bitwave"], ["税表生成", "生成 jurisdiction 税表", "Lukka"], ["成本方法选择", "支持多种成本方法", "Bitwave"], ["税务留痕", "税务计算可复核", "行业通用实践"]]], ["对外报送", [["客户报表", "向客户定期推送报表", "Lukka"], ["监管报表", "按监管格式导出", "行业通用实践"], ["审计接口", "提供审计数据接口", "行业通用实践"], ["电子存证", "报表哈希存证", "行业通用实践"]]]]],
+ ["d15", "审计与留痕", "Audit & Traceability", "成熟", "让全链路可审计可举证", [["审计基线", [["不可篡改日志", "关键操作写入只追加日志", "Fireblocks"], ["证据链", "构建从入账到报送证据链", "Chainalysis"], ["独立审计", "支持外部审计接入", "行业通用实践"], ["抽样复核", "支持监管抽样", "行业通用实践"]]], ["留存", [["数据留存期", "按监管设定留存期", "行业通用实践"], ["哈希存证", "关键记录哈希上链/存证", "行业通用实践"], ["访问审计", "审计谁看过什么", "行业通用实践"], ["归档策略", "冷热归档降低成本", "行业通用实践"]]], ["追溯", [["资金追溯", "任意资金全路径追溯", "Chainalysis"], ["责任追溯", "操作责任到人", "Fireblocks"], ["版本追溯", "策略与配置版本追溯", "行业通用实践"], ["导出", "可导出审计包", "行业通用实践"]]]]],
+ ["d16", "资产安全应急", "Asset Security Incident Response", "核心", "应对私钥泄露、盗币与极端事件", [["监测与预警", [["盗币监测", "监测异动出金与异常签名", "Chainalysis"], ["威胁情报", "接入链上威胁情报", "Elliptic"], ["阈值告警", "超阈值即时告警", "Fireblocks"], ["演练", "定期安全应急演练", "行业通用实践"]]], ["处置", [["紧急冻结", "触发紧急冻结出金", "Fireblocks"], ["隔离受影响", "隔离受影响地址与密钥", "行业通用实践"], ["司法协助", "配合取证与冻结请求", "Chainalysis"], ["赔付预案", "按保险/预案处理赔付", "行业通用实践"]]], ["恢复", [["密钥恢复", "按预案恢复签名能力", "Fireblocks"], ["业务连续性", "灾备切换保障连续性", "行业通用实践"], ["事后复盘", "生成事件复盘报告", "行业通用实践"], ["加固", "依复盘加固控制", "行业通用实践"]]]]],
+ ["d17", "客户权限与多签治理", "Client Access & Multi-sig Governance", "成长", "面向机构客户的权限与治理", [["身份与权限", [["机构KYC", "客户机构级KYC核验", "Fireblocks"], ["RBAC", "基于角色的访问控制", "Coinbase Prime"], ["审批矩阵", "配置多级审批矩阵", "Fireblocks"], ["delegated auth", "支持 delegated 授权", "行业通用实践"]]], ["多签治理", [["治理多签", "关键变更需多方多签", "Fireblocks"], ["提案投票", "变更经提案与投票", "行业通用实践"], ["时间锁", "高危操作加时间锁", "行业通用实践"], ["治理记录", "治理过程全记录", "行业通用实践"]]], ["合规边界", [["权限最小化", "默认最小权限", "行业通用实践"], ["离职回收", "人员变动权限回收", "Fireblocks"], ["定期复核", "权限定期复核", "行业通用实践"], ["越权告警", "检测越权尝试", "行业通用实践"]]]]],
+ ["d18", "合规法务与监管报送", "Compliance & Regulatory Reporting", "核心", "面向持牌市场的合规与报送", [["牌照与地域", [["展业地域控制", "仅在有牌地域展业", "Fireblocks"], ["牌照映射", "功能与牌照要求映射", "行业通用实践"], ["禁止清单", "维护禁止业务清单", "行业通用实践"], ["变更申报", "牌照变更及时申报", "行业通用实践"]]], ["报送", [["监管报表", "按属地生成监管报表", "行业通用实践"], ["交易报告", "大额与可疑交易报告", "Chainalysis"], ["持证留存", "持证与合规文件留存", "行业通用实践"], ["检查配合", "配合监管检查", "行业通用实践"]]], ["法务", [["条款库", "维护客户协议条款库", "行业通用实践"], ["风险提示", "向客户做风险揭示", "行业通用实践"], ["争议处理", "处理客户争议", "行业通用实践"], ["培训", "合规培训与考核", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["实时链上风控大模型", "live", "将KYT从规则升级为行为大模型，降低误报", "合规举证能力产品化"],
+ ["MPC多链统一签名", "live", "以一套MPC体系覆盖主流链签名", "托管安全差异化"],
+ ["自动对账与估值闭环", "live", "对账、估值、报表全自动闭环", "降低运营人力成本"],
+ ["监管报送即服务", "live", "把合规报送做成可订阅能力", "拓展持牌机构客户"],
+ ["托管+交易一体化", "live", "托管内直接完成交易避免资产出域", "安全与体验兼得"],
+ ["威胁情报共享", "live", "接入行业威胁情报网络", "提升防盗能力"],
+ ["子账户绩效归因", "live", "机构内多策略绩效归因", "满足LP披露"],
+ ["审计接口标准化", "live", "向审计机构开放标准接口", "降低审计摩擦"],
+ ["跨链原子清算", "pilot", "探索跨链原子结算降低对手风险", "清算效率提升"],
+ ["隐私交易合规", "pilot", "在合规下支持隐私币监控方案", "拓展资产覆盖"],
+ ["AI异常操作识别", "pilot", "用AI识别内部异常操作", "降低内部风险"],
+ ["稳定币自动财资", "pilot", "以稳定币做企业财资管理", "拓展非交易场景"],
+ ["链上信用评估", "pilot", "基于链上行为构建信用分", "借贷场景前置"],
+ ["智能再平衡代理", "pilot", "授权代理自动再平衡", "提升组合管理效率"],
+ ["可验证储备证明", "pilot", "对托管资产做可验证储备证明", "增强信任"],
+ ["监管沙盒对接", "pilot", "对接监管沙盒试用新能力", "合规先行验证"],
+ ["代币化国债接入", "explore", "为RWA资产提供托管接入", "打通资产类别"],
+ ["零知识合规证明", "explore", "用ZK证明合规而不泄露细节", "隐私与合规平衡"],
+ ["去中心化身份集成", "explore", "集成DID做客户身份", "身份主权化"],
+ ["链上保险撮合", "explore", "对接链上保险市场", "风险转移创新"],
+ ["跨机构净额结算", "explore", "多机构间净额结算", "降低链上摩擦"],
+ ["AI监管助手", "explore", "为合规人员提供AI助手", "降低合规成本"],
+ ["预言机风险对冲", "explore", "对冲预言机操纵风险", "数据可靠性"],
+ ["全自动安全响应", "explore", "安全事件全自动隔离恢复", "极致可用性"]
+];
+const MIDS = [
+ ["托管中心", "保障私钥与资产安全", "MPC/多签、冷热分离、灾备"],
+ ["交易中枢", "在托管内安全执行交易", "智能路由、预交易风控、执行凭证"],
+ ["风控中心", "实时监控敞口与异常", "限额引擎、行为识别、自动处置"],
+ ["合规中心", "满足反洗钱与持牌要求", "KYT/AML、制裁筛查、报送"],
+ ["估值中心", "提供可审计的资产定价", "多源行情、净值、方法学披露"],
+ ["财会与税务中心", "生成合规财务与税务数据", "资产负债表、税表、留痕"],
+ ["对账中心", "保证账链一致", "日终对账、差异处理、凭证"],
+ ["审计中心", "构建可举证证据链", "只追加日志、溯源、导出"],
+ ["安全应急中心", "应对盗币与极端事件", "监测、冻结、恢复、复盘"],
+ ["流动性中心", "接入做市与深度", "做市接入、聚合、护栏"],
+ ["客户治理中心", "机构权限与治理", "RBAC、多签治理、复核"],
+ ["数据中枢", "保障数据底座可靠", "节点接入、质量、留痕"],
+ ["清算中心", "完成结算最终性", "净额清算、关账、应计"],
+ ["投研中心", "提供行情与研究", "指标、回测、信号"],
+ ["组合中心", "构建与再平衡组合", "目标权重、约束、绩效"],
+ ["报送中心", "面向监管输出报表", "属地报表、交易报告"],
+ ["法务中心", "合同与争议管理", "条款库、揭示、培训"],
+ ["运营中心", "统筹日常运营", "调度、监控、SLA"]
+];
+const RULES = [
+ ["私钥单点泄露即资损", "密钥若可被单方掌控，一次泄露即导致不可撤回的链上转移"],
+ ["热钱包超额留存", "热钱包余额过大，一旦失陷损失远超风险预算"],
+ ["对账缺口未被发现", "账链长期不一致会掩盖挪用与错误，审计时集中爆发"],
+ ["KYT仅在出金做", "只在出金筛查会漏掉已混入的高风险资金来源"],
+ ["估值时点错位", "估值与交易时点不一致会扭曲净值与损益归属"],
+ ["审批流形同虚设", "大额出金无实质多级审批，单人可完成转移"],
+ ["留存期不足", "合规记录留存不足法定期限，监管检查时无法举证"],
+ ["跨链重组未处理", "忽略重组会导致已确认交易被回滚造成错账"],
+ ["权限未及时回收", "人员离职仍保留签名权，形成内部威胁"],
+ ["误把链上确认当最终性", "部分链需足够确认数，过早认定最终性会错账"],
+ ["混币资金未识别", "未识别混币路径会使平台成为洗钱通道"],
+ ["制裁名单过期", "使用过期制裁名单会放行受制裁对手"],
+ ["灾备未演练", "灾备只在文档中存在，真实故障无法恢复"],
+ ["报价源被操纵", "单一报价源被操纵会错误估值与执行"],
+ ["越权操作无告警", "越权尝试无检测会长期潜伏"],
+ ["合规口径未冻结", "在未持牌地域展业直接构成非法金融活动"]
+];
+const KPIS = [
+ ["安全指标", "被盗金额、未授权出金次数、密钥事件数"],
+ ["合规指标", "KYT命中率、误报率、报送准时率"],
+ ["运营指标", "对账差异率、日终关账时长、SLA达成"],
+ ["估值指标", "估值偏差、报价源覆盖率、异常价占比"],
+ ["流动性指标", "执行滑点、成交完成率、深度覆盖"],
+ ["客户指标", "AUM规模、活跃机构数、留存率"],
+ ["风险指标", "VaR、最大回撤、限额触发次数"],
+ ["成本指标", "单笔运营成本、人力占比、灾备成本"]
+];
+const LIC_CN = [
+ ["2021年九部委《关于进一步防范和处置虚拟货币交易炒作风险的通知》：虚拟货币相关业务活动属非法金融活动", "境内不得开展加密货币交易、代币发行融资与兑换；仅可在联盟链存证、数字人民币等合规场景提供技术服务", "产品口径须面向境外持牌市场或境内联盟链/存证，不得诱导交易或承诺收益"],
+ ["境内禁止加密货币交易平台运营", "不得为境内用户提供加密交易撮合与经纪", "交易功能仅对境外持牌主体开放"],
+ ["境内禁止代币发行融资（ICO/IFO等）", "不得开展代币募集与发售", "发行类能力不对境内用户开放"],
+ ["金融机构不得开展虚拟货币相关业务", "银行/支付机构不得为虚拟货币提供账户、清算", "资金通道须走境外合规体系"],
+ ["虚拟货币炒作风险警示要求", "须向用户充分揭示价格波动与政策风险", "全文中性专业，不得出现收益承诺"],
+ ["数据安全与个人信息保护要求", "KYC与链上数据须符合个人信息保护法", "跨境数据传输须合规"],
+ ["联盟链数字藏品合规口径（文物/版权等）", "可在联盟链做数字藏品存证与合规发行", "不得变相开展二级炒作"],
+ ["反洗钱国内法要求", "境内机构须履行反洗钱义务", "KYT/AML能力可服务境外持牌主体"],
+ ["不得宣传虚拟货币投资价值", "营销不得暗示保值增值", "文案中性，禁止诱导性表述"],
+ ["区块链信息服务备案要求", "境内区块链服务须按规定备案", "联盟链场景须完成备案"],
+ ["税务合规要求", "加密资产相关所得须依法申报", "税务能力面向境外合规主体"],
+ ["网络安全等级保护要求", "系统须落实等保", "安全能力须覆盖"],
+ ["禁止为虚拟货币交易提供定价/信息中介", "不得为境内用户提供行情中介", "行情能力仅服务境外主体"],
+ ["风险提示与适当性要求", "须做投资者适当性管理", "不对不合格主体开放"],
+ ["不得开展虚拟货币衍生品境内业务", "期货/合约等不对境内用户", "衍生品仅境外持牌开展"]
+];
+const LIC_INTL = [
+ ["香港VASP制度（证监会持牌虚拟资产服务提供者）", "可在港持牌开展虚拟资产托管与交易", "须满足托管隔离、KYT与报送要求"],
+ ["美国MSB（FinCEN货币服务业务注册）", "可注册开展货币传输与兑换", "须履行BSA/AML与OFAC制裁筛查"],
+ ["欧盟MiCA（加密资产市场监管）", "可按MiCA获授权提供加密资产服务", "须满足自有资本、托管与披露"],
+ ["新加坡PSA（支付服务法）", "可申请数字支付代币牌照", "须满足反洗钱与用户保护"],
+ ["日本FSA加密资产交易所注册制", "可在日持牌运营交易所", "须满足资产隔离与审计"],
+ ["英国FCA加密资产注册（反洗钱）", "须注册开展加密业务", "须满足金融促销限制"],
+ ["瑞士FINMA对通证分类监管", "按支付/效用/资产通证分类持牌", "须满足相应资本与报告"],
+ ["澳大利亚AUSTRAC注册", "须注册并履行AML/CTF义务", "须持续报送与留存"]
+];
+const OPPS = [
+ ["境外机构托管刚需", "中小机构自建MPC门槛高", "以托管+合规一体切入境外持牌机构"],
+ ["合规即服务能力", "持牌机构合规成本高", "把KYT/AML/报送做成订阅能力"],
+ ["可验证储备证明", "客户缺乏信任凭证", "提供可验证储备证明差异化"],
+ ["联盟链存证场景", "境内仅可技术服务", "面向文博/版权做合规存证"],
+ ["稳定币财资", "企业需稳定币结算", "提供稳定币财资与对账"],
+ ["RWA托管接入", "代币化资产兴起", "为RWA提供托管与估值"],
+ ["审计SaaS", "审计机构缺工具", "开放标准审计接口"],
+ ["做市基础设施", "做市商需可靠执行", "提供执行与风控基建"],
+ ["税务自动化", "机构税务复杂", "提供多法域税表"],
+ ["安全保险联动", "盗币风险高", "与安全/保险生态联动"],
+ ["监管沙盒", "新能力需验证", "借沙盒先行合规验证"],
+ ["开发者API", "生态需集成", "开放托管与合规API"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：MPC / 冷热分离 / KYT / 链上溯源`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

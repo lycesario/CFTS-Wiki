@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能数据标注平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能数据标注平台全景</b>
+    <span>智能数据标注平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能数据标注平台产品功能全景图谱</h1>
+    <p>把「<b>智能数据标注平台</b>」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手不在于工具有多少种框，而在于能否用模型预标与自动质检把单位标注成本压到竞争对手之下，同时把一致性与数据合规守在红线之上。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这份图谱的本质不是功能清单，而是「数据资产与工具 → 生产流程 → 智能与效率 → 治理与运营」一条主线：标注平台的护城河是供给端的成本与质量，而非单机工具。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据/资产与工具层</td><td>数据集与项目管理、标注工具-图像与视频、文本与NLP、语音、点云与3D</td><td>这一层决定平台能标什么、标得准不准的底座</td></tr>
+<tr><td>第二层（d6–d9）：生产流程层</td><td>任务分发与作业、质检与验收、预标注与模型辅助、众包与供应商管理</td><td>这一层把数据变成可交付标注资产的流水线</td></tr>
+<tr><td>第三层（d10–d14）：智能与效率层</td><td>标注模型工厂、主动学习与难例挖掘、标注一致性管理、自动化质检、知识库与标签体系</td><td>这一层把人工经验沉淀为可规模化的智能</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营层</td><td>数据安全与隐私、平台运营与权限、成本与效率度量、交付与客户协作</td><td>这一层决定平台能否被企业长期可信地规模化使用</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：其一，标注规范必须先于生产冻结，否则一致性崩塌；其二，数据安全与脱敏能力必须先于客户数据进入；其三，质检与黄金集必须同步建立，否则质量无基准。</div>
+    <div class="danger">最容易被误当成成功信号的是「标注量大」，但真正信号是单位成本下降与一致性同时提升。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的标准：先投已能肉眼可见降本的方向（如模型预标规模化、自动质检、主动学习闭环），而非纯概念（如脑机辅助标注）。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>标注任务</td><td>一条待标注的数据单元</td><td>切分不当会导致瓶颈与返工</td></tr>
+<tr><td>标注规范</td><td>指导标注的可视化文档</td><td>歧义会让一致性崩塌</td></tr>
+<tr><td>标签体系</td><td>标签的结构与层级定义</td><td>中途变更会让已标数据作废</td></tr>
+<tr><td>黄金标准</td><td>专家标注的校准基准</td><td>缺失会让质量无基准</td></tr>
+<tr><td>预标模型</td><td>生成初始标注的模型</td><td>偏见会被规模化带入</td></tr>
+<tr><td>验收报告</td><td>交付前的质量证明</td><td>缺失会让客户拒收</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域通常在个人信息保护、数据安全、著作权与行业数据（生物/地理/人脸）四个域交汇，任一域失守都会放大法律与声誉风险。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的红线：其一，原始数据未脱敏外发即触碰个保法；其二，使用未授权语料涉及著作权；其三，人脸与生物特征标注须单独同意。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如图像框标）</li><li>第二步：建立可举证的基线（一致性、单位成本）</li><li>第三步：跑通最短闭环（任务→标注→质检→交付）</li><li>第四步：补第二个增值能力（如模型预标）</li><li>第五步：把承诺写进合同（质量SLA与合规）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：端到端标注平台（按条付费）</li><li>路径 B：智能预标注（按降本分成）</li><li>路径 C：众包网络（按产能）</li><li>路径 D：行业数据方案（按项目）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是「高质量供给能力」，它是最先被客户付费也最难被替代的第一资产。</div>
+  </section>
+
+  <footer>
+    <p>智能数据标注平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与分层"],
+ ["s1", "平台形态与代表"],
+ ["s2", "功能域全景"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "能力中心"],
+ ["s6", "致命规则"],
+ ["s7", "监管与合规"],
+ ["s8", "关键指标"],
+ ["s9", "落地路线"]
+];
+const PLAYERS = [
+ ["端到端标注平台", "Scale AI", "海天瑞声", "以众包与工具提供AI训练数据"],
+ ["标注协作软件", "Labelbox", "标贝科技", "以标注管理与协作软件服务"],
+ ["数据服务供应商", "Appen", "数据堂", "以人工与专业数据服务交付"],
+ ["智能预标注", "Scale AI", "标智拓", "以模型辅助降低人工标注成本"],
+ ["众包标注网络", "Appen", "百度众测", "以众包规模产能弹性交付"],
+ ["行业数据方案", "海天瑞声", "曼孚科技", "以行业定制数据集切入"]
+];
+const DOMAINS = [
+ ["d1", "数据集与项目管理", "Dataset & Project Management", "成熟", "管理标注项目、数据集与标注规范，作为生产起点", [["项目立项", [["项目创建", "创建标注项目与配置", "行业通用实践"], ["需求澄清", "把客户需求转标注规范", "Labelbox"], ["周期规划", "排期与里程碑", "行业通用实践"], ["模板复用", "复用项目模板", "行业通用实践"]]], ["数据集管理", [["数据集上传", "支持多格式批量上传", "Scale AI"], ["数据集版本", "数据集版本管理", "行业通用实践"], ["数据切片", "按场景切分数据集", "行业通用实践"], ["数据去重", "相似样本去重", "行业通用实践"]]], ["标注规范", [["标注指南", "可视化标注规范文档", "Appen"], ["标签体系定义", "定义标签与层级", "行业通用实践"], ["规范版本", "规范版本管理", "行业通用实践"], ["规范培训", "标注员规范培训", "行业通用实践"]]]]],
+ ["d2", "标注工具-图像与视频", "Image & Video Annotation", "核心", "提供图像与视频的多样化标注能力", [["图像标注", [["框选标注", "矩形与旋转框", "Labelbox"], ["语义分割", "像素级分割", "Scale AI"], ["关键点", "人体与人脸关键点", "行业通用实践"], ["多边形", "不规则目标勾勒", "行业通用实践"]]], ["视频标注", [["帧标注", "逐帧与插值", "行业通用实践"], ["目标跟踪", "跨帧目标跟踪", "Scale AI"], ["事件标注", "行为事件打标", "行业通用实践"], ["视频分割", "视频实例分割", "行业通用实践"]]], ["辅助能力", [["图像预处理", "裁剪缩放增强", "行业通用实践"], ["多人协同", "同一图多人标注", "行业通用实践"], ["快捷键", "快捷键提升效率", "行业通用实践"], ["标注预览", "实时预览渲染", "行业通用实践"]]]]],
+ ["d3", "标注工具-文本与NLP", "Text & NLP Annotation", "核心", "提供文本序列、分类与多语言标注能力", [["序列标注", [["实体标注", "命名实体识别标注", "行业通用实践"], ["关系标注", "实体关系标注", "行业通用实践"], ["事件标注", "事件论元标注", "行业通用实践"], ["词性句法", "词性与依存标注", "行业通用实践"]]], ["分类与生成", [["文本分类", "多标签分类", "行业通用实践"], ["意图标注", "对话意图标注", "行业通用实践"], ["摘要标注", "摘要与改写标注", "行业通用实践"], ["情感标注", "情感与细粒度", "行业通用实践"]]], ["多语言", [["多语种支持", "中英等多语言界面", "Appen"], ["字符级标注", "字形与分词", "行业通用实践"], ["对齐标注", "平行语料对齐", "行业通用实践"], ["低资源", "低资源语言支持", "行业通用实践"]]]]],
+ ["d4", "标注工具-语音", "Speech Annotation", "成长", "提供语音转写、音素与情感等标注能力", [["转写标注", [["语音转写", "逐字转写与校对", "Appen"], ["说话人分离", "说话人区分", "行业通用实践"], ["音素标注", "音素边界标注", "海天瑞声"], ["韵律标注", "韵律与重音", "行业通用实践"]]], ["情感与事件", [["情感标注", "语音情感标注", "行业通用实践"], ["事件检测", "关键词与事件", "行业通用实践"], ["噪声标注", "环境噪声标记", "行业通用实践"], ["方言标注", "方言与口音", "海天瑞声"]]], ["音频处理", [["切音工具", "自动切分音频", "行业通用实践"], ["波形查看", "波形与频谱", "行业通用实践"], ["播放控制", "变速不变调", "行业通用实践"], ["批量导入", "批量音频导入", "行业通用实践"]]]]],
+ ["d5", "标注工具-点云与3D", "Point Cloud & 3D Annotation", "成长", "提供激光雷达点云与多模态3D标注能力", [["点云标注", [["点云标注", "激光雷达3D框", "Scale AI"], ["点云分割", "点级分割", "行业通用实践"], ["多帧融合", "多帧点云拼接", "行业通用实践"], ["可行驶区域", "地面与可行驶区", "行业通用实践"]]], ["多模态", [["图像点云融合", "2D3D联合标注", "行业通用实践"], ["BEV标注", "鸟瞰图标注", "行业通用实践"], ["时序标注", "时序连续标注", "行业通用实践"], ["传感器对齐", "多传感器对齐", "行业通用实践"]]], ["辅助", [["自动聚框", "自动初始框", "Scale AI"], ["渲染优化", "大规模点云渲染", "行业通用实践"], ["视角切换", "多视角切换", "行业通用实践"], ["标注校验", "几何一致性校验", "行业通用实践"]]]]],
+ ["d6", "任务分发与作业", "Task Dispatch & Workbench", "核心", "把数据切分为任务并驱动标注作业", [["任务切分", [["任务拆分", "数据集拆为任务包", "行业通用实践"], ["难度分级", "按难度分配", "行业通用实践"], ["批次管理", "批次发布与回收", "行业通用实践"], ["优先级", "优先级调度", "行业通用实践"]]], ["作业台", [["标注工作台", "统一标注界面", "Scale AI"], ["任务领取", "标注员领取任务", "行业通用实践"], ["自动保存", "实时自动保存", "行业通用实践"], ["中断恢复", "断点续标", "行业通用实践"]]], ["协同", [["多人协同", "同一任务协作", "行业通用实践"], ["角色分工", "标注复核分工", "行业通用实践"], ["评论沟通", "任务内评论", "行业通用实践"], ["进度看板", "实时进度看板", "行业通用实践"]]]]],
+ ["d7", "质检与验收", "Quality Control & Acceptance", "核心", "以抽检、验收与度量保障标注质量", [["质检策略", [["质检策略", "按批次抽检比例", "行业通用实践"], ["全检模式", "关键数据全检", "行业通用实践"], ["交叉验证", "多人标注一致性", "行业通用实践"], ["分层抽样", "分层抽样质检", "行业通用实践"]]], ["验收标准", [["验收规则", "定义通过阈值", "行业通用实践"], ["返修流程", "不达标返修", "行业通用实践"], ["验收报告", "生成验收报告", "行业通用实践"], ["争议仲裁", "争议由专家仲裁", "行业通用实践"]]], ["质量度量", [["准确率", "标注准确率统计", "行业通用实践"], ["一致性", "标注员间一致性", "行业通用实践"], ["漏标错标", "漏标错标统计", "行业通用实践"], ["质量趋势", "质量趋势监控", "行业通用实践"]]]]],
+ ["d8", "预标注与模型辅助", "Pre-labeling & Model Assist", "成长", "以模型预标与智能辅助降低人工成本", [["预标注", [["预标注生成", "用模型生成初始标注", "Scale AI"], ["交互修正", "点击修正预标", "行业通用实践"], ["预标审核", "预标结果审核", "行业通用实践"], ["预标率", "预标自动采纳率", "行业通用实践"]]], ["智能辅助", [["自动吸附", "边缘自动吸附", "行业通用实践"], ["智能推荐", "推荐标签与属性", "行业通用实践"], ["上下文提示", "上下文相似提示", "行业通用实践"], ["快捷键模板", "模板化快标", "行业通用实践"]]], ["人工提效", [["批量操作", "框选批量应用", "行业通用实践"], ["复制粘贴", "跨帧复制标注", "行业通用实践"], ["撤销重做", "细粒度撤销", "行业通用实践"], ["模板复用", "标注模板复用", "行业通用实践"]]]]],
+ ["d9", "众包与供应商管理", "Crowdsourcing & Vendor Management", "成长", "管理众包劳动力与供应商产能质量", [["众包管理", [["众包发布", "发布众包任务", "Appen"], ["众包质控", "众包质量管控", "行业通用实践"], ["等级体系", "标注员等级", "行业通用实践"], ["任务路由", "按能力路由", "行业通用实践"]]], ["供应商管理", [["供应商入驻", "供应商资质审核", "行业通用实践"], ["产能管理", "供应商产能监控", "行业通用实践"], ["绩效评估", "供应商KPI", "行业通用实践"], ["结算管理", "按量结算", "行业通用实践"]]], ["培训与合规", [["标注培训", "供应商培训认证", "Appen"], ["保密协议", "签署与留存", "行业通用实践"], ["合规审查", "供应商合规审查", "行业通用实践"], ["风险预警", "供应商风险预警", "行业通用实践"]]]]],
+ ["d10", "标注模型工厂", "Annotation Model Factory", "成长", "训练部署用于预标与质检的模型", [["模型训练", [["标注即训练", "用标注数据训练", "行业通用实践"], ["模型选型", "选择适合任务模型", "行业通用实践"], ["训练流水线", "自动化训练", "行业通用实践"], ["模型评估", "在验证集评估", "行业通用实践"]]], ["模型部署", [["预标部署", "部署为预标服务", "Scale AI"], ["模型AB", "新旧模型对照", "行业通用实践"], ["模型回滚", "效果差回滚", "行业通用实践"], ["模型注册", "模型资产登记", "行业通用实践"]]], ["模型治理", [["模型文档", "记录用途与局限", "行业通用实践"], ["模型审批", "上线审批", "行业通用实践"], ["模型退役", "淘汰归档", "行业通用实践"], ["偏差监控", "模型偏差监控", "行业通用实践"]]]]],
+ ["d11", "主动学习与难例挖掘", "Active Learning & Hard Mining", "成长", "以主动学习优先标注高价值样本", [["样本选择", [["主动学习采样", "选不确定样本优先标注", "行业通用实践"], ["多样性采样", "覆盖多样分布", "行业通用实践"], ["边界采样", "选决策边界样本", "行业通用实践"], ["增量选择", "增量补充样本", "行业通用实践"]]], ["难例挖掘", [["难例识别", "识别易错样本", "行业通用实践"], ["错误分析", "模型错误聚类", "行业通用实践"], ["重标注", "难例重标", "行业通用实践"], ["闭环迭代", "标注到训练闭环", "行业通用实践"]]], ["降本增效", [["标注量优化", "最少标注达目标", "行业通用实践"], ["预算分配", "预算到高价值样本", "行业通用实践"], ["进度预测", "剩余工作量预测", "行业通用实践"], ["效果回溯", "标注贡献度量", "行业通用实践"]]]]],
+ ["d12", "标注一致性管理", "Consistency & Agreement", "成长", "度量并提升标注员间一致性", [["一致性计算", [["一致性指标", "计算标注员间一致性", "行业通用实践"], ["Kappa统计", "加权Kappa", "行业通用实践"], ["分歧检测", "自动检测分歧", "行业通用实践"], ["黄金标准", "用黄金集校准", "行业通用实践"]]], ["对齐机制", [["规范对齐", "统一理解规范", "行业通用实践"], ["仲裁机制", "分歧专家仲裁", "行业通用实践"], ["反馈闭环", "反馈给标注员", "行业通用实践"], ["动态校准", "持续校准标注员", "行业通用实践"]]], ["一致性提升", [["培训干预", "低一致性培训", "行业通用实践"], ["任务重分", "重分配低一致任务", "行业通用实践"], ["规范迭代", "规范随问题迭代", "行业通用实践"], ["标杆对比", "与专家标注对比", "行业通用实践"]]]]],
+ ["d13", "自动化质检", "Auto QC", "成长", "以规则与模型自动发现标注错误", [["规则质检", [["几何校验", "框越界与重叠检测", "行业通用实践"], ["格式校验", "标签与属性合法", "行业通用实践"], ["逻辑校验", "标签间逻辑校验", "行业通用实践"], ["规则引擎", "可视化规则配置", "行业通用实践"]]], ["模型质检", [["模型判错", "用模型识别错标", "行业通用实践"], ["异常检测", "异常标注检测", "行业通用实践"], ["置信评分", "给每条标注置信", "行业通用实践"], ["抽检优化", "按风险抽检", "行业通用实践"]]], ["处置闭环", [["自动返修", "问题自动退回", "行业通用实践"], ["质检报告", "自动化质检报告", "行业通用实践"], ["质检看板", "实时质检看板", "行业通用实践"], ["阈值告警", "超阈值告警", "行业通用实践"]]]]],
+ ["d14", "知识库与标签体系", "Ontology & Label Schema", "成长", "沉淀标签体系、领域本体与标注经验", [["标签体系", [["标签schema", "定义标签结构与层级", "行业通用实践"], ["标签版本", "标签版本管理", "行业通用实践"], ["标签复用", "跨项目复用", "行业通用实践"], ["标签校验", "标签合法性校验", "行业通用实践"]]], ["领域本体", [["本体建模", "领域概念关系建模", "行业通用实践"], ["关系定义", "定义标签关系", "行业通用实践"], ["本体导入", "导入行业标准", "行业通用实践"], ["本体演化", "本体随业务演化", "行业通用实践"]]], ["沉淀与检索", [["标注经验库", "沉淀标注经验", "行业通用实践"], ["案例检索", "相似案例检索", "行业通用实践"], ["知识推荐", "标注时推荐知识", "行业通用实践"], ["培训素材", "生成培训素材", "行业通用实践"]]]]],
+ ["d15", "数据安全与隐私", "Data Security & Privacy", "核心", "保障标注数据的保护、合规与审计", [["数据保护", [["加密存储", "原始数据加密", "行业通用实践"], ["脱敏处理", "敏感信息脱敏", "海天瑞声"], ["最小授权", "按需授权", "行业通用实践"], ["防泄露", "禁止批量下载", "行业通用实践"]]], ["隐私合规", [["个人信息保护", "按个保法处理", "行业通用实践"], ["授权管理", "数据使用授权", "行业通用实践"], ["留存期限", "到期销毁", "行业通用实践"], ["跨境合规", "跨境评估", "行业通用实践"]]], ["审计与认证", [["操作审计", "全程操作留痕", "行业通用实践"], ["等保认证", "通过等保三级", "行业通用实践"], ["合规认证", "ISO27001", "行业通用实践"], ["事件应急", "安全事件应急", "行业通用实践"]]]]],
+ ["d16", "平台运营与权限", "Platform Ops & Access", "成熟", "支撑多租户、配置与运维运营", [["租户与权限", [["多租户", "客户数据隔离", "行业通用实践"], ["角色权限", "角色功能数据授权", "行业通用实践"], ["操作审计", "操作可追溯", "行业通用实践"], ["单点登录", "SSO集成", "行业通用实践"]]], ["配置中心", [["流程配置", "标注流程可配", "行业通用实践"], ["工具配置", "工具与快捷键配置", "行业通用实践"], ["通知配置", "消息通知配置", "行业通用实践"], ["配置回滚", "配置可回滚", "行业通用实践"]]], ["运维监控", [["健康巡检", "组件巡检", "行业通用实践"], ["性能监控", "标注台性能监控", "行业通用实践"], ["容量规划", "存储与算力规划", "行业通用实践"], ["告警通知", "多通道告警", "行业通用实践"]]]]],
+ ["d17", "成本与效率度量", "Cost & Efficiency Analytics", "成长", "以成本、效率与价值度量驱动运营", [["成本管理", [["成本核算", "按项目核算成本", "行业通用实践"], ["单价管理", "不同标注单价", "行业通用实践"], ["工时统计", "标注工时统计", "行业通用实践"], ["成本优化", "识别降本点", "行业通用实践"]]], ["效率度量", [["人均产能", "人均标注量", "行业通用实践"], ["工具提效", "工具节省工时", "行业通用实践"], ["流转效率", "任务流转时长", "行业通用实践"], ["瓶颈分析", "瓶颈环节分析", "行业通用实践"]]], ["价值度量", [["交付准时率", "按期交付占比", "行业通用实践"], ["质量成本", "质量与成本平衡", "行业通用实践"], ["客户满意度", "客户满意度NPS", "行业通用实践"], ["ROI度量", "标注投入产出", "行业通用实践"]]]]],
+ ["d18", "交付与客户协作", "Delivery & Client Collaboration", "成熟", "支撑多格式交付与客户在线协作", [["交付管理", [["交付导出", "多格式导出", "Scale AI"], ["交付校验", "交付前质量校验", "行业通用实践"], ["版本交付", "按版本交付", "行业通用实践"], ["交付追溯", "交付可追溯", "行业通用实践"]]], ["客户协作", [["需求沟通", "需求在线沟通", "行业通用实践"], ["进度同步", "客户实时看板", "行业通用实践"], ["验收协同", "客户在线验收", "行业通用实践"], ["反馈闭环", "客户反馈闭环", "行业通用实践"]]], ["持续服务", [["数据集更新", "数据迭代更新", "行业通用实践"], ["模型迭代", "配套模型迭代", "行业通用实践"], ["服务报告", "定期服务报告", "行业通用实践"], ["续约管理", "续约与扩展", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["模型预标注规模化", "live", "用模型批量生成初始标注", "产品化预标服务"],
+ ["智能辅助标注", "live", "自动吸附与推荐提效", "产品化辅助工具"],
+ ["自动质检规则", "live", "几何与逻辑自动质检", "产品化AutoQC"],
+ ["众包平台化", "live", "众包任务发布与质控", "产品化众包"],
+ ["多模态标注台", "live", "图像文本语音点云一体", "产品化一体化台"],
+ ["实时进度看板", "live", "项目实时进度", "产品化看板"],
+ ["交付自动化", "live", "多格式一键交付", "产品化交付"],
+ ["标注一致性度量", "live", "实时一致性统计", "产品化一致性"],
+ ["大模型标注助手", "pilot", "LLM辅助文本与指令标注", "产品化LLM助手"],
+ ["主动学习闭环", "pilot", "自动选难例补充标注", "产品化主动学习"],
+ ["视频自动跟踪预标", "pilot", "跨帧自动跟踪", "产品化跟踪预标"],
+ ["点云自动聚框", "pilot", "点云自动初始框", "产品化聚框"],
+ ["自动化质检模型", "pilot", "模型识别错标", "产品化模型质检"],
+ ["标注Agent", "pilot", "多智能体协作标注", "产品化标注Agent"],
+ ["合成数据标注", "pilot", "合成数据自动标注", "产品化合成"],
+ ["边缘标注", "pilot", "端侧轻量标注", "产品化边缘SDK"],
+ ["全自动标注体", "explore", "接近无人标注", "产品化自治标注"],
+ ["脑机辅助标注", "explore", "神经信号辅助", "产品化脑机"],
+ ["世界模型标注", "explore", "为具身智能标注", "产品化世界模型"],
+ ["联邦标注", "explore", "跨机构保密标注", "产品化联邦标注"],
+ ["生成式数据合成", "explore", "生成式合成训练数据", "产品化合成引擎"],
+ ["自监督预标", "explore", "自监督免标预标", "产品化自监督"],
+ ["跨模态对齐标注", "explore", "图文音视频对齐", "产品化对齐"],
+ ["实时流标注", "explore", "实时流数据标注", "产品化流标注"]
+];
+const MIDS = [
+ ["项目中心", "管理标注项目与数据集", "立项、数据集、规范"],
+ ["图像标注中心", "图像视频标注", "框选、分割、视频"],
+ ["文本标注中心", "文本NLP标注", "序列、分类、多语"],
+ ["语音标注中心", "语音转写与情感", "转写、音素、多语"],
+ ["点云标注中心", "点云3D标注", "3D框、融合、辅助"],
+ ["作业中心", "任务分发与作业", "切分、作业台、协同"],
+ ["质检中心", "质检与验收", "策略、验收、度量"],
+ ["预标中心", "预标注与辅助", "预标、辅助、提效"],
+ ["众包中心", "众包与供应商", "众包、供应商、培训"],
+ ["模型工厂中心", "标注模型训练部署", "训练、部署、治理"],
+ ["主动学习中心", "难例与样本选择", "选择、挖掘、闭环"],
+ ["一致性中心", "一致性管理", "计算、对齐、提升"],
+ ["自动质检中心", "自动化质检", "规则、模型、处置"],
+ ["知识中心", "标签与本体", "schema、本体、沉淀"],
+ ["安全中心", "数据安全隐私", "保护、合规、审计"],
+ ["运营中心", "平台运营权限", "租户、配置、运维"],
+ ["度量中心", "成本效率度量", "成本、效率、价值"],
+ ["交付中心", "交付与客户协作", "交付、协作、服务"]
+];
+const RULES = [
+ ["标注规范歧义", "规范歧义让不同标注员理解不一，一致性崩塌且模型学偏"],
+ ["质检缺位", "不质检直接交付，错误标注放大到训练集毁掉模型"],
+ ["预标注盲目采纳", "预标错误被直接采纳无人复核，错标规模化"],
+ ["数据泄露", "原始数据未脱敏外发，触碰个保法并失去客户信任"],
+ ["一致性失控", "标注员间一致性过低却未干预，数据不可用"],
+ ["供应商失控", "供应商产能或质量失控导致交付违约"],
+ ["口径频繁变更", "标签体系中途变更，已标数据作废重标"],
+ ["黄金集缺失", "无黄金标准校准，质量无基准"],
+ ["任务切分不当", "切分粒度失衡导致忙闲不均与瓶颈"],
+ ["验收标准模糊", "验收阈值不清引发客户争议与返工"],
+ ["模型偏见", "预标模型偏见被带入，系统性错标某类"],
+ ["版权侵权", "使用未授权数据标注，引发知识产权纠纷"],
+ ["权限过大", "运维可批量导出数据，缺乏审计易滥用"],
+ ["难例忽略", "只标简单样本，难例缺失模型泛化差"],
+ ["跨模态错位", "多模态标注未对齐，模型学错关联"],
+ ["审计无痕", "标注与修改无日志，无法追溯责任"]
+];
+const KPIS = [
+ ["质量指标", "准确率、一致性Kappa、漏标错标率"],
+ ["效率指标", "人均产能、单条耗时、工具提效比"],
+ ["成本指标", "单位标注成本、工时、返修成本"],
+ ["进度指标", "任务完成率、准时交付率、在产量"],
+ ["一致性指标", "标注员间一致性、分歧率"],
+ ["预标指标", "预标采纳率、预标准确率"],
+ ["供应商指标", "供应商KPI、产能利用率、合格率"],
+ ["客户指标", "客户满意度、验收通过率、续约率"]
+];
+const LIC_CN = [
+ ["个人信息保护法", "可开展去标识化标注", "须授权最小必要"],
+ ["数据安全法", "可开展数据分类分级", "重要数据须评估"],
+ ["网络安全法", "可建等保三级平台", "须通过测评"],
+ ["人类遗传资源管理条例", "涉及生物数据须审批", "须合规采集"],
+ ["测绘法", "涉及地理信息须资质", "须合规处理"],
+ ["著作权法", "可使用正版语料标注", "须授权来源"],
+ ["生成式AI服务管理", "训练数据须合法来源", "须标注与备案"],
+ ["算法备案", "标注辅助算法须备案", "须合规上线"],
+ ["密码法", "可使用商用密码保护", "须合规使用"],
+ ["个人信息出境标准合同", "可签标准合同出境", "须备案"],
+ ["人脸识别规定", "人脸标注须单独同意", "须合规处理"],
+ ["深度合成规定", "合成内容须标识", "须合规标注"],
+ ["网络安全等级保护", "可承载敏感数据", "三级年度测评"],
+ ["数据出境安全评估", "可跨境标注协作", "须出境评估"],
+ ["生物特征安全", "可服务生物特征标注", "须单独授权"]
+];
+const LIC_INTL = [
+ ["GDPR", "可服务欧盟客户标注", "须充分性认定或SCC"],
+ ["CCPA", "可服务加州客户", "须提供退出与告知"],
+ ["HIPAA", "可服务医疗数据标注", "须合规脱敏"],
+ ["SOC2", "可服务美国企业", "须通过审计"],
+ ["ISO27001", "可全球交付安全", "须维持认证"],
+ ["EU AI Act", "可服务欧盟AI数据", "须符合高风险要求"],
+ ["Biometric ISO", "可服务生物特征标注", "须合规"],
+ ["Privacy Shield", "可跨境协作", "须合规框架"]
+];
+const OPPS = [
+ ["预标注降本", "人工标注成本高", "做模型预标规模化"],
+ ["自动质检", "质检靠人工慢", "做AutoQC"],
+ ["多模态一体台", "工具割裂切换慢", "做一体化台"],
+ ["主动学习闭环", "标注盲目浪费", "做主动学习"],
+ ["众包质控", "众包质量不稳", "做质控体系"],
+ ["一致性提升", "一致性低返工多", "做一致性管理"],
+ ["大模型助手", "复杂标注慢", "做LLM助手"],
+ ["点云自动聚框", "点云标注慢", "做自动聚框"],
+ ["交付自动化", "导出格式杂", "做自动交付"],
+ ["成本度量", "成本看不清", "做成本分析"],
+ ["标签体系复用", "每项目重建标签", "做标签复用"],
+ ["合成数据标注", "真实数据少", "做合成标注"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：预标注 / 点云 / 主动学习 / 质检`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

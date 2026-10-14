@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能清算管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能清算管理平台全景</b>
+    <span>智能清算管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能清算管理平台产品功能全景图谱</h1>
+    <p>把「智能清算管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个领域的胜负手不是处理速度，而是最终性与确定性：清算结算机构是全市场的信用锚点，任何一笔错账、一次失败交收都可能演化为系统性事件。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这份图谱的主线不是「流程自动化」，而是风险确定性：从交易数据接入到净额轧差，从 DVP 最终交收到违约处置，每一步的目标都是让义务在法律上不可撤销地了结，并保证任何单点违约都不外溢为系统性危机。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：账户与数据底座</td><td>参与者与账户管理、交易数据接入与对账、静态数据与结算参数、消息标准与接口、数据质量与留存</td><td>这一层的本质是权威账本：参与者、账户、要素与数据必须单一可信、时点冻结、可举证</td></tr>
+<tr><td>第二层（d6–d9）：清算与交收核心</td><td>净额轧差与清算、交收与 DVP、资金清算与支付、公司行为与收益分配</td><td>这一层的本质是义务了结：轧差可复算、交收最终性、资金账实一致、权益精确到户</td></tr>
+<tr><td>第三层（d10–d14）：风险与违约处置</td><td>保证金与担保品管理、违约处置与中断处理、结算风险管理、流动性与日内管理、压力测试与预警</td><td>这一层的本质是危机防火墙：违约资源充足、处置预案演练、极端情形下流动性不断供</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>监管报送与穿透、运营作业与异常工单、业务连续与灾备、审计留痕与变更治理</td><td>这一层的本质是可审计的确定性：留痕防篡改、变更受控、灾备演练常态化、监管供给实时</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先冻结数据时点与轧差复算口径，再谈自动化；先建齐违约资源与处置授权，再扩大参与人覆盖；先通过灾备与应急演练，再承诺任何 SLA。</div>
+    <div class="danger">最容易被误当成成功信号的指标是结算量增长：结算规模越大风险敞口越大，失败率、违约资源覆盖率与演练达标率比规模更能说明平台健康度。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：它是否提高最终性与确定性——缩短周期、压缩失败、增强可举证能力的优先，牺牲法律确定性换取速度的实验必须放在沙盒。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>轧差</td><td>把双边或多边义务合并为净额义务的确定性计算</td><td>轧差不可复算则任何一笔争议都无法自证，全市场账务失衡</td></tr>
+<tr><td>DVP</td><td>证券交付与资金支付互为条件的交收机制</td><td>DVP 失守意味着本金风险裸露，交收失败直接演化为信用事件</td></tr>
+<tr><td>最终性</td><td>交收在法律上不可撤销的时点与条件</td><td>最终性模糊则所有后续交易的法律效力全部存疑</td></tr>
+<tr><td>违约资源</td><td>保证金、违约基金与自有资金构成的风险垫</td><td>风险垫不足时单点违约损失外溢为全市场危机</td></tr>
+<tr><td>担保品</td><td>折扣率受控且权利完善的合格押品</td><td>担保失效等价于保证金归零，违约处置无从谈起</td></tr>
+<tr><td>最终投资者穿透</td><td>从结算账户穿透到最终受益人的账户体系</td><td>穿透缺失则监管无法识别杠杆与集中度，风险监测全面失明</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">这个领域是证券监管（登记结算特许经营与 DVP 改革）、中央银行（支付系统与备付金）、金融基础设施统筹监管（PFMI 类要求）与数据安全（核心数据保护与等保）四个监管域的交汇点。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">最常被低估的三条红线：一、客户备付金隔离是绝对红线，任何形式的挪用即触碰资金安全底线；二、关键变更避开结算高峰冻结期，高峰期一次变更失败就是系统性事件；三、跨机构环节必须有书面 SLA，链条任一环失约都会阻塞全市场交收。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一条结算链做穿（如 A 股 T+1 批次），把数据接入与轧差复算跑通</li><li>第二步：建立可举证的基线（时点冻结、三级勾稽、防篡改留痕全部落地）</li><li>第三步：跑通最短闭环（成交接入→轧差→DVP 交收→资金对账→失败处置）</li><li>第四步：补第二个增值能力（失败预警或担保品自动化，形成风控回路）</li><li>第五步：把承诺写进合同（批次准点率、差异处置时效、数据可用时点）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：结算机构内部智能化（客户与商业模式：中央存管与集中清算机构的技术与运营升级）</li><li>路径 B：参与者结算中台输出（卖给券商、托管行、银行的 SaaS 与私有化交付）</li><li>路径 C：交易后处理自动化工具（对账、公司行为、失败预警，按业务量计费）</li><li>路径 D：跨境与新兴市场结算咨询（短周期改造与 PFMI 合规建设，项目制高客单）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是第一资产都是「可复算、可举证的结算确定性能力」——没有勾稽与留痕打底，任何路径都无法通过参与人与监管的信任检验。</div>
+  </section>
+
+  <footer>
+    <p>智能清算管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "图谱导读：怎么读这份图谱"],
+ ["s1", "产业地图与平台形态"],
+ ["s2", "功能全景：当下主流能力"],
+ ["s3", "前沿与未来方向"],
+ ["s4", "平台化能力矩阵"],
+ ["s5", "核心业务规则暗礁"],
+ ["s6", "指标体系"],
+ ["s7", "资质与监管地图"],
+ ["s8", "市场空白与产品机会"],
+ ["s9", "如果要做从哪开始"]
+];
+const PLAYERS = [
+ ["中央证券存管 CSD", "Euroclear / 中登公司", "中国证券登记结算（中登公司）", "以证券登记与最终结算承担系统性中枢"],
+ ["中央对手方 CCP", "LCH / 上海清算所", "上海清算所、中金所", "以合同更替承接并集中管理对手方风险"],
+ ["支付清算网络", "CHIPS / CLS", "网联、CIPS", "以净额与连续结算压缩跨境与零售流动性占用"],
+ ["托管与资产服务链", "BNY Mellon / State Street", "托管行与登记结算体系", "以托管账务支撑资产服务与结算"],
+ ["交易后处理自动化平台", "DTCC CTM / Broadridge", "行业通用实践", "以标准报文与异常自动化压缩结算失败"],
+ ["数字化结算基础设施", "DTCC Project Ion / Paxos", "数字人民币结算探索（行业通用实践）", "以可编程结算缩短交收周期"]
+];
+const DOMAINS = [
+ ["d1", "参与者与账户管理", "Participant & Account Management", "成熟", "参与者准入、账户体系与权益名册的权威管理。", [["参与者准入", [["参与者准入管理", "参与者资质与业务权限分级准入", "Euroclear"], ["信用额度授予", "按资金实力与担保品授予日内信用额度", "DTCC"], ["风险分级监控", "风险参与者的最低保证金与监测强化", "LCH"], ["退出与终止", "退出时未了结义务的清算安排", "行业通用实践"]]], ["账户体系", [["证券账户体系", "一级半级账户分层与实名体系", "中登公司"], ["结算备付金账户", "结算备付金账户分级管理与最低备付", "中登公司"], ["账户变动控制", "账户开立变更注销全流程审批留痕", "Euroclear"], ["跨市场账户映射", "跨市场结算账户映射与对账机制", "Euroclear"]]], ["权益与名册", [["权益登记核对", "登记名册与实际权益账实一致每日核对", "中登公司"], ["质押与冻结登记", "司法冻结与质押登记状态实时生效", "中登公司"], ["非交易过户", "继承划转等非交易过户规则化处理", "Euroclear"], ["名册服务", "发行人名册服务与股东名册出具", "Broadridge"]]]]],
+ ["d2", "交易数据接入与对账", "Trade Capture & Matching", "核心", "交易数据接收、逐笔匹配与差异处置的对账闭环。", [["交易数据接收", [["交易所数据直连", "与交易所成交数据实时直连校验", "中登公司"], ["报文校验规则", "报文格式与要素完整性强制校验", "SWIFT"], ["重复漏单检测", "重复报文去重与漏单检测补发", "DTCC"], ["数据时点冻结", "以成交时点冻结数据禁止后向改写", "行业通用实践"]]], ["对账与匹配", [["双边交易匹配", "双边交易要素逐笔匹配并标记未匹配", "DTCC CTM"], ["匹配时限管理", "未匹配交易限时催报升级", "Broadridge"], ["三方对账", "券商、托管行、登记结算三方对账", "行业通用实践"], ["差异台账", "对账差异逐笔挂账限时处置", "行业通用实践"]]], ["异常处理", [["异常数据拦截", "非法账户与异常成交数据阻断受理", "中登公司"], ["差异定位工具", "差异按参与人、券种、时点多维定位", "Broadridge"], ["工单化处置", "差异转工单跟踪闭环", "行业通用实践"], ["处置留痕", "处置过程全程留痕可审计", "DTCC"]]]]],
+ ["d3", "静态数据与结算参数", "Static Data & Settlement Parameters", "成熟", "证券要素、交收周期与参数版本化的权威源。", [["证券静态数据", [["证券要素维护", "证券代码、面值、利率等要素权威维护", "Euroclear"], ["多编码体系映射", "ISIN 与本地编码多体系映射一致", "SWIFT"], ["公司行为静态数据", "除权除息日与登记日权威维护", "中登公司"], ["变更影响评估", "静态数据变更评估在途结算影响", "Euroclear"]]], ["交收周期与日历", [["交收周期管理", "T+1 交收周期下批量流程重排", "DTCC"], ["交易日历管理", "多市场日历与节假日交收顺延规则", "CLS"], ["交收批次设计", "批次时点与截止时间明确并公告", "中登公司"], ["短周期预留", "支持 T+0 与更短周期的流程预留能力", "行业通用实践"]]], ["参数版本治理", [["参数版本化", "费率、保证金参数版本化按日生效", "LCH"], ["参数审批流", "参数调整双人审批留痕", "行业通用实践"], ["参数影响模拟", "参数变更对参与者影响事前模拟", "CME"], ["参数发布管理", "参数变更向参与者公告与推送", "Euroclear"]]]]],
+ ["d4", "消息标准与接口", "Messaging & Connectivity", "成熟", "ISO 20022 报文标准与接入治理的互联互通。", [["报文标准", [["ISO 20022 落地", "证券与支付报文统一 ISO 20022 迁移", "SWIFT"], ["报文版本兼容", "报文多版本兼容并存策略", "SWIFT"], ["本地扩展受控", "本地扩展字段受控登记", "中登公司"], ["报文测试环境", "标准报文联调沙箱环境", "DTCC"]]], ["接入管理", [["接入认证加密", "直连与专线接入认证加密", "SWIFT"], ["接入容量分级", "按业务量分级带宽与并发保障", "行业通用实践"], ["接入变更窗口", "参与者接口变更窗口管理", "Euroclear"], ["降级通道预案", "主通道故障报文降级通道预案", "行业通用实践"]]], ["对外协同", [["跨机构流程标准化", "与交易所、银行、托管行协同流程标准化", "DTCC"], ["跨境互联协同", "跨境互联互通结算协同", "Euroclear"], ["服务目录管理", "数据与查询服务目录化管理", "Broadridge"], ["协同 SLA", "跨机构环节 SLA 明确并监控", "行业通用实践"]]]]],
+ ["d5", "数据质量与留存", "Data Quality & Retention", "成熟", "结算数据的校验、防篡改留存与数据服务。", [["数据校验", [["入库强制校验", "关键要素缺失阻断入库", "Euroclear"], ["三级勾稽校验", "成交、清算、交收三级数据勾稽", "中登公司"], ["数据质量看板", "数据质量指标日度看板", "行业通用实践"], ["质量问题溯源", "质量问题定位到环节与责任方", "Broadridge"]]], ["数据留存", [["全量留痕留存", "全部业务报文与处理记录留存法定年限", "DTCC"], ["防篡改存储", "留痕防篡改并定期完整性校验", "行业通用实践"], ["异地备份", "数据异地备份与恢复演练", "行业通用实践"], ["保留策略治理", "到期数据销毁合规化", "行业通用实践"]]], ["数据服务", [["数据产品服务", "面向参与人的数据查询与报表服务", "DTCC"], ["权限化查询", "参与者仅可见自身范围数据", "中登公司"], ["数据时效承诺", "数据可用时点承诺并监控", "Euroclear"], ["监管数据供给", "面向监管的穿透数据供给", "中登公司"]]]]],
+ ["d6", "净额轧差与清算", "Netting & Clearing", "核心", "净额轧差计算、清算确认与结果分发的清算核心。", [["轧差计算", [["多边净额轧差算法", "双边或多边净额轧差算法确定性可复算", "DTCC"], ["轧差快照留存", "轧差输入输出快照留存可复算", "中登公司"], ["分层轧差策略", "按券种与市场分层轧差", "Euroclear"], ["轧差勾稽防护", "轧差结果与逐笔明细自动勾稽", "行业通用实践"]]], ["清算确认", [["清算确认一体化", "清算确认与交收指令生成一体化", "DTCC CTM"], ["拒绝更正闭环", "指令拒绝更正限时闭环", "Broadridge"], ["自动确认率提升", "自动匹配确认率持续提升目标", "DTCC"], ["清算截止管理", "清算截止与延后处理规则明确", "中登公司"]]], ["清算结果分发", [["净额结果分发", "净额结果按时点向参与人分发", "中登公司"], ["分发回执机制", "分发回执与失败重发机制", "行业通用实践"], ["结果可展开解释", "每笔净额可展开至逐笔明细", "Euroclear"], ["下游账务联动", "清算结果联动资金与证券账务", "行业通用实践"]]]]],
+ ["d7", "交收与 DVP", "Delivery versus Payment", "核心", "DVP 交收、批次执行与失败管理的最终结算。", [["DVP 机制", [["DVP 模式全覆盖", "券款对付各模式按资产类型适配", "行业通用实践"], ["附条件交收", "批次内部分交收与条件交收规则", "Euroclear"], ["实时 DVP 能力", "实时全额模式下 DVP 支持", "CLS"], ["DVP 例外压缩", "未 DVP 交易显式披露并持续压缩", "行业通用实践"]]], ["批次执行", [["批次自动化执行", "交收批次全自动执行与状态机管理", "DTCC"], ["批次监控大屏", "批次进度与失败集中监控", "中登公司"], ["指令优先级排序", "交收指令按系统重要性与失败影响排序", "Euroclear"], ["顺延再交收", "失败交易顺延再交收规则", "Broadridge"]]], ["失败管理", [["结算失败分类", "失败原因分类与买卖方失败管理", "DTCC"], ["失败率目标披露", "结算失败率目标与公开披露", "Euroclear"], ["强制补券买券", "资金不足强制补券与买券安排", "中登公司"], ["失败成本传导", "未按时交收罚金与成本传导", "行业通用实践"]]]]],
+ ["d8", "资金清算与支付", "Cash Clearing & Payment", "核心", "备付金管理、支付执行与资金对账的清算账务。", [["备付金管理", [["备付金集中管理", "客户资金第三方存管与集中交收", "中登公司"], ["最低备付监控", "最低结算备付金比例监控预警", "中登公司"], ["日内透支管理", "日内透支额度与回收时点管理", "DTCC"], ["备付金利息计提", "备付金利息计提准确合规", "行业通用实践"]]], ["支付执行", [["支付系统直连", "与央行支付系统直连完成最终支付", "CLS"], ["支付指令编排", "支付顺序按流动性占用优化", "CLS"], ["支付窗口协同", "与大额支付系统窗口协同", "行业通用实践"], ["支付状态跟踪", "支付状态实时可视与超时告警", "Euroclear"]]], ["资金对账", [["资金三方对账", "参与人、银行、结算机构三方对账", "中登公司"], ["长短款处理", "资金长短款挂账清收", "行业通用实践"], ["日终轧账", "日终资金轧账平衡校验", "行业通用实践"], ["对账自动化率", "对账自动化率与差异处置时效指标", "行业通用实践"]]]]],
+ ["d9", "公司行为与收益分配", "Corporate Actions & Distributions", "成熟", "公司行为处理、权益派发与选择权管理。", [["公司行为处理", [["公告捕获解析", "公司行为公告自动捕获与要素解析", "Broadridge"], ["多源核对", "发行人、交易所、托管行多源核对", "Euroclear"], ["截止时限管理", "行权与登记截止时限预警", "Broadridge"], ["行为处置留痕", "公司行为处理全程留痕", "行业通用实践"]]], ["权益派发", [["派息派红到户", "红利派发按登记名册精确到户", "中登公司"], ["派发失败重试", "派发失败自动重试与人工介入", "Euroclear"], ["税费代扣代缴", "股息红利差别化税费代扣合规", "中登公司"], ["派发对账", "派发总额与资金流出对账一致", "行业通用实践"]]], ["选择权与变更", [["选择权类行为", "要约收购、配股等选择权处理", "Euroclear"], ["默认处理规则", "逾期未选择客户的默认处理规则", "行业通用实践"], ["行为变更通知", "行为要素变更及时通知参与人", "Broadridge"], ["跨市场行为协同", "跨市场上市证券行为协同处理", "Euroclear"]]]]],
+ ["d10", "保证金与担保品管理", "Margin & Collateral Management", "核心", "保证金计算、担保品全生命周期与极端情形担保。", [["保证金计算", [["初始保证金模型", "按组合风险或 SPAN 类模型计算", "CME"], ["变动保证金日频收取", "盈亏按日以现金结算", "LCH"], ["保证金模型治理", "模型回测与超标次数监控", "ISDA SIMM"], ["最低保证金标准", "系统重要性机构最低标准落实", "行业通用实践"]]], ["担保品生命周期", [["合格担保品框架", "担保品折扣率与合格清单治理", "Euroclear"], ["自动化盯市补退", "担保品价值变动自动补退", "LCH"], ["担保品优化替换", "替换与优化降低参与者成本", "Euroclear"], ["担保权利核验", "担保权利设立与优先权核验", "行业通用实践"]]], ["极端情形担保", [["波动快速追加机制", "波动放大时保证金快速调整预案", "CME"], ["压力折价覆盖检验", "担保品压力折价覆盖检验", "LCH"], ["担保品集中度控制", "担保品单一资产集中度控制", "行业通用实践"], ["危机折扣预置", "危机时变现折扣预置参数", "行业通用实践"]]]]],
+ ["d11", "违约处置与中断处理", "Default Management", "核心", "违约判定、头寸处置与恢复复盘的处置体系。", [["违约判定与隔离", [["违约处置瀑布预案", "违约处置顺序与资源瀑布预案化", "LCH"], ["违约隔离机制", "违约参与人头寸隔离防传染", "DTCC"], ["违约判定证据链", "违约判定标准与证据链可举证", "行业通用实践"], ["违约处置预案演练", "处置授权事前取得并演练", "LCH"]]], ["处置执行", [["头寸对冲处置", "违约头寸快速对冲与拍卖机制", "LCH"], ["处置拍卖规则", "处置拍卖规则与公平性保障", "CME"], ["担保品快速变现", "担保品变现渠道与流程预置", "Euroclear"], ["损失分配规则", "损失分担与偿付规则事前明确", "行业通用实践"]]], ["恢复与复盘", [["违约成本回收", "罚金与损失追偿闭环", "行业通用实践"], ["处置复盘报告", "处置全过程复盘并向监管报告", "DTCC"], ["规则迭代机制", "复盘结论固化进规则与预案", "行业通用实践"], ["市场沟通预案", "处置期间市场公告与预期管理", "行业通用实践"]]]]],
+ ["d12", "结算风险管理", "Settlement Risk Management", "核心", "PFMI 框架、违约资源与系统性风险防护。", [["风险框架治理", [["PFMI 落地框架", "按 FMI 原则逐项映射内控体系", "CPMI-IOSCO PFMI"], ["风险限额体系", "信用、流动性、操作风险限额分层", "LCH"], ["风险委员会治理", "风险政策独立委员会审议", "Euroclear"], ["风险偏好声明", "风险偏好量化并定期校准", "行业通用实践"]]], ["信用风险缓释", [["违约资源充足性", "违约资源覆盖极端市况多会员违约", "行业通用实践"], ["缺口分配规则", "缺口基金分配规则事前明确并公布", "LCH"], ["自有资金先行顺序", "清算机构自有资金先行承担规则", "行业通用实践"], ["资源再补充预案", "违约资源动用后补充机制", "CME"]]], ["系统性风险防护", [["传染路径阻断", "会员风险跨市场传染阻断设计", "DTCC"], ["支付时序联动管理", "结算风险与支付系统时序联动管理", "CLS"], ["尾部风险研究", "极端相关性与流动性螺旋情景研究", "行业通用实践"], ["风险公开披露", "风险披露公开透明接受审视", "Euroclear"]]]]],
+ ["d13", "流动性与日内管理", "Liquidity & Intraday Management", "成长", "日内流动性监测、供给工具与资金调度优化。", [["日内流动性监控", [["流动性头寸监测", "参与人日终前资金缺口实时监测", "CLS"], ["支付时点曲线管理", "支付流入流出时点曲线均衡化", "DTCC"], ["关键时点预警", "交收截止前未达备付预警", "中登公司"], ["流动性仪表盘", "全市场流动性仪表盘集中可视", "Euroclear"]]], ["流动性供给", [["日内流动性工具", "保证金减免、透支与抵押融资工具", "DTCC"], ["央行对手安排", "与央行流动性安排的接口预案", "行业通用实践"], ["应急融资预案", "极端情形应急融资渠道预置", "Euroclear"], ["工具使用治理", "流动性工具使用条件与代价透明", "LCH"]]], ["资金调度优化", [["支付排序优化", "支付顺序最小化流动性占用", "CLS"], ["净额批量优化", "多批次净额再优化降低峰值资金", "行业通用实践"], ["参与人资金预测", "面向参与人的资金需求预测服务", "Euroclear"], ["调度效果度量", "流动性峰值与回收时效度量", "行业通用实践"]]]]],
+ ["d14", "压力测试与预警", "Stress Testing & Early Warning", "成长", "多情景压力测试、预警指标与预案联动。", [["压力测试框架", [["多情景压力设计", "历史、假设、极端相关性情景库", "LCH"], ["全资源压力覆盖", "自有资金加违约基金加担保品压力覆盖", "行业通用实践"], ["反向压力测试", "寻找击穿资源的最小情景组合", "行业通用实践"], ["压测频率治理", "压测频率随市况动态升级", "CME"]]], ["预警指标体系", [["前瞻预警指标", "波动、集中度、参与人风险预警指标", "DTCC"], ["参与人风险画像", "参与人杠杆与持仓集中度画像", "行业通用实践"], ["预警分级响应", "预警分级与响应动作映射", "LCH"], ["预警闭环跟踪", "预警处置闭环与升级机制", "行业通用实践"]]], ["预案联动", [["预案联动演练", "压测结论与应急预案联动演练", "LCH"], ["跨机构联合演练", "与交易所、支付系统联合演练", "行业通用实践"], ["演练缺陷整改", "演练发现缺陷限时整改复验", "行业通用实践"], ["预案文档治理", "预案文档版本化与可检索", "Euroclear"]]]]],
+ ["d15", "监管报送与穿透", "Regulatory Reporting & Transparency", "核心", "法定报送、穿透式数据供给与跨境监管协同。", [["监管报送", [["法定报表自动化", "监管报表自动取数与口径校验", "中登公司"], ["报送时限跟踪", "报送时限与退回整改闭环", "行业通用实践"], ["重大事项报告", "风险事件重大事项按时报送", "DTCC"], ["报送质量监控", "报表差错率与返工率监控", "行业通用实践"]]], ["穿透式监管支持", [["穿透账户支持", "一户一码穿透到最终投资者", "中登公司"], ["实时监测供给", "面向监管的实时风险数据供给", "行业通用实践"], ["杠杆集中度监测", "市场杠杆与集中度监测输出", "Euroclear"], ["口径统一映射", "监管口径与业务口径映射统一", "行业通用实践"]]], ["跨境监管协同", [["跨境监管合作", "跨境结算规则与监管协同安排", "Euroclear"], ["互认准入支持", "跨境互认业务的数据支持", "行业通用实践"], ["制裁合规筛查", "制裁名单与合规筛查嵌入流程", "SWIFT"], ["数据跨境合规", "跨境数据传输合规评估", "行业通用实践"]]]]],
+ ["d16", "运营作业与异常工单", "Operations & Exception Management", "成熟", "日终作业编排、异常工单与运营度量。", [["作业编排", [["作业自动化编排", "日终作业链自动编排与依赖管理", "DTCC"], ["作业检查单", "关键作业双人复核检查单", "中登公司"], ["作业超时预警", "作业超时自动预警与升级", "行业通用实践"], ["作业回放能力", "任意作业历史可回放重演", "Euroclear"]]], ["异常工单", [["工单分级处置", "异常分级限时处置与升级", "Broadridge"], ["根因分析机制", "重大异常根因分析并整改", "行业通用实践"], ["经验知识库沉淀", "异常处置经验知识库化", "行业通用实践"], ["参与人协同处置", "与参与人联合处置机制", "中登公司"]]], ["运营度量", [["自动化率度量", "人工干预率与自动化率度量", "DTCC"], ["作业质量度量", "差错率与返工率度量", "行业通用实践"], ["值班交接管理", "全天候值班交接规范化", "行业通用实践"], ["运营成本核算", "单笔业务运营成本核算", "行业通用实践"]]]]],
+ ["d17", "业务连续与灾备", "Business Continuity & DR", "成熟", "灾备体系、应急切换与危机管理。", [["灾备体系", [["两地三中心架构", "核心结算两地三中心部署", "中登公司"], ["RTO RPO 目标", "关键业务 RTO 与 RPO 量化达标", "DTCC"], ["常态化灾备演练", "灾备切换演练常态化", "Euroclear"], ["降级运行模式", "极端情形降级运行预案", "行业通用实践"]]], ["应急切换", [["切换流程管理", "切换决策、执行、回切流程明确", "行业通用实践"], ["切换数据一致性", "切换时点数据一致性校验", "行业通用实践"], ["应急通信多通道", "与参与人应急通信多通道", "SWIFT"], ["切换留痕复盘", "每次切换全程留痕复盘", "行业通用实践"]]], ["危机管理", [["危机指挥体系", "危机分级指挥与决策授权清晰", "LCH"], ["信息披露口径", "危机中市场公告口径管理", "DTCC"], ["危机恢复计划", "业务恢复与客户补偿安排", "行业通用实践"], ["舆情预期管理", "危机舆情监测与预期引导", "行业通用实践"]]]]],
+ ["d18", "审计留痕与变更治理", "Audit Trail & Change Governance", "核心", "不可篡改留痕、变更治理与内外部审计。", [["审计留痕", [["全链路防篡改留痕", "业务全链路留痕防篡改可举证", "DTCC"], ["双人复核留痕", "关键操作双人复核留痕", "中登公司"], ["特权操作审计", "特权账号操作全程审计", "行业通用实践"], ["留痕检索举证", "按业务键快速检索举证", "Euroclear"]]], ["变更治理", [["变更评审灰度", "变更评审、灰度与回滚预案", "行业通用实践"], ["结算高峰冻结期", "结算高峰期变更冻结", "中登公司"], ["变更影响评估", "变更对交收批量影响事前评估", "Euroclear"], ["紧急变更补审", "紧急变更事后补审机制", "行业通用实践"]]], ["内外部审计", [["内审全覆盖", "内审覆盖全部关键流程", "行业通用实践"], ["外部审计鉴证", "年度外部审计与控制鉴证", "DTCC"], ["整改闭环跟踪", "审计问题整改闭环复验", "Euroclear"], ["监管评估应对", "PFMI 评估与检查应对机制", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["结算失败预警", "live", "失败风险事前识别与自动催办", "从失败后处置走向事前预警"],
+ ["对账自动化", "live", "多方对账自动匹配与差异台账", "对账自动化率成为运营核心指标"],
+ ["ISO 20022 迁移", "live", "报文标准迁移与新能力启用", "迁移窗口是升级数据能力的机会"],
+ ["公司行为自动化", "live", "公告解析与权益派发自动化", "公司行为是托管服务费核心来源"],
+ ["担保品自动化管理", "live", "盯市、补退、替换自动化", "担保品效率成为参与者选型要素"],
+ ["监管报表自动化", "live", "法定报表自动取数与校验", "报送质量直接影响监管评级"],
+ ["运营监控大屏", "live", "交收批次与风险指标集中可视", "可观测性成为结算系统标配"],
+ ["参与者服务门户", "live", "自助查询、报表与业务办理门户", "服务体验差异化重塑机构粘性"],
+ ["智能异常根因分析", "pilot", "异常日志智能聚类与根因推荐", "从工单流转走向自动诊断"],
+ ["短交收周期优化", "pilot", "T+1 批次流程重排与压缩", "更短周期需要全链路再造"],
+ ["大模型报文助手", "pilot", "报文与规则文档智能问答与生成", "规则文档资产化降低接入成本"],
+ ["动态保证金模型", "pilot", "波动自适应的动态保证金模型", "风险敏感度与稳定性如何平衡"],
+ ["数字结算试验", "pilot", "数字资产结算与可编程交收试点", "可编程性可能重写 DVP 定义"],
+ ["参与者风险画像", "pilot", "杠杆集中度行为风险画像", "画像决定差异化保证金与服务"],
+ ["智能预警中枢", "pilot", "多源指标融合的预警中枢", "预警提前量是唯一硬指标"],
+ ["演练仿真平台", "pilot", "违约与灾备情景仿真演练平台", "演练从文档推演走向数字仿真"],
+ ["可编程 DVP 结算", "explore", "智能合约原子化券款对付", "法律效力与最终性需突破"],
+ ["净额实时混合结算", "explore", "净额与实时结算动态混合调度", "流动性效率与风险敞口的再平衡"],
+ ["自主运营智能体", "explore", "日终作业与异常处置智能体化", "人机责任边界与最终性风险"],
+ ["跨境结算互操作", "explore", "多市场多技术结算网络互操作", "监管协同是前置条件"],
+ ["生成式监管报送", "explore", "报送口径自动解析与报表生成", "监管数据可信性要求极高"],
+ ["数字孪生结算系统", "explore", "全系统数字孪生实时风险推演", "系统性风险预警范式升级"],
+ ["抗量子密码迁移", "explore", "结算核心密码体系抗量子迁移", "迁移窗口长需提前布局"],
+ ["结算风险网络推演", "explore", "跨机构结算风险网络化推演", "系统性风险的视图重构"]
+];
+const MIDS = [
+ ["参与者与账户中心", "管理参与者准入与账户体系", "准入、额度、账户分层管理"],
+ ["交易接入与对账中心", "承接交易数据并保证一致", "直连校验、逐笔匹配与差异处置"],
+ ["静态数据与参数中心", "维护结算要素权威源", "要素维护、参数版本与影响评估"],
+ ["报文与接口中心", "标准报文与接入治理", "ISO 20022、接入管理与联调沙箱"],
+ ["数据质量与留存中心", "保证结算数据可信可举证", "校验、防篡改留存与数据服务"],
+ ["清算中心", "执行净额轧差与清算确认", "轧差算法、确认自动化与结果分发"],
+ ["交收中心", "完成券款对付最终结算", "DVP、批次执行与失败管理"],
+ ["资金清算中心", "管理备付金与支付执行", "备付金、支付编排与三方对账"],
+ ["公司行为中心", "处理权益与公司行为", "公告解析、权益派发与选择权"],
+ ["保证金与担保品中心", "管理信用风险缓释", "保证金模型、担保品生命周期与压力担保"],
+ ["违约处置中心", "隔离与处置违约风险", "违约瀑布、头寸对冲与处置复盘"],
+ ["结算风险管理中心", "守住系统性风险底线", "PFMI 框架、违约资源与传染阻断"],
+ ["流动性管理中心", "管理日内流动性峰值", "头寸监测、流动性工具与支付排序"],
+ ["压力测试与预警中心", "前瞻识别极端风险", "情景库、预警指标与预案联动"],
+ ["监管报送中心", "满足监管与穿透要求", "报表自动化、穿透数据与跨境协同"],
+ ["运营作业中心", "保障日终作业稳定", "作业编排、异常工单与运营度量"],
+ ["业务连续中心", "保障极端情形不断服务", "灾备、应急切换与危机指挥"],
+ ["审计与变更中心", "保证变更可控全程可审计", "留痕、变更治理与审计闭环"]
+];
+const RULES = [
+ ["轧差结果必须可逐笔复算", "轧差错一笔就是全市场资金错账，复算能力是生命线"],
+ ["最终交收必须法律上不可撤销", "最终性不明确则全市场信用链条失去锚点"],
+ ["DVP 覆盖率必须持续披露并压缩例外", "未 DVP 交易就是裸露的本金风险敞口"],
+ ["违约资源必须覆盖极端市况多会员违约", "资源不足时损失外溢为系统性危机"],
+ ["违约处置必须事前授权并演练", "临场无授权会错失对冲窗口放大损失"],
+ ["留痕必须不可篡改并达法定年限", "结算争议与司法取证全靠留痕支撑"],
+ ["参数调整必须版本化并做影响模拟", "静默改参数会瞬时改变全市场风险结构"],
+ ["成交数据时点冻结禁止后向改写", "成交数据可改则清算与监管全部失真"],
+ ["参与人准入与额度必须动态管理", "额度失控就是透支与违约的温床"],
+ ["担保品必须盯市且权利完善", "担保失效等价于保证金归零"],
+ ["关键变更必须避开结算高峰冻结期", "高峰期变更一次失败即系统性事件"],
+ ["灾备切换必须保证账务一致性", "不一致的切换比宕机更致命"],
+ ["跨机构环节必须有明确 SLA", "链条任一环失约都会阻塞全市场交收"],
+ ["制裁与合规筛查必须嵌入流程", "漏筛一次即触发跨境处罚与链条中断"],
+ ["客户备付金必须隔离存放", "挪用备付金直接触碰资金安全红线"],
+ ["危机沟通必须统一口径单一出口", "多口径传闻会放大恐慌与挤兑"]
+];
+const KPIS = [
+ ["结算效率指标", "结算失败率、自动确认率与交收批次准点率"],
+ ["数据质量指标", "对账差异笔数、报文校验通过率与勾稽一致率"],
+ ["风险管理指标", "违约资源覆盖率、保证金追缴及时率与压力测试达标率"],
+ ["流动性指标", "日内流动性峰值、透支回收时效与支付排序节省额"],
+ ["运营指标", "人工干预率、异常工单闭环时长与差错率"],
+ ["连续性指标", "RTO 与 RPO 达标率、演练完成率与切换成功率"],
+ ["合规指标", "报送及时率、报表差错率与筛查覆盖率"],
+ ["服务指标", "参与人满意度、服务门户使用率与响应时效"]
+];
+const LIC_CN = [
+ ["证券法与证券登记结算管理办法（方向性表述）", "证券登记、清算与结算服务", "中央存管机构业务按国家规定特许经营"],
+ ["货银对付改革要求（按证监会推进方向性表述）", "货银对付交收制度", "未 DVP 情形需明确处置规则"],
+ ["证券结算风险基金管理办法（方向性表述）", "结算风险基金计提与使用", "基金动用程序合规"],
+ ["客户交易结算资金管理办法（方向性表述）", "客户备付金存管与交收", "备付金隔离不得挪用"],
+ ["金融基础设施统筹监管要求（方向性表述）", "关键金融基础设施运营", "满足系统性重要机构监管要求"],
+ ["支付结算业务许可要求（按人民银行规定方向性表述）", "资金支付清算通道合规", "支付业务许可边界清晰"],
+ ["数据安全法与网络安全法", "结算核心数据保护", "重要数据境内存储与分级保护"],
+ ["网络安全等级保护制度（方向性表述）", "结算系统安全等级保护", "按关键信息基础设施要求防护"],
+ ["反洗钱法（方向性表述）", "参与者与账户身份识别", "可疑交易报告义务"],
+ ["监管报送与交易所自律规则（方向性表述）", "与交易所、证监会的数据报送", "报送口径与时效合规"],
+ ["跨境互联互通结算规则（方向性表述）", "沪深港通等跨境结算", "跨境资金与数据流动合规"],
+ ["审计与档案管理要求（方向性表述）", "业务留痕与档案保存", "留痕不可篡改并达保存年限"],
+ ["金融业报文与数据标准（按金融行业标准方向性表述）", "报文与数据标准落地", "标准版本迁移受控"],
+ ["业务连续性与灾备监管要求（方向性表述）", "两地三中心与灾备演练", "关键系统 RTO 与 RPO 达标"],
+ ["中央对手方业务监管要求（按上清所等方向性表述）", "集中清算与保证金管理", "参与人准入与风险控制合规"]
+];
+const LIC_INTL = [
+ ["CPMI-IOSCO《金融市场基础设施原则》PFMI（方向性表述）", "FMI 运营与风险管理基准", "定期披露与外部评估"],
+ ["Dodd-Frank Title VIII 基础设施监管（方向性表述）", "美国系统性 FMI 监管", "风险管理与披露要求"],
+ ["EMIR 欧洲中央对手方监管（方向性表述）", "欧洲集中清算与保证金", "合格担保品与违约瀑布要求"],
+ ["BIS CPMI 支付结算准则（方向性表述）", "跨境支付结算安排", "最终性与风险管理要求"],
+ ["ISO 20022 国际报文标准", "证券与支付报文标准化", "迁移与本地扩展受控"],
+ ["SWIFT 客户安全控制框架 CSP（方向性表述）", "金融报文传输安全", "年度控制声明"],
+ ["US SEC Rule 15c3-3 客户保护规则（方向性表述）", "托管与客户资产隔离", "客户资产隔离存放要求"],
+ ["EU CSDR 结算纪律要求（方向性表述）", "欧洲结算失败纪律", "结算失败罚金与买入机制"]
+];
+const OPPS = [
+ ["结算失败事前预警", "失败后处置成本高声誉差", "以失败概率模型与催办自动化切入"],
+ ["对账与差异处置自动化", "多方对账人力密集", "以自动匹配与差异台账工具切入"],
+ ["参与者服务数字化", "服务门户体验落后于商业机构", "以自助门户与数据服务提升粘性"],
+ ["短周期交收就绪方案", "短周期压力下中小市场改造需求大", "以批次重排与流程压缩咨询加工具切入"],
+ ["公司行为处理自动化", "公告解析与派发人工量大", "以解析引擎与派发自动化切入"],
+ ["担保品管理即服务", "中小机构担保品管理能力弱", "以盯市补退与优化服务切入"],
+ ["监管报送一体化", "报送口径多人工成本高", "以口径映射与报表自动化切入"],
+ ["违约处置演练仿真", "预案停留在文档层面", "以仿真演练平台切入"],
+ ["报文标准迁移服务", "ISO 20022 迁移窗口需求集中", "以映射工具与联调沙箱切入"],
+ ["运营数字孪生观测", "交收链路黑盒难排障", "以全链路可观测与回放能力切入"],
+ ["跨境结算协同工具", "互联互通结算环节多 SLA 难管", "以跨机构 SLA 管理与协同工具切入"],
+ ["可编程结算试点", "链上券链下款等创新需求", "以联盟链加监管沙盒试点切入"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：净额轧差 / DVP / 保证金 / 违约处置`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

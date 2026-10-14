@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能投顾管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能投顾管理平台全景</b>
+    <span>智能投顾管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能投顾管理平台产品功能全景图谱</h1>
+    <p>把「智能投顾管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手不是承诺多高的收益，而是让客户「买得对、拿得住、看得懂」：纪律化的配置与再平衡是引擎，信任与陪伴才是留存和复购的来源。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这份图谱的主线不是「算法多聪明」，而是一条信任链：客户被恰当地识别与匹配，目标被翻译成可执行的组合，波动被统一口径地陪伴，结果被诚实地度量——每一环都决定客户是否愿意把长期资金留下来。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：客户与账户底座</td><td>客户主数据与 KYC、风险测评与适当性、目标与偏好设定、账户与资金流水、数据接入与画像</td><td>这一层的本质是「把人认清楚」：身份、风险、目标、账务与画像，是所有个性化与合规的前提</td></tr>
+<tr><td>第二层（d6–d9）：配置与组合引擎</td><td>资产配置引擎、组合构建与标的池、再平衡执行、费用与税务优化</td><td>这一层的本质是「把纪律自动化」：配置、准入、再平衡与成本控制共同保证组合长期不漂移</td></tr>
+<tr><td>第三层（d10–d14）：陪伴与运营</td><td>投顾陪伴与内容、市场异动与情绪安抚、再营销与唤醒、投后报告与账户透视、人机协同与投顾服务</td><td>这一层的本质是「把人心留住」：极端行情的守护与日常的透明沟通，是长期资金留存的真正来源</td></tr>
+<tr><td>第四层（d15–d18）：治理与合规</td><td>合规与适当性留痕、风控与异常监测、绩效与算法评估、运营与平台集成</td><td>这一层的本质是「把责任说清楚」：留痕可举证、风控有底线、算法对客户有利可被证明</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先拿到投顾牌照并冻结适当性口径，再谈任何算法；先建好资金与份额的对账闭环，再开放申赎；先统一极端行情的响应话术，再扩大获客规模。</div>
+    <div class="danger">最容易被误当成成功信号的指标是 AUM 冲量：靠短期收益展示拉来的资金在第一次回撤时会集中赎回，客户实际收益与持有期才是健康度。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：它是否提高客户的持有期与实际收益——凡是加剧交易冲动或弱化适当性的方向一律缓行。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>风险测评</td><td>客户风险承受能力与意愿的结构化结果</td><td>测评失真则一切匹配失效，回撤时集中赎回与投诉随之而来</td></tr>
+<tr><td>目标</td><td>金额、期限、优先级参数化的生活目标</td><td>目标缺失则投顾退化成卖产品，客户无法在波动中坚持</td></tr>
+<tr><td>组合族</td><td>按风险等级阶梯化且版本受控的组合集合</td><td>组合族混乱则适当性匹配无从谈起，风险漂移无人能发现</td></tr>
+<tr><td>再平衡</td><td>按阈值或日历触发、成本约束下的调仓纪律</td><td>再平衡缺失则组合风险随市场漂移，客户拿到的不是当初的产品</td></tr>
+<tr><td>适当性留痕</td><td>测评、匹配、确认、告知全链路的可举证记录</td><td>留痕断裂一次，争议时机构无法自证，业务资格直接承压</td></tr>
+<tr><td>客户真实收益</td><td>剔除择时影响后客户实际到手的金额加权收益</td><td>只看产品收益会掩盖客户损耗，迭代方向整体跑偏</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">这个领域是证监会（投顾试点资格与适当性）、人民银行与反洗钱（KYC 与资金监测）、个人信息保护（数据与画像）与算法治理（推荐与生成式 AI 备案）四个监管域的交汇点。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">最常被低估的三条红线：一、无牌照机构输出个性化组合建议即属违规投顾；二、收益展示不随附风险提示或承诺保本即构成误导销售；三、挽留话术变相阻挠赎回是监管与舆论双杀的致命行为。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一类客群做穿（如定投人群），把风险测评与目标建模跑通</li><li>第二步：建立可举证的基线（适当性留痕、双录回访、资金对账全部闭环）</li><li>第三步：跑通最短闭环（测评→目标→配置→申购→再平衡→月度报告）</li><li>第四步：补第二个增值能力（陪伴内容或客户收益诊断，形成信任回路）</li><li>第五步：把承诺写进合同（出金时效、费率透明、算法变更告知）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：持牌机构自营投顾（客户与商业模式：平台 C 端，赚服务费）</li><li>路径 B：投顾中台能力输出（卖给中小基金公司与代销机构的 SaaS）</li><li>路径 C：养老与长期资金场景（与个人养老金账户联动，赚长期留存）</li><li>路径 D：财富顾问赋能工具（服务人工投顾团队，按席位订阅）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是第一资产都是「可举证的适当性与信任资产」——没有合规留痕与客户真实收益数据，任何路径都撑不过第一次争议。</div>
+  </section>
+
+  <footer>
+    <p>智能投顾管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "图谱导读：怎么读这份图谱"],
+ ["s1", "产业地图与平台形态"],
+ ["s2", "功能全景：当下主流能力"],
+ ["s3", "前沿与未来方向"],
+ ["s4", "平台化能力矩阵"],
+ ["s5", "核心业务规则暗礁"],
+ ["s6", "指标体系"],
+ ["s7", "资质与监管地图"],
+ ["s8", "市场空白与产品机会"],
+ ["s9", "如果要做从哪开始"]
+];
+const PLAYERS = [
+ ["全数字智能投顾", "Betterment", "理财通投顾（腾讯）", "以目标为基础的自动化配置与再平衡"],
+ ["混合人机协同投顾", "Vanguard Personal Advisor", "蚂蚁财富「帮你投」", "机器配置叠加人工顾问建立信任"],
+ ["财富平台型投顾", "Wealthfront", "盈米基金且慢", "以账户聚合与税务工具沉淀长期客户"],
+ ["持牌基金投顾平台", "Vanguard", "中欧财富投顾", "持牌试点下的授权组合陪伴服务"],
+ ["银行系综合投顾", "Schwab Intelligent Portfolios", "行业通用实践", "以零咨询费获客并带动银行主账户"],
+ ["养老与长期资金投顾", "Guideline", "养老目标基金投顾服务（行业通用实践）", "以长期锁定资产为核心的配置陪伴"]
+];
+const DOMAINS = [
+ ["d1", "客户主数据与 KYC", "Client Master & KYC", "成熟", "客户身份、账户体系与数据治理的基础底座。", [["客户身份与准入", [["实名身份核验", "开户强制实名核验并人脸比对，结果留痕", "行业通用实践"], ["受益所有人识别", "穿透识别受益所有人并定期复核", "行业通用实践"], ["反洗钱筛查", "制裁名单与可疑特征开户即筛查", "行业通用实践"], ["适当性前置", "未完成风险测评不得展示组合建议", "理财通投顾"]]], ["账户体系", [["账户开立闭环", "电子签约与回访完成前资金不可转入", "且慢"], ["多目标账户映射", "同一客户多目标映射独立子账户", "Wealthfront"], ["份额成本核算", "申赎与分红成本精确到笔并按先进先出核算", "行业通用实践"], ["账户迁移继承", "非交易过户支持继承流程并全程留痕", "行业通用实践"]]], ["客户数据治理", [["信息变更管控", "关键信息变更触发重新适当性评估", "行业通用实践"], ["数据最小化采集", "只采集投顾业务必需字段并说明用途", "行业通用实践"], ["客户视图统一", "多渠道行为归一到唯一客户视图", "Envestnet"], ["隐私授权管理", "营销授权与业务授权分离且可撤回", "行业通用实践"]]]]],
+ ["d2", "风险测评与适当性", "Risk Profiling & Suitability", "核心", "风险测评、产品匹配与动态重评，是持牌投顾的生命线。", [["风险测评问卷", [["风险测评问卷版本", "问卷题项经信效度验证并报备版本", "行业通用实践"], ["承受与意愿分离", "风险承受能力与主观意愿分开计量取低值", "蚂蚁「帮你投」"], ["防代答机制", "答题防代答与中性话术审核", "行业通用实践"], ["测评结果留痕", "每次测评时间、版本、结果全留痕", "且慢"]]], ["适当性匹配", [["产品客户匹配", "组合风险等级不得超出客户承受等级", "理财通投顾"], ["超风险二次确认", "超风险购买需二次确认与警示留痕", "行业通用实践"], ["期限匹配校验", "投资期限错配组合禁止推荐", "Betterment"], ["集中度提示", "单一策略占比过高主动提示", "行业通用实践"]]], ["动态重评", [["定期强制重评", "每年强制重评风险承受能力", "行业通用实践"], ["重大变化触发重评", "收入、家庭等重大变化触发重评流程", "行业通用实践"], ["测评漂移监控", "测评结果与实际持仓风险长期背离预警", "Morningstar"], ["特殊客群保护", "高龄客户加强保护与冷静期安排", "行业通用实践"]]]]],
+ ["d3", "目标与偏好设定", "Goal & Preference Setting", "成长", "把生活目标转成参数化的投资计划并持续跟踪。", [["目标建模", [["目标模板库", "养老、教育、购房等目标模板化并参数化", "Betterment"], ["可行性测算", "按储蓄能力与期望收益测算达成概率", "Wealthfront"], ["多目标统筹", "多目标间资金冲突统筹提示", "行业通用实践"], ["目标修订留痕", "目标金额与期限修订全留痕", "且慢"]]], ["偏好与约束", [["流动性偏好建模", "应急资金与锁定期偏好显式建模", "Betterment"], ["禁投偏好映射", "ESG 与价值观禁投偏好映射组合筛选", "Wealthfront"], ["账户税务分层", "应税账户与税收优惠账户分层配置", "Betterment"], ["回撤偏好表达", "回撤承受度用历史情景描述而非百分比", "蚂蚁「帮你投」"]]], ["目标跟踪", [["进度仪表盘", "达成概率按月更新并解释变动原因", "Wealthfront"], ["偏离预警", "储蓄中断或市场偏离目标自动预警", "行业通用实践"], ["里程碑激励", "阶段达成给予正向反馈增强坚持", "行业通用实践"], ["目标降级预案", "无法达成时提供延长期或调额方案", "Betterment"]]]]],
+ ["d4", "账户与资金流水", "Account & Cash Ledger", "成熟", "资金流转、交易簿记与三方对账的账务闭环。", [["资金流转", [["入金路径合规", "支付渠道与同名卡校验防代客入金", "行业通用实践"], ["快赎安排", "货币类份额支持快赎并限额管理", "理财通投顾"], ["出金时效承诺", "出金时效承诺写进产品条款", "且慢"], ["在途资金监控", "在途资金状态可视并超时告警", "行业通用实践"]]], ["交易簿记", [["申赎簿记", "申赎确认与份额登记按 T+1 精确核对", "行业通用实践"], ["分红处理策略", "分红再投或取现按客户配置执行", "Wealthfront"], ["零份额处理", "极小份额合并与清仓规则透明", "行业通用实践"], ["交易回执", "每笔交易生成可下载回执", "行业通用实践"]]], ["对账", [["日终三方对账", "与 TA、托管行、支付渠道三方对账", "行业通用实践"], ["差异处置 SLA", "差异分级限时处置并升级", "行业通用实践"], ["长短款管理", "长短款挂账入备查并清收跟踪", "行业通用实践"], ["对账留痕", "对账结果与处置全程留痕可审计", "行业通用实践"]]]]],
+ ["d5", "数据接入与客户画像", "Data Aggregation & Profiling", "成长", "授权聚合、画像计算与数据质量的个性化底座。", [["账户聚合", [["全景账户聚合", "客户授权下聚合行外资产形成全景视图", "Envestnet Yodlee"], ["授权时效管理", "聚合授权定期续期可随时撤回", "行业通用实践"], ["分级存储", "聚合数据按敏感级别分级存储", "行业通用实践"], ["聚合降级策略", "行外数据缺失时降级为单账户视图并提示", "行业通用实践"]]], ["画像计算", [["行为画像", "交易与浏览行为沉淀风险偏好证据", "蚂蚁「帮你投」"], ["生命周期标签", "年龄、家庭、收入变化驱动阶段标签", "Envestnet"], ["流失风险评分", "互动衰减与赎回倾向评分预警", "行业通用实践"], ["画像可解释", "每个画像标签可解释并可申诉", "行业通用实践"]]], ["数据质量", [["多源一致性校验", "多源客户数据冲突以权威源为准", "行业通用实践"], ["更新时效监控", "核心字段更新时效纳入监控", "行业通用实践"], ["敏感数据脱敏", "画像计算中敏感字段脱敏最小化", "行业通用实践"], ["保留策略", "到期数据按保留策略自动清理", "行业通用实践"]]]]],
+ ["d6", "资产配置引擎", "Asset Allocation Engine", "核心", "配置模型、资本市场假设与组合族的智能引擎。", [["配置模型", [["资产配置框架", "风险平价、均值方差等多框架可配置", "行业通用实践"], ["约束求解", "禁投标的、税费、流动性约束进优化", "行业通用实践"], ["配置结果评审", "模型输出经投委会评审后启用", "且慢"], ["模型版本治理", "配置模型与假设版本化可复现", "MSCI"]]], ["资本市场假设", [["假设集中管理", "长期收益、波动、相关性假设集中管理并留痕", "行业通用实践"], ["假设年度评审", "假设年度评审并评估存量客户影响", "Vanguard"], ["假设局限性披露", "向客户披露假设局限与历史偏差", "Betterment"], ["组合族压力校验", "组合族按熊市情景校验回撤合理性", "Morningstar"]]], ["组合族管理", [["组合族阶梯分层", "按风险等级构建阶梯化组合族", "理财通投顾"], ["变更影响评估", "组合调整评估对存量客户税务与换手影响", "Betterment"], ["新组合准入", "新组合经适当性匹配与评审准入", "且慢"], ["组合退役迁移", "组合下线提供平滑迁移方案", "行业通用实践"]]]]],
+ ["d7", "组合构建与标的池", "Portfolio Construction & Universe", "核心", "标的池准入、组合内构建与全链路费率控制。", [["标的池准入", [["量化准入标准", "规模、成立年限、费率、跟踪误差量化准入", "且慢"], ["尽调评审留痕", "入池尽调报告与评审结论留痕", "行业通用实践"], ["动态调出机制", "触发红线自动进入调出评审", "行业通用实践"], ["关联交易隔离", "自家产品入池需独立评审与披露", "行业通用实践"]]], ["组合内构建", [["分散度约束", "单一标的与风格权重上限硬约束", "Betterment"], ["现金与安全垫", "组合内现金与低波资产比例显式设计", "Schwab Intelligent Portfolios"], ["账户类型适配", "不同账户类型适配不同组合成分", "Wealthfront"], ["小额适配", "小额资金可完成全组合申赎", "蚂蚁「帮你投」"]]], ["成本与质量", [["全链路费率披露", "基础费、底层费、交易费全部透明披露", "Betterment"], ["费率敏感性展示", "展示不同费率对长期终值的影响", "行业通用实践"], ["跟踪误差监控", "组合对基准偏离按月监控", "Morningstar"], ["底层质量监测", "底层基金经理变更与风格漂移监测", "且慢"]]]]],
+ ["d8", "再平衡执行", "Rebalancing Execution", "成长", "触发规则、成本约束与执行闭环的纪律化再平衡。", [["再平衡触发", [["触发规则透明", "阈值触发规则向客户披露", "Betterment"], ["现金流优先再平衡", "优先用申赎现金流再平衡降低税费", "Wealthfront"], ["日历阈值混合策略", "日历检查加阈值触发的混合策略", "行业通用实践"], ["极端市况预案", "极端行情下再平衡节奏预案", "行业通用实践"]]], ["执行与成本", [["换手成本约束", "再平衡换手与冲击成本纳入优化目标", "行业通用实践"], ["大额调仓拆单", "大额调仓自动拆单降低冲击", "行业通用实践"], ["执行核对闭环", "调仓指令与成交回报自动核对", "行业通用实践"], ["失败回滚预案", "部分成交失败回滚到一致状态", "行业通用实践"]]], ["再平衡治理", [["再平衡留痕", "每次再平衡触发依据与执行留痕", "且慢"], ["客户告知义务", "再平衡前告知与异议窗口", "理财通投顾"], ["调仓频率保护", "防止频繁调仓损害客户利益", "行业通用实践"], ["再平衡效果评估", "再平衡对收益与风险的贡献定期评估", "Morningstar"]]]]],
+ ["d9", "费用与税务优化", "Fee & Tax Optimization", "成长", "税务策略、费率优化与收益增强的成本中心。", [["税务策略", [["亏损收割", "应税账户自动亏损收割并防洗售规则", "Betterment"], ["资产位置优化", "应税与免税账户间资产位置错配优化", "Wealthfront"], ["赎回成本核算", "赎回份额成本方法优化降低税基", "行业通用实践"], ["税务合规底线", "税收优化不得规避申报义务", "行业通用实践"]]], ["费用优化", [["底层费率比选", "同类标的费率定期比选替换", "Betterment"], ["免佣渠道优先", "优先选择零申购费与低费率份额", "行业通用实践"], ["费用明细透明", "客户端可查全部费用明细", "理财通投顾"], ["费率变更保护", "费率上调提前告知与退出窗口", "行业通用实践"]]], ["收益增强", [["现金部位生息", "现金部位接入生息工具并披露风险", "Wealthfront"], ["增值服务授权", "证券借贷等增值服务需客户明示同意", "行业通用实践"], ["增强策略隔离", "收益增强模块独立计量风险", "行业通用实践"], ["收益归因透明", "增强收益与市场收益分开展示", "Betterment"]]]]],
+ ["d10", "投顾陪伴与内容", "Advisory Engagement & Content", "成长", "分层内容、合规审核与触达治理的陪伴体系。", [["内容体系", [["内容分层推送", "按客户阶段与持仓状态分层推送", "且慢"], ["内容合规审核", "全部陪伴内容经合规审核后发布", "理财通投顾"], ["内容效果度量", "阅读留存与行为转化度量优化内容", "蚂蚁「帮你投」"], ["内容时效管理", "过期市场观点自动下架防误导", "行业通用实践"]]], ["陪伴触达", [["关键时点触达", "申赎确认、再平衡、重评时点自动触达", "行业通用实践"], ["触达频率治理", "全渠道触达频控防打扰", "行业通用实践"], ["渠道路由偏好", "客户偏好渠道优先推送", "Envestnet"], ["双向沟通入口", "每条触达可一键进入咨询入口", "且慢"]]], ["投资者教育", [["教育课程化", "波动、长期、分散教育课程化", "Vanguard"], ["学习激励", "完成学习解锁功能或权益", "蚂蚁「帮你投」"], ["反追涨杀跌引导", "短期博弈行为话术引导", "且慢"], ["教育效果评估", "学习行为与持有期相关性评估", "行业通用实践"]]]]],
+ ["d11", "市场异动与情绪安抚", "Market Volatility Response", "成长", "极端行情下的统一响应、情绪识别与非理性防护。", [["异动响应", [["统一口径响应", "大跌日全渠道统一话术与数据口径", "且慢"], ["异动推送分级", "按持仓相关性与影响分级推送", "蚂蚁「帮你投」"], ["热点澄清机制", "谣言与误读快速澄清通道", "行业通用实践"], ["服务容量预案", "极端行情客服与系统容量预案", "行业通用实践"]]], ["情绪识别", [["恐慌信号识别", "赎回浏览激增识别恐慌情绪", "行业通用实践"], ["情绪分层响应", "按恐慌程度分层安抚与人工介入", "行业通用实践"], ["高风险客群守护", "高龄与高风险承受客户提供人工回访", "理财通投顾"], ["情绪响应留痕", "安抚话术与结果留痕备查", "行业通用实践"]]], ["防非理性操作", [["冷静期机制", "大额赎回设置冷静期提示", "行业通用实践"], ["逆向操作提醒", "恐慌低点赎回展示历史概率损失", "Betterment"], ["挽留合规边界", "挽留不得变相阻挠合法赎回", "行业通用实践"], ["非理性操作记录", "极端操作记录用于后续投资者教育", "行业通用实践"]]]]],
+ ["d12", "再营销与唤醒", "Retention & Re-marketing", "成长", "流失唤醒、交叉推荐与合规营销的增长引擎。", [["唤醒策略", [["流失分层唤醒", "按流失原因分层唤醒策略", "行业通用实践"], ["空仓资金召回", "停留现金客户的目标化召回", "且慢"], ["定投恢复计划", "断供定投的轻量恢复方案", "蚂蚁「帮你投」"], ["唤醒效果度量", "唤醒转化率与退订率双监控", "行业通用实践"]]], ["交叉推荐", [["目标扩展推荐", "基于已有目标推荐补充目标", "Betterment"], ["家庭账户联动", "家庭成员账户协同推荐", "Envestnet"], ["生命周期升级", "资产规模升级专属服务推荐", "行业通用实践"], ["推荐适当性校验", "所有推荐先过适当性引擎", "理财通投顾"]]], ["合规营销", [["话术合规管控", "禁止保本保收益与历史业绩诱导", "行业通用实践"], ["授权与频次合规", "营销推送需授权且频次合规", "行业通用实践"], ["风险提示随行", "任何收益展示必须伴随风险提示", "理财通投顾"], ["人群保护", "不向未成年人与不适当人群营销", "行业通用实践"]]]]],
+ ["d13", "投后报告与账户透视", "Reporting & Account Insight", "成熟", "绩效报告、通俗归因与触达追踪的信任建设。", [["绩效报告", [["多周期绩效报告", "日、月、年多周期收益与基准对比", "Morningstar"], ["全费后口径", "收益展示统一全费后口径", "Betterment"], ["双口径并列", "时间加权与金额加权收益并列展示", "行业通用实践"], ["报告自动化生成", "报告数据自动取数零人工拼装", "Envestnet"]]], ["归因与解释", [["归因通俗化", "归因结果用客户语言解释", "且慢"], ["目标联动展示", "报告与目标达成概率联动展示", "Wealthfront"], ["市场背景对照", "收益与同期市场背景对照呈现", "Morningstar"], ["异常波动说明", "显著偏离自动附说明", "行业通用实践"]]], ["报告触达", [["触达追踪优化", "报告阅读率追踪并优化呈现", "蚂蚁「帮你投」"], ["移动端适配", "报告移动优先设计", "行业通用实践"], ["数据申诉通道", "客户对报告数据可申诉复核", "行业通用实践"], ["报告留痕归档", "历史报告不可改存档备查", "行业通用实践"]]]]],
+ ["d14", "人机协同与投顾服务", "Human-Machine Advisory Service", "成长", "智能客服、顾问工作台与分层服务的协同交付。", [["智能客服", [["意图识别应答", "投顾问答意图识别并按知识库应答", "行业通用实践"], ["敏感问题转人工", "合规与投诉类问题强制转人工", "行业通用实践"], ["会话留痕质检", "全部会话留痕并抽样质检", "行业通用实践"], ["口径一致性校验", "机器应答与官方口径一致性校验", "行业通用实践"]]], ["顾问协同", [["人机职责分工", "机器管执行、顾问管信任与复杂决策", "Vanguard"], ["顾问工作台", "客户全景与建议话术一体化工作台", "Envestnet"], ["顾问行为约束", "顾问话术与承诺范围系统约束", "行业通用实践"], ["服务连续性", "顾问离职客户平滑交接", "行业通用实践"]]], ["服务分层", [["分层定价服务", "按资产规模与需求分层服务包", "Vanguard"], ["升级触发时机", "资产与复杂度触发人工服务邀约", "行业通用实践"], ["服务体验度量", "NPS 与问题解决率度量服务", "行业通用实践"], ["降级保护", "服务降级不影响基础合规义务", "行业通用实践"]]]]],
+ ["d15", "合规与适当性留痕", "Compliance & Suitability Audit", "核心", "适当性全流程留痕、销售行为合规与监管报送。", [["适当性留痕", [["全流程留痕", "测评、匹配、确认、告知全留痕可举证", "且慢"], ["电子签约存证", "签约过程存证防抵赖", "行业通用实践"], ["留痕完整性校验", "关键环节缺留痕系统阻断", "行业通用实践"], ["留痕保存年限", "按监管要求期限保存不可删改", "行业通用实践"]]], ["销售行为合规", [["双录与回访", "按客户与产品要求双录回访", "理财通投顾"], ["投诉闭环", "投诉受理处置回访闭环留痕", "行业通用实践"], ["异常销售监测", "飞单与私户销售等异常行为监测", "行业通用实践"], ["资质持证管理", "投顾人员资质与继续教育管理", "行业通用实践"]]], ["监管报送", [["投顾业务报送", "按投顾试点要求报送业务数据", "中欧财富"], ["监管报表生成", "客户、组合、投诉等报表自动生成", "行业通用实践"], ["检查协查支持", "监管检查资料一键归集", "行业通用实践"], ["数据出境管控", "客户数据不出境或按评估流程", "行业通用实践"]]]]],
+ ["d16", "风控与异常监测", "Risk & Anomaly Monitoring", "核心", "组合风险、账户行为与运营风控的立体监测。", [["组合风险监控", [["风险漂移监控", "组合风险等级漂移实时监控", "Morningstar"], ["标的黑名单联动", "底层基金违规事件联动黑名单", "且慢"], ["流动性压力监控", "组合赎回压力与底层流动性监控", "行业通用实践"], ["集中度风控", "组合族与自营产品集中度风控", "行业通用实践"]]], ["账户行为风控", [["异常交易识别", "恐慌性、试探性异常申赎识别", "行业通用实践"], ["账户盗用防护", "设备、位置、行为异常账户保护", "行业通用实践"], ["欺诈资金拦截", "涉诈资金特征实时拦截", "行业通用实践"], ["脆弱客群保护", "老年与高杠杆客户交易保护", "理财通投顾"]]], ["运营风控", [["大额可疑报告", "按反洗钱要求报告大额可疑交易", "行业通用实践"], ["内部舞弊监测", "员工违规操作监测", "行业通用实践"], ["供应商风险监测", "外部数据与服务商风险监控", "行业通用实践"], ["风控演练机制", "风险事件应急演练常态化", "行业通用实践"]]]]],
+ ["d17", "绩效与算法评估", "Performance & Algorithm Evaluation", "成长", "客户结果、算法治理与基准对照的长期校验。", [["客户结果评估", [["客户实际收益追踪", "区分产品收益与客户实际申赎收益", "Morningstar"], ["择时损耗量化", "客户追涨杀跌造成的损耗量化展示", "蚂蚁「帮你投」"], ["目标达成率统计", "分客群目标达成率统计改进", "且慢"], ["持有期与留存", "平均持有期与留存率健康度监控", "行业通用实践"]]], ["算法治理", [["算法回测治理", "配置算法变更回测对比并评审上线", "行业通用实践"], ["模型偏差检测", "配置输出与设计偏离检测", "MSCI"], ["算法可解释性", "推荐理由可解释可举证", "行业通用实践"], ["实验治理", "实验须评估客户利益影响后审批", "行业通用实践"]]], ["基准与对照", [["组合族基准体系", "每组合族配公开可比基准", "Morningstar"], ["同业对照分析", "与同业投顾收益行为对照改进", "行业通用实践"], ["长期承诺校验", "宣传承诺与长期实际表现校验", "Betterment"], ["评估定期化", "算法与绩效评估定期报告投委会", "且慢"]]]]],
+ ["d18", "运营与平台集成", "Operations & Platform Integration", "成熟", "多端集成、运营工具与容量稳定的支撑层。", [["系统集成", [["多端一致体验", "App、小程序、网页多端一致", "理财通投顾"], ["TA 托管集成", "与 TA、托管行、支付渠道标准对接", "行业通用实践"], ["核心账务对接", "与核心账务系统实时对账集成", "行业通用实践"], ["生态集成管理", "与外部数据、内容供应商集成管理", "Envestnet"]]], ["运营工具", [["运营看板", "客户、资金、组合全量运营看板", "行业通用实践"], ["工单与 SLA", "客户问题工单化并按 SLA 处置", "行业通用实践"], ["活动运营配置", "营销活动配置化与效果回收", "蚂蚁「帮你投」"], ["知识库运营", "客服与内容知识库统一维护", "行业通用实践"]]], ["容量与稳定", [["峰值弹性扩容", "申赎高峰与行情高峰弹性扩容", "行业通用实践"], ["灾备演练", "核心链路灾备定期演练", "行业通用实践"], ["变更管理", "生产变更窗口与回滚预案", "行业通用实践"], ["SLA 监控", "对外承诺服务可用性监控", "Betterment"]]]]]
+];
+const FRONTIER = [
+ ["智能定投策略", "live", "按估值与目标动态调整定投金额", "从固定定投升级为策略化定投"],
+ ["陪伴内容自动化", "live", "模板加数据自动生成个性化陪伴内容", "以陪伴打开的信任成为留存抓手"],
+ ["账户全景聚合", "live", "客户授权下行外资产全景视图", "从单账户管理走向家庭财富入口"],
+ ["目标进度可视化", "live", "达成概率按月更新并解释变化", "把抽象收益转为目标语言"],
+ ["智能客服问答", "live", "投顾问答机器人分流大部分咨询", "问答知识库成为服务基础设施"],
+ ["合规预检引擎", "live", "适当性与话术合规事前校验", "合规引擎能力开放给渠道"],
+ ["移动优先体验", "live", "全流程移动端完成与电子签约", "移动闭环决定线上获客半径"],
+ ["绩效归因报告", "live", "月度自动化归因报告触达", "报告从合规义务变为信任资产"],
+ ["大模型理财助手", "pilot", "自然语言理财咨询与内容生成人工复核", "从问答走向个性化财商 Co-pilot"],
+ ["动态风险画像", "pilot", "行为数据动态修正风险测评结果", "测评从静态问卷走向行为画像"],
+ ["生命周期自动规划", "pilot", "按年龄家庭状态自动调整目标路径", "规划服务成为核心增值能力"],
+ ["税务优化引擎本地化", "pilot", "适配境内税制的账户位置优化", "税优政策窗口期决定节奏"],
+ ["情绪识别陪伴", "pilot", "对话与行为情绪识别分层安抚", "情绪管理成为防流失杠杆"],
+ ["家庭财富账户", "pilot", "家庭成员账户协同与代际规划", "家庭视角提高客均资产"],
+ ["养老规划工具", "pilot", "养老目标与个人养老金账户联动规划", "养老第三支柱打开长期资金"],
+ ["智能赎回建议", "pilot", "目标达成或偏离触发的再平衡建议", "从被动执行到主动建议"],
+ ["自主投顾智能体", "explore", "端到端目标规划与调仓建议智能体", "人与机器责任边界需监管确认"],
+ ["生成式财商教育", "explore", "个性化互动式财商课程生成", "教育即获客的新获客模型"],
+ ["实时目标重算", "explore", "市场与生活事件实时重算目标路径", "从月度更新到事件驱动"],
+ ["组合个性化工厂", "explore", "千人千面组合参数生成与合规校验", "规模化个性与适当性如何兼得"],
+ ["多模态投顾交互", "explore", "语音视频数字人投顾交互", "信任建立方式面临重构"],
+ ["跨机构财富网络", "explore", "持牌机构间账户与规划数据协作", "开放银行式财富数据互联"],
+ ["行为科学助推引擎", "explore", "基于行为经济学的储蓄助推设计", "助推边界与伦理需要框架"],
+ ["投顾增值证明", "explore", "严格因果推断量化投顾增值", "投顾阿尔法可证明化重塑定价"]
+];
+const MIDS = [
+ ["客户主数据中心", "管理客户身份与账户单一视图", "KYC、账户映射与隐私授权"],
+ ["适当性中心", "保证产品与客户风险匹配", "风险测评、匹配与动态重评"],
+ ["目标规划中心", "把生活目标转成可执行投资计划", "目标建模、可行性测算与跟踪"],
+ ["账务中心", "保证资金与份额账实一致", "申赎簿记、三方对账与差异处置"],
+ ["客户数据与画像", "以合规数据驱动个性化服务", "账户聚合、画像计算与数据质量"],
+ ["资产配置引擎", "输出长期资产配置方案", "配置模型、资本市场假设与组合族"],
+ ["组合构建中心", "把配置方案落成可申购组合", "标的池准入、分散度与费率控制"],
+ ["再平衡引擎", "维持组合风险不漂移", "触发规则、成本约束与执行闭环"],
+ ["费用与税务中心", "降低客户全链路持有成本", "税务策略、费率优化与收益增强"],
+ ["陪伴内容中心", "用内容建立长期信任", "内容分层、合规审核与效果度量"],
+ ["异动响应中心", "极端行情下的客户守护", "统一口径、情绪识别与防非理性"],
+ ["客户增长中心", "负责唤醒、转化与再营销", "流失分层、交叉推荐与合规营销"],
+ ["报告与透视中心", "让客户看清账户与目标", "绩效报告、通俗归因与触达追踪"],
+ ["投顾服务中心", "人机协同交付顾问服务", "智能客服、顾问工作台与分层服务"],
+ ["合规留痕中心", "让适当性全程可举证", "全流程留痕、双录回访与监管报送"],
+ ["风控监测中心", "守住组合与账户安全底线", "组合风险、行为风控与反洗钱"],
+ ["算法评估中心", "保证算法长期对客户有利", "客户结果评估、算法治理与基准对照"],
+ ["运营集成中心", "支撑平台稳定与多端一致", "系统集成、运营看板与容量保障"]
+];
+const RULES = [
+ ["未完成适当性匹配不得展示或推荐组合", "适当性是持牌投顾的生命线，失守一次即业务资格风险"],
+ ["风险承受与风险意愿必须取低值匹配", "高估承受能力会在回撤时造成集中赎回与投诉潮"],
+ ["任何收益展示必须伴随风险提示", "只报喜的展示构成误导销售并面临处罚"],
+ ["历史业绩不得作为未来收益承诺", "保本保收益话术直接触碰监管红线"],
+ ["客户数据采集必须最小必要并授权", "过度采集触发个人信息保护处罚"],
+ ["再平衡与调仓必须留痕并可解释", "不可解释的调仓在争议时机构无法自证"],
+ ["挽留话术不得变相阻挠赎回", "阻挠赎回是投顾业务最致命的声誉事件"],
+ ["算法变更必须评审并评估存量客户影响", "静默改算法会让客户组合风险漂移"],
+ ["自家产品入池必须独立评审并披露", "关联交易不隔离将摧毁平台公信力"],
+ ["大额可疑交易必须按反洗钱要求报告", "漏报瞒报直接面临刑事风险"],
+ ["极端行情必须统一口径集中响应", "多渠道口径打架会放大恐慌与集中赎回"],
+ ["员工不得代客操作或承诺收益", "飞单与代客操作是行业高发致命违规"],
+ ["客户真实收益必须与产品收益分开度量", "只展示产品收益会掩盖客户择时损耗并误导迭代"],
+ ["营销推送必须授权且频次可控", "骚扰式营销触发消费者保护处罚"],
+ ["服务承诺必须与系统 SLA 一致", "承诺出金时效做不到即构成违约"],
+ ["留痕必须防篡改并保存至监管年限", "留痕可改则合规体系形同虚设"]
+];
+const KPIS = [
+ ["适当性指标", "风险测评覆盖率、匹配偏差笔数与重评完成率"],
+ ["账户健康指标", "实名核验通过率、对账差异笔数与资金在途时长"],
+ ["客户结果指标", "客户实际收益与产品收益差、目标达成率与平均持有期"],
+ ["陪伴留存指标", "内容触达率、流失唤醒转化率与 NPS"],
+ ["组合质量指标", "组合风险漂移幅度、跟踪误差与再平衡及时率"],
+ ["合规风控指标", "合规预检拦截率、投诉闭环时效与可疑交易报告及时率"],
+ ["效率成本指标", "智能客服分流率、报告自动化率与单客服务成本"],
+ ["商业指标", "AUM 增长率、客均资产与投顾服务费收入"]
+];
+const LIC_CN = [
+ ["基金投资顾问业务试点资格（需按证监会要求取得）", "授权基金组合的投顾服务", "非持牌机构不得提供基金投资建议服务"],
+ ["投资者适当性管理办法（按证监会规定方向性表述）", "风险测评与产品匹配", "超风险销售需特别程序留痕"],
+ ["公开募集证券投资基金销售机构监督管理办法（方向性表述）", "基金销售与申赎服务", "不得诱导频繁申赎，费率与尾佣合规"],
+ ["证券期货投资者保护相关要求（方向性表述）", "普通投资者特别保护", "双录与冷静期安排"],
+ ["反洗钱法及客户身份识别要求（方向性表述）", "KYC 与可疑交易监测", "大额可疑交易按规报告"],
+ ["个人信息保护法", "客户数据采集与画像使用", "最小必要、单独同意与可撤回授权"],
+ ["数据安全法", "客户金融数据分级保护", "重要数据境内存储"],
+ ["金融产品网络营销管理办法（方向性表述）", "投顾产品线上营销", "营销内容合规审核与授权触达"],
+ ["支付与资金存管相关要求（方向性表述）", "资金流转渠道合规", "不得截留挪用客户资金"],
+ ["证券投资基金评价业务管理暂行规定（方向性表述）", "基金业绩展示与评价引用", "业绩展示需满年限与警示语"],
+ ["算法推荐管理规定（方向性表述）", "组合推荐算法治理", "算法备案与用户可关闭推荐"],
+ ["生成式人工智能服务管理要求（方向性表述）", "大模型投顾问答", "生成内容人工复核与备案"],
+ ["金融消费者保护与投诉管理要求（方向性表述）", "投诉处理与客户权益保护", "投诉闭环留痕"],
+ ["广告法金融广告条款（方向性表述）", "投顾宣传物料管理", "禁止保本收益承诺表述"],
+ ["个人养老金制度相关要求（方向性表述）", "个人养老金账户投顾服务", "账户封闭运作与税优额度限制"]
+];
+const LIC_INTL = [
+ ["SEC Investment Advisers Act 信义义务（方向性表述）", "美国投顾信义义务", "客户利益优先与费用披露"],
+ ["SEC Regulation Best Interest（方向性表述）", "经纪与投顾边界合规", "推荐需证明客户利益"],
+ ["EU MiFID II 适当性要求（方向性表述）", "欧洲投顾适当性匹配", "测评与留痕要求严格"],
+ ["EU GDPR", "欧洲客户数据与画像处理", "画像自动化决策需告知与人工复核"],
+ ["UK Consumer Duty（方向性表述）", "英国消费者义务", "产品与服务需证明好客户结果"],
+ ["FINRA Rule 2210 通讯合规（方向性表述）", "投顾宣传通讯审核", "发布前合规审批"],
+ ["香港 SFO 及适当性规定（方向性表述）", "香港投顾与销售合规", "风险披露声明必备"],
+ ["US SEC Reg S-P 客户隐私（方向性表述）", "客户信息安全计划", "数据泄露通知义务"]
+];
+const OPPS = [
+ ["持牌投顾中台输出", "中小基金公司与代销机构无自建能力", "以配置引擎与适当性中台 SaaS 输出"],
+ ["目标化陪伴内容", "陪伴内容同质化无法建立信任", "以目标进度语言重构内容体系"],
+ ["客户真实收益改善工具", "行业普遍只考核产品收益", "以择时损耗诊断与定投纪律工具切入"],
+ ["养老规划服务", "个人养老金开户热但投顾冷", "以养老目标规划与账户联动切入"],
+ ["家庭财富账户", "家庭资产分散各平台缺全景", "以授权聚合与家庭规划切入"],
+ ["智能客服合规问答", "投顾问答合规风险高人工成本大", "以知识库加人工复核机器人切入"],
+ ["唤醒与定投恢复", "大量僵尸户与断供定投", "以分层唤醒与轻量恢复方案切入"],
+ ["再平衡即服务", "存量组合风险漂移无人管", "以自动再平衡与漂移预警切入"],
+ ["投顾人员赋能工作台", "人工顾问缺乏工具支撑", "以客户全景与话术合规工作台切入"],
+ ["算法治理与审计服务", "算法监管趋严机构缺治理框架", "以算法留痕、可解释与审计工具切入"],
+ ["合规营销内容工厂", "营销内容合规审核耗时", "以模板加预检的内容工厂切入"],
+ ["投后报告自动化", "报告人工拼装质量参差", "以自动取数与通俗归因切入"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：风险测评 / 资产配置 / 再平衡 / 适当性`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

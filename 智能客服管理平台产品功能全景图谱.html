@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能客服管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>智能客服管理平台全景</b>
+    <span>智能客服管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>智能客服管理平台产品功能全景图谱</h1>
+    <p>把「智能客服管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。客服平台的胜负手不是堆渠道，而是用可信赖的知识与智能把「首解率」和「合规留存」同时拉高——让机器扛住量、让人专注难事、让每一次服务都留得下、查得清。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是一条主线：把分散的服务经验收敛成可信、可审计、持续自进化的知识资产，并让每一次交互都留得下、查得清、合规可控。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：接入与知识底座层</td><td>全渠道接入、会话与消息管理、知识库、客户上下文、媒体与文件处理</td><td>这一层在产品上的本质是「入口与知识根」——没有统一入口与可信知识，后面的智能都是无源之水</td></tr>
+<tr><td>第二层（d6–d10）：对话执行层</td><td>对话机器人、人工坐席工作台、智能辅助、工单系统、会话路由与分配</td><td>这一层在产品上的本质是「动作面」——把服务能力变成可自动执行、可闭环的客户动作</td></tr>
+<tr><td>第三层（d11–d14）：智能决策层</td><td>质检、情绪与意图分析、智能派单与人力预测、知识运营与自动学习</td><td>这一层在产品上的本质是「放大器与护栏」——用模型把质量与效率拉高，把风险兜住</td></tr>
+<tr><td>第四层（d15–d18）：治理运营层</td><td>权限与多租户、合规与隐私、效果度量与报表、开放集成与生态</td><td>这一层在产品上的本质是「合规与外延」——留存与隐私决定能否持续，集成决定边界</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：第一，客户信息调阅须先有同意与最小授权；第二，知识库须有负责团队与审核机制；第三，合规留存与删除权策略必须先就位。</div>
+    <div class="danger">一条死亡陷阱：把「接入渠道数量多」「机器人答得热闹」当成成功——真正信号是首解率、满意度与合规留存的可举证提升。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：凡需突破客户同意边界或牺牲留存合规的前沿方向，一律降优先级。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>会话</td><td>一次完整服务交互</td><td>上下文丢失会让客户重复诉说、体验崩塌</td></tr>
+<tr><td>知识条目</td><td>标准答案与流程的知识单元</td><td>错漏知识被机器人放大，信任崩塌</td></tr>
+<tr><td>工单</td><td>一次需跟进处理的事务</td><td>状态错乱致客户问题石沉大海、流失</td></tr>
+<tr><td>客户上下文</td><td>服务中可调用的客户信息</td><td>越权可见即隐私泄露</td></tr>
+<tr><td>坐席</td><td>提供服务的人员账号</td><td>权限错配造成内部 fraud 与信息外泄</td></tr>
+<tr><td>留存档案</td><td>合规留存的录音与文本</td><td>超期或滥用即违规且无法举证</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">客服领域通常交汇四个监管域：个人信息保护、电信与呼叫中心、消费者权益、数据安全，金融等行业再叠加行业监管。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：其一，电话外呼须标明身份且提供拒接，骚扰即违规；其二，敏感信息（身份证、手机号）须脱敏，泄露即违法；其三，留存须按法定期限且调阅须审批，超期或滥用即违规。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个高价值场景做穿（如售后退改）</li><li>第二步：建立可举证的基线（接入+知识库+首解指标）</li><li>第三步：跑通最短闭环（接入—机器人/坐席—工单—关闭）</li><li>第四步：补第二个增值能力（如质检或智能辅助）</li><li>第五步：把效果与合规承诺写进客户合同</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：一体化客服云（接入+机器人+工单+质检）</li><li>路径 B：机器人单品（以 LLM Agent 提升自助）</li><li>路径 C：行业垂直云（金融/电商深耕合规）</li><li>路径 D：智能辅助 Copilot（提效坐席）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：都是先占住「可信知识库+合规留存」这个第一资产，再向外生长。</div>
+  </section>
+
+  <footer>
+    <p>智能客服管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "全渠道接入"],
+ ["s1", "会话与知识"],
+ ["s2", "客户上下文"],
+ ["s3", "机器人对话"],
+ ["s4", "人工与辅助"],
+ ["s5", "工单与路由"],
+ ["s6", "质检与分析"],
+ ["s7", "调度与运营"],
+ ["s8", "合规与隐私"],
+ ["s9", "集成与生态"]
+];
+const PLAYERS = [
+ ["一体化客服云", "Zendesk、Intercom", "智齿、网易七鱼", "把接入、机器人、工单、质检收敛一体降集成成本"],
+ ["对话机器人单品", "Google Dialogflow、Rasa", "追一、来也", "以机器人切入，向上生长坐席与工单"],
+ ["云呼叫中心", "Twilio、Genesys", "容联七陌、天润融通", "偏电话渠道与呼叫能力"],
+ ["工单系统单品", "Zendesk、Jira Service", "飞书服务台", "以工单与工作流切入"],
+ ["行业垂直客服", "LivePerson（金融）", "金融与电商行业云", "深耕行业合规与流程壁垒高"],
+ ["智能辅助 Copilot", "Forethought、Cresta", "国内大模型客服创业", "以 LLM 辅助坐席提效"]
+];
+const DOMAINS = [
+ ["d1", "全渠道接入", "Omnichannel Access", "成熟", "把客户散落在各端的咨询统一收口，是服务一致性与效率的起点", [["渠道连接器", [["网页与H5", "官网与 H5 在线客服需低侵入嵌入", "行业通用实践"], ["App 与小程序", "移动端需原生与小程序双端接入", "行业通用实践"], ["社交与IM", "微信、企微、抖音、微博统一接入", "网易七鱼"], ["电话与邮件", "呼叫中心与邮件工单需统一进会话", "Zendesk"]]], ["消息同步", [["跨渠道续接", "客户换渠道会话上下文不丢", "Intercom"], ["消息去重", "同用户多入口消息需去重归并", "行业通用实践"], ["离线留言", "非值班时段留言转工单跟进", "行业通用实践"], ["渠道状态", "各渠道在线与排队状态实时可见", "行业通用实践"]]], ["接入治理", [["渠道授权", "渠道接入需鉴权与频率限制", "行业通用实践"], ["渠道路由配置", "渠道级欢迎语与分配策略可配", "行业通用实践"], ["故障降级", "单渠道故障自动切备用入口", "行业通用实践"], ["接入审计", "渠道接入与断开需留痕", "行业通用实践"]]]]],
+ ["d2", "会话与消息管理", "Conversation & Messaging", "成熟", "管理一次服务交互的完整生命周期，上下文不丢是体验底线", [["会话模型", [["会话生命周期", "会话从发起、进行到关闭状态机管理", "行业通用实践"], ["消息时序", "消息按统一时序与已读回执展示", "Zendesk"], ["会话合并", "同一客户多会话可合并统一视图", "行业通用实践"], ["会话转移", "转接时上下文完整移交不丢信息", "Intercom"]]], ["消息能力", [["富媒体消息", "支持图文、卡片、位置等富媒体", "行业通用实践"], ["快捷回复", "坐席常用语模板一键发送", "智齿"], ["消息撤回更正", "坐席可撤回并更正已发消息", "行业通用实践"], ["排队与等待", "高峰排队与预计等待时间提示", "行业通用实践"]]], ["会话存档", [["全量存档", "会话文本按合规要求留存", "网易七鱼"], ["检索调阅", "历史会话可按客户与关键词检索", "行业通用实践"], ["会话标签", "会话可打业务标签便于归类", "行业通用实践"], ["存档脱敏", "敏感信息存档前脱敏", "行业通用实践"]]]]],
+ ["d3", "知识库", "Knowledge Base", "核心", "把服务经验变成可信、可消费、可演进的知识资产，是首解率与一致性的根", [["知识建模", [["知识条目", "支持 FAQ、流程、政策多类型条目", "Zendesk Guide"], ["结构化问答", "问答对支持多问法与标准答案", "行业通用实践"], ["知识分类", "按业务域与权限分级组织", "行业通用实践"], ["知识图谱", "知识点间关联形成图谱便于推理", "行业通用实践"]]], ["知识维护", [["协同编辑", "多角色协同维护知识并留版本", "Notion"], ["审核发布", "知识变更需审核后生效", "行业通用实践"], ["失效下架", "过期知识自动预警下架", "行业通用实践"], ["知识来源", "支持文档、网页批量导入转知识", "行业通用实践"]]], ["知识消费", [["机器人调用", "知识库直接供给机器人应答", "智齿"], ["坐席检索", "坐席可秒级检索知识辅助应答", "网易七鱼"], ["知识推荐", "据会话上下文推荐相关知识", "行业通用实践"], ["置信度", "知识匹配给出置信度辅助决策", "行业通用实践"]]]]],
+ ["d4", "客户上下文", "Customer Context", "成长", "让坐席一秒懂客户，上下文决定服务是否精准与有温度", [["客户档案", [["统一视图", "服务场景整合客户资料与订单", "Zendesk"], ["历史服务", "历次咨询与处理结果可查", "行业通用实践"], ["客户分层", "按价值与会员等级差异化服务", "行业通用实践"], ["画像标签", "服务侧客户标签辅助应答", "行业通用实践"]]], ["实时上下文", [["行为追踪", "客户当前页面与操作实时可见", "Intercom"], ["会话前情", "进入会话前浏览与意图预填", "行业通用实践"], ["关联订单", "直接调取订单与物流状态", "行业通用实践"], ["设备环境", "客户设备与版本信息辅助排障", "行业通用实践"]]], ["上下文治理", [["隐私脱敏", "坐席仅见授权范围内信息", "行业通用实践"], ["获取同意", "调阅敏感信息需客户授权", "个保法"], ["访问留痕", "客户信息调阅全程留痕", "行业通用实践"], ["缓存清理", "会话结束清理临时上下文", "行业通用实践"]]]]],
+ ["d5", "媒体与文件处理", "Media & File Handling", "成长", "图片、语音、视频等非结构化信息的处理与合规留存，决定了复杂问题能否被解决", [["文件收发", [["多格式支持", "支持图片、文档、音视频收发", "行业通用实践"], ["大小限制", "文件大小与类型按策略限制", "行业通用实践"], ["病毒扫描", "上传文件自动安全扫描", "行业通用实践"], ["文件预览", "坐席侧安全预览不下载原文件", "行业通用实践"]]], ["语音处理", [["语音转写", "通话与语音消息实时转文字", "科大讯飞"], ["实时翻译", "多语种实时翻译辅助沟通", "网易七鱼"], ["声纹识别", "通话声纹辅助身份核验", "行业通用实践"], ["语音质检", "语音转写后进入质检流程", "行业通用实践"]]], ["图像与视频", [["图片理解", "客户发图自动识别内容辅助应答", "行业通用实践"], ["截图标注", "坐席可在截图上标注引导", "行业通用实践"], ["视频通话", "复杂问题支持视频协助", "行业通用实践"], ["媒体归档", "媒体文件按合规留存与检索", "行业通用实践"]]]]],
+ ["d6", "对话机器人", "Conversation Bot", "核心", "用意图识别与多轮对话扛住大部分标准咨询，是降低人力成本与提升首解率的主引擎", [["意图识别", [["意图分类", "多轮意图识别与消歧", "Google Dialogflow"], ["实体抽取", "从语句抽取订单号、产品等实体", "Rasa"], ["语义匹配", "相似问法匹配到标准意图", "行业通用实践"], ["意图置信", "低置信转人工不硬答", "行业通用实践"]]], ["多轮对话", [["对话状态机", "槽位填充与状态跟踪完成多轮任务", "Dialogflow"], ["澄清反问", "信息不足时主动澄清", "行业通用实践"], ["话题切换", "支持中途切换话题与回退", "行业通用实践"], ["任务完成", "完成查询、办理等闭环任务", "行业通用实践"]]], ["机器人运营", [["兜底话术", "无法理解时友好兜底并转人工", "智齿"], ["机器人训练", "基于未识别语料持续训练", "行业通用实践"], ["效果看板", "解决率、转人工率实时看板", "Intercom"], ["多机器人", "按业务域部署多个专业机器人", "行业通用实践"]]]]],
+ ["d7", "人工坐席工作台", "Agent Workspace", "成熟", "让人工专注难事，工作台效率直接决定处理时长与坐席留存", [["工作台界面", [["统一收件箱", "多渠道会话统一在一个工作台", "Zendesk"], ["快捷键与宏", "常用操作一键完成提升效率", "智齿"], ["多会话并行", "坐席可同时处理多会话", "行业通用实践"], ["个性化布局", "工作台按角色自定义布局", "行业通用实践"]]], ["协同与转接", [["内部备注", "会话内内部备注不暴露客户", "Intercom"], ["协作转派", "转给专家并带完整上下文", "行业通用实践"], ["主管介入", "主管可监听与介入会话", "行业通用实践"], ["团队空间", "按团队组织会话与知识", "行业通用实践"]]], ["效率工具", [["智能填入", "表单字段从上下文自动填入", "行业通用实践"], ["话术推荐", "实时推荐应答话术", "网易七鱼"], ["知识弹窗", "相关问题知识自动弹窗", "行业通用实践"], ["客户卡联动", "操作直接联动业务系统办理", "行业通用实践"]]]]],
+ ["d8", "智能辅助", "Agent Assist", "成长", "在坐席身边实时给建议，是平衡质量、合规与效率的杠杆，也是大模型最先落地点", [["辅助应答", [["实时话术", "据会话实时生成建议回复", "科大讯飞"], ["知识检索增强", "结合检索给坐席答案", "行业通用实践"], ["情绪提示", "实时提示客户情绪变化", "行业通用实践"], ["合规提醒", "敏感话术实时预警拦截", "行业通用实践"]]], ["辅助办理", [["操作推荐", "推荐下一步办理动作", "行业通用实践"], ["表单自动填", "从对话抽取信息填单", "行业通用实践"], ["流程引导", "复杂流程步骤式引导坐席", "行业通用实践"], ["摘要生成", "会话结束自动生成摘要", "智齿"]]], ["辅助决策", [["升级建议", "判断是否需要升级主管", "行业通用实践"], ["挽留建议", "识别流失风险给挽留话术", "行业通用实践"], ["优惠建议", "据权限给可给的补偿方案", "行业通用实践"], ["风险预警", "投诉与舆情风险提前预警", "行业通用实践"]]]]],
+ ["d9", "工单系统", "Ticketing", "成熟", "把无法即时解决的问题变成可跟踪、可承诺、可闭环的事务，是服务兑现的契约", [["工单建模", [["工单类型", "支持咨询、报障、投诉等多类型", "Zendesk"], ["自定义字段", "业务可自定义工单字段与表单", "行业通用实践"], ["优先级", "按 SLA 与影响自动定优先级", "行业通用实践"], ["状态机", "待处理、处理中、已解决等状态流转", "行业通用实践"]]], ["流转与分配", [["自动分配", "按技能与负载自动派单", "Zendesk"], ["升级升级", "超 SLA 自动升级提醒", "行业通用实践"], ["跨团队协作", "多部门会签与转交", "行业通用实践"], ["外部协同", "联动供应商或合作伙伴处理", "行业通用实践"]]], ["履约与关闭", [["SLA 计时", "工单全程 SLA 计时与告警", "Intercom"], ["客户回访", "解决后自动回访确认", "行业通用实践"], ["关闭校验", "关闭前校验信息与结果完整", "行业通用实践"], ["重开机制", "客户不满可重开工单", "行业通用实践"]]]]],
+ ["d10", "会话路由与分配", "Routing & Assignment", "成长", "把对的会话分给对的人，路由质量决定等待时长与一次解决率", [["路由策略", [["技能路由", "按问题技能匹配最合适坐席", "Zendesk"], ["优先级路由", "VIP 与紧急会话优先接入", "行业通用实践"], ["负载均衡", "按坐席当前负载均分流量", "行业通用实践"], ["业务路由", "按业务线分流到对应团队", "行业通用实践"]]], ["排队管理", [["智能排队", "预计等待与位置实时告知", "行业通用实践"], ["溢出策略", "队列过长自动溢出其他组", "行业通用实践"], ["Callback", "长队列提供回拨不丢客户", "智齿"], ["排队放弃分析", "分析放弃原因优化配置", "行业通用实践"]]], ["分配调度", [["坐席状态", "示忙、小休、示闲状态管理", "行业通用实践"], ["排班对接", "路由与排班系统联动", "行业通用实践"], ["闲时机器人", "夜间由机器人兜底接管", "行业通用实践"], ["峰值弹性", "高峰临时扩坐席资源", "行业通用实践"]]]]],
+ ["d11", "质检", "Quality Inspection", "核心", "用全量语音文本质检守住合规与服务底线，是把服务风险从抽查变全覆盖的护栏", [["语音质检", [["全量转写", "通话 100% 转写覆盖抽检", "科大讯飞"], ["关键词质检", "敏感词与禁语自动检出", "智齿"], ["情绪质检", "识别客户与坐席情绪波动", "行业通用实践"], ["语速静默", "异常静默与语速检测", "行业通用实践"]]], ["文本质检", [["会话合规", "在线会话合规话术校验", "行业通用实践"], ["服务规范", "开场白、结束语规范检查", "行业通用实践"], ["敏感信息", "泄露身份证手机号等检出", "个保法"], ["风险话术", "承诺过度等风险话术预警", "行业通用实践"]]], ["质检运营", [["评分模型", "多维度评分卡可配置", "网易七鱼"], ["抽检策略", "按风险与坐席分层抽检", "行业通用实践"], ["申诉复议", "质检结果可申诉复核", "行业通用实践"], ["改进闭环", "质检问题回流培训改进", "行业通用实践"]]]]],
+ ["d12", "情绪与意图分析", "Emotion & Intent Analytics", "成长", "从海量会话里听出情绪与意图，是把体验与商机变成可运营信号的放大器", [["情绪分析", [["实时情绪", "会话实时情绪分值与标签", "科大讯飞"], ["情绪趋势", "单次会话情绪变化趋势", "行业通用实践"], ["群体情绪", "全量会话情绪分布洞察", "行业通用实践"], ["负面预警", "强负面情绪即时预警主管", "行业通用实践"]]], ["意图洞察", [["意图聚类", "未识别语料自动聚类发现新意图", "行业通用实践"], ["热点挖掘", "高频问题与热点话题挖掘", "Intercom"], ["流失信号", "识别流失与投诉前兆信号", "行业通用实践"], ["商机发现", "从咨询中识别销售线索", "行业通用实践"]]], ["分析应用", [["体验度量", "客户满意度与体验指数度量", "行业通用实践"], ["根因分析", "反复问题定位根因", "行业通用实践"], ["报告生成", "自动生成体验分析报告", "行业通用实践"], ["策略反哺", "洞察反哺机器人与知识库", "行业通用实践"]]]]],
+ ["d13", "智能派单与人力预测", "Intelligent Dispatch", "成长", "用预测与匹配把对的工单给对的人，并让排班贴合话务，是成本与体验的平衡器", [["智能派单", [["技能画像", "坐席技能与历史擅长建模", "行业通用实践"], ["最优匹配", "工单与坐席多维最优匹配", "行业通用实践"], ["动态改派", "处理中据进度动态改派", "行业通用实践"], ["溢出规则", "队列积压自动溢出规则", "行业通用实践"]]], ["人力预测", [["来话预测", "基于历史与事件预测来话量", "科大讯飞"], ["排班优化", "按预测生成最优排班", "行业通用实践"], ["弹性用工", "预测高峰提示弹性用工", "行业通用实践"], ["容量仿真", "仿真不同配置的服务水平", "行业通用实践"]]], ["调度运营", [["实时监控", "服务水平与排队实时看板", "行业通用实践"], ["预警干预", "指标劣化自动预警干预", "行业通用实践"], ["复盘优化", "预测偏差复盘优化模型", "行业通用实践"], ["成本权衡", "服务水平与人力成本权衡", "行业通用实践"]]]]],
+ ["d14", "知识运营与自动学习", "Knowledge Ops", "成长", "让知识库从人工维护变成自进化资产，是被低估却决定长期首解率的能力", [["知识挖掘", [["未答挖掘", "机器人未答问题自动汇总", "行业通用实践"], ["答案抽取", "从优质会话抽取新知识点", "行业通用实践"], ["冲突检测", "检测知识间矛盾与过期", "行业通用实践"], ["热点补充", "新业务热点自动提示补知识", "行业通用实践"]]], ["自动学习", [["语料训练", "新语料自动加入训练集", "Rasa"], ["模型迭代", "意图模型定期自动迭代", "行业通用实践"], ["效果评估", "新模型离线评估再上线", "行业通用实践"], ["灰度发布", "新知识新模型灰度生效", "行业通用实践"]]], ["知识运营", [["知识健康度", "知识覆盖率与命中率度量", "行业通用实践"], ["责任到人", "每个知识域有负责团队", "行业通用实践"], ["运营报告", "知识运营周期报告", "行业通用实践"], ["客户反馈", "知识有用性客户反馈闭环", "行业通用实践"]]]]],
+ ["d15", "权限与多租户", "RBAC & Multi-tenancy", "成熟", "让不同团队、外包、不同客户在同一平台安全共存，是平台型企业化的前提", [["权限模型", [["角色权限", "按角色分配功能与数据权限", "行业通用实践"], ["数据行级", "坐席仅见授权客户数据", "行业通用实践"], ["审批流", "敏感操作审批留痕", "行业通用实践"], ["外部协作", "外包坐席受限视图", "行业通用实践"]]], ["多租户", [["租户隔离", "数据配置模型按租户隔离", "行业通用实践"], ["资源配额", "按租户限定坐席与算力", "行业通用实践"], ["品牌定制", "支持品牌与话术级定制", "行业通用实践"], ["计费计量", "坐席与调用量可计量", "行业通用实践"]]], ["安全审计", [["操作审计", "全量操作留痕可追溯", "行业通用实践"], ["异常监测", "异常访问实时告警", "行业通用实践"], ["密钥管理", "密钥轮换加密存储", "行业通用实践"], ["渗透测试", "定期安全评估整改", "行业通用实践"]]]]],
+ ["d16", "合规与隐私", "Compliance & Privacy", "核心", "在个保法与金融等强监管下，留存与隐私做不对就是法律风险，是生死线", [["合规留存", [["录音录像", "通话按监管要求留存", "金融监管"], ["会话留存", "文本会话合规留存可查", "行业通用实践"], ["留存期限", "按法定期限留存与到期销毁", "个保法"], ["调阅审批", "留存内容调阅需审批", "行业通用实践"]]], ["隐私保护", [["数据脱敏", "身份证手机号等默认脱敏", "个保法"], ["最小授权", "坐席仅见必要信息", "行业通用实践"], ["同意管理", "收集与营销使用前需同意", "个保法"], ["删除权", "客户删除权联动全系统清除", "GDPR"]]], ["合规运营", [["合规看板", "各法域合规状态看板", "行业通用实践"], ["主体权利", "查询复制删除流程化", "GDPR"], ["风险预警", "合规风险触发业务熔断", "行业通用实践"], ["审计配合", "配合监管调阅与检查", "行业通用实践"]]]]],
+ ["d17", "效果度量与报表", "Measurement & Reporting", "成熟", "让服务成果被老板与财务读懂，指标稳定是平台可信与续费的根基", [["指标体系", [["服务指标", "首次响应、解决率、满意度", "Zendesk"], ["效率指标", "平均处理时长、坐席产能", "行业通用实践"], ["质量指标", "质检合格率、合规率", "行业通用实践"], ["业务指标", "自助解决率、转商机数", "行业通用实践"]]], ["报表看板", [["实时大屏", "服务实时作战大屏", "行业通用实践"], ["多维分析", "按渠道业务团队下钻", "Tableau"], ["订阅推送", "报表定时推送责任人", "行业通用实践"], ["移动看板", "管理者移动端看指标", "行业通用实践"]]], ["洞察改进", [["异动诊断", "指标异动自动定位根因", "行业通用实践"], ["对标基准", "指标对标行业基准", "行业通用实践"], ["改进建议", "自动生成改进建议", "行业通用实践"], ["闭环追踪", "改进项落地效果追踪", "行业通用实践"]]]]],
+ ["d18", "开放集成与生态", "Open Integration", "成长", "客服平台不可能包办业务系统，开放与生态决定被集成能力与边界", [["开放接口", [["API 网关", "开放能力统一网关鉴权", "行业通用实践"], ["Webhook", "事件订阅推送外部系统", "行业通用实践"], ["SDK", "多语言 SDK 降低集成成本", "行业通用实践"], ["限流配额", "API 按租户限流配额", "行业通用实践"]]], ["生态连接", [["应用市场", "第三方应用上架扩展", "Zendesk Marketplace"], ["业务系统对接", "CRM、工单、订单预置连接器", "行业通用实践"], ["低代码集成", "可视化编排跨系统流程", "Zapier"], ["伙伴赋能", "服务商二次开发赋能", "行业通用实践"]]], ["集成治理", [["调用监控", "接口调用与错误率监控", "行业通用实践"], ["版本兼容", "API 版本化兼容策略", "行业通用实践"], ["沙箱环境", "提供沙箱供伙伴联调", "行业通用实践"], ["文档中心", "接口文档自动生成检索", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["大模型客服 Agent", "live", "LLM 客服已规模替代部分人工首解", "产品化机会是客服 Agent"],
+ ["实时辅助话术", "live", "实时生成建议回复已落地", "产品化机会是辅助工作台"],
+ ["全渠道统一工作台", "live", "多渠道统一已是标配", "产品化机会是一体化工作台"],
+ ["语音转写质检", "live", "通话全量转写质检普及", "产品化机会是质检云"],
+ ["智能路由派单", "live", "按技能派单已成熟", "产品化机会是智能调度"],
+ ["知识库机器人", "live", "知识库供给机器人应答成熟", "产品化机会是知识机器人"],
+ ["情绪实时预警", "live", "负面情绪预警已用", "产品化机会是情绪引擎"],
+ ["自助工单闭环", "live", "客户自助提交工单闭环", "产品化机会是自助门户"],
+ ["多模态客服", "pilot", "图文音视频多模态理解应答", "产品化机会是多模态助手"],
+ ["主动式服务", "pilot", "据行为预测主动触达服务", "产品化机会是主动服务"],
+ ["数字人坐席", "pilot", "虚拟数字人承担部分咨询", "产品化机会是数字人"],
+ ["跨语言客服", "pilot", "实时翻译服务多语种客户", "产品化机会是跨境客服"],
+ ["自治工单", "pilot", "工单自动处理无需人工", "产品化机会是自治工单"],
+ ["坐席大模型 Copilot", "pilot", "全流程 Copilot 辅助坐席", "产品化机会是 Copilot"],
+ ["语音克隆与外呼", "pilot", "克隆音色做外呼通知", "产品化机会是智能外呼"],
+ ["服务营销一体化", "pilot", "服务中识别商机转化", "产品化机会是服务营销"],
+ ["自主决策客服 OS", "explore", "系统自主完成服务全流程", "产品化机会是自主服务"],
+ ["情感陪伴客服", "explore", "情感计算做陪伴式服务", "产品化机会是情感助手"],
+ ["脑机反馈体验", "explore", "神经反馈优化服务（伦理未定）", "产品化机会是谨慎评估"],
+ ["元宇宙服务空间", "explore", "虚拟空间面对面服务", "产品化机会是虚拟网点"],
+ ["去中心化身份服务", "explore", "用户自持身份跨平台服务", "产品化机会是身份协作"],
+ ["实时合规机器人", "explore", "自动跟踪法规调整策略", "产品化机会是合规机器人"],
+ ["AGI 级服务理解", "explore", "通用智能统一理解服务全场景", "产品化机会是长期预研"],
+ ["自进化知识体", "explore", "知识库自进化不需人工维护", "产品化机会是自进化"]
+];
+const MIDS = [
+ ["接入中心", "负责全渠道接入与消息同步", "渠道连接器、同步、治理"],
+ ["会话中心", "管理会话生命周期与存档", "会话模型、消息、存档"],
+ ["知识中心", "建设维护消费知识库", "知识建模、维护、消费"],
+ ["客户中心", "整合服务侧客户上下文", "档案、实时上下文、治理"],
+ ["媒体中心", "处理文件语音图像视频", "文件、语音、图像视频"],
+ ["机器人中心", "运营对话机器人与意图", "意图识别、多轮、运营"],
+ ["坐席中心", "提供人工工作台与协同", "界面、协同、效率工具"],
+ ["辅助中心", "实时智能辅助坐席", "应答、办理、决策辅助"],
+ ["工单中心", "管理工单全生命周期", "建模、流转、履约关闭"],
+ ["路由中心", "会话与工单路由分配", "策略、排队、调度"],
+ ["质检中心", "全量语音文本质检", "语音、文本、运营"],
+ ["分析中心", "情绪意图与体验分析", "情绪、洞察、应用"],
+ ["调度中心", "智能派单与人力预测", "派单、预测、运营"],
+ ["知识运营中心", "知识挖掘与自动学习", "挖掘、学习、运营"],
+ ["权限租户中心", "管控权限与多租户", "权限、隔离、安全"],
+ ["合规中心", "管理留存隐私与合规", "留存、隐私、运营"],
+ ["度量中心", "指标体系与报表洞察", "指标、看板、改进"],
+ ["集成中心", "开放接口与生态连接", "API、生态、治理"]
+];
+const RULES = [
+ ["敏感信息须脱敏", "泄露身份证手机号违反个保法且引发诈骗与信任崩塌"],
+ ["录音留存须合规", "金融等需留存但超期或滥用即违规，且无审批调阅违法"],
+ ["机器人低置信须转人工", "硬答错误承诺会引发客诉与法律风险"],
+ ["SLA 须强制计时", "无 SLA 客户等待无界，满意度与续费双崩"],
+ ["删除权须全链路联动", "只删部分系统仍可复原，侵犯被遗忘权"],
+ ["质检须全量而非仅抽检高风险场景", "仅抽检会放过重大合规事故"],
+ ["坐席权限须最小授权", "越权可见客户信息造成隐私泄露与内部 fraud"],
+ ["会话转移须带完整上下文", "丢上下文让客户重复诉说，体验与效率双输"],
+ ["合规话术须实时拦截", "违规承诺出口即成事实，事后难挽"],
+ ["工单关闭须校验完整", "草率关闭导致问题复发，客户流失"],
+ ["情绪负面须预警升级", "强负面未及时干预易演变为舆情与投诉"],
+ ["知识须有负责团队", "无主知识过期错答，机器人信任崩塌"],
+ ["排班须与预测联动", "排班失准致高峰排队爆单，服务水平塌陷"],
+ ["外部协同须受控", "供应商越权处理客户数据泄露风险"],
+ ["转人工路径须永远可用", "机器人死循环会让客户彻底流失"],
+ ["审计留痕须不可篡改", "留痕可篡改则监管调查中无法举证"]
+];
+const KPIS = [
+ ["服务类", "首次响应时长、解决率、满意度 CSAT"],
+ ["效率类", "平均处理时长、坐席产能、排队时长"],
+ ["质量类", "质检合格率、合规率、知识准确率"],
+ ["智能类", "机器人解决率、转人工率、意图准确率"],
+ ["业务类", "自助率、转商机数、挽留成功数"],
+ ["成本类", "单次服务成本、人力利用率、外包占比"],
+ ["体验类", "NPS、情绪负向率、重复来话率"],
+ ["合规类", "敏感信息泄露数、留存合规率、投诉率"]
+];
+const LIC_CN = [
+ ["个人信息保护法（个保法）", "可处理客户信息做服务", "须同意、最小化、脱敏、留存期与删除权"],
+ ["网络安全等级保护", "可运营客服系统", "须过等保并定期测评"],
+ ["数据安全法", "可建客服数据平台", "重要数据分级分类与出境评估"],
+ ["消费者权益保护法", "可开展售后服务", "须保障知情权与公平交易"],
+ ["电信条例与呼叫中心规定", "可开展电话外呼", "须标明身份、不得骚扰、提供拒接"],
+ ["金融消费者权益保护（如涉金融）", "可做金融客服", "须双录、适当性与投诉处理"],
+ ["互联网信息服务算法推荐规定", "可用推荐做服务路由", "须提供关闭选项与算法备案"],
+ ["网络数据安全管理条例", "可处理大规模个人信息", "须建合规制度与应急"],
+ ["App 违法违规收集使用个人信息认定方法", "可采集用户信息", "不得强制授权超范围收集"],
+ ["信息安全技术个人信息安全规范", "可设计隐私保护流程", "须按国标做去标识与访问控制"],
+ ["电子签名法", "可在线签署确认", "须可靠电子签名才具效力"],
+ ["反电信网络诈骗法", "可做身份核验与外呼", "须落实实名制与异常拦截"],
+ ["商业银行互联网业务（如涉金融）", "可做线上金融业务客服", "须可回溯与风险提示"],
+ ["在线旅游与电商售后规定（如涉出行零售）", "可做退改与售后", "须按品类履行退改义务"],
+ ["互联网诊疗（如涉医疗客服）", "可做医疗咨询导流", "不得替代诊疗、须资质"]
+];
+const LIC_INTL = [
+ ["GDPR（欧盟）", "可服务欧盟用户", "需同意、被遗忘权、数据出境 adequacy"],
+ ["CCPA/CPRA（加州）", "可服务加州用户", "须 opt-out 与拒绝出售数据"],
+ ["TCPA（美国）", "可做电话与短信外呼", "须先验同意、提供退订"],
+ ["HIPAA（美国医疗）", "可做医疗客服（须合规）", "须签署 BAA 与加密传输"],
+ ["LGPD（巴西）", "可服务巴西用户", "类 GDPR 同意与主体权利"],
+ ["PDPA（新加坡/泰国）", "可服务东南亚用户", "须同意与跨境保障"],
+ ["CASL（加拿大）", "可发送电子营销", "需明示同意与退订"],
+ ["PCI DSS（如涉支付卡）", "可处理支付卡信息", "须通过卡数据安全合规"]
+];
+const OPPS = [
+ ["中小企一体化客服", "缺统一工作台与机器人", "提供开箱即用 SaaS"],
+ ["大模型客服 Agent", "首解依赖人工成本高", "用 LLM Agent 提升自助解决率"],
+ ["实时辅助 Copilot", "坐席培训成本高", "提供实时话术与知识辅助"],
+ ["智能质检云", "抽检覆盖不足风险高", "全量语音文本质检 SaaS"],
+ ["情绪与体验分析", "难量化客户体验", "提供体验指数与预警"],
+ ["知识运营自动化", "知识维护靠人工低效", "自动挖掘与学习新知识"],
+ ["智能调度排班", "排班靠经验爆单多", "预测排班与智能派单"],
+ ["跨境多语客服", "出海多语种难支撑", "实时翻译与多语知识"],
+ ["服务营销一体化", "服务与销售割裂", "服务中识别商机转化"],
+ ["合规留存中台", "金融等留存合规难", "提供合规留存与调阅"],
+ ["数字人坐席", "夜间与峰值人力贵", "数字人承担标准咨询"],
+ ["行业垂直客服云", "通用难贴合行业", "深耕金融电商等行业"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：意图 / 知识库 / 坐席 / 工单`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>
