@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融证券决策管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融证券决策管理平台全景</b>
+    <span>金融证券决策管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融证券决策管理平台产品功能全景图谱</h1>
+    <p>把「金融证券决策管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这类生意的胜负手不在功能多寡，而在数据资产的深度与决策流程的可举证性：谁能让每一笔投资决策都可追溯、可归因、可复盘，谁就拿到机构的长期预算。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这份图谱的主线不是功能清单，而是一条证据链：数据从哪里来、观点如何形成、决策如何做出、结果如何归因——每个环节都可追溯，平台才是机构决策的记分牌而不是工具堆。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据与知识底座</td><td>主数据、行情接入、基本面与另类数据、研究知识库、数据权限与许可</td><td>这一层的本质是数据资产化：没有快照化、许可清晰、可追溯的数据，上层研究全是空中楼阁</td></tr>
+<tr><td>第二层（d6–d9）：研究与信号生产</td><td>研究过程管理、因子与模型研究、信号与观点管理、盈利预测与估值</td><td>这一层的本质是把个体研究能力变成流程化产能：观点结构化、模型受治理、信号可归因</td></tr>
+<tr><td>第三层（d10–d14）：组合与决策</td><td>组合分析与优化、风险与归因、决策会议与投委会、指令预检与合规闸口、投后跟踪与复盘</td><td>这一层的本质是决策证据链：每个决策从输入到结果全程可举证，且止步于指令、不碰执行</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>权限与合规留痕、研究考核与激励、开放集成与扩展、运营监控与成本治理</td><td>这一层的本质是让平台在监管与成本约束下长期运转：留痕可审计、贡献可量化、系统可持续</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先冻结数据快照与回测口径，再谈研究工具；先建立合规预检与留痕体系，再开放功能给一线；先让投委会决议可跟踪闭环，再谈决策智能化。</div>
+    <div class="danger">最危险的假信号是「界面好看、终端活跃」：如果观点不可归因、决议不闭环、回测口径可改，用得越多合规风险越大。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级只看一条：它是否让决策证据链更完整——提升归因、留痕或复现能力的优先，纯演示型 AI 缓行。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>观点</td><td>包含方向、标的、期限、置信度的结构化研究结论</td><td>观点散落在文档里则研究资产无法沉淀，考核与复盘全部失真</td></tr>
+<tr><td>快照</td><td>数据按披露日冻结的历史版本</td><td>允许后向改写则回测与考核失去公信力，平台信任归零</td></tr>
+<tr><td>决议</td><td>投委会表决形成的可执行指令与责任时限</td><td>决议不结构化则执行无人跟踪，投委会沦为形式</td></tr>
+<tr><td>因子</td><td>公式与参数版本化的收益驱动解释变量</td><td>因子同名异义或不可复现，量化研究体系崩塌</td></tr>
+<tr><td>归因</td><td>把组合收益拆解到配置、选股与因子的方法</td><td>口径不冻结则每次复盘结论漂移，无法形成反馈</td></tr>
+<tr><td>合规闸口</td><td>投资指令进入执行前的事前校验环节</td><td>闸口失效一次就是重大违规，平台直接面临牌照风险</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">这个领域是证券监管（投研业务资质与研报合规）、数据合规（数据安全与个人信息保护）、公司内控（投资决策与员工行为管理）与 AI 治理（生成式模型备案）四个监管域的交汇点。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">最常被低估的三条红线：一、研究观点向不特定公众传播即触投顾资质边界；二、调研与专家访谈未报备即可构成选择性披露风险；三、大模型生成的研究内容缺少人工复核留痕将面临 AI 监管问责。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个组合类型做穿（如权益公募），把数据快照与观点结构化跑通</li><li>第二步：建立可举证的基线（研究留痕、回测口径、合规预检规则全部版本化）</li><li>第三步：跑通最短闭环（观点→组合建议→合规预检→投委会决议→执行跟踪）</li><li>第四步：补第二个增值能力（风险归因或投后复盘，形成反馈回路）</li><li>第五步：把承诺写进合同（数据 SLA、留痕保存年限、模型复核责任）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：中型资管机构投研一体化 SaaS（订阅+席位，替代手工流程）</li><li>路径 B：卖方研究所生产力工具（研报生产与合规模板，按账号计费）</li><li>路径 C：数据与另类洞察供应商（主题数据产品与许可治理，按数据包订阅）</li><li>路径 D：大型机构私有化决策平台（私有化部署+治理咨询，项目制高客单）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是先拥有「可举证的决策数据资产」——没有快照化数据与结构化观点，任何路径都退化为一次性项目交付。</div>
+  </section>
+
+  <footer>
+    <p>金融证券决策管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "图谱导读：怎么读这份图谱"],
+ ["s1", "产业地图与平台形态"],
+ ["s2", "功能全景：当下主流能力"],
+ ["s3", "前沿与未来方向"],
+ ["s4", "平台化能力矩阵"],
+ ["s5", "核心业务规则暗礁"],
+ ["s6", "指标体系"],
+ ["s7", "资质与监管地图"],
+ ["s8", "市场空白与产品机会"],
+ ["s9", "如果要做从哪开始"]
+];
+const PLAYERS = [
+ ["买方投研终端与数据平台", "Bloomberg Terminal", "Wind 万得", "以行情数据与研究工具订阅锁定专业用户"],
+ ["投研一体化决策平台", "BlackRock Aladdin", "恒生 O45", "把投研、组合、风控打通为单一头寸账本"],
+ ["AI 洞察与另类数据平台", "Kensho (S&P Global)", "通联数据", "用 NLP 与知识图谱把非结构化信息变成决策输入"],
+ ["研究管理与合规系统", "FactSet / AlphaSense", "行业通用实践", "以报告、观点与合规留痕沉淀机构研究资产"],
+ ["因子与量化研究平台", "MSCI Barra / Axioma", "聚宽 JoinQuant", "以因子库与回测引擎支撑策略研究与风险计量"],
+ ["投后绩效与归因平台", "Morningstar Direct", "况客科技", "以归因与考核把研究观点落到业绩证据"]
+];
+const DOMAINS = [
+ ["d1", "主数据与参考数据", "Reference & Master Data", "成熟", "证券、发行人、指数、日历与静态参数的全平台单一可信源。", [["证券与主数据", [["证券主数据建模", "同一 ISIN 映射唯一内部编码，禁止重复建券", "Bloomberg Terminal"], ["发行人关联图谱", "股权、担保、供应链关系自动归集至发行人视图", "Kensho"], ["指数与成分维护", "指数成分按生效日版本化，历史回看不可篡改", "MSCI"], ["交易日历与时区", "多市场日历冲突以交收地为准，接口按交易日重放", "Wind"]]], ["参数与口径管理", [["费用与税率参数", "参数按合同生效日分段生效，禁止全局覆盖", "恒生 O45"], ["币种与汇率源", "估值汇率与交易汇率分源管理，差异留痕", "FactSet"], ["行业与风格分类", "GICS 与自有分类双轨维护，转换映射显式化", "MSCI Barra"], ["业务字典治理", "枚举状态统一受控发布，禁止前端硬编码", "行业通用实践"]]], ["数据质量与血缘", [["入库强制校验", "新数据源入库校验字段完整与值域，失败阻断", "Aladdin"], ["血缘追溯", "任何下游指标可回溯至源表与加工版本", "Databricks"], ["一致性广播", "主数据变更 T+0 推送下游并生成对账快照", "恒生 O45"], ["失效与归档", "退市证券保留历史属性供回溯估值", "行业通用实践"]]]]],
+ ["d2", "行情与数据接入", "Market & Data Feed", "成熟", "整合实时与历史行情、衍生指标，保障全市场覆盖与质量。", [["行情接入与存储", [["实时行情接入", "主源断流自动切换备用源并告警", "Bloomberg"], ["估值价与收盘价", "估值价优先交易所收盘，缺失走模型价并标注", "Wind"], ["高频时序存储", "tick 数据压缩存储并支持任意区间重算", "kdb+"], ["盘前完整性校验", "盘前完成全市场行情完整性校验，缺失自动补齐", "行业通用实践"]]], ["行情质量与监控", [["行情质量监控", "价格突变超阈值触发人工复核与冻结", "FactSet"], ["断源切换演练", "备用行情源切换机制定期演练验证", "行业通用实践"], ["延迟与完整率监控", "行情延迟与字段完整率纳入实时监控看板", "Bloomberg"], ["异常状态标注", "涨跌停、停牌、除权除息等状态实时标注", "Wind"]]], ["衍生行情与指标", [["复权因子管理", "前后复权按分红送转日重算，口径全平台一致", "Wind"], ["技术指标库", "指标计算参数版本化，回测可复现", "聚宽"], ["收益率序列计算", "区间收益对齐交易日历与分红再投假设", "Morningstar Direct"], ["自定义基准序列", "自定义基准支持成分加权合成与版本管理", "MSCI"]]]]],
+ ["d3", "基本面与另类数据", "Fundamental & Alternative Data", "成长", "财报、盈利预测、另类与 ESG 数据的快照化、许可化入库。", [["财报与盈利预测", [["财报数据接入", "财务三表按披露日快照入库，禁止后向改写", "Wind"], ["一致预期管理", "盈利预测按机构披露日快照聚合", "FactSet"], ["财报科目映射", "不同会计准则科目映射到统一分析口径", "Bloomberg"], ["财务质量打分", "应计、现金流等异常信号自动提示", "行业通用实践"]]], ["另类数据管道", [["另类数据接入", "卫星、电商、招聘数据清洗入库并标注许可与时效", "Kensho"], ["数据许可管理", "每个数据源记录可使用范围与再分发限制", "AlphaSense"], ["管道调度监控", "批处理失败自动重试并升级告警", "Databricks"], ["样本偏差评估", "覆盖度与幸存者偏差入库前量化评估", "行业通用实践"]]], ["舆情与 ESG", [["舆情采集与去重", "多源新闻去重聚类并关联证券", "Kensho"], ["ESG 数据接入", "多家 ESG 评级分歧显式呈现，不强行合成", "MSCI ESG"], ["负面事件库", "处罚、诉讼、质押风险事件结构化沉淀", "Wind"], ["舆情推送路由", "按持仓与自选清单路由至相关研究员", "AlphaSense"]]]]],
+ ["d4", "研究资料与知识库", "Research Knowledge Base", "成长", "报告、纪要与知识图谱的沉淀，让研究成为可检索资产。", [["报告管理", [["研究报告入库", "内外部报告统一元数据编目与版权标记", "FactSet"], ["版本与审批", "对外观点报告经合规审批后发布留痕", "行业通用实践"], ["模板化撰写", "数据块自动嵌入正文，数字随源更新", "AlphaSense"], ["阅读转化分析", "报告阅读与转化数据回流考核", "Morningstar Direct"]]], ["知识图谱", [["实体抽取", "公告与研报抽取公司、人物、事件建立图谱", "Kensho"], ["事件关联", "事件与证券、行业、主题多对多关联", "Wind"], ["链条推理", "供应链与股权传导影响自动测算", "Kensho"], ["知识校验", "图谱更新需来源可溯，冲突进入人工复核", "行业通用实践"]]], ["智能检索", [["语义检索", "跨研报、公告、纪要的自然语言检索", "AlphaSense"], ["摘要与对比", "多文档观点对比摘要并标注来源", "Kensho"], ["纪要结构化", "电话会纪要自动分段提取要点与情绪", "AlphaSense"], ["个性化订阅", "按关注清单订阅主题与标的增量推送", "Wind"]]]]],
+ ["d5", "数据权限与许可", "Data Access & Licensing", "成熟", "数据可见性、合规使用与审计的统一治理。", [["权限模型", [["细粒度授权", "行情、持仓、模型按用户组与角色隔离", "Aladdin"], ["隔离墙管理", "投资与研究条线敏感信息隔离墙", "行业通用实践"], ["临时授权", "临时提数授权限时自动回收", "恒生 O45"], ["账号生命周期", "离职当日回收全部数据访问权限", "行业通用实践"]]], ["脱敏与导出", [["导出审批", "批量导出需审批并嵌入用户级水印", "FactSet"], ["动态脱敏", "敏感字段按角色脱敏展示", "行业通用实践"], ["传输加密", "数据传输全程加密并校验终端合规", "Bloomberg"], ["水印溯源", "导出文件嵌入用户级水印可溯源追责", "行业通用实践"]]], ["审计留痕", [["全量操作日志", "查询、导出、模型调用全量留痕可审计", "Aladdin"], ["防篡改存储", "审计日志防篡改并定期完整性校验", "行业通用实践"], ["异常行为识别", "异常批量查询自动预警", "行业通用实践"], ["监管协查支持", "按监管要求快速出具数据访问证据", "FactSet"]]]]],
+ ["d6", "研究过程管理", "Research Process Management", "成长", "立项、调研、观点沉淀的流程化，把个体研究变成机构产能。", [["项目与任务", [["研究立项", "覆盖标的池变更需立项审批", "行业通用实践"], ["任务看板", "调研、路演、更新任务闭环跟踪", "况客科技"], ["覆盖度管理", "覆盖标的与更新时效纳入仪表盘", "FactSet"], ["协同编辑", "多人协同撰写并保留修订痕迹", "AlphaSense"]]], ["调研与纪要", [["调研合规报备", "上市公司调研预约与合规报备一体完成", "行业通用实践"], ["纪要结构化归档", "调研纪要结构化入库并关联标的", "Kensho"], ["专家访谈合规", "专家访谈合规审查与付费留痕", "GLG"], ["纪要要点回流", "纪要要点自动生成待办与跟踪项", "行业通用实践"]]], ["观点沉淀", [["观点结构化", "研究结论拆为方向、标的、期限、置信度字段", "况客科技"], ["观点与持仓映射", "观点变化与组合调整联动核对", "Aladdin"], ["观点时效管理", "观点到期自动提醒复核", "行业通用实践"], ["观点历史回看", "历史观点不可改写，可对比命中率", "FactSet"]]]]],
+ ["d7", "因子与模型研究", "Factor & Model Research", "成长", "因子库、回测引擎与模型治理，保证研究可复现。", [["因子库", [["因子定义管理", "因子公式与参数版本化，禁止同名异义", "MSCI Barra"], ["因子检验流水线", "IC、分层收益、换手率等检验一键执行", "聚宽"], ["因子相关性矩阵", "新因子与既有因子相关性入库前强制展示", "Axioma"], ["因子生命周期", "有效因子晋级、衰减因子降级归档", "行业通用实践"]]], ["回测与模拟", [["回测引擎", "回测对齐交易日历、涨跌停与停牌约束，禁止未来函数", "聚宽"], ["情景与压力模拟", "历史情景与假设情景批量模拟", "Aladdin"], ["成本敏感性分析", "回测嵌入冲击成本与滑点敏感性分析", "Axioma"], ["回测结果归档", "回测输入输出快照归档可复现", "行业通用实践"]]], ["模型治理", [["模型版本治理", "模型、数据、参数组合快照可复现", "Databricks"], ["模型评审准入", "新模型上线经模型评审会批准", "行业通用实践"], ["样本外跟踪", "模型上线后样本外表现持续跟踪并自动报警", "Aladdin"], ["模型退役机制", "连续失效触发降权与退役评审", "行业通用实践"]]]]],
+ ["d8", "信号与观点管理", "Signal & View Management", "成长", "信号的生产、融合、监控与治理闭环。", [["信号工厂", [["信号生成调度", "数据就绪触发信号计算，超时告警", "Databricks"], ["信号标准协议", "信号输出统一方向、强度、置信度协议", "行业通用实践"], ["多源信号融合", "多信号加权融合权重可配置可回溯", "Kensho"], ["信号冲突呈现", "同标的多信号冲突显式呈现，不静默抵消", "行业通用实践"]]], ["信号应用", [["信号到组合映射", "信号驱动目标组合偏离计算", "Aladdin"], ["信号白名单", "未过评审的信号禁止进入组合建议", "行业通用实践"], ["信号衰减管理", "信号时效衰减曲线显式配置", "聚宽"], ["执行反馈回流", "信号建议与实际执行差异回流分析", "行业通用实践"]]], ["信号监控", [["信号绩效归因", "信号贡献独立归因于基准组合", "FactSet"], ["误报率监控", "假阳信号率超阈值自动降级", "行业通用实践"], ["数据依赖健康度", "信号依赖的数据源故障自动挂起", "Databricks"], ["信号版本对比", "新旧信号影子运行对比后切换", "行业通用实践"]]]]],
+ ["d9", "盈利预测与估值", "Forecast & Valuation", "成熟", "盈利预测聚合、估值模型与目标价的口径管理。", [["估值模型", [["多模型估值框架", "DCF、可比、分部估值并行可切换", "FactSet"], ["假设参数管理", "关键假设集中管理并敏感性联动", "行业通用实践"], ["模板继承复用", "行业估值模板继承并差异化覆盖", "Wind"], ["估值留痕", "每次估值假设变更留痕可回溯", "FactSet"]]], ["盈利预测", [["预测数据录入", "券商预测按披露日入库聚合", "朝阳永续"], ["预测修正监测", "分析师上下调实时监测推送", "FactSet"], ["实际值回填", "财报实际值自动回填并计算超预期幅度", "Wind"], ["预测偏差考核", "分析师预测偏差纳入考核", "朝阳永续"]]], ["目标价与评级", [["目标价一致化", "多源目标价按口径一致化处理", "FactSet"], ["评级调整事件化", "评级变动事件化并关联价格反应", "Wind"], ["评级分布监控", "覆盖评级偏多预警，防止系统性乐观", "行业通用实践"], ["评级观点一致性", "评级与研究观点冲突强制复核", "行业通用实践"]]]]],
+ ["d10", "组合分析与优化", "Portfolio Analysis & Optimization", "成熟", "组合视图、约束优化与情景分析，是决策的核心工作台。", [["组合视图", [["多资产组合视图", "持仓、敞口、集中度一屏透视", "Aladdin"], ["多层组合穿透", "多层组合穿透至底层标的与因子", "Addepar"], ["模拟组合管理", "策略模拟组合与实盘并行跟踪", "况客科技"], ["现金与流动性视图", "现金流、到期与流动性梯队展示", "行业通用实践"]]], ["优化器", [["目标函数配置", "跟踪误差、换手、成本约束显式建模", "Axioma"], ["约束体系", "行业、风格、个券、禁投清单约束叠加", "MSCI Barra"], ["优化结果解释", "优化调仓建议附归因解释", "Axioma"], ["多方案对比", "多组约束方案并行对比后择一", "行业通用实践"]]], ["情景分析", [["历史情景回放", "2008、2015 等历史情景一键回放", "Aladdin"], ["假设情景压力测试", "自定义利率、汇率冲击路径测试", "MSCI RiskMetrics"], ["相关性压力分析", "危机相关性抬升情形下重估风险", "Northfield"], ["流动性压力测算", "极端市况下组合变现天数测算", "行业通用实践"]]]]],
+ ["d11", "风险与业绩归因", "Risk & Attribution", "成熟", "风险计量、收益拆解与限额体系的闭环。", [["风险计量", [["多因子风险模型", "风格与行业因子暴露日频计量", "MSCI Barra"], ["VaR 与尾部风险", "历史模拟与蒙特卡洛并行输出", "RiskMetrics"], ["集中度与流动性风险", "单券与行业集中度预警联动流动性分位", "Aladdin"], ["衍生品风险穿透", "期权希腊字母与保证金占用纳入组合风险", "MSCI"]]], ["归因分析", [["Brinson 归因", "配置与选股贡献双维拆解", "FactSet"], ["多因子归因", "收益拆解至风格、行业与特质收益", "MSCI Barra"], ["交易归因", "择时与执行成本独立计量", "行业通用实践"], ["归因口径冻结", "归因基准与口径经投委会确认后冻结", "况客科技"]]], ["风险限额", [["限额体系", "组合、行业、单券限额逐级下设", "Aladdin"], ["限额预警处置", "触限自动预警并限时出具处置方案", "行业通用实践"], ["超限审批", "超限投资走升级审批并留痕", "恒生 O45"], ["限额回顾报告", "限额执行情况按周输出投委会", "行业通用实践"]]]]],
+ ["d12", "决策会议与投委会", "Investment Committee", "成长", "会议、议案与决议的全流程数字化与闭环跟踪。", [["会议管理", [["材料自动汇编", "持仓、风险、观点数据自动汇编成册", "行业通用实践"], ["法定人数校验", "会议日程与法定人数、回避规则系统校验", "行业通用实践"], ["纪要结构化", "纪要自动关联议案、表决与责任人", "行业通用实践"], ["异步表决", "紧急事项支持线上限时表决留痕", "行业通用实践"]]], ["议案与决议", [["议案生命周期", "议案起草、评审、表决、归档全流程留痕", "行业通用实践"], ["决议结构化", "决议拆为可执行指令与责任时限", "况客科技"], ["利益冲突申报", "关联人自动提示回避申报", "行业通用实践"], ["决议变更追溯", "决议修订需新议案覆盖并引用原决议", "行业通用实践"]]], ["执行跟踪", [["决议执行跟踪", "决议事项自动转任务并跟踪闭环", "况客科技"], ["逾期升级", "逾期未执行自动升级至投委会主席", "行业通用实践"], ["决策复盘报告", "决议结果与市场结果定期对照复盘", "行业通用实践"], ["决策知识库", "历史决议可检索供同类决策参考", "FactSet"]]]]],
+ ["d13", "指令预检与合规闸口", "Pre-trade Compliance Gate", "核心", "决策转指令的事前合规校验，止步于指令不碰执行。", [["合规预检", [["合规预检执行", "投资指令进入执行前跑禁投清单、集中度与限额校验", "恒生 O32"], ["关联交易校验", "关联方与一致行动人交易自动拦截审批", "行业通用实践"], ["长短名册校验", "禁止买卖名册实时更新校验", "Aladdin"], ["规则版本化", "合规规则按法规生效日版本化", "恒生 O45"]]], ["指令生成", [["决策到指令转换", "决议与信号转标准化投资指令并双人复核", "恒生 O32"], ["指令路由边界", "平台止步于指令分发，不直连撮合", "行业通用实践"], ["指令状态跟踪", "指令回报状态可视化，差异告警", "Charles River IMS"], ["撤单改单留痕", "撤改指令全留痕并与原因关联", "Charles River IMS"]]], ["决策支持边界", [["定位声明管理", "决策支持定位写入产品文档与培训", "行业通用实践"], ["人机责任划分", "最终决策人签字确认留痕", "行业通用实践"], ["算法建议透明", "量化建议附带关键假设与局限说明", "Kensho"], ["紧急干预通道", "市场极端情形下人工接管流程预案演练", "行业通用实践"]]]]],
+ ["d14", "投后跟踪与复盘", "Post-Investment Review", "成长", "持仓逻辑跟踪、复盘体系与教训沉淀。", [["持仓跟踪", [["买入逻辑跟踪", "买入理由逐条跟踪证伪信号", "况客科技"], ["事件驱动提醒", "持仓标的公告、评级、异动自动推送", "Wind"], ["逻辑偏离预警", "价格偏离基本面逻辑阈值预警", "行业通用实践"], ["持仓研究联动", "持仓变化自动通知覆盖研究员", "FactSet"]]], ["复盘体系", [["定期复盘机制", "月度、季度复盘议题自动生成", "况客科技"], ["胜负案例拆解", "盈亏案例按决策链拆解归因", "行业通用实践"], ["过程与结果分离", "用决策过程质量而非单次盈亏评价", "行业通用实践"], ["复盘模板化", "复盘输出结构化模板并归档", "况客科技"]]], ["教训沉淀", [["错误清单管理", "已识别错误转化为检查清单嵌入流程", "行业通用实践"], ["反共识记录", "少数派观点留档追踪", "行业通用实践"], ["认知偏差提醒", "过度自信、锚定等偏差问卷提示", "行业通用实践"], ["外部对照分析", "与同业公开持仓与业绩对照分析", "Morningstar Direct"]]]]],
+ ["d15", "权限与合规留痕", "Access & Compliance Audit", "核心", "权限治理、全程留痕与监管报送的合规底座。", [["权限治理", [["角色权限矩阵", "投研交易权限按角色最小化授权", "Aladdin"], ["权限审批流", "权限开通双人审批并定期复核", "行业通用实践"], ["特权账户管控", "管理员操作全程录屏留痕", "行业通用实践"], ["离职权限回收", "离职当日回收数据与系统权限", "行业通用实践"]]], ["合规留痕", [["研究留痕全覆盖", "研究全流程可举证还原", "Aladdin"], ["员工交易监控", "员工个人账户交易与研究期冲突比对", "行业通用实践"], ["通讯留痕", "研究相关通讯按监管要求归档", "Global Relay"], ["防内幕交易墙", "未公开重大信息知情人名单联动禁投", "恒生 O45"]]], ["监管报送", [["监管报表生成", "报表指标自动取数与口径校验", "恒生 O45"], ["报送状态跟踪", "报送时限与退回整改跟踪闭环", "行业通用实践"], ["现场检查支持", "检查资料一键归集导出", "行业通用实践"], ["数据跨境合规", "数据出境按属地要求路由存储", "行业通用实践"]]]]],
+ ["d16", "研究考核与激励", "Research Evaluation & Incentive", "成长", "研究贡献量化与激励兑现的公平机制。", [["考核体系", [["命中率统计", "评级、目标价命中率独立统计", "FactSet"], ["贡献度归因", "研究观点对组合贡献可量化", "况客科技"], ["多维考核权重", "质量、时效、合规多维加权", "行业通用实践"], ["考核口径公开", "考核规则对研究员透明可申诉", "行业通用实践"]]], ["激励与佣金", [["分仓联动机制", "研究服务评价与分仓佣金关联", "行业通用实践"], ["评选数据支持", "评选所需客观数据一键出具", "朝阳永续"], ["激励兑现留痕", "奖金计算依据可审计", "行业通用实践"], ["团队个人平衡", "团队协同贡献与个人产出双轨计量", "行业通用实践"]]], ["荣誉与退出", [["覆盖退出机制", "长期无产出覆盖标的有序退出", "行业通用实践"], ["晋升转型挂钩", "考核结果与晋级转岗挂钩", "行业通用实践"], ["末位改进计划", "连续末位触发改进计划与帮扶", "行业通用实践"], ["外部评价校准", "定期引入外部评价校准内部考核", "Morningstar Direct"]]]]],
+ ["d17", "开放集成与扩展", "Open Integration", "成熟", "API 体系、生态集成与可扩展架构。", [["开放平台", [["开放 API 体系", "数据、信号、指令接口统一鉴权限流", "Bloomberg"], ["API 治理", "接口版本化与调用计量计费", "FactSet"], ["低代码扩展", "业务侧自建看板无需排期", "Databricks"], ["沙箱环境", "供应商接入提供脱敏沙箱", "行业通用实践"]]], ["生态集成", [["OMS 集成", "与 OMS、托管行、TA 按标准报文对接", "Charles River IMS"], ["估值系统集成", "与估值核算系统头寸对账闭环", "赢时胜"], ["IM 邮件集成", "研究通讯工具与企业 IM 打通", "行业通用实践"], ["数据湖对接", "研究数据与数仓数据湖互通", "Databricks"]]], ["可扩展架构", [["弹性算力调度", "回测与模型训练算力弹性伸缩", "Databricks"], ["多租户隔离", "子机构数据与配置逻辑隔离", "恒生 O45"], ["灰度发布", "功能灰度按机构与用户组放量", "行业通用实践"], ["容量规划", "峰值行情下系统容量预案演练", "Bloomberg"]]]]],
+ ["d18", "运营监控与成本治理", "Operations & Cost Governance", "成长", "全链路可观测、成本分摊与用户运营。", [["监控告警", [["全链路监控", "数据管道到应用全链路可观测", "Databricks"], ["业务对账监控", "跨系统头寸与指标日终对账", "行业通用实践"], ["告警分级升级", "告警分级路由与升级机制", "行业通用实践"], ["开盘前检查单", "开盘前系统、数据、参数自动检查", "恒生 O45"]]], ["成本治理", [["数据成本分摊", "数据源成本按用量分摊至条线", "FactSet"], ["算力成本看板", "回测与训练成本可视化管控", "Databricks"], ["席位用量优化", "行情终端席位按活跃度优化配置", "Bloomberg"], ["供应商续约评估", "按用量与替代性评估续约议价", "行业通用实践"]]], ["用户运营", [["用户活跃分析", "功能使用率驱动产品迭代", "FactSet"], ["培训与认证", "新功能上线配套培训与认证", "行业通用实践"], ["需求池管理", "用户需求分级排期公开进度", "行业通用实践"], ["埋点治理", "体验埋点合规采集并最小化", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["AI 辅助研报摘要", "live", "大模型抽取研报与纪要要点供人工复核", "研究员阅读效率提升，从摘要工具切入全流程"],
+ ["另类数据产品化", "live", "卫星、电商等另类数据按主题打包订阅", "从单点数据订阅走向主题数据产品"],
+ ["智能合规预检", "live", "规则引擎叠加 NLP 解析法规更新", "合规规则更新自动化成为采购硬指标"],
+ ["移动端投研", "live", "核心看板与审批移动化覆盖出差场景", "从 PC 补充走向移动优先设计"],
+ ["组合风险实时化", "live", "日内滚动风险计量替代 T+1 报表", "日内风险成为买方平台标配"],
+ ["投研知识库检索", "live", "跨报告公告纪要统一语义检索", "以检索为入口沉淀研究资产"],
+ ["报表自动化", "live", "投委会与监管材料自动汇编生成", "从模板拼装走向数据驱动成稿"],
+ ["数据许可治理", "live", "数据用量与合规使用系统化管理", "数据成本可视成为中台必答题"],
+ ["大模型投研助手", "pilot", "自然语言查询行情财务持仓并生成初稿", "从问答助手演进为研究流程 Co-pilot"],
+ ["智能信号工厂", "pilot", "机器学习信号流水线纳入评审治理", "信号治理框架决定放量速度"],
+ ["会议纪要智能体", "pilot", "电话会实时转写要点与情绪标注", "从录音转写切入卖方服务重构"],
+ ["知识图谱传导分析", "pilot", "事件沿供应链股权链自动测算影响", "主题投资与事件驱动策略工具化"],
+ ["自动化尽调底稿", "pilot", "尽调清单自动取数生成底稿草稿", "一级市场投研向平台化延伸"],
+ ["个人化研究工作台", "pilot", "按角色配置工作台与信息流", "从统一终端走向角色化门户"],
+ ["风险情景生成器", "pilot", "大模型生成非常规情景并校验历史合理性", "情景库从静态走向生成式"],
+ ["研究资产化治理", "pilot", "观点、模型、底稿作为可检索资产治理", "研究资产复用率成为新考核项"],
+ ["自主研究智能体", "explore", "多智能体自主完成初步研究与数据验证", "人机协作决策流程需要重新定义"],
+ ["因子自动发现", "explore", "大模型辅助挖掘可解释因子并自动检验", "因子工程民主化冲击传统研究分工"],
+ ["实时事件驱动决策", "explore", "事件流实时触发决策建议与风险提示", "从日频决策走向事件分钟级响应"],
+ ["决策仿真沙盒", "explore", "数字孪生市场环境模拟决策长期后果", "决策训练与策略沙盒成为新形态"],
+ ["投研多模态理解", "explore", "图表、路演视频、电话音频统一理解", "非结构化数据全面资产化"],
+ ["跨机构研究协作网络", "explore", "合规前提下机构间研究观点协作共享", "研究众包与激励分润机制待验证"],
+ ["监管科技嵌入", "explore", "监管规则机器可读并直连平台校验", "RegTech 从报送走向实时内嵌合规"],
+ ["生成式投后复盘", "explore", "大模型自动生成决策复盘与偏差诊断", "复盘从制度要求变为常态化能力"]
+];
+const MIDS = [
+ ["主数据中心", "提供证券、发行人、指数单一可信源", "主数据建模、版本化与血缘管理"],
+ ["行情数据中心", "整合实时与历史行情全市场覆盖", "多源接入、断源切换与质量控制"],
+ ["基本面与另类数据", "提供财报、预测与另类数据管道", "快照化入库、许可管理与偏差评估"],
+ ["研究知识库", "沉淀报告、纪要与知识图谱", "语义检索、实体抽取与观点关联"],
+ ["数据权限与许可", "控制数据可见性与合规使用", "细粒度授权、脱敏导出与审计"],
+ ["研究过程管理", "管理立项、调研与观点沉淀", "任务闭环、调研合规与观点结构化"],
+ ["因子与模型研究", "支撑因子检验与模型治理", "回测引擎、版本治理与样本外跟踪"],
+ ["信号与观点工厂", "生产、融合与监控投资信号", "信号协议、融合权重与绩效归因"],
+ ["预测与估值中心", "维护盈利预测与估值模型", "预测聚合、假设管理与目标价一致化"],
+ ["组合分析中心", "提供组合视图、优化与情景分析", "多资产穿透、约束优化与压力测试"],
+ ["风险与归因中心", "计量风险并拆解收益来源", "因子模型、Brinson 归因与限额体系"],
+ ["决策会议中心", "运营投委会全流程", "材料汇编、决议结构化与执行跟踪"],
+ ["指令与合规闸口", "把决策转成合规可执行指令", "合规预检、双人复核与状态跟踪"],
+ ["投后跟踪中心", "跟踪持仓逻辑与组织复盘", "证伪信号、复盘模板与偏差诊断"],
+ ["合规留痕中心", "保证全程可举证可审计", "全量日志、隔离墙与监管协查"],
+ ["考核激励中心", "量化研究贡献并驱动激励", "命中率统计、贡献归因与口径透明"],
+ ["开放集成平台", "连接内外部系统与生态", "开放 API、标准报文与低代码扩展"],
+ ["运营监控中心", "保障系统稳定与成本可控", "全链路监控、成本分摊与容量规划"]
+];
+const RULES = [
+ ["研究观点未经评审不得进入组合建议", "未经检验的观点直接交易会架空研究流程并放大合规风险"],
+ ["估值与预测数据禁止后向改写", "历史快照被改写则全部回测与考核失去公信力"],
+ ["决策平台不得直接执行交易", "角色混淆将突破内控边界，决策支持与执行必须分离"],
+ ["回测必须剔除未来函数", "一次未来函数污染会让整个因子库失去可信度"],
+ ["合规规则必须按法规生效日版本化", "用现行规则评判历史行为会误判合规风险"],
+ ["研究员调研必须先合规报备", "选择性披露与内幕信息边界一次失守即重大风险"],
+ ["数据许可范围必须精确到用途", "超许可使用数据源会引发供应商诉讼与断供"],
+ ["观点与持仓必须可双向核对", "观点与持仓长期背离说明流程失效或存在未申报利益"],
+ ["超限投资必须走升级审批", "静默超限是风控失效的第一个信号"],
+ ["员工个人交易必须与研究期隔离", "老鼠仓风险直接触发监管处罚与牌照危机"],
+ ["决议必须拆成可执行任务并跟踪闭环", "不闭环的决议让投委会沦为形式"],
+ ["考核口径必须先于考核结果公布", "事后改口径会摧毁研究团队对平台的信任"],
+ ["审计日志必须防篡改留存", "日志可改则全部留痕在监管面前无效"],
+ ["模型上线必须样本外跟踪", "仅看样本内表现会让过拟合模型进入实盘"],
+ ["数据出境必须按属地路由", "跨境传输违规面临监管处罚与数据源中断"],
+ ["极端行情预案必须演练", "未演练的应急预案在极端行情中等同于没有"]
+];
+const KPIS = [
+ ["数据质量指标", "主数据完整率、行情断源时长与跨系统对账差异笔数"],
+ ["研究产出指标", "覆盖标的数、报告时效、观点更新频率与纪要归档率"],
+ ["决策质量指标", "观点命中率、决议执行闭环率与决策复盘覆盖率"],
+ ["风险合规指标", "限额触限次数、合规预检拦截率与超限审批时效"],
+ ["效率指标", "研报撰写周期、数据获取耗时与会议材料准备时长"],
+ ["系统指标", "核心链路可用性、开盘前检查通过率与告警处置时长"],
+ ["成本指标", "数据源成本分摊额、算力成本与席位利用率"],
+ ["采纳指标", "活跃研究员占比、功能渗透率与移动端使用时长"]
+];
+const LIC_CN = [
+ ["证券投资咨询业务资格（需按证监会要求取得）", "面向机构的研报发布与投资建议服务", "研究报告需合规审查留痕，面向公众需持牌主体发布"],
+ ["资管机构公平交易与内控要求（按监管规定方向性表述）", "投研交易风控分离的内控平台建设", "决策支持与交易执行系统必须分离部署"],
+ ["证券基金经营机构信息技术管理办法（方向性表述）", "投研系统的信息技术治理与安全", "核心系统部署与外包需满足监管要求"],
+ ["数据安全法与网络安全法", "行情与客户数据的分级保护", "敏感数据出境需安全评估"],
+ ["个人金融信息保护要求（按人民银行相关规定方向性表述）", "用户数据采集与授权使用", "最小必要采集，导出留痕"],
+ ["防范内幕交易相关要求（按《证券法》方向性表述）", "知情人名单管理与隔离墙", "未公开信息联动禁投校验"],
+ ["发布证券研究报告相关规定（方向性表述）", "卖方研报发布与署名合规", "研报需双人复核与合规审查"],
+ ["上市公司调研活动规范（按交易所自律规则方向性表述）", "机构调研预约与报备", "调研纪要归档备查"],
+ ["证券基金经营机构员工管理相关要求（方向性表述）", "员工个人交易申报与监控", "研究期个人交易限制"],
+ ["金融机构反洗钱要求（按反洗钱法方向性表述）", "客户身份识别与可疑交易监测", "投研平台数据使用需满足溯源"],
+ ["跨境数据流动管理要求（方向性表述）", "境外数据源接入与跨境研究协作", "重要数据境内存储"],
+ ["生成式人工智能服务管理要求（按网信部门规定方向性表述）", "大模型投研助手上线管理", "生成内容需人工复核与备案"],
+ ["金融产品网络营销管理办法（方向性表述）", "投研内容的对外传播管理", "不向不特定对象推荐具体证券"],
+ ["证券期货业网络与信息安全事件报告要求（方向性表述）", "系统事件分级上报", "重大事件按监管时限报告"],
+ ["档案管理与审计留痕要求（按行业自律规则方向性表述）", "研究全程留痕与保存期限", "留痕不可篡改可举证"]
+];
+const LIC_INTL = [
+ ["SEC Code of Ethics 与个人交易合规（方向性表述）", "美国投顾与资管雇员交易合规", "个人交易预清算制度"],
+ ["MiFID II 研究付费要求（方向性表述）", "研究服务与佣金分离核算", "研究预算与分仓透明化"],
+ ["EU GDPR", "欧洲用户研究行为数据处理", "最小化与被遗忘权"],
+ ["SEC Rule 17a-4 记录保存（方向性表述）", "通讯与交易记录留存", "电子留痕防篡改并满足保存年限"],
+ ["UK FCA SM&CR 问责制度（方向性表述）", "高级管理层职责划分", "决策责任到人可追溯"],
+ ["MAS 新加坡资管科技监管（方向性表述）", "亚洲市场投研系统合规接入", "外包与云部署尽职调查"],
+ ["香港 SFO 及证监会通函（方向性表述）", "香港投研与数据业务", "数据跨境与记录保存"],
+ ["FINRA 通讯留痕规则（方向性表述）", "投研相关即时通讯归档", "未备案通讯渠道禁用"]
+];
+const OPPS = [
+ ["大模型研报生产工具", "研报数据图与初稿仍靠人工拼装", "从图表自动嵌入与合规模板切入卖方研究所"],
+ ["中小机构投研一体化", "头部终端贵、自建难，中型机构能力断层", "以 SaaS 化研究管理加组合看板切入"],
+ ["另类数据评估与合规服务", "买方难判另类数据质量与许可风险", "以数据测评与许可审计服务切入"],
+ ["投研知识资产沉淀", "研究随人员流动流失", "以观点结构化与知识图谱沉淀机构记忆"],
+ ["投委会数字化", "会议材料拼装与决议跟踪普遍手工", "以决议结构化与执行闭环工具切入"],
+ ["研究考核量化工具", "观点贡献难量化，考核靠主观", "以命中率与归因数据切入考核体系"],
+ ["合规预检规则引擎", "法规更新到系统生效周期长", "以规则版本化与法规解析服务切入"],
+ ["投后复盘智能化", "复盘流于形式缺数据支撑", "以决策过程拆解与偏差诊断工具切入"],
+ ["个人投研工作台", "研究员在多工具间来回切换", "以角色化门户聚合数据观点任务"],
+ ["一级市场投研延伸", "尽调底稿与投后跟踪数字化程度低", "以尽调自动化与投后指标跟踪切入"],
+ ["移动合规审批", "出差场景审批与风控响应滞后", "以移动端安全审批与看板切入"],
+ ["监管科技服务", "报送口径与法规解析成本高", "以机器可读规则与报送自动化切入"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：因子 / 归因 / 投委会 / 合规预检`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

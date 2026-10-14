@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>云计算管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>云计算管理平台全景</b>
+    <span>云计算管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>云计算管理平台产品功能全景图谱</h1>
+    <p>把「云计算管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手是把分散的多云资源、成本与合规收敛到一个可举证的运营平面，让降本与风控从口号变成可分摊、可问责的数据。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是一条主线：把多云的『看不见、算不清、管不住』变成『可见、可算、可控』的统一运营能力。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d4）：数据资产与接入底座</td><td>多云资源纳管、资源发现与拓扑、资源目录与CMDB、多云连接与凭证</td><td>这一层在产品上的本质是『可信的数据源』——没有干净的纳管与统一模型，后面所有成本、监控、合规都是空中楼阁</td></tr>
+<tr><td>第二层（d5–d9）：核心业务能力</td><td>资源编排与模板、多云成本治理FinOps、统一监控可观测、身份与合规基线、自动化运维</td><td>这一层是CMP的主体卖点，直接对应客户最痛的『交付慢、成本高、合规难、运维累』</td></tr>
+<tr><td>第三层（d10–d14）：智能与决策</td><td>成本优化与建议、容量规划与预测、智能告警与根因、智能调度与放置、合规审计与风险</td><td>这一层把前两层的数据变成『主动建议』，是拉开差异化与提价的关键</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>多租户与组织、计量计费与账单、服务目录与自助、运营分析与报表</td><td>这一层决定平台能否作为内部或对外运营产品持续运转并产生现金流</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：第一，必须先完成资源纳管与统一模型，否则成本与监控都不可信；第二，必须先有合规基线与凭据托管，否则规模化会放大安全事故；第三，必须先冻结成本分摊口径，否则降本无法向财务举证。</div>
+    <div class="danger">一条死亡陷阱：把『接入了越多云账号』当成成功信号——接入量增长若无纳管覆盖率、降本收益与合规得分同步，只是把混乱搬到了一个更大的屏幕上。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：只做能被现有数据直接举证收益的方向，无法量化月度收益的前沿能力先放在探索区。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>资源模型</td><td>跨云统一的资源类型、属性与关系schema</td><td>模型错则成本分摊、监控、合规全部错配，且难以回溯</td></tr>
+<tr><td>成本中心</td><td>成本归集与分摊的最小责任单元</td><td>定义错则降本责任无法落到团队，预算形同虚设</td></tr>
+<tr><td>合规基线</td><td>预置的等保/CIS等控制项集合</td><td>基线错则创建即放行的资源会带来不可逆的合规敞口</td></tr>
+<tr><td>凭据</td><td>跨云访问的AK/SK、证书与临时令牌</td><td>凭据治理失当是横向移动与数据泄露的最大入口</td></tr>
+<tr><td>服务项</td><td>目录中可订购的基础设施封装</td><td>服务项边界错则自助开通会绕过合规与预算前置</td></tr>
+<tr><td>计量明细</td><td>资源用量的原始可追溯记录</td><td>明细缺失则内部结算失去信任，对账无法闭环</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域的监管域组合通常是：网络安全等级保护 + 数据出境与个人信息保护 + 云计算服务安全评估 + 密码与信创适配，四者在此交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：其一，跨境与跨境外传数据未做出境评估就上云；其二，关基与政务场景未过安全评估即承载敏感业务；其三，长期静态凭据与公开暴露端口被视为『小问题』却是最常见泄露入口。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定集团FinOps降本场景做穿（账单归集+闲置回收）</li><li>第二步：建立可举证的成本分摊基线（标签+成本中心）</li><li>第三步：跑通最短闭环（发现闲置→审批→回收→收益报告）</li><li>第四步：补第二个增值能力（统一可观测或合规护栏）</li><li>第五步：把降本收益与合规得分写进年度服务合同</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：集团内部FinOps运营（客户与商业模式：对内降本分成）</li><li>路径 B：政企合规护栏（客户：政务金融，卖合规前置）</li><li>路径 C：MSP托管运维（客户：中小企业，卖托管与优化）</li><li>路径 D：出海多云运营（客户：出海企业，卖比价与驻留合规）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是第一资产：统一、可信、可举证的多云资源与成本数据。</div>
+  </section>
+
+  <footer>
+    <p>云计算管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "互联网与SaaS企业"],
+ ["s1", "金融行业私有云"],
+ ["s2", "政企信创云"],
+ ["s3", "大型集团混合云"],
+ ["s4", "制造业边缘云"],
+ ["s5", "电商零售弹性云"],
+ ["s6", "游戏出海多云"],
+ ["s7", "医疗健康云"],
+ ["s8", "教育科研云"],
+ ["s9", "中小企业托管云"]
+];
+const PLAYERS = [
+ ["统一管理控制台", "CloudHealth (VMware Tanzu)", "行云管家", "把分散的多云账号收敛到一个运营平面"],
+ ["FinOps成本平台", "Cloudability (Apptio)", "飞致云 Fit2Cloud", "把云账单变成可优化、可分摊的成本结构"],
+ ["资源编排平台", "Terraform Cloud", "骞云科技", "用代码管理多云基础设施的全生命周期"],
+ ["统一可观测平台", "Datadog", "观测云", "把指标、日志、链路统一到一个排障视图"],
+ ["合规治理平台", "Prisma Cloud", "青藤云", "把安全合规基线下沉到资源创建环节"],
+ ["自动化运维平台", "Ansible Automation", "嘉为蓝鲸", "把重复运维动作沉淀为可编排的自动化作业"]
+];
+const DOMAINS = [
+ ["d1", "多云资源纳管", "Multi-Cloud Resource Onboarding", "核心", "把异构云账号与资源统一收敛到单一运营平面，是CMP一切能力的前提。", [["接入与账号", [["多云账号纳管", "支持AK/SK、角色联邦与托管身份方式接入主流公有云与私有云", "行业通用实践"], ["资源自动发现", "首次接入后定时全量扫描并增量同步云上资源清单", "AWS Config"], ["资源指纹归一", "将异构云资源属性映射到统一资源模型并去重", "行业通用实践"], ["纳管健康度看板", "展示各云账号同步成功率、延迟与失败明细", "行业通用实践"]]], ["模型与拓扑", [["统一资源模型", "定义跨云通用的资源类型、属性与关系schema", "行业通用实践"], ["资源关系图谱", "构建资源依赖、网络与归属关系图", "行业通用实践"], ["期望态差异比对", "对比编排期望态与运行态并标记漂移", "Terraform Drift"], ["统一标签治理", "强制落标标签规范并校验资源合规", "行业通用实践"]]], ["资产盘点", [["资产全量盘点", "输出跨云资源清单并归属到业务域与负责人", "行业通用实践"], ["闲置资源识别", "标记长期无流量、未挂载、低利用率资源", "CloudHealth"], ["影子IT发现", "发现未纳入管理的云账号与游离资源", "行业通用实践"], ["纳管覆盖率度量", "按业务域与云商度量纳管比例", "行业通用实践"]]]]],
+ ["d2", "资源发现与拓扑", "Resource Discovery & Topology", "核心", "实时掌握资源分布与依赖关系，是成本、监控与排障的基础视图。", [["自动发现", [["周期全量扫描", "按策略周期扫描各云区域资源并刷新拓扑", "AWS Config"], ["增量事件同步", "消费云商事件总线实现近实时资源变更", "阿里云事件总线"], ["跨账号聚合", "把多账号、多区域资源聚合为统一视图", "行业通用实践"], ["非标资源识别", "识别未被模板管理的手工创建资源", "行业通用实践"]]], ["关系图谱", [["依赖关系构建", "基于网络、挂载、引用关系构建依赖边", "行业通用实践"], ["拓扑可视化", "按应用、环境、地域维度渲染拓扑图", "行业通用实践"], ["影响范围分析", "当资源变更时推导下游受影响对象", "行业通用实践"], ["僵尸链路发现", "发现无上游或下游的孤立资源链路", "行业通用实践"]]], ["变更比对", [["配置漂移检测", "对比资源当前配置与基线配置差异", "Terraform Drift"], ["变更审计轨迹", "记录资源属性变更历史与操作人", "行业通用实践"], ["异常变更告警", "对高危资源变更实时告警", "行业通用实践"], ["回滚建议生成", "基于漂移给出最小回滚动作建议", "行业通用实践"]]]]],
+ ["d3", "资源目录与CMDB", "Resource Catalog & CMDB", "成长", "以统一配置库沉淀资源元数据与业务关联，支撑审计与成本归属。", [["资源建模", [["CI项定义", "定义计算、存储、网络等配置项及其属性", "行业通用实践"], ["属性扩展", "支持业务自定义属性与标签扩展", "行业通用实践"], ["关系建模", "建立配置项之间的依赖与归属关系", "行业通用实践"], ["模型版本管理", "对资源模型变更进行版本化演进", "行业通用实践"]]], ["配置管理", [["配置项入库", "纳管资源自动生成并维护配置项", "行业通用实践"], ["配置项核验", "定期校验CMDB与实际运行态一致性", "行业通用实践"], ["配置项退役", "资源下线时联动清理配置项", "行业通用实践"], ["配置血缘", "追踪配置项来源与变更血缘", "行业通用实践"]]], ["服务关联", [["业务应用映射", "将资源归集到业务应用与系统", "行业通用实践"], ["环境归属", "区分生产、测试、预发等环境归属", "行业通用实践"], ["责任人关联", "关联资源到团队与负责人", "行业通用实践"], ["成本中心映射", "资源绑定到成本中心用于分摊", "行业通用实践"]]]]],
+ ["d4", "多云连接与凭证", "Cloud Connect & Credential", "核心", "安全、可审计地管理跨云连接与凭据，是纳管与编排的信任底座。", [["连接管理", [["多云连接配置", "管理跨云专线、VPN与API网关连接", "行业通用实践"], ["连接健康探测", "周期性探测连接可用性并告警", "行业通用实践"], ["连接配额管理", "管理各云连接带宽与并发配额", "行业通用实践"], ["连接拓扑视图", "可视化跨云网络连接拓扑", "行业通用实践"]]], ["凭证托管", [["凭据集中托管", "将AK/SK与证书统一加密托管", "HashiCorp Vault"], ["凭据轮换", "按计划自动轮换长期凭据", "行业通用实践"], ["最小权限发放", "按任务范围下发音视频临时凭据", "行业通用实践"], ["凭据使用审计", "记录凭据调用主体、时间与范围", "行业通用实践"]]], ["网络打通", [["跨云网络互联", "打通多云VPC与本地数据中心", "行业通用实践"], ["网络策略同步", "统一下发跨云安全组与路由策略", "行业通用实践"], ["跨云DNS解析", "提供统一内网域名解析服务", "行业通用实践"], ["网络隔离域", "按租户与业务划分网络隔离域", "行业通用实践"]]]]],
+ ["d5", "资源编排与模板", "Resource Orchestration & IaC", "成熟", "用声明式模板编排跨云资源，把基础设施交付从手工变为可复用资产。", [["模板管理", [["多云模板库", "沉淀跨云可复用的资源编排模板", "Terraform Module"], ["模板参数化", "支持变量、默认值与环境差异化", "行业通用实践"], ["模板校验", "提交前做语法与环境兼容性校验", "行业通用实践"], ["模板版本管理", "对模板进行版本与变更管理", "行业通用实践"]]], ["编排引擎", [["声明式编排", "按期望态创建、更新与销毁资源", "Terraform"], ["编排依赖解析", "自动解析资源创建先后顺序", "行业通用实践"], ["编排Dry-Run", "上线前模拟变更影响范围", "Terraform Plan"], ["编排回滚", "编排失败按依赖逆序回滚", "行业通用实践"]]], ["环境编排", [["环境一键拉起", "按模板批量拉起整套环境", "行业通用实践"], ["环境克隆", "在异云或异区克隆相同环境", "行业通用实践"], ["环境销毁回收", "按策略回收闲置环境释放成本", "CloudHealth"], ["环境差异比对", "对比多环境配置基线差异", "行业通用实践"]]]]],
+ ["d6", "多云成本治理FinOps", "Cloud Cost Governance", "成长", "把云账单变成可分摊、可优化、可问责的成本结构，是CMP的核心价值。", [["账单归集", [["多云账单接入", "归集各云账单与用量明细", "Cloudability"], ["账单归一", "统一币种、口径与计费周期", "行业通用实践"], ["账单清洗", "拆分折扣、预留与税费明细", "行业通用实践"], ["账单异常检测", "识别异常波动与重复计费", "CloudHealth"]]], ["成本分摊", [["标签分摊", "基于标签把成本分摊到团队与应用", "行业通用实践"], ["分摊规则引擎", "支持按比例、阶梯与共享池分摊", "Apptio"], ["成本中心核算", "按成本中心出具核算报表", "行业通用实践"], ["分摊结果复核", "提供分摊明细可追溯复核", "行业通用实践"]]], ["预算管控", [["预算编制", "按部门、项目设定月度预算", "行业通用实践"], ["预算预警", "接近阈值时分级预警", "CloudHealth"], ["配额封顶", "对超预算资源创建进行拦截", "行业通用实践"], ["预算执行分析", "对比预算与实际消耗偏差", "行业通用实践"]]]]],
+ ["d7", "统一监控可观测", "Unified Observability", "成熟", "把指标、日志、链路统一到一个排障视图，缩短MTTR。", [["指标采集", [["多源指标接入", "接入云原生与自定义业务指标", "Prometheus"], ["指标降采样", "长周期指标降采样压缩存储", "行业通用实践"], ["指标标签体系", "统一指标维度与标签规范", "行业通用实践"], ["指标健康分", "对资源健康度聚合打分", "行业通用实践"]]], ["日志聚合", [["日志统一采集", "跨云集中采集与结构化解析", "Loki"], ["日志检索", "提供低延迟全文与字段检索", "Elasticsearch"], ["日志留存策略", "按合规与成本设定留存周期", "行业通用实践"], ["日志告警", "基于日志模式触发告警", "行业通用实践"]]], ["链路追踪", [["分布式追踪", "跨服务串联调用链与耗时", "Jaeger"], ["调用拓扑", "自动生成服务调用依赖图", "行业通用实践"], ["慢调用定位", "定位长尾请求与瓶颈节点", "行业通用实践"], ["追踪采样", "按流量与错误率自适应采样", "行业通用实践"]]]]],
+ ["d8", "身份与合规基线", "Identity & Compliance Baseline", "核心", "把身份、权限与合规基线下沉到资源创建环节，防止违规敞口。", [["统一身份", [["统一身份源", "对接企业IdP实现单点登录", "Okta"], ["细粒度授权", "基于角色与属性的最小授权", "行业通用实践"], ["身份生命周期", "自动化开通、变更与回收", "行业通用实践"], ["特权账户管控", "对高权限操作做审批与留痕", "行业通用实践"]]], ["权限基线", [["权限基线上架", "预置跨云安全组与策略基线", "Prisma Cloud"], ["权限漂移检测", "检测超出基线的越权配置", "行业通用实践"], ["密钥合规", "强制加密与定期轮换密钥", "行业通用实践"], ["公开暴露检测", "发现公网暴露的存储与端口", "行业通用实践"]]], ["合规扫描", [["合规基线库", "内置等保与CIS等行业基线", "行业通用实践"], ["持续合规扫描", "定时扫描资源配置合规状态", "Prisma Cloud"], ["合规缺口看板", "展示各域合规得分与缺口", "行业通用实践"], ["整改工单", "自动派发合规整改任务", "行业通用实践"]]]]],
+ ["d9", "自动化运维", "Automation Ops", "成长", "把重复运维动作沉淀为可编排、可复用的自动化作业。", [["作业编排", [["运维剧本编排", "用低代码编排多步骤运维作业", "Ansible"], ["作业审批流", "高危作业强制二次审批", "行业通用实践"], ["作业模板库", "沉淀常见运维场景模板", "嘉为蓝鲸"], ["作业并发控制", "控制批量作业并发与限速", "行业通用实践"]]], ["补丁与配置", [["批量补丁", "按策略批量下发系统与安全补丁", "行业通用实践"], ["配置加固", "统一推送基线配置与加固项", "行业通用实践"], ["变更窗口", "在维护窗口内执行变更", "行业通用实践"], ["变更验证", "变更后自动校验健康状态", "行业通用实践"]]], ["事件响应", [["事件自动处置", "按规则自动触发处置动作", "行业通用实践"], ["故障预案", "关联预案并一键执行", "行业通用实践"], ["人工兜底面", "自动处置失败时升级人工", "行业通用实践"], ["处置复盘", "记录处置过程用于复盘", "行业通用实践"]]]]],
+ ["d10", "成本优化与建议", "Cost Optimization Advisor", "成长", "基于用量与账单数据主动给出可落地的降本建议。", [["闲置识别", [["闲置资源识别", "识别低利用率与长期闲置资源", "CloudHealth"], ["闲置回收建议", "给出回收或降配建议与收益", "行业通用实践"], ["闲置回收审批", "回收前走审批与通知流程", "行业通用实践"], ["回收效果度量", "跟踪回收后的实际降本", "行业通用实践"]]], ["规格优化", [["机型匹配建议", "按负载推荐更优机型规格", "Cloudability"], ["预留实例建议", "基于稳定用量推荐预留占比", "行业通用实践"], ["竞价实例建议", "对非敏任务推荐竞价实例", "行业通用实践"], ["存储降冷建议", "推荐低频数据转入低成本层", "AWS S3 IA"]]], ["采购建议", [["承诺用量评估", "评估节省计划与承诺折扣", "行业通用实践"], ["跨云比价", "同规格资源跨云价格对比", "行业通用实践"], ["采购窗口建议", "结合账单周期给出采购时点", "行业通用实践"], ["降本收益测算", "量化每条建议的月度收益", "行业通用实践"]]]]],
+ ["d11", "容量规划与预测", "Capacity Planning & Forecast", "成长", "基于历史趋势预测容量与成本，避免资源荒与浪费。", [["容量度量", [["多维度容量采集", "采集计算、存储、网络容量水位", "行业通用实践"], ["容量基线", "建立各业务容量基线水位", "行业通用实践"], ["容量热力图", "可视化各资源池容量分布", "行业通用实践"], ["容量告警", "逼近阈值时预警扩容", "行业通用实践"]]], ["趋势预测", [["时序预测", "用时序模型预测未来用量", "行业通用实践"], ["季节性建模", "考虑大促与周期波动建模", "行业通用实践"], ["预测置信区间", "给出预测区间与误差", "行业通用实践"], ["预测偏差复盘", "对比预测与实际偏差", "行业通用实践"]]], ["扩容仿真", [["扩容模拟", "模拟不同增长下的扩容方案", "行业通用实践"], ["成本影响仿真", "评估扩容带来的成本变化", "行业通用实践"], ["采购前置建议", "给出采购与预留前置时点", "行业通用实践"], ["容量沙盘", "提供交互式容量推演", "行业通用实践"]]]]],
+ ["d12", "智能告警与根因", "AIOps Alert & RCA", "成长", "用算法降噪、聚类与定位根因，把告警风暴变成可行动信号。", [["告警降噪", [["告警聚类", "将相似告警聚合成事件", "行业通用实践"], ["动态阈值", "基于历史自学习告警阈值", "Datadog"], ["告警抑制", "依赖恢复时自动抑制衍生告警", "行业通用实践"], ["告警优先级", "按业务影响排序告警", "行业通用实践"]]], ["根因定位", [["多维下钻", "沿指标、服务、资源下钻定位", "行业通用实践"], ["因果推断", "基于拓扑推断最可能的根因", "行业通用实践"], ["异常关联", "关联日志、指标与变更事件", "行业通用实践"], ["根因建议", "给出处置建议与相似历史", "行业通用实践"]]], ["智能基线", [["行为基线学习", "学习资源正常行为模式", "行业通用实践"], ["异常评分", "对偏离基线的程度打分", "行业通用实践"], ["误报自学习", "人工标记误报后持续优化", "行业通用实践"], ["趋势异常检测", "检测缓慢劣化类异常", "行业通用实践"]]]]],
+ ["d13", "智能调度与放置", "Intelligent Scheduling & Placement", "成长", "基于成本、性能与合规约束，把工作负载放到最优位置。", [["放置策略", [["成本优先放置", "优先选择低成本区域与机型", "行业通用实践"], ["合规约束放置", "按数据驻留约束选择区域", "行业通用实践"], ["性能优先放置", "按延迟与带宽选择就近资源", "行业通用实践"], ["放置冲突检测", "检测资源放置的合规冲突", "行业通用实践"]]], ["弹性调度", [["跨云弹性", "在突发时跨云扩缩容", "行业通用实践"], ["潮汐调度", "按业务峰谷调度资源", "行业通用实践"], ["竞价弹性", "用竞价实例承载可中断负载", "行业通用实践"], ["调度预算约束", "在预算上限内调度", "行业通用实践"]]], ["亲和反亲和", [["亲和调度", "把相关服务调度到同可用区", "行业通用实践"], ["反亲和调度", "关键服务跨故障域分散", "行业通用实践"], ["拓扑感知", "感知机架与可用区拓扑", "行业通用实践"], ["调度仿真", "模拟调度结果可行性", "行业通用实践"]]]]],
+ ["d14", "合规审计与风险", "Compliance Audit & Risk", "成长", "把合规要求持续审计并量化为风险画像，支撑审计与决策。", [["合规基线库", [["等保基线", "内置等保二级三级控制项", "行业通用实践"], ["CIS基线", "内置云安全CIS基准", "CIS Benchmarks"], ["行业基线", "按金融、医疗等行业扩充基线", "行业通用实践"], ["基线版本管理", "跟踪基线版本与适用范围", "行业通用实践"]]], ["持续审计", [["配置合规审计", "持续审计资源配置合规", "Prisma Cloud"], ["权限合规审计", "审计越权与过度授权", "行业通用实践"], ["数据驻留审计", "审计数据是否越界存储", "行业通用实践"], ["审计证据留存", "留存可举证的审计证据", "行业通用实践"]]], ["风险画像", [["风险打分", "对各业务域风险量化打分", "行业通用实践"], ["风险趋势", "展示风险随时间变化", "行业通用实践"], ["风险处置跟踪", "跟踪风险整改闭环", "行业通用实践"], ["风险热力图", "可视化高风险资源分布", "行业通用实践"]]]]],
+ ["d15", "多租户与组织", "Multi-Tenancy & Org", "成熟", "以组织与租户模型隔离资源、成本与权限，支撑内部运营。", [["租户隔离", [["租户资源隔离", "按租户划分资源池与边界", "行业通用实践"], ["租户数据隔离", "隔离各租户的配置与账单", "行业通用实践"], ["租户视图隔离", "租户仅见自有资源与成本", "行业通用实践"], ["租户配额隔离", "独立设置租户配额上限", "行业通用实践"]]], ["组织配额", [["组织层级", "支持集团、部门、团队层级", "行业通用实践"], ["配额下发", "自上而下下发资源与预算配额", "行业通用实践"], ["配额回收", "闲置配额回收再分配", "行业通用实践"], ["配额超用管控", "超配额创建自动拦截", "行业通用实践"]]], ["成本归属", [["组织成本归集", "按组织树归集成本", "行业通用实践"], ["内部结算", "提供租户间结算账单", "行业通用实践"], ["成本责任书", "签订部门成本责任口径", "行业通用实践"], ["成本公示", "对内公示成本与排名", "行业通用实践"]]]]],
+ ["d16", "计量计费与账单", "Metering & Billing", "成长", "把资源用量转化为可计量、可计费、可分发的内外部账单。", [["用量计量", [["多维度计量", "按CPU、内存、存储、流量计量", "行业通用实践"], ["计量对账", "与云商账单用量对账", "行业通用实践"], ["计量粒度", "支持按小时与按日计量", "行业通用实践"], ["计量追溯", "保留计量原始明细", "行业通用实践"]]], ["计费规则", [["阶梯计费", "按用量阶梯设定单价", "行业通用实践"], ["包年包月", "支持订阅与预留计费", "行业通用实践"], ["折扣与返佣", "支持合约折扣与返佣", "行业通用实践"], ["计费试算", "出账前提供试算预览", "行业通用实践"]]], ["账单分发", [["对客账单", "生成面向租户的对客账单", "行业通用实践"], ["账单导出", "支持多格式账单导出", "行业通用实践"], ["账单通知", "出账自动通知与催缴", "行业通用实践"], ["异议处理", "提供账单异议申诉流程", "行业通用实践"]]]]],
+ ["d17", "服务目录与自助", "Service Catalog & Self-Service", "成熟", "把审批后的基础设施封装为目录，让业务自助、合规地获取资源。", [["目录编排", [["服务项编排", "把模板封装为可订购服务项", "ServiceNow"], ["目录分级", "按角色与租户分级展示", "行业通用实践"], ["目录上下架", "管理服务项生命周期", "行业通用实践"], ["目录画像", "分析目录使用与热门项", "行业通用实践"]]], ["工单审批", [["申请工作流", "资源申请走审批流", "行业通用实践"], ["合规前置", "申请环节校验合规基线", "行业通用实践"], ["预算前置", "申请环节校验预算余额", "行业通用实践"], ["审批SLA", "设定审批时效与催办", "行业通用实践"]]], ["自服务", [["自助开通", "审批通过自动开通资源", "行业通用实践"], ["自助运维", "提供自助启停与扩缩容", "行业通用实践"], ["自助查询", "租户自助查询用量与账单", "行业通用实践"], ["自助销毁", "按策略自助回收资源", "行业通用实践"]]]]],
+ ["d18", "运营分析与报表", "Ops Analytics & Reporting", "成长", "把运营数据转化为管理驾驶舱与价值报告，证明平台ROI。", [["运营大盘", [["资源大盘", "展示纳管规模与分布", "行业通用实践"], ["成本大盘", "展示总成本与趋势", "CloudHealth"], ["健康大盘", "展示资源与告警健康", "行业通用实践"], ["效率大盘", "展示资源利用率与闲置", "行业通用实践"]]], ["SLA报告", [["可用性报告", "统计资源与服务的可用性", "行业通用实践"], ["SLA达成", "对比SLA目标与实际", "行业通用实践"], ["故障报告", "汇总故障时长与影响", "行业通用实践"], ["报告订阅", "定期推送SLA报告", "行业通用实践"]]], ["价值报告", [["降本价值", "量化降本与回收收益", "行业通用实践"], ["效率价值", "量化交付时效提升", "行业通用实践"], ["合规价值", "量化合规缺口收敛", "行业通用实践"], ["ROI报告", "汇总平台投入与产出", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["多云统一成本优化闭环", "live", "live", "将账单、闲置识别与回收动作打通形成自动降本闭环"],
+ ["可观测一体化排障", "live", "live", "指标日志链路统一视图与关联分析落地"],
+ ["合规基线下沉创建", "live", "live", "资源创建即校验等保与CIS基线"],
+ ["服务目录自助开通", "live", "live", "目录化自助申请与自动开通"],
+ ["闲置资源自动回收", "live", "live", "识别低利用率资源并按策略回收"],
+ ["多租户成本归集", "live", "live", "按组织树自动归集与结算成本"],
+ ["自动化运维剧本库", "live", "live", "沉淀高频运维动作形成剧本"],
+ ["容量预测与扩容建议", "live", "live", "基于趋势预测给出扩容时点"],
+ ["AI根因定位", "pilot", "pilot", "基于拓扑与因果推断自动定位故障根因"],
+ ["智能放置调度", "pilot", "pilot", "按成本合规约束自动放置工作负载"],
+ ["预算封顶拦截", "pilot", "pilot", "超预算资源创建实时拦截"],
+ ["多云比价采购", "pilot", "pilot", "同规格资源跨云实时比价"],
+ ["碳排与能效联动", "pilot", "pilot", "将资源调度与碳排目标联动"],
+ ["影子IT主动治理", "pilot", "pilot", "主动发现并纳管游离资源"],
+ ["策略即代码", "pilot", "pilot", "将合规与成本策略表达为可执行代码"],
+ ["运维大模型助手", "pilot", "pilot", "用大模型辅助排障与变更建议"],
+ ["跨云Serverless编排", "explore", "explore", "屏蔽云商差异统一编排函数与事件"],
+ ["多云灾备自动化", "explore", "explore", "跨云自动演练与切换容灾"],
+ ["数字孪生容量沙盘", "explore", "explore", "用孪生模型推演容量与故障"],
+ ["自治云运营", "explore", "explore", "资源自供给自优化自修复"],
+ ["隐私计算多云协同", "explore", "explore", "跨云可信数据协同不搬家"],
+ ["云碳交易接口", "explore", "explore", "将节省碳排对接碳交易市场"],
+ ["AI驱动的容量采购", "explore", "explore", "用大模型预测采购与预留"],
+ ["可组合云市场", "explore", "explore", "第三方能力以积木方式组合上架"]
+];
+const MIDS = [
+ ["多云纳管中心", "统一接入与盘点跨云资源", "账号接入、资源发现、资产盘点"],
+ ["资源编排中心", "以模板驱动基础设施交付", "模板管理、编排引擎、环境编排"],
+ ["成本治理中心", "把账单变成可优化成本结构", "账单归集、分摊、预算管控"],
+ ["可观测中心", "统一指标日志链路排障", "采集、聚合、追踪"],
+ ["身份合规中心", "把基线下沉到创建环节", "统一身份、权限基线、合规扫描"],
+ ["自动化运维中心", "沉淀可复用运维作业", "作业编排、补丁、事件响应"],
+ ["成本优化中心", "主动给出降本建议", "闲置识别、规格优化、采购建议"],
+ ["容量规划中心", "预测容量与成本", "容量度量、趋势预测、扩容仿真"],
+ ["AIOps中心", "降噪与根因定位", "告警降噪、根因、智能基线"],
+ ["智能调度中心", "把负载放到最优位置", "放置策略、弹性、亲和反亲和"],
+ ["合规审计中心", "持续审计量化风险", "基线库、持续审计、风险画像"],
+ ["租户运营中心", "隔离与配额管理", "租户隔离、组织配额、成本归属"],
+ ["计量计费中心", "用量到账单转化", "计量、计费规则、账单分发"],
+ ["服务目录中心", "自助合规获取资源", "目录编排、工单、自服务"],
+ ["运营分析中心", "运营数据转价值报告", "大盘、SLA、价值报告"],
+ ["数据资产中心", "统一资源模型与CMDB", "资源建模、配置、服务关联"],
+ ["连接凭证中心", "安全托管跨云连接凭据", "连接管理、凭证托管、网络打通"],
+ ["价值运营中心", "证明平台ROI与管理驾驶舱", "降本、效率、合规、ROI报告"]
+];
+const RULES = [
+ ["未纳管即无治理", "未被纳管的资源既不可见也不可控，成本与合规敞口持续累积且无法举证"],
+ ["账单不清则责任不清", "成本无法分摊到团队与应用，降本缺乏抓手，预算形同虚设"],
+ ["合规必须前置创建", "事后整改成本高且易留痕，合规应在资源创建时即拦截而非审计时再发现"],
+ ["凭据长期不轮换是最大隐患", "长期静态AK/SK一旦泄露即为横向移动钥匙，需强制轮换与最小发放"],
+ ["编排无Dry-Run必酿事故", "直接执行编排变更缺乏影响评估，易误删生产资源"],
+ ["监控不关联则MTTR失控", "指标日志链路割裂导致排障靠人肉拼接，故障恢复时间不可控"],
+ ["告警不降噪则无人看", "海量低质告警造成告警疲劳，真正故障被淹没"],
+ ["容量无预测则要么荒要么废", "无趋势预测要么资源荒停业务，要么闲置浪费预算"],
+ ["多租户隔离是底线", "租户间资源或数据越界将引发严重安全事故与合规违约"],
+ ["成本优化须可量化收益", "建议若无月度收益测算，落地无优先级且难以向财务举证"],
+ ["调度无视合规约束即违规", "为省钱把数据放到不符合驻留要求的区域将直接触碰合规红线"],
+ ["自助开通须合规预算前置", "未前置校验的自助会导致违规资源与超支同时发生"],
+ ["自动化作业须审批兜底", "高危自动化一旦出错需可拦截与人工升级，否则放大事故"],
+ ["计量对账必须可追溯", "计量与云商账单不符且无原始明细，内部结算将失去信任"],
+ ["风险画像须持续而非时点", "仅靠一次性审计无法捕捉漂移，风险会随时间重新累积"],
+ ["ROI必须可举证", "平台价值若不能用降本与效率数据证明，预算难以持续"]
+];
+const KPIS = [
+ ["成本类指标", "总拥有成本、单位业务成本、降本收益与闲置率"],
+ ["效率类指标", "资源交付时长、自动化覆盖率、自助开通率"],
+ ["健康类指标", "资源健康分、告警量、MTTR与可用性"],
+ ["合规类指标", "合规得分、缺口数、整改闭环率"],
+ ["容量类指标", "容量水位、预测准确率、扩容前置时长"],
+ ["利用率指标", "CPU内存存储平均利用率与峰值"],
+ ["租户指标", "租户数、配额利用率、内部结算额"],
+ ["价值指标", "平台ROI、人效提升、故障损失下降"]
+];
+const LIC_CN = [
+ ["网络安全等级保护", "提供等保二级三级测评所需配置基线、审计证据与整改跟踪", "涉及关键基础设施须完成等保备案与测评"],
+ ["数据出境安全评估", "数据跨境外传须按数据出境安全评估办法评估", "涉及个人信息与重要数据出境须申报评估"],
+ ["个人信息保护合规", "处理个人信息须遵循个人信息保护法最小必要原则", "须提供同意、脱敏与可撤回能力"],
+ ["云计算服务安全评估", "面向党政与关键行业的云服务须通过安全评估", "未通过评估不得承载相关敏感业务"],
+ ["密码应用合规", "重要系统须落实商用密码应用安全性评估", "须使用合规密码产品与密钥管理"],
+ ["信创适配要求", "政企信创场景须适配国产CPU与操作系统", "须提供信创兼容清单与适配认证"],
+ ["云服务经营许可", "对外提供云服务可能需相应增值电信业务许可", "对外运营须确认所需牌照"],
+ ["金融行业云合规", "金融业务上云须满足监管对隔离与审计要求", "须满足行业专项审计与报送"],
+ ["医疗数据合规", "健康医疗数据须按相关规范存储与脱敏", "须满足专病数据与隐私保护要求"],
+ ["政务云合规", "政务云须满足政务云安全标准与属地化要求", "数据须属地存储与专用通道"],
+ ["数据分类分级", "须按数据分类分级保护要求落标", "须提供分类分级标签与管控"],
+ ["关键信息基础设施", "关基运营者须履行额外安全保护义务", "须提供重点保障与应急演练"],
+ ["日志留存合规", "须按规定留存相关操作与审计日志", "日志留存周期须满足监管要求"],
+ ["供应链安全", "须对云平台组件与开源进行供应链安全管控", "须提供SBOM与漏洞管理"],
+ ["算法与自动化备案", "部分自动化决策须履行算法备案与说明义务", "涉及自动化处置须可解释可审计"]
+];
+const LIC_INTL = [
+ ["SOC 2 Type II", "面向企业客户的云管平台可取得SOC 2审计", "出海服务须满足客户安全审计要求"],
+ ["ISO 27001", "建立信息安全管理体系并认证", "作为国际客户准入基础资质"],
+ ["GDPR", "处理欧盟用户数据须满足数据保护要求", "须提供数据主体权利与跨境传输机制"],
+ ["FedRAMP", "服务美国联邦政府须取得FedRAMP授权", "未授权不得承接政府云业务"],
+ ["PCI DSS", "处理支付卡数据须满足PCI要求", "须隔离持卡人数据与加密传输"],
+ ["HIPAA", "处理美国健康数据须满足HIPAA", "须提供BA协议与审计能力"],
+ ["CIS Benchmarks", "遵循跨云安全配置基准", "作为默认合规基线提升可信度"],
+ ["CSA STAR", "取得云安全联盟STAR认证", "作为多云安全能力背书"]
+];
+const OPPS = [
+ ["集团FinOps降本", "多数集团成本分散难归集", "以统一成本归集与回收为切入先打样"],
+ ["政企合规护栏", "政企上云最怕合规事故", "以创建即合规拦截为核心差异化"],
+ ["SRE统一可观测", "SRE苦于工具割裂", "以一体化排障视图切入替换散点工具"],
+ ["内部研发自助", "研发等待资源交付慢", "以服务目录自助开通提升人效"],
+ ["运营商内部结算", "运营商需多租户结算", "以计量计费与结算为切入口"],
+ ["中小企业托管云", "中小企业缺专业云运维", "以托管运维与成本优化为卖点"],
+ ["出海多云比价", "出海企业关注成本与合规", "以跨云比价与驻留合规为差异"],
+ ["关基安全运营", "关基运营者需重点保障", "以合规审计与风险画像切入"],
+ ["AI运维助手", "运维人力紧张", "以大模型辅助排障作为高价值增量"],
+ ["绿色调度", "ESG压力增大", "以能效与碳排联动调度为前瞻卖点"],
+ ["灾备自动化", "关键业务怕中断", "以跨云灾备演练自动化切入"],
+ ["云能力市场", "生态协同需求上升", "以可组合服务市场上架第三方能力"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：编排 / 成本 / 基线 / 租户`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

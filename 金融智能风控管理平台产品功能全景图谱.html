@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融智能风控管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融智能风控管理平台全景</b>
+    <span>金融智能风控管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融智能风控管理平台产品功能全景图谱</h1>
+    <p>把「<b>金融智能风控管理平台</b>」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手不是单笔反欺诈，而是能否把资本、拨备与监管报送这三件监管最看重的事，做成可审计、可复现、可承压的全行级能力。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这份图谱的本质不是功能清单，而是「数据资产 → 风险计量 → 资本与组合 → 治理与报送」一条主线：金融机构的核心命题是资本够不够、拨备足不足、报送准不准。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据/资产层</td><td>金融数据底座、风险数据集市、市场数据管理、模型元数据库、风险知识库与规则库</td><td>这一层是计量可信的前提，口径不一致则上层全部失真</td></tr>
+<tr><td>第二层（d6–d9）：核心风险计量层</td><td>信用风险管理、市场风险管理、流动性风险管理、操作风险管理</td><td>这一层把业务风险翻译成可计量的风险敞口与指标</td></tr>
+<tr><td>第三层（d10–d14）：资本与组合层</td><td>资本计量与巴塞尔、信用风险组合管理、IFRS9预期信用损失、压力测试、经济资本与风险加权优化</td><td>这一层把计量结果汇聚为资本、拨备与组合决策</td></tr>
+<tr><td>第四层（d15–d18）：治理与报送层</td><td>监管报送、风险治理与限额、风险报表与驾驶舱、模型风险与合规</td><td>这一层决定平台能否通过监管与审计的长期检验</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：其一，数据口径必须先于计量冻结，否则RWA不可比；其二，模型必须先有独立验证再用于资本；其三，报送链路必须可留痕，否则无法满足监管检查。</div>
+    <div class="danger">最容易被误当成成功信号的是「报表能跑出来」，但真正信号是资本充足率、拨备覆盖率与报送零差错同时成立。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的标准：先投已受监管推动、有明确deadline的方向（如IFRS9、气候风险、实时压力测试），而非纯探索（如量子风险计算）。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>风险加权资产RWA</td><td>监管口径下风险暴露的资本占用</td><td>计算错会直接扭曲资本充足率</td></tr>
+<tr><td>预期信用损失ECL</td><td>按三阶段计量的信用预期损失</td><td>阶段错判会虚增或虚减利润</td></tr>
+<tr><td>压力情景</td><td>一组宏观冲击假设集合</td><td>不极端则资本规划失真</td></tr>
+<tr><td>内部评级</td><td>债务人或债项的信用等级</td><td>校准错会让PD不可比</td></tr>
+<tr><td>监管报表</td><td>报送监管的格式化数据</td><td>造假或错漏属重大违规</td></tr>
+<tr><td>经济资本</td><td>内部用于配置与定价的资本</td><td>口径错会让绩效与定价失真</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域通常在资本监管、会计准则、流动性监管、报送与数据治理四个域交汇，任一域出问题都会触发监管处罚。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的红线：其一，内评法假设不合规会被取消资格并回溯补资本；其二，IFRS9阶段划分错误直接扭曲拨备；其三，监管报送造假是重大违规且无法补救。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如资本计量RWA）</li><li>第二步：建立可举证的基线（口径与公式版本）</li><li>第三步：跑通最短闭环（数据→计量→报表）</li><li>第四步：补第二个增值能力（如IFRS9拨备）</li><li>第五步：把承诺写进合同（合规与SLA）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：资本计量平台（按模块授权）</li><li>路径 B：IFRS9拨备（按资产规模）</li><li>路径 C：监管报送（按报表数量）</li><li>路径 D：模型风险（按席位）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是「可审计的风险计量能力」，它是最先被监管与董事会付费的第一资产。</div>
+  </section>
+
+  <footer>
+    <p>金融智能风控管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与分层"],
+ ["s1", "平台形态与代表"],
+ ["s2", "功能域全景"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "能力中心"],
+ ["s6", "致命规则"],
+ ["s7", "监管与合规"],
+ ["s8", "关键指标"],
+ ["s9", "落地路线"]
+];
+const PLAYERS = [
+ ["资本与风险计量平台", "Murex", "衡泰技术", "以巴塞尔与IFRS9为核心的全行风险计量"],
+ ["风险管理系统", "SAS Risk Management", "同盾企业", "覆盖信用市场操作风险与监管报送"],
+ ["组合信用风险管理", "Moody's RiskFrontier", "中诚信", "以组合VaR与经济资本管理信用风险"],
+ ["市场风险管理", "Bloomberg PORT", "赢时胜", "以VaR与敏感度管理交易簿市场风险"],
+ ["监管报送平台", "Wolters Kluwer", "中软融鑫", "自动生成1104与央行金融统计报表"],
+ ["模型风险管理", "ModelOps(SAS)", "索信达", "以独立验证管理模型全生命周期"]
+];
+const DOMAINS = [
+ ["d1", "金融数据底座", "Financial Data Foundation", "成熟", "整合核心交易、总账与集市数据，为全行风险计量提供统一底座", [["数据接入与整合", [["多源接入", "整合核心交易与总账数据", "行业通用实践"], ["主数据管理", "统一机构客户产品主数据", "行业通用实践"], ["数据质量", "科目与交易级校验", "行业通用实践"], ["数据追溯", "交易级数据可追溯源头", "行业通用实践"]]], ["科目与总账映射", [["科目映射", "业务科目映射风险维度", "行业通用实践"], ["法定与监管账", "区分法定与管理账", "行业通用实践"], ["并表处理", "集团并表数据归集", "行业通用实践"], ["粒度管理", "支持交易与账户级", "行业通用实践"]]], ["数据治理", [["数据标准", "统一风险数据标准", "行业通用实践"], ["元数据管理", "数据资产登记", "行业通用实践"], ["数据生命周期", "留存与销毁策略", "行业通用实践"], ["数据权限", "按角色行列授权", "行业通用实践"]]]]],
+ ["d2", "风险数据集市", "Risk Data Mart", "成熟", "按风险主题加工与服务统一口径的风险指标", [["集市建模", [["风险主题建模", "按信用市场流动性主题建集市", "行业通用实践"], ["指标一致性", "全行风险指标统一口径", "行业通用实践"], ["历史快照", "逐日快照支撑回溯", "行业通用实践"], ["性能优化", "列式存储加速查询", "行业通用实践"]]], ["风险指标计算", [["风险指标加工", "批量加工风险指标", "行业通用实践"], ["指标血缘", "指标计算可追溯", "行业通用实践"], ["指标校验", "勾稽关系校验", "行业通用实践"], ["指标服务", "统一指标API", "行业通用实践"]]], ["数据服务", [["即席查询", "分析师自助查询", "行业通用实践"], ["数据导出", "合规导出留痕", "行业通用实践"], ["订阅推送", "指标变更推送", "行业通用实践"], ["集市监控", "集市健康监控", "行业通用实践"]]]]],
+ ["d3", "市场数据管理", "Market Data Management", "成熟", "管理收益率曲线、汇率、价格与波动率等市场行情", [["曲线与利率", [["收益率曲线", "构建与维护利率曲线", "Murex"], ["曲线插值", "多种插值方法可配", "行业通用实践"], ["基点估值", "曲线变动重估", "行业通用实践"], ["曲线质量", "曲线异常监控", "行业通用实践"]]], ["汇率与价格", [["即远期汇率", "管理多币种汇率", "行业通用实践"], ["证券价格", "股票债券价格接入", "Murex"], ["商品与衍生品", "大宗商品与期权价格", "行业通用实践"], ["波动率曲面", "构建波动率曲面", "行业通用实践"]]], ["数据治理", [["数据来源标记", "每条行情标记来源", "行业通用实践"], ["时间戳管理", "统一时区与快照", "行业通用实践"], ["缺失处理", "缺失行情插值补数", "行业通用实践"], ["数据审计", "行情变更可审计", "行业通用实践"]]]]],
+ ["d4", "模型元数据库", "Model Metadata Repository", "成长", "集中登记全行风险模型的资产、文档与生命周期", [["模型登记", [["模型注册", "全行模型集中登记", "SAS"], ["模型分类", "按风险类型分类", "行业通用实践"], ["模型版本", "版本与生效期管理", "行业通用实践"], ["模型归属", "明确业务与开发owner", "行业通用实践"]]], ["模型文档", [["方法学文档", "记录假设与局限", "SAS"], ["验证记录", "验证结论留痕", "行业通用实践"], ["输入输出", "登记模型IO与口径", "行业通用实践"], ["依赖管理", "记录数据依赖", "行业通用实践"]]], ["模型生命周期", [["开发审批", "模型上线审批", "行业通用实践"], ["定期重检", "按频率重检", "行业通用实践"], ["退役归档", "退役模型归档", "行业通用实践"], ["模型库存", "全行模型视图", "行业通用实践"]]]]],
+ ["d5", "风险知识库与规则库", "Risk Knowledge & Rule Base", "成长", "结构化沉淀监管规则、风险政策与历史案例", [["监管规则库", [["监管规则结构化", "把条文转结构化规则", "行业通用实践"], ["规则版本", "监管变更版本管理", "行业通用实践"], ["规则映射", "规则映射计算逻辑", "行业通用实践"], ["规则影响分析", "监管变更影响评估", "行业通用实践"]]], ["风险政策库", [["风险偏好", "偏好与容忍度结构化", "行业通用实践"], ["限额政策", "限额规则集中管理", "行业通用实践"], ["政策版本", "政策变更审批", "行业通用实践"], ["政策传导", "政策下达各系统", "行业通用实践"]]], ["案例与智库", [["风险案例库", "历史风险事件沉淀", "行业通用实践"], ["情景库", "压力情景库", "行业通用实践"], ["标杆库", "同业实践对标", "行业通用实践"], ["知识检索", "全文检索辅助", "行业通用实践"]]]]],
+ ["d6", "信用风险管理", "Credit Risk Management", "核心", "管理信用敞口、内部评级与信用风险计量", [["授信与敞口", [["敞口计算", "计算当前与潜在敞口", "行业通用实践"], ["违约定义", "定义违约与逾期标准", "行业通用实践"], ["评级映射", "内部评级映射监管", "行业通用实践"], ["行业敞口", "按行业地区组合敞口", "行业通用实践"]]], ["评级与打分", [["内部评级", "债务人评级与债项评级", "Moody's"], ["评分模型", "申请与行为评分", "行业通用实践"], ["评级校准", "评级锚定历史违约", "行业通用实践"], ["评级复审", "定期与触发复审", "行业通用实践"]]], ["信用风险计量", [["PD计量", "违约概率估计", "行业通用实践"], ["LGD计量", "违约损失率", "行业通用实践"], ["EAD计量", "违约风险暴露", "行业通用实践"], ["风险加权", "按权重计算RWA", "行业通用实践"]]]]],
+ ["d7", "市场风险管理", "Market Risk Management", "核心", "以VaR、敏感度与限额管理交易簿市场风险", [["风险敞口计量", [["重估敞口", "按市值重估敞口", "Murex"], ["敏感性分析", "利率汇率敏感性", "Murex"], ["久期凸性", "利率久期凸性", "行业通用实践"], ["Greeks", "期权Greeks计算", "行业通用实践"]]], ["VaR与ES", [["VaR计算", "历史模拟与方差协方差", "Murex"], ["压力VaR", "压力期VaR", "行业通用实践"], ["预期短缺ES", "计算ES替代VaR", "行业通用实践"], ["回溯测试", "VaR回溯检验", "行业通用实践"]]], ["限额与监控", [["交易限额", "设置VaR与止损限额", "Murex"], ["限额监控", "实时与日终监控", "行业通用实践"], ["突破处理", "限额突破审批", "行业通用实践"], ["风险分解", "把风险分解到交易台", "行业通用实践"]]]]],
+ ["d8", "流动性风险管理", "Liquidity Risk Management", "成长", "以LCR、NSFR与现金流预测管理流动性风险", [["流动性指标", [["LCR计算", "流动性覆盖比率", "行业通用实践"], ["NSFR计算", "净稳定资金比率", "行业通用实践"], ["缺口分析", "期限错配缺口", "行业通用实践"], ["集中度", "资金来源集中度", "行业通用实践"]]], ["现金流预测", [["现金流建模", "合同与行为现金流", "行业通用实践"], ["压力情景现金流", "压力下现金流", "行业通用实践"], ["预警指标", "早期预警信号", "行业通用实践"], ["应急计划", "应急资金计划", "行业通用实践"]]], ["监测与报告", [["日间监测", "日间流动性监测", "行业通用实践"], ["监管报表", "流动性监管报送", "行业通用实践"], ["董事会报告", "流动性风险报告", "行业通用实践"], ["限额管理", "流动性限额", "行业通用实践"]]]]],
+ ["d9", "操作风险管理", "Operational Risk Management", "成长", "以损失数据库、自评估与计量管理操作风险", [["损失数据库", [["损失事件采集", "采集操作损失事件", "行业通用实践"], ["事件分类", "按Basel事件分类", "行业通用实践"], ["损失归因", "归属业务线与原因", "行业通用实践"], ["数据质量", "损失数据校验", "行业通用实践"]]], ["风险自评估", [["控制自评", "控制自我评估RCSA", "行业通用实践"], ["风险识别", "业务流程风险识别", "行业通用实践"], ["关键风险指标", "KRI监控", "行业通用实践"], ["风险地图", "风险热力图", "行业通用实践"]]], ["计量与资本", [["高级计量法", "AMA或新标准法", "行业通用实践"], ["情景分析", "专家情景计量", "行业通用实践"], ["资本计提", "操作风险资本", "行业通用实践"], ["模型验证", "计量模型验证", "行业通用实践"]]]]],
+ ["d10", "资本计量与巴塞尔", "Basel Capital & RWA", "核心", "落地巴塞尔框架，计量RWA与资本充足", [["巴塞尔框架", [["巴塞尔框架", "落地巴塞尔III资本与杠杆率要求", "行业通用实践"], ["标准法RWA", "标准法风险加权资产", "行业通用实践"], ["内评法", "IRB法信用与操作", "SAS"], ["资本充足率", "计算核心与一级资本充足", "行业通用实践"]]], ["风险加权资产", [["信用风险RWA", "按评级与缓释", "行业通用实践"], ["市场风险RWA", "标准法与内模法", "行业通用实践"], ["操作风险RWA", "新标准法", "行业通用实践"], ["资本扣减", "资本工具扣减规则", "行业通用实践"]]], ["资本规划", [["资本规划", "多期资本规划", "行业通用实践"], ["资本压力", "压力下的资本", "行业通用实践"], ["资本分配", "经济资本分配", "行业通用实践"], ["资本回报", "RAROC计算", "行业通用实践"]]]]],
+ ["d11", "信用风险组合管理", "Credit Portfolio Management", "成长", "在组合层面计量与优化信用风险", [["组合视图", [["组合分层", "按行业地区产品分层", "行业通用实践"], ["集中度分析", "赫芬达尔集中度", "Moody's"], ["相关性建模", "违约相关性", "行业通用实践"], ["组合优化", "在约束下优化", "行业通用实践"]]], ["组合计量", [["组合VaR", "信用组合风险价值", "Moody's RiskFrontier"], ["预期损失", "组合EL计量", "行业通用实践"], ["经济资本", "组合经济资本", "行业通用实践"], ["边际风险", "新增业务的边际贡献", "行业通用实践"]]], ["组合管理动作", [["限额传导", "组合限额到单笔", "Moody's"], ["风险转移", "证券化与信用衍生", "行业通用实践"], ["组合再平衡", "再平衡策略", "行业通用实践"], ["单名管控", "大额风险暴露", "行业通用实践"]]]]],
+ ["d12", "IFRS9 预期信用损失", "IFRS9 ECL", "核心", "按三阶段计量预期信用损失并计提拨备", [["阶段划分", [["三阶段划分", "按违约与逾期分阶", "行业通用实践"], ["阶段迁移", "阶段间迁移规则", "行业通用实践"], ["阶段监控", "实时监控阶段", "行业通用实践"], ["阶段复核", "定期阶段复核", "行业通用实践"]]], ["ECL计量", [["IFRS9拨备", "计算预期信用损失拨备", "行业通用实践"], ["EAD估计", "预期敞口估计", "行业通用实践"], ["PD与LGD", "时点与跨周期估计", "行业通用实践"], ["宏观情景", "多宏观情景加权", "行业通用实践"]]], ["披露与对账", [["披露报表", "IFRS7披露", "行业通用实践"], ["账务对账", "拨备与财务对账", "行业通用实践"], ["模型文档", "ECL模型文档", "行业通用实践"], ["重估调整", "管理层叠加调整", "行业通用实践"]]]]],
+ ["d13", "压力测试", "Stress Testing", "核心", "设计极端情景并传导到资本与流动性", [["情景设计", [["监管情景", "接入监管压力情景", "行业通用实践"], ["自定义情景", "自定义极端情景", "行业通用实践"], ["情景库", "情景模板库", "行业通用实践"], ["反向压力", "反向压力测试", "行业通用实践"]]], ["传导建模", [["宏观传导", "宏观冲击传导建模", "SAS"], ["风险传导", "跨风险类型传导", "行业通用实践"], ["组合影响", "对RWA与资本影响", "行业通用实践"], ["流动性传导", "对流动性影响", "行业通用实践"]]], ["执行与报告", [["压力测试执行", "大规模情景批量跑", "行业通用实践"], ["结果分析", "结果归因分析", "行业通用实践"], ["资本充足", "压力后资本充足", "行业通用实践"], ["监管报送", "压力测试报送", "行业通用实践"]]]]],
+ ["d14", "经济资本与风险加权优化", "Economic Capital & RWA Optimization", "成长", "以经济资本计量与优化资本占用", [["经济资本", [["经济资本计量", "内部经济资本", "行业通用实践"], ["资本配置", "配置到业务线", "行业通用实践"], ["资本归因", "资本消耗归因", "行业通用实践"], ["资本释放", "优化缓释释放资本", "行业通用实践"]]], ["风险加权优化", [["缓释优化", "合格缓释降低RWA", "行业通用实践"], ["业务组合优化", "调结构降RWA", "行业通用实践"], ["资本成本", "资本占用成本", "行业通用实践"], ["监管套利规避", "规避监管套利", "行业通用实践"]]], ["绩效与定价", [["RAROC", "风险调整资本回报", "SAS"], ["风险定价", "基于经济资本定价", "行业通用实践"], ["绩效考核", "风险调整后绩效", "行业通用实践"], ["股东价值", "资本对价值贡献", "行业通用实践"]]]]],
+ ["d15", "监管报送", "Regulatory Reporting", "核心", "自动生成1104、央行与巴塞尔监管报表", [["1104与非现场", [["1104报表", "生成监管1104报表", "行业通用实践"], ["非现场监管", "非现场监管报送", "行业通用实践"], ["勾稽校验", "表内勾稽校验", "行业通用实践"], ["报送流程", "报送审批与留痕", "行业通用实践"]]], ["央行与银保监", [["金融统计", "央行金融统计报表", "行业通用实践"], ["大额与可疑", "大额与可疑交易报送", "行业通用实践"], ["专项业务", "理财与同业报送", "行业通用实践"], ["数据质量", "报送数据质量", "行业通用实践"]]], ["国际报送", [["并表监管", "集团并表报送", "行业通用实践"], ["巴塞尔报送", "巴塞尔模板报送", "行业通用实践"], ["当地监管", "境外分支当地报送", "行业通用实践"], ["一致性", "内外披露一致", "行业通用实践"]]]]],
+ ["d16", "风险治理与限额", "Risk Governance & Limits", "成长", "以风险偏好与限额落实三道防线", [["风险偏好", [["偏好设定", "董事会风险偏好", "行业通用实践"], ["容忍度分解", "偏好到容忍度", "行业通用实践"], ["偏好传导", "偏好到限额", "行业通用实践"], ["偏好监测", "偏好偏离监测", "行业通用实践"]]], ["限额体系", [["限额架构", "多层限额架构", "行业通用实践"], ["限额设定", "按风险设定限额", "行业通用实践"], ["限额监控", "限额使用监控", "行业通用实践"], ["限额突破", "突破升级机制", "行业通用实践"]]], ["治理流程", [["风险委员会", "委员会议事", "行业通用实践"], ["政策审批", "政策审批流", "行业通用实践"], ["问责机制", "风险问责", "行业通用实践"], ["三道防线", "三道防线落实", "行业通用实践"]]]]],
+ ["d17", "风险报表与驾驶舱", "Risk Reporting & Dashboard", "成熟", "以驾驶舱与管理报表支撑风险决策", [["监管驾驶舱", [["高管驾驶舱", "高管风险一屏", "行业通用实践"], ["资本视图", "资本充足视图", "行业通用实践"], ["风险热力", "风险分布热力", "行业通用实践"], ["趋势分析", "风险趋势分析", "行业通用实践"]]], ["管理报表", [["信用报表", "信用风险报表", "行业通用实践"], ["市场报表", "市场风险报表", "Murex"], ["流动性报表", "流动性报表", "行业通用实践"], ["组合报表", "组合风险报表", "Moody's"]]], ["监管与披露", [["定期披露", "定期风险披露", "行业通用实践"], ["管理层报告", "管理层简报", "行业通用实践"], ["异常预警", "异常自动预警", "行业通用实践"], ["自助分析", "业务自助分析", "行业通用实践"]]]]],
+ ["d18", "模型风险与合规", "Model Risk & Compliance", "核心", "以独立验证与审计保障模型与合规", [["模型验证", [["独立验证", "模型独立验证", "SAS"], ["验证方法", "回溯与基准测试", "行业通用实践"], ["验证报告", "验证结论报告", "行业通用实践"], ["整改跟踪", "验证问题整改", "行业通用实践"]]], ["模型风险", [["模型风险登记", "模型风险库", "行业通用实践"], ["风险评级", "模型风险评级", "行业通用实践"], ["持续监控", "模型绩效监控", "行业通用实践"], ["应急计划", "模型失效应急", "行业通用实践"]]], ["合规与审计", [["合规检查", "监管合规自查", "行业通用实践"], ["内审外审", "配合审计", "行业通用实践"], ["审计轨迹", "全程审计轨迹", "行业通用实践"], ["整改闭环", "审计整改闭环", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["监管资本自动化", "live", "自动计算RWA与资本充足", "产品化资本引擎"],
+ ["IFRS9自动拨备", "live", "自动阶段划分与ECL", "产品化拨备模块"],
+ ["实时市场风险VaR", "live", "日终与日内VaR重估", "产品化VaR服务"],
+ ["流动性LCR监控", "live", "日间LCR与NSFR监控", "产品化流动性监控"],
+ ["操作风险损失库", "live", "损失事件采集与KRI", "产品化ORM"],
+ ["监管报表自动生成", "live", "自动生成1104与金融统计", "产品化报送"],
+ ["风险驾驶舱", "live", "高管风险一屏", "产品化驾驶舱"],
+ ["模型验证平台", "live", "独立模型验证", "产品化验证"],
+ ["机器学习PD/LGD", "pilot", "ML估计违约与损失率", "产品化ML计量"],
+ ["组合信用VaR", "pilot", "组合层面信用VaR", "产品化组合计量"],
+ ["实时压力测试", "pilot", "准实时压力情景", "产品化实时压力"],
+ ["气候风险计量", "pilot", "转型与物理风险", "产品化气候模块"],
+ ["资本优化引擎", "pilot", "缓释与结构优化降RWA", "产品化优化"],
+ ["云原生风险引擎", "pilot", "弹性云上计量", "产品化云引擎"],
+ ["大模型监管助手", "pilot", "LLM辅助解读监管", "产品化监管助手"],
+ ["实时并表风险", "pilot", "集团实时并表", "产品化并表"],
+ ["全行统一风险大模型", "explore", "统一计量多风险", "产品化统一模型"],
+ ["因果推断资本", "explore", "因果识别资本驱动", "产品化因果资本"],
+ ["量子风险计算", "explore", "量子加速组合优化", "产品化量子模块"],
+ ["实时巴塞尔内模", "explore", "实时内模法市场RWA", "产品化内模"],
+ ["生成式报送", "explore", "生成式监管文本", "产品化报送生成"],
+ ["数字孪生银行", "explore", "银行数字孪生压测", "产品化孪生"],
+ ["联邦监管数据", "explore", "跨机构合规联邦", "产品化联邦报送"],
+ ["自适应资本规划", "explore", "自适应动态资本规划", "产品化自适应"]
+];
+const MIDS = [
+ ["数据底座中心", "整合全行风险数据", "接入整合、主数据、治理"],
+ ["风险数据集市中心", "加工与服务风险指标", "主题建模、指标、服务"],
+ ["市场数据中心", "管理行情与曲线", "曲线、价格、治理"],
+ ["模型元数据中心", "集中登记模型资产", "登记、文档、生命周期"],
+ ["风险知识中心", "沉淀监管与政策", "规则、政策、智库"],
+ ["信用风险管理中心", "信用敞口与计量", "敞口、评级、计量"],
+ ["市场风险管理中心", "市场VaR与限额", "敞口、VaR、限额"],
+ ["流动性管理中心", "流动性指标与现金流", "LCR、现金流、监测"],
+ ["操作风险管理中心", "损失库与自评估", "损失库、RCSA、资本"],
+ ["资本计量中心", "巴塞尔与RWA", "标准法、内评法、规划"],
+ ["组合管理中心", "信用风险组合", "组合视图、计量、动作"],
+ ["IFRS9中心", "预期信用损失", "阶段、ECL、披露"],
+ ["压力测试中心", "情景与设计执行", "情景、传导、执行"],
+ ["经济资本中心", "经济资本与优化", "计量、优化、绩效"],
+ ["监管报送中心", "监管报表生成", "1104、央行、国际"],
+ ["风险治理中心", "偏好与限额", "偏好、限额、治理"],
+ ["风险报表中心", "驾驶舱与披露", "驾驶舱、报表、披露"],
+ ["模型风险中心", "验证与合规", "验证、风险、审计"]
+];
+const RULES = [
+ ["资本充足跌破红线", "资本充足率跌破监管红线会被限制业务甚至接管，是最致命的生存风险"],
+ ["模型未独立验证", "未经验证的模型用于资本计量，会被监管否决并重算资本"],
+ ["数据口径不一致", "不同系统风险指标口径不一，报送与决策同时失真"],
+ ["巴塞尔内评法违规", "内评法假设不合规会被取消资格并回溯补资本"],
+ ["IFRS9阶段错判", "阶段划分错误直接扭曲拨备与利润，触发审计风险"],
+ ["压力测试走过场", "情景不极端导致资本规划乐观，危机中真实资本不足"],
+ ["限额突破未升级", "交易台超限未升级，市场波动下损失失控"],
+ ["流动性指标误算", "LCR与NSFR误算会让银行在挤兑前毫无预警"],
+ ["操作风险损失漏报", "损失事件漏报使资本计提不足且无法识别脆弱点"],
+ ["并表范围错误", "并表遗漏导致资本与风险双重失真"],
+ ["报送数据造假", "监管报送造假是重大违规，直接招致处罚与信誉崩塌"],
+ ["模型失效无应急", "关键计量模型失效无兜底，监管报表无法按时出具"],
+ ["风险偏好空转", "偏好未传导到限额，董事会意图与一线行为脱节"],
+ ["相关性低估", "组合相关性低估会在危机中放大损失远超预期"],
+ ["审计无轨迹", "计量过程无留痕，监管检查时无法自证合规"],
+ ["拨备不足", "拨备不足虚增利润，一旦暴露需补提并冲击资本"]
+];
+const KPIS = [
+ ["资本指标", "资本充足率、杠杆率、RWA、RAROC"],
+ ["信用风险指标", "PD、LGD、EAD、违约率、不良率"],
+ ["市场风险指标", "VaR、ES、Greeks、止损、敏感度"],
+ ["流动性指标", "LCR、NSFR、缺口、集中度"],
+ ["操作风险指标", "损失金额、KRI、资本占用"],
+ ["组合指标", "集中度、组合VaR、经济资本、边际风险"],
+ ["IFRS9指标", "阶段分布、ECL、拨备覆盖率"],
+ ["合规指标", "报送准时率、审计通过率、模型验证覆盖"]
+];
+const LIC_CN = [
+ ["商业银行资本管理办法", "可开展资本与RWA计量", "须符合资本充足率要求"],
+ ["巴塞尔III国内监管", "可落地内评法与标准法", "须满足披露要求"],
+ ["商业银行风险监管核心指标", "可计算流动性与集中度", "须达标并报送"],
+ ["银行业金融机构全面风险管理指引", "可建全面风险管理", "须董事会负责"],
+ ["商业银行压力测试指引", "可开展各类压力测试", "须定期向监管报送"],
+ ["企业会计准则与IFRS9", "可计量预期信用损失", "须按阶段计提拨备"],
+ ["商业银行大额风险暴露管理", "可管理单名敞口", "须满足上限"],
+ ["商业银行流动性风险管理办法", "可计算LCR与NSFR", "须达标并监测"],
+ ["银行业金融机构操作风险", "可计提操作风险资本", "须建损失数据库"],
+ ["银行业保险业关联交易", "可管理关联交易风险", "须报备与限额"],
+ ["商业银行并表管理与监管", "可开展集团并表", "须并表口径一致"],
+ ["金融统计与1104报表制度", "可生成监管报表", "须按时准确报送"],
+ ["反洗钱法", "可开展反洗钱监测", "须履行大额可疑报送"],
+ ["数据治理指引", "可建风险数据治理", "须数据质量问责"],
+ ["模型风险管理指引", "可建模型验证体系", "须独立验证"]
+];
+const LIC_INTL = [
+ ["Basel III (BCBS)", "可服务国际银行资本", "须符合框架"],
+ ["IFRS9", "可服务境外预期信用损失", "须阶段与ECL"],
+ ["Dodd-Frank", "可服务美国银行压力测试", "须CCAR合规"],
+ ["CCAR", "可开展资本压力测试", "须监管审批"],
+ ["FRTB", "可落地市场风险内模法", "须SBA审批"],
+ ["SOX", "可服务美国上市银行", "须内控合规"],
+ ["EBA指南", "可服务欧洲银行", "须符合欧盟监管"],
+ ["Solvency II", "可服务保险资本", "须三支柱"]
+];
+const OPPS = [
+ ["资本计量自动化", "手工计算易错且慢", "做RWA与资本引擎"],
+ ["IFRS9拨备", "拨备依赖人工", "做自动阶段与ECL"],
+ ["监管报送一体化", "报表口径分散", "做统一报送平台"],
+ ["组合信用VaR", "组合层面缺工具", "做组合计量"],
+ ["实时压力测试", "压力测试滞后", "做准实时引擎"],
+ ["模型风险平台", "模型缺乏统一治理", "做验证与登记"],
+ ["流动性实时监测", "流动性监测滞后", "做日间监测"],
+ ["气候风险计量", "气候风险新要求", "做气候模块"],
+ ["风险驾驶舱", "高管缺一屏视图", "做驾驶舱"],
+ ["经济资本优化", "资本占用高", "做优化释放"],
+ ["并表风险管理", "并表口径乱", "做并表视图"],
+ ["大模型合规助手", "解读监管耗时", "做监管助手"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：巴塞尔 / 经济资本 / 压力测试 / IFRS9`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

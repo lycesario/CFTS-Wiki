@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融智能可验证凭证VC管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融智能可验证凭证VC管理平台全景</b>
+    <span>金融智能可验证凭证VC管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融智能可验证凭证VC管理平台产品功能全景图谱</h1>
+    <p>把「金融智能可验证凭证VC管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手是：在金融监管框架下，用一套可互认的凭证网络，把重复的KYC与资质核验成本摊薄、把信任放大。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">怎么读：这套产品不是功能清单，而是「金融身份与资质如何被可信签发、被最小披露复用、被跨机构互认」的一条主线。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：凭证基础与数据</td><td>VC数据模型与Schema、凭证生命周期、签发方管理、持有方钱包、验证方接入</td><td>这一层是凭证可信与可流转的基础，决定能否标准化签发与验证</td></tr>
+<tr><td>第二层（d6–d9）：凭证业务流</td><td>KYC凭证复用、机构资质授权凭证、签发持有验证三角、撤销与状态</td><td>这一层把基础能力转化为金融场景的核心业务流</td></tr>
+<tr><td>第三层（d10–d14）：智能与互认</td><td>跨机构互认网络、风险反欺诈、凭证分析、隐私计算ZKP、智能路由</td><td>这一层用网络效应与隐私计算放大信任价值</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>合规与监管、安全密钥、运营审计、生态标准</td><td>这一层决定平台能否在金融监管下持续运营与扩展</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：1) 必须先有可信签发方网络与凭证Schema，否则没有互认基础；2) 必须先有撤销状态列表，否则无效凭证无法废止；3) 必须先满足KYC/数据合规，否则无法处理金融身份数据。</div>
+    <div class="danger">死亡陷阱：把「接入机构数」误当成成功信号——没有真实复用率与互认交易，网络只是名义上的联盟。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">前沿方向优先级：优先投入监管明确鼓励且能直接降本的方向（如KYC复用、ZKP收入证明、监管报送自动），慎入纯链上信用代币等监管未明的玩法。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>可验证凭证</td><td>由签发方签名的可验证声明</td><td>未绑定持有方可被冒用</td></tr>
+<tr><td>KYC凭证</td><td>固化的客户尽调结论</td><td>范围时效缺失致越权复用</td></tr>
+<tr><td>撤销状态列表</td><td>凭证有效性的位图状态</td><td>漏查使已撤销凭证有效</td></tr>
+<tr><td>可信签发方</td><td>有资质的凭证签发机构</td><td>伪造签发方发虚假资质</td></tr>
+<tr><td>互认协议</td><td>机构间互认约定</td><td>无协议致信任误判</td></tr>
+<tr><td>验证结果</td><td>验证方给出的通过/拒绝</td><td>无留存无法举证合规</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">监管域组合：金融监管（KYC/适当性）、数据安全、反洗钱、跨境传输四条线在此交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：1) 跨机构复用未取得用户同意；2) 跨境传输未走评估或标准合同；3) 撤销状态未实时检查使已撤凭证仍被采信。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如银行KYC复用）</li><li>第二步：建立可举证的基线（签发方准入+凭证Schema+状态列表）</li><li>第三步：跑通最短闭环（签发→复用→验证）</li><li>第四步：补第二个增值能力（如资质凭证）</li><li>第五步：把互认与分润写进联盟协议</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：KYC复用联盟</li><li>路径 B：资质凭证服务</li><li>路径 C：验证API中台</li><li>路径 D：监管报送中台</li></ul></div></div>
+    </div>
+    <div class="note">四条路径共同点：都先把「可信签发方+凭证Schema」作为第一资产。</div>
+  </section>
+
+  <footer>
+    <p>金融智能可验证凭证VC管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "银行开户与KYC"],
+ ["s1", "证券与基金开户"],
+ ["s2", "保险投保核保"],
+ ["s3", "信贷与风控"],
+ ["s4", "跨境支付与汇款"],
+ ["s5", "数字资产交易所(境外合规)"],
+ ["s6", "供应链金融"],
+ ["s7", "企业资质核验"],
+ ["s8", "监管报送"],
+ ["s9", "反欺诈联盟"]
+];
+const PLAYERS = [
+ ["可验证凭证平台", "MATTR/Dock", "腾讯云TDID/长安链", "为金融机构提供KYC与资质凭证的签发验证托管平台"],
+ ["KYC复用联盟", "币安KYC复用联盟", "行业互认联盟", "跨机构复用KYC凭证降低重复尽调"],
+ ["资质凭证服务", "Spruce/Dock", "至信链资质凭证", "为机构签发可验证资质与授权凭证"],
+ ["身份验证API", "Onfido/Veriff", "腾讯云慧眼", "提供远程身份核验并固化为凭证"],
+ ["隐私计算凭证", "MATTR ZKP", "长安链ZKP", "用零知识证明保护金融属性隐私"],
+ ["监管报送中台", "行业监管科技", "监管科技厂商", "将凭证流通统计对接监管报送"]
+];
+const DOMAINS = [
+ ["d1", "VC数据模型与Schema", "VC Data Model & Schema", "核心", "定义金融VC的数据结构与语义标准。", [["Schema管理", [["Schema注册", "注册金融凭证Schema", "W3C VC"], ["版本兼容", "Schema版本向前兼容", "行业通用实践"], ["语义对齐", "对齐监管与业务语义", "行业通用实践"], ["模板库", "提供金融凭证模板库", "MATTR"]]], ["数据模型", [["Claim建模", "建模凭证声明与证据", "W3C VC"], ["证据绑定", "声明绑定证据与来源", "行业通用实践"], ["多格式", "支持JWT与JSON-LD", "行业通用实践"], ["扩展字段", "支持监管扩展字段", "行业通用实践"]]], ["校验规则", [["结构校验", "校验凭证结构合规", "行业通用实践"], ["必填校验", "校验必填声明完整", "行业通用实践"], ["类型校验", "校验声明数据类型", "行业通用实践"], ["语义校验", "校验业务语义一致", "行业通用实践"]]]]],
+ ["d2", "凭证生命周期", "Credential Lifecycle", "核心", "管理凭证从签发到归档的全生命周期。", [["签发", [["签发请求", "基于模板发起签发", "MATTR"], ["身份核验", "签发前核验持有方", "行业通用实践"], ["签名签发", "签发方密钥签名", "行业通用实践"], ["签发通知", "通知持有方接收", "行业通用实践"]]], ["持有与更新", [["钱包接收", "持有方钱包接收", "行业通用实践"], ["续期", "到期前自动续期提醒", "行业通用实践"], ["更新", "信息变更更新凭证", "行业通用实践"], ["复制与备份", "凭证加密备份", "行业通用实践"]]], ["归档与销毁", [["到期归档", "到期凭证归档留存", "行业通用实践"], ["销毁", "按策略安全销毁", "行业通用实践"], ["留存合规", "按监管年限留存", "行业通用实践"], ["重建", "支持凭证重建", "行业通用实践"]]]]],
+ ["d3", "签发方管理", "Issuer Management", "核心", "管理可信签发方的资质与签发能力。", [["签发方准入", [["资质审核", "审核签发方金融资质", "行业通用实践"], ["注册上链", "签发方身份注册可信", "Dock"], ["能力声明", "声明可签发凭证类型", "行业通用实践"], ["准入审批", "准入需多级审批", "行业通用实践"]]], ["签发治理", [["签发授权", "按角色授权签发", "行业通用实践"], ["额度管理", "管理签发额度与频控", "行业通用实践"], ["质量监控", "监控签发质量", "行业通用实践"], ["违规处置", "违规签发方处罚", "行业通用实践"]]], ["签发方声誉", [["声誉评分", "基于历史评估声誉", "行业通用实践"], ["黑名单", "违规签发方拉黑", "行业通用实践"], ["透明度", "公开签发方信息", "行业通用实践"], ["复核", "定期复核资质", "行业通用实践"]]]]],
+ ["d4", "持有方钱包", "Holder Wallet", "成长", "持有方管理自身凭证与出示。", [["钱包能力", [["凭证收纳", "多类型凭证统一收纳", "行业通用实践"], ["分类管理", "按用途分类管理", "行业通用实践"], ["搜索", "快速检索凭证", "行业通用实践"], ["出示", "按需出示凭证", "OID4VP"]]], ["隐私控制", [["选择性出示", "仅出示必要属性", "行业通用实践"], ["同意管理", "管理凭证使用同意", "行业通用实践"], ["共享记录", "记录凭证共享", "行业通用实践"], ["撤回授权", "可撤回共享授权", "行业通用实践"]]], ["安全", [["生物解锁", "生物特征解锁钱包", "Apple Wallet"], ["设备绑定", "绑定可信设备", "行业通用实践"], ["远程吊销", "丢失远程吊销", "行业通用实践"], ["备份恢复", "加密备份恢复", "行业通用实践"]]]]],
+ ["d5", "验证方接入", "Verifier Onboarding", "成长", "让验证方便捷接入验证能力。", [["接入", [["验证SDK", "提供验证SDK", "MATTR"], ["API接入", "提供验证API", "行业通用实践"], ["沙箱", "提供测试沙箱", "行业通用实践"], ["文档", "提供接入文档", "行业通用实践"]]], ["验证策略", [["策略配置", "配置验证业务规则", "行业通用实践"], ["阈值", "设置接受阈值", "行业通用实践"], ["场景模板", "提供场景验证模板", "行业通用实践"], ["灰度", "新验证方灰度", "行业通用实践"]]], ["集成", [["业务系统集成", "与业务系统集成", "行业通用实践"], ["回调", "验证结果回调", "行业通用实践"], ["报表", "验证业务报表", "行业通用实践"], ["计费", "按验证量计费", "行业通用实践"]]]]],
+ ["d6", "KYC凭证复用", "KYC Credential Reuse", "核心", "将KYC结果固化为可复用凭证，跨机构复用。", [["凭证化", [["KYC结果凭证化", "将KYC结论固化为可复用KYC凭证", "行业通用实践"], ["等级标注", "标注KYC等级与范围", "行业通用实践"], ["时效", "设凭证有效期与重评", "行业通用实践"], ["范围限定", "限定可复用场景", "行业通用实践"]]], ["复用流程", [["一次认证多机构复用", "一次KYC多机构认可", "行业通用实践"], ["选择性披露", "复用仅做选择性披露必要字段", "行业通用实践"], ["同意流转", "用户同意跨机构复用", "行业通用实践"], ["审计留痕", "复用全程留痕", "行业通用实践"]]], ["联盟治理", [["联盟成员", "管理复用联盟成员", "行业通用实践"], ["互认协议", "签署复用互认协议", "行业通用实践"], ["收益分配", "复用计费与分润", "行业通用实践"], ["争议", "处理复用争议", "行业通用实践"]]]]],
+ ["d7", "机构资质与授权凭证", "Institutional Accreditation VC", "成长", "为机构资质、牌照与授权签发凭证。", [["资质凭证", [["牌照凭证", "签发金融牌照可验证凭证", "行业通用实践"], ["资质等级", "标注资质等级范围", "行业通用实践"], ["授权范围", "声明授权业务范围", "行业通用实践"], ["监管背书", "监管为资质背书", "行业通用实践"]]], ["授权凭证", [["代理授权", "签发代理授权凭证", "行业通用实践"], ["业务授权", "声明可开展业务", "行业通用实践"], ["时效管理", "授权设期限与续期", "行业通用实践"], ["撤销", "违规授权可撤销", "行业通用实践"]]], ["验证应用", [["准入核验", "用资质凭证核验准入", "行业通用实践"], ["范围核验", "核验授权业务范围", "行业通用实践"], ["持续监测", "监测资质状态变化", "行业通用实践"], ["监管查询", "供监管查询资质", "行业通用实践"]]]]],
+ ["d8", "签发/持有/验证三角", "Issuer-Holder-Verifier Triad", "核心", "实现VC三角色标准交互与信任。", [["角色协议", [["签发协议", "标准化签发交互", "OID4VCI"], ["持有协议", "标准化持有交互", "行业通用实践"], ["验证协议", "标准化验证交互", "OID4VP"], ["协议协商", "协商协议版本", "行业通用实践"]]], ["信任传递", [["信任锚", "建立三角信任锚", "行业通用实践"], ["背书链", "凭证背书链可信", "行业通用实践"], ["策略执行", "三方按策略交互", "行业通用实践"], ["防抵赖", "交互可防抵赖", "行业通用实践"]]], ["互操作", [["格式互操作", "多格式凭证互认", "W3C VC"], ["跨生态", "跨生态三角互操作", "行业通用实践"], ["测试", "三角互通测试", "行业通用实践"], ["故障处理", "交互失败处理", "行业通用实践"]]]]],
+ ["d9", "撤销与状态列表", "Revocation & Status List", "核心", "金融场景凭证撤销与状态管理。", [["状态机制", [["状态列表", "基于W3C状态列表", "W3C Status List"], ["实时状态", "状态实时可查", "行业通用实践"], ["增量", "增量发布状态", "行业通用实践"], ["时效", "状态列表设时效", "行业通用实践"]]], ["撤销操作", [["签发方撤销", "签发方撤销凭证并更新撤销状态", "行业通用实践"], ["监管撤销", "监管可强制撤销", "行业通用实践"], ["持有方挂失", "持有方挂失", "行业通用实践"], ["批量", "支持批量撤销", "行业通用实践"]]], ["状态治理", [["状态监控", "监控状态源可用", "行业通用实践"], ["历史", "查询历史状态", "行业通用实践"], ["跨域", "跨域状态互认", "行业通用实践"], ["应急", "状态源失效应急", "行业通用实践"]]]]],
+ ["d10", "跨机构互认网络", "Cross-Institution Network", "成长", "构建机构间凭证互认网络。", [["网络治理", [["节点管理", "管理互认网络节点", "行业通用实践"], ["准入", "节点准入审核", "行业通用实践"], ["信任框架", "建立互认信任框架", "ToIP"], ["治理规则", "网络治理规则", "行业通用实践"]]], ["互认机制", [["凭证映射", "跨机构凭证语义映射", "行业通用实践"], ["互认协议", "签署双边互认", "行业通用实践"], ["路由发现", "发现可互认节点", "行业通用实践"], ["结算", "互认计费结算", "行业通用实践"]]], ["运营", [["网络监控", "监控网络健康", "行业通用实践"], ["成员运营", "成员运营与活跃度", "行业通用实践"], ["争议处理", "处理互认争议", "行业通用实践"], ["扩展", "新节点扩展", "行业通用实践"]]]]],
+ ["d11", "风险与反欺诈", "Risk & Anti-Fraud", "成长", "基于凭证与行为识别金融欺诈。", [["欺诈识别", [["凭证欺诈检测", "检测伪造变造凭证", "行业通用实践"], ["行为分析", "分析持有方行为", "行业通用实践"], ["团伙识别", "识别欺诈团伙", "行业通用实践"], ["异常核验", "异常验证请求核验", "行业通用实践"]]], ["风险评分", [["凭证风险分", "评估凭证风险", "行业通用实践"], ["持有方风险", "评估持有方风险", "行业通用实践"], ["动态更新", "风险动态更新", "行业通用实践"], ["决策", "按风险分级决策", "行业通用实践"]]], ["情报共享", [["黑名单共享", "机构间黑名单共享", "行业通用实践"], ["风险情报", "共享风险情报", "行业通用实践"], ["联邦学习", "联邦建模不泄露数据", "行业通用实践"], ["反馈", "结果反馈闭环", "行业通用实践"]]]]],
+ ["d12", "凭证分析与洞察", "Credential Analytics", "成长", "对凭证流通进行分析与洞察。", [["流通分析", [["签发分布", "分析签发分布", "行业通用实践"], ["复用分析", "分析复用路径", "行业通用实践"], ["验证热点", "分析验证场景热点", "行业通用实践"], ["趋势", "趋势与预测", "行业通用实践"]]], ["业务洞察", [["客户画像", "基于凭证构建画像", "行业通用实践"], ["转化分析", "分析凭证对转化影响", "行业通用实践"], ["价值度量", "度量凭证业务价值", "行业通用实践"], ["异常洞察", "异常模式洞察", "行业通用实践"]]], ["报告", [["监管报告", "生成监管统计", "行业通用实践"], ["运营报告", "生成运营报告", "行业通用实践"], ["自定义", "自定义分析报表", "行业通用实践"], ["导出", "标准格式导出", "行业通用实践"]]]]],
+ ["d13", "隐私计算与ZKP", "Privacy Computing & ZKP", "成长", "在金融场景用ZKP与隐私计算保护数据。", [["零知识", [["ZKP证明", "生成金融属性ZKP", "行业通用实践"], ["范围证明", "证明收入区间不泄露", "行业通用实践"], ["资格证明", "证明资质不泄露细节", "行业通用实践"], ["验证", "验证ZKP正确", "行业通用实践"]]], ["隐私计算", [["联邦核验", "联邦方式联合核验", "行业通用实践"], ["多方计算", "MPC联合计算", "行业通用实践"], ["隐匿查询", "隐匿查询凭证状态", "行业通用实践"], ["差分隐私", "统计加差分隐私", "行业通用实践"]]], ["合规", [["最小化", "默认最小披露", "GDPR"], ["可审计", "隐私计算可审计", "行业通用实践"], ["合规映射", "映射合规要求", "行业通用实践"], ["评估", "隐私影响评估", "行业通用实践"]]]]],
+ ["d14", "智能路由与推荐", "Smart Routing & Recommendation", "成长", "智能匹配凭证与验证方、推荐最优路径。", [["路由", [["验证方路由", "按场景路由验证方", "行业通用实践"], ["凭证路由", "按请求选最优凭证", "行业通用实践"], ["成本路由", "按成本选择路径", "行业通用实践"], ["容错", "路由失败切换", "行业通用实践"]]], ["推荐", [["凭证推荐", "推荐可用凭证", "行业通用实践"], ["场景推荐", "推荐适用场景", "行业通用实践"], ["升级建议", "建议补领凭证", "行业通用实践"], ["个性化", "个性化推荐", "行业通用实践"]]], ["优化", [["路径优化", "优化验证路径时延", "行业通用实践"], ["成本优化", "优化综合成本", "行业通用实践"], ["效果评估", "评估路由效果", "行业通用实践"], ["策略调优", "策略自动调优", "行业通用实践"]]]]],
+ ["d15", "合规与监管", "Compliance & Supervision", "核心", "满足金融监管与数据合规要求。", [["监管对接", [["监管报送", "向监管报送凭证统计", "行业通用实践"], ["监管查询", "支持监管穿透查询", "行业通用实践"], ["沙盒", "监管沙盒试点", "行业通用实践"], ["规则更新", "监管规则动态更新", "行业通用实践"]]], ["数据合规", [["最小必要", "采集最小必要", "PIPL"], ["跨境合规", "跨境传输合规", "GDPR"], ["留存", "按监管年限留存", "行业通用实践"], ["主体权利", "支持查询删除", "GDPR"]]], ["审计合规", [["合规审计", "定期合规审计", "行业通用实践"], ["缺陷整改", "缺陷整改闭环", "行业通用实践"], ["合规报告", "生成合规报告", "行业通用实践"], ["问责", "明确合规责任人", "行业通用实践"]]]]],
+ ["d16", "安全与密钥", "Security & Key Management", "核心", "保障金融VC系统的密钥与安全。", [["密钥", [["根密钥HSM", "HSM保护根密钥", "HSM"], ["签发密钥", "签发方密钥隔离", "行业通用实践"], ["轮换", "定期轮换", "行业通用实践"], ["恢复", "应急恢复", "行业通用实践"]]], ["运行安全", [["渗透测试", "定期渗透", "行业通用实践"], ["漏洞管理", "漏洞扫描修复", "行业通用实践"], ["入侵检测", "异常检测", "行业通用实践"], ["配置基线", "安全基线", "行业通用实践"]]], ["事件", [["事件分级", "安全事件分级", "行业通用实践"], ["应急响应", "密钥泄露应急", "行业通用实践"], ["通报", "按规定通报", "行业通用实践"], ["复盘", "复盘改进", "行业通用实践"]]]]],
+ ["d17", "运营监控与审计", "Ops Monitoring & Audit", "成长", "监控VC平台并审计关键操作。", [["监控", [["可用性", "监控签发验证可用性", "Datadog"], ["性能", "监控时延吞吐", "行业通用实践"], ["业务看板", "业务指标看板", "行业通用实践"], ["告警", "异常告警", "行业通用实践"]]], ["审计", [["操作留痕", "关键操作留痕", "行业通用实践"], ["审计查询", "按主体时间查询", "行业通用实践"], ["防篡改", "审计防篡改", "行业通用实践"], ["合规报告", "生成审计报告", "行业通用实践"]]], ["连续", [["灾备演练", "定期演练", "行业通用实践"], ["容量", "容量规划", "行业通用实践"], ["BCP", "业务连续性预案", "行业通用实践"], ["外部审计", "支持外部审计", "行业通用实践"]]]]],
+ ["d18", "生态与标准", "Ecosystem & Standards", "成长", "推动生态建设与标准互认。", [["标准", [["标准遵循", "遵循W3C/DIF/OIDF", "W3C"], ["标准贡献", "参与标准制定", "行业通用实践"], ["互通测试", "跨实现互通测试", "行业通用实践"], ["认证", "互操作认证", "行业通用实践"]]], ["生态", [["开发者", "开发者计划", "MATTR"], ["伙伴", "生态伙伴", "行业通用实践"], ["模板市场", "凭证模板市场", "行业通用实践"], ["社区", "社区运营", "行业通用实践"]]], ["互认推广", [["行业联盟", "推动行业互认联盟", "行业通用实践"], ["跨域扩展", "跨域互认扩展", "行业通用实践"], ["度量", "生态度量", "行业通用实践"], ["激励", "互认激励机制", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["KYC凭证一次认证多行复用", "live", "将银行KYC固化为凭证跨行复用", "向银行联盟输出复用"],
+ ["牌照可验证凭证", "live", "监管/机构签发牌照VC供核验", "向准入核验输出"],
+ ["远程开户身份核验固化", "live", "远程核身后固化为凭证", "向开户场景输出"],
+ ["学历与职业凭证验证", "live", "验证候选人资质凭证", "向招聘与准入输出"],
+ ["资质授权凭证", "live", "签发代理与业务授权凭证", "向代理场景输出"],
+ ["凭证验证API", "live", "提供标准化验证API", "向验证方输出"],
+ ["反欺诈黑名单共享", "live", "机构间共享风险情报", "向反欺诈联盟输出"],
+ ["监管统计自动生成", "live", "凭证流通统计自动报送", "向监管科技输出"],
+ ["ZKP收入证明", "pilot", "证明收入区间不泄露具体值", "向信贷与租赁输出"],
+ ["跨境KYC互认", "pilot", "多国KYC凭证互认", "参与跨境互认"],
+ ["联邦反欺诈建模", "pilot", "联邦学习联合风控不泄露数据", "向反欺诈联盟输出"],
+ ["智能凭证路由", "pilot", "按场景智能路由凭证与验证方", "提升验证效率"],
+ ["学历职称链上核验", "pilot", "职称学历链上核验", "向HR与监管输出"],
+ ["隐私计算联合授信", "pilot", "多方隐私计算联合授信", "向供应链金融输出"],
+ ["AI凭证合规审查", "pilot", "AI审查凭证合规风险", "降低合规成本"],
+ ["动态凭证风险评分", "pilot", "动态评估凭证与持有方风险", "提升风控"],
+ ["央行数字货币与VC结合", "explore", "探索CBDC与凭证结合身份与资金（仅合规支付）", "面向合规支付"],
+ ["AI代理金融身份", "explore", "为AI agent签发金融凭证", "面向自主理财"],
+ ["去中心化信用凭证", "explore", "基于凭证构建可携信用（仅合规市场）", "探索信用可携"],
+ ["量子安全凭证签名", "explore", "抗量子签名用于金融VC", "面向长期安全"],
+ ["凭证驱动合规自动化", "explore", "凭证自动满足合规检查", "探索合规自动"],
+ ["跨链金融凭证互认", "explore", "跨链互认金融凭证", "面向多链生态"],
+ ["可验证ESG金融凭证", "explore", "签发绿色金融资产凭证", "面向ESG金融"],
+ ["隐私保护监管报送", "explore", "隐私计算下合规报送", "平衡隐私与监管"]
+];
+const MIDS = [
+ ["数据模型中心", "VC Schema与数据模型", "注册、兼容、校验"],
+ ["生命周期中心", "凭证全生命周期", "签发、持有、归档"],
+ ["签发方中心", "可信签发方管理", "准入、治理、声誉"],
+ ["持有方中心", "钱包与隐私控制", "收纳、出示、安全"],
+ ["验证方中心", "验证接入与策略", "SDK、策略、集成"],
+ ["KYC复用中心", "KYC凭证复用", "凭证化、复用、联盟"],
+ ["资质凭证中心", "机构资质授权凭证", "资质、授权、验证"],
+ ["三角中心", "签发持有验证三角", "协议、信任、互操作"],
+ ["状态中心", "撤销与状态列表", "机制、撤销、治理"],
+ ["互认网络中心", "跨机构互认", "治理、机制、运营"],
+ ["风控中心", "风险与反欺诈", "识别、评分、情报"],
+ ["分析中心", "凭证分析与洞察", "流通、洞察、报告"],
+ ["隐私中心", "ZKP与隐私计算", "零知识、联邦、合规"],
+ ["路由中心", "智能路由与推荐", "路由、推荐、优化"],
+ ["合规中心", "合规与监管", "对接、数据、审计"],
+ ["安全中心", "安全与密钥", "HSM、运行、事件"],
+ ["监控中心", "运营监控与审计", "监控、审计、连续"],
+ ["生态中心", "生态与标准", "标准、生态、互认"]
+];
+const RULES = [
+ ["KYC凭证须标注范围与时效", "无范围时效的复用会越权使用"],
+ ["签发方资质须严格审核", "伪造签发方可发虚假凭证"],
+ ["验证必须检查撤销状态", "未检查使已撤销凭证仍有效"],
+ ["跨机构复用须用户同意", "未经同意复用侵犯隐私"],
+ ["监管可强制撤销违规凭证", "不可撤销使违规持续"],
+ ["凭证须绑定持有方身份", "未绑定可被冒用转让"],
+ ["ZKP参数须安全生成", "有毒参数可伪造证明"],
+ ["隐私计算须可审计", "不可审计无法满足监管举证"],
+ ["互认须签署协议", "无协议互认致信任误判"],
+ ["密钥泄露须立即应急", "泄露可伪造任意金融凭证"],
+ ["留存须满足监管年限", "过早销毁丧失举证"],
+ ["选择性披露默认最小", "默认全量披露放大泄露"],
+ ["验证结果须留痕", "无留存无法举证合规"],
+ ["联盟分润须透明", "不透明引发成员纠纷"],
+ ["状态列表须时效", "过期状态误判有效"],
+ ["跨境须合规传输", "违规传输面临处罚"]
+];
+const KPIS = [
+ ["签发成功率", "凭证签发成功比例"],
+ ["KYC复用率", "KYC凭证被复用比例反映价值"],
+ ["验证通过率", "验证通过与拒绝比例"],
+ ["撤销检查覆盖", "验证中撤销检查覆盖"],
+ ["复用节约成本", "复用节省的尽调成本"],
+ ["风险情报命中", "共享情报命中欺诈数"],
+ ["隐私合规缺陷", "合规缺陷数"],
+ ["互认网络活跃", "互认节点与交易增长"]
+];
+const LIC_CN = [
+ ["个人信息保护法PIPL", "处理个人信息须同意最小必要", "跨境提供须评估"],
+ ["数据安全法", "重要数据分类分级", "出境合规"],
+ ["网络安全等级保护", "系统落实等保", "按级防护"],
+ ["电子签名法", "可靠电子签名同效", "签名数据专有控制"],
+ ["反洗钱法", "机构须KYC与可疑报告", "保存记录不少于5年"],
+ ["金融机构客户尽调", "金融业务须身份核验", "受益所有人识别"],
+ ["区块链信息服务备案", "区块链服务须备案", "不得非法金融活动"],
+ ["数据出境安全评估", "出境须评估或标准合同", "重要数据严控"],
+ ["征信业管理条例", "信用业务须持牌", "不得违规采集"],
+ ["密码法", "商用密码合规", "加密产品符合标准"],
+ ["金融消费者权益保护", "保障知情权与信息安全", "建立投诉机制"],
+ ["人工智能算法备案", "算法须备案合规", "防歧视"],
+ ["关键信息基础设施", "涉关基须额外保护", "安全审查"],
+ ["网络安全审查办法", "赴境外上市等须审查", "防供应链风险"],
+ ["证券基金期货适当性", "投资者适当性须核验", "KYC须到位"]
+];
+const LIC_INTL = [
+ ["GDPR", "欧盟数据须合法基础与被遗忘权", "跨境须充分性"],
+ ["W3C VC/DID标准", "遵循可验证凭证标准", "互操作须对齐"],
+ ["eIDAS", "欧盟可信电子身份与签名", "合格签名具效力"],
+ ["FATF旅行规则", "虚拟资产转账须旅行规则", "KYC须到位"],
+ ["KYC/AML指令(欧)", "须客户尽调与UBO", "受益所有人登记"],
+ ["OFAC制裁合规", "须筛查并阻断受制裁方", "违规巨额罚款"],
+ ["CCPA", "加州居民数据权利", "披露与删除"],
+ ["ISO 18013移动凭证", "移动凭证国际标准", "跨境互认"]
+];
+const OPPS = [
+ ["KYC一次多行复用", "重复KYC成本高体验差", "向银行联盟输出复用"],
+ ["牌照可验证核验", "资质核验靠人工", "签发牌照VC自动核验"],
+ ["远程开户固化", "核身难留证", "核身固化为凭证"],
+ ["反欺诈情报共享", "机构各自为战", "联盟共享情报"],
+ ["ZKP收入证明", "收入证明泄露隐私", "ZKP不泄露值"],
+ ["监管报送自动", "统计靠手工", "自动生成报送"],
+ ["资质授权凭证", "代理授权难核验", "签发授权VC"],
+ ["跨境KYC互认", "跨境KYC不互认", "建立互认"],
+ ["联邦反欺诈", "数据孤岛难联合", "联邦建模"],
+ ["智能凭证路由", "验证路径低效", "智能路由"],
+ ["隐私计算授信", "多方数据难联合", "隐私计算联合"],
+ ["凭证驱动合规", "合规检查靠人工", "凭证自动合规"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：KYC凭证 / 撤销状态 / 选择性披露 / 可验证凭证`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

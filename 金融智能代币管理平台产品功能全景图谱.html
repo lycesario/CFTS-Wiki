@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融智能代币管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融智能代币管理平台全景</b>
+    <span>金融智能代币管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融智能代币管理平台产品功能全景图谱</h1>
+    <p>把「金融智能代币管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。资产代币化的胜负手不是「能发代币」，而是能在合规框架下把真实资产、储备、转让、兑付串成一条可审计、可兑付、可举证的信任链。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是一条从真实资产到链上兑付的可审计信任链路。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：代币与标准基础</td><td>代币标准与生命周期、资产上链登记、发行人/SPV、合约工厂、预言机喂价</td><td>把真实资产固化为可治理的链上凭证</td></tr>
+<tr><td>第二层（d6–d9）：发行与转让</td><td>RWA发行、合规转让与白名单、稳定币发行、储备金托管审计</td><td>在合规边界内完成发行、流动与储备验证</td></tr>
+<tr><td>第三层（d10–d14）：智能与运营</td><td>收益分配、二级转让、投研净值、风险监控、数据看板</td><td>让资产产生可度量、可披露、可监控的运营</td></tr>
+<tr><td>第四层（d15–d18）：治理与合规</td><td>证券属性判定、赎回兑付、审计留痕、监管报送跨境</td><td>守住境内合规结构化融资与境外持牌的边界</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：①底层资产须先有法律绑定与破产隔离；②合规口径（境内结构化融资/联盟链 vs 境外持牌）必须先冻结；③独立储备托管须先于发行存在。</div>
+    <div class="danger">死亡陷阱：把「发行规模与币种数量」当成成功信号——真正壁垒是储备真实可验证与兑付零违约。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">前沿方向优先级：只有能增强储备可验证性或降低合规成本的方向才值得投入。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>代币化资产</td><td>链上代表真实资产的凭证</td><td>写错会权属不清或构成非法发行</td></tr>
+<tr><td>储备金</td><td>支持稳定币/基金的真实储备</td><td>写错会无法兑付构成欺诈</td></tr>
+<tr><td>白名单</td><td>合格投资者与地址清单</td><td>写错会违规面向公众</td></tr>
+<tr><td>SPV</td><td>破产隔离的特殊目的载体</td><td>写错会使资产受发行人拖累</td></tr>
+<tr><td>净值NAV</td><td>资产公允价值时点</td><td>写错会扭曲赎回定价</td></tr>
+<tr><td>合规红线清单</td><td>不可逾越的业务边界</td><td>写错会越红线被整顿</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">监管域组合：证券/反洗钱/数据跨境/外汇四域交汇，且必须尊重境内禁止性规定。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的红线：①境内不得开展代币发行融资；②证券属性误判会触发非法发行；③储备须独立托管且可验证。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定合规资产做穿（如代币化低风险资产）</li><li>第二步：建立法律绑定与独立储备基线</li><li>第三步：跑通最短闭环（发行—登记—赎回）</li><li>第四步：补白名单合规转让能力</li><li>第五步：把兑付承诺写进法律文件</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径A：境外代币化基金（BUIDL类）</li><li>路径B：联盟链合规资产凭证（境内）</li><li>路径C：稳定币储备透明化</li><li>路径D：私募信贷代币化</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：第一资产是可验证的储备信任。</div>
+  </section>
+
+  <footer>
+    <p>金融智能代币管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与图谱读法"],
+ ["s1", "平台形态图谱"],
+ ["s2", "功能域全景"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "运营中心"],
+ ["s6", "致命规则"],
+ ["s7", "监管与合规"],
+ ["s8", "成效指标"],
+ ["s9", "落地路径"]
+];
+const PLAYERS = [
+ ["RWA发行平台", "Ondo Finance / Securitize", "境内合规结构化融资/联盟链", "资产代币化发行与登记"],
+ ["代币化基金", "BlackRock BUIDL（境外）", "境内试点联盟链资产凭证", "基金份额代币化"],
+ ["稳定币发行方", "Circle / Paxos", "境内数字人民币（不同范畴）", "法币锚定稳定币发行"],
+ ["证券型代币平台", "Securitize", "境内金融资产登记（持牌）", "合规证券代币"],
+ ["托管与储备审计", "The Network / 四大审计", "境内银行托管（法币侧）", "储备金托管与审计"],
+ ["链上合规与转让", "Provenance / 行业实践", "境内联盟链存证", "白名单与合规转让"]
+];
+const DOMAINS = [
+ ["d1", "代币标准与生命周期", "Token Standard & Lifecycle", "核心", "定义代币标准与全生命周期状态机", [["标准", [["代币标准", "支持主流代币标准与扩展", "Securitize"], ["扩展字段", "扩展合规与元数据字段", "行业通用实践"], ["可组合", "支持可组合互操作", "行业通用实践"], ["升级机制", "受控可升级机制", "行业通用实践"]]], ["生命周期", [["状态机", "定义发行/流通/暂停/赎回状态", "Securitize"], ["铸造 burn", "受控增发与销毁", "行业通用实践"], ["暂停冻结", "合规暂停与冻结", "行业通用实践"], ["事件日志", "关键状态变更日志", "行业通用实践"]]], ["合规内建", [["转让钩子", "转让前合规校验钩子", "行业通用实践"], ["白名单钩子", "基于白名单的转账限制", "Securitize"], ["限额钩子", "持有限额钩子", "行业通用实践"], ["管辖权", "按司法辖区启用规则", "行业通用实践"]]]]],
+ ["d2", "资产上链与登记", "Asset On-chain & Registry", "核心", "将底层资产映射并登记上链", [["资产映射", [["资产映射", "底层资产与代币一一映射", "Ondo Finance"], ["法律绑定", "法律文件与代币绑定", "Securitize"], ["权属登记", "权属链上登记", "行业通用实践"], ["评估入表", "资产估值入表", "行业通用实践"]]], ["登记", [["发行登记", "代币发行登记", "Securitize"], ["持有人登记", "持有人名册登记", "行业通用实践"], ["变更登记", "权属变更登记", "行业通用实践"], ["查询", "登记信息可查", "行业通用实践"]]], ["可信", [["预言机锚定", "链下资产状态锚定", "行业通用实践"], ["审计钩子", "登记变更审计钩子", "行业通用实践"], ["争议处理", "权属争议处理", "行业通用实践"], ["留存", "登记数据留存", "行业通用实践"]]]]],
+ ["d3", "发行人/SPV管理", "Issuer/SPV Management", "成长", "管理发行主体与特殊目的载体", [["主体", [["发行人KYC", "发行主体KYC核验", "Securitize"], ["SPV管理", "特殊目的载体管理", "Ondo Finance"], ["实控人", "识别最终受益人", "行业通用实践"], ["资质核验", "核验发行资质", "行业通用实践"]]], ["治理", [["决议上链", "发行人决议上链", "行业通用实践"], ["授权代表", "授权签署代表", "行业通用实践"], ["披露义务", "履行披露义务", "Securitize"], ["变更", "主体信息变更管理", "行业通用实践"]]], ["风险", [["主体风险", "监测发行人风险", "行业通用实践"], ["SPV隔离", "资产破产隔离", "行业通用实践"], ["违约", "违约处置预案", "行业通用实践"], ["留存", "主体资料留存", "行业通用实践"]]]]],
+ ["d4", "智能合约工厂", "Smart Contract Factory", "成熟", "以审核模板安全部署代币合约", [["模板", [["合约模板", "提供审计过合约模板", "Securitize"], ["参数化", "参数化部署代币", "行业通用实践"], ["合规参数", "内建合规参数", "行业通用实践"], ["预览", "部署前模拟预览", "行业通用实践"]]], ["部署", [["安全部署", "受控部署流程", "行业通用实践"], ["多链", "多链部署支持", "行业通用实践"], ["地址管理", "合约地址管理", "行业通用实践"], ["回滚", "异常部署预案", "行业通用实践"]]], ["运维", [["合约监控", "监控合约事件", "行业通用实践"], ["升级治理", "受控升级治理", "行业通用实践"], ["漏洞响应", "漏洞应急", "行业通用实践"], ["留存", "部署与变更留存", "行业通用实践"]]]]],
+ ["d5", "预言机与数据喂价", "Oracle & Data Feed", "成长", "为链上提供可信链下数据", [["喂价", [["价格预言机", "提供资产净值喂价", "行业通用实践"], ["多维源", "多源聚合降操纵", "行业通用实践"], ["偏差处理", "异常偏差处理", "行业通用实践"], ["心跳", "喂价心跳监控", "行业通用实践"]]], ["事件", [["资产事件", "底层资产事件上链", "行业通用实践"], ["收益事件", "收益到达事件", "Ondo Finance"], ["违约事件", "违约事件上链", "行业通用实践"], ["证明", "事件可证明可查", "行业通用实践"]]], ["可信", [["去中心化源", "多独立源降低单点", "行业通用实践"], ["审计", "喂价过程审计", "行业通用实践"], ["降级", "源失效降级", "行业通用实践"], ["留存", "喂价数据留存", "行业通用实践"]]]]],
+ ["d6", "RWA发行管理", "RWA Issuance", "成长", "端到端完成真实资产代币化发行", [["结构设计", [["RWA资产筛选", "筛选可代币化RWA资产", "Ondo Finance"], ["SPV结构", "设计破产隔离结构", "Securitize"], ["法律文件", "起草法律与招股文件", "行业通用实践"], ["评级", "引入信用评级", "行业通用实践"]]], ["发行", [["募资管理", "管理认购与募资", "Securitize"], ["份额划分", "划分代币份额", "Ondo Finance"], ["合规销售", "按辖区合规销售", "行业通用实践"], ["关闭", "发行关闭与锁定", "行业通用实践"]]], ["投后", [["持有人服务", "持有人信息服务", "行业通用实践"], ["信息披露", "定期信息披露", "Securitize"], ["事件处理", "关键事件处理", "行业通用实践"], ["留存", "发行资料留存", "行业通用实践"]]]]],
+ ["d7", "合规转让与白名单", "Compliant Transfer & Whitelist", "核心", "以白名单与限额实现合规转让", [["白名单", [["合格投资者", "维护合格投资者白名单", "Securitize"], ["地址绑定", "白名单绑定链上地址", "行业通用实践"], ["动态维护", "白名单动态增删", "行业通用实践"], ["跨域", "跨辖区白名单映射", "行业通用实践"]]], ["转让控制", [["转让校验", "每笔转账合规校验", "Securitize"], ["持有限额", "个人持有限额", "行业通用实践"], ["锁定期", "设转让锁定期", "行业通用实践"], ["冻结", "违规地址冻结", "行业通用实践"]]], ["记录", [["转让记录", "转让全量记录", "行业通用实践"], ["对手筛查", "转让对手筛查", "行业通用实践"], ["报告", "转让合规报告", "行业通用实践"], ["留存", "转让数据留存", "行业通用实践"]]]]],
+ ["d8", "稳定币发行管理", "Stablecoin Issuance", "成长", "管理法币锚定稳定币的发行与赎回", [["发行", [["法币储备", "1:1法币储备支持", "Circle"], ["铸造赎回", "按储备铸造赎回", "Paxos"], ["限额", "发行与赎回限额", "行业通用实践"], ["资格", "发行资格审核", "行业通用实践"]]], ["储备", [["储备托管", "储备金独立托管", "Circle"], ["资产构成", "披露储备资产构成", "Paxos"], ["审计", "定期储备审计", "行业通用实践"], ["证明", "可验证储备证明", "行业通用实践"]]], ["运营", [["供求管理", "管理供求与利率", "行业通用实践"], ["合规区", "按辖区合规运营", "行业通用实践"], ["冻结", "可疑地址冻结", "行业通用实践"], ["留存", "发行赎回留存", "行业通用实践"]]]]],
+ ["d9", "储备金托管与审计", "Reserve Custody & Audit", "核心", "保障储备真实可验证", [["托管", [["独立托管", "储备金独立第三方托管", "四大审计/托管行"], ["隔离账户", "资产隔离账户", "行业通用实践"], ["多托管", "多托管分散风险", "行业通用实践"], ["访问", "托管访问治理", "行业通用实践"]]], ["审计", [["定期审计", "定期储备审计", "四大审计"], ["证明发布", "发布储备证明", "Circle"], ["链上证明", "链上储备证明", "行业通用实践"], ["异议处理", "审计异议处理", "行业通用实践"]]], ["透明", [["构成披露", "披露资产构成", "Paxos"], ["实时视图", "储备实时视图", "行业通用实践"], ["压力", "储备压力测试", "行业通用实践"], ["留存", "审计资料留存", "行业通用实践"]]]]],
+ ["d10", "收益分配", "Distribution of Yield/Income", "成长", "按规则分配底层资产收益", [["计算", [["收益归集", "归集底层收益", "Ondo Finance"], ["分配计算", "按比例计算分配", "Securitize"], ["税费", "代扣相关税费", "行业通用实践"], ["复核", "分配复核", "行业通用实践"]]], ["发放", [["链上发放", "链上自动发放", "Ondo Finance"], ["稳定币发放", "以稳定币发放", "行业通用实践"], ["重投资", "支持收益重投", "行业通用实践"], ["回执", "分配回执", "行业通用实践"]]], ["披露", [["分配报告", "生成分配报告", "Securitize"], ["税务", "分配税务处理", "行业通用实践"], ["查询", "持有人查询", "行业通用实践"], ["留存", "分配数据留存", "行业通用实践"]]]]],
+ ["d11", "二级转让市场", "Secondary Transfer Market", "探索", "探索合规二级流动", [["场所", [["合格市场", "仅对合格投资者开放", "Securitize"], ["ATS", "通过另类交易系统", "行业通用实践"], ["撮合", "合规撮合", "行业通用实践"], ["结算", "链上结算", "行业通用实践"]]], ["合规", [["转让限制", "受白名单与锁定期限", "Securitize"], ["披露", "交易前披露", "行业通用实践"], ["报告", "交易报告", "行业通用实践"], ["监控", "异常交易监控", "行业通用实践"]]], ["风险", [["流动性风险", "管理低流动性", "行业通用实践"], ["价格风险", "管理价格偏离", "行业通用实践"], ["操纵", "防操纵监控", "行业通用实践"], ["留存", "交易留存", "行业通用实践"]]]]],
+ ["d12", "投研与净值", "Research & NAV", "成长", "提供资产净值与研究", [["净值", [["NAV计算", "计算资产净值", "Ondo Finance"], ["净值发布", "定期发布净值", "Securitize"], ["归因", "收益归因", "行业通用实践"], ["复核", "净值复核", "行业通用实践"]]], ["研究", [["资产研究", "底层资产研究", "行业通用实践"], ["信用研究", "发行人与资产信用", "行业通用实践"], ["情景", "情景与压力", "行业通用实践"], ["报告", "研究报告", "行业通用实践"]]], ["披露", [["披露基线", "披露信息基线", "Securitize"], ["延迟", "披露时效管理", "行业通用实践"], ["查询", "持有人查询", "行业通用实践"], ["留存", "研究留存", "行业通用实践"]]]]],
+ ["d13", "风险监控", "Risk Monitoring", "核心", "监控发行与储备风险", [["资产风险", [["底层监测", "监测底层资产质量", "行业通用实践"], ["集中度", "监测资产集中度", "行业通用实践"], ["违约", "违约预警", "行业通用实践"], ["评级", "跟踪评级变化", "行业通用实践"]]], ["储备风险", [["储备充足", "监测储备充足率", "Circle"], ["托管风险", "监测托管方风险", "行业通用实践"], ["脱锚", "稳定币脱锚监测", "Paxos"], ["挤兑", "赎回挤兑预警", "行业通用实践"]]], ["操作风险", [["合约风险", "监测合约异常", "行业通用实践"], ["预言机风险", "监测喂价异常", "行业通用实践"], ["权限风险", "权限异动监测", "行业通用实践"], ["处置", "风险处置预案", "行业通用实践"]]]]],
+ ["d14", "数据看板与报表", "Dashboard & Reporting", "成熟", "向各方提供透明数据", [["看板", [["资产看板", "底层资产可视化", "行业通用实践"], ["储备看板", "储备实时看板", "Circle"], ["持有人", "持有人结构", "Securitize"], ["预警", "风险预警面板", "行业通用实践"]]], ["报表", [["定期报表", "定期运营报表", "行业通用实践"], ["监管报表", "监管格式报表", "行业通用实践"], ["税务报表", "税务报表", "行业通用实践"], ["导出", "数据导出", "行业通用实践"]]], ["透明", [["公开披露", "适度公开披露", "Securitize"], ["可验证", "数据可验证", "行业通用实践"], ["订阅", "持有人订阅", "行业通用实践"], ["留存", "报表留存", "行业通用实践"]]]]],
+ ["d15", "合规与证券属性判定", "Compliance & Security Determination", "核心", "判定属性并映射监管", [["属性判定", [["Howey测试", "评估是否构成证券", "Securitize"], ["属地规则", "按属地判定属性", "行业通用实践"], ["法律意见", "引入法律意见", "行业通用实践"], ["重评", "属性动态重评", "行业通用实践"]]], ["映射", [["牌照映射", "业务映射所需牌照", "行业通用实践"], ["辖区控制", "按辖区开放能力", "Securitize"], ["禁止清单", "维护禁止业务", "行业通用实践"], ["申报", "合规变更申报", "行业通用实践"]]], ["中国口径", [["境内结构化", "境内走合规结构化融资/联盟链", "行业通用实践"], ["非公开", "不面向公众发行", "行业通用实践"], ["持牌", "依托持牌金融机构", "行业通用实践"], ["红线", "严守不得代币融资红线", "行业通用实践"]]]]],
+ ["d16", "赎回与兑付", "Redemption & Maturity", "核心", "管理赎回、到期与兑付", [["赎回", [["赎回申请", "受理持有人赎回", "Ondo Finance"], ["赎回定价", "按净值赎回定价", "Securitize"], ["赎回限额", "设赎回限额与节奏", "行业通用实践"], ["结算", "赎回资金结算", "行业通用实践"]]], ["到期", [["到期提醒", "到期自动提醒", "行业通用实践"], ["兑付", "到期本金兑付", "行业通用实践"], ["展期", "合规展期处理", "行业通用实践"], ["注销", "赎回/到期代币注销", "行业通用实践"]]], ["合规", [["资格校验", "赎回资格校验", "行业通用实践"], ["税务", "赎回税务处理", "行业通用实践"], ["记录", "赎回全程记录", "行业通用实践"], ["留存", "兑付数据留存", "行业通用实践"]]]]],
+ ["d17", "审计与链上留痕", "Audit & On-chain Trace", "成熟", "全链路可审计可举证", [["审计", [["只追加日志", "关键操作只追加", "Securitize"], ["证据链", "构建发行到兑付证据链", "行业通用实践"], ["外部审计", "配合外部审计", "四大审计"], ["抽样", "监管抽样支持", "行业通用实践"]]], ["链上留痕", [["哈希存证", "关键记录哈希存证", "行业通用实践"], ["事件溯源", "全事件可追溯", "行业通用实践"], ["版本", "文件版本追溯", "行业通用实践"], ["导出", "审计包导出", "行业通用实践"]]], ["留存", [["留存期", "按监管设定留存", "行业通用实践"], ["访问审计", "审计访问记录", "行业通用实践"], ["归档", "冷热归档", "行业通用实践"], ["销毁", "到期合规销毁", "行业通用实践"]]]]],
+ ["d18", "监管报送与跨境", "Regulatory Reporting & Cross-border", "成长", "面向多地监管报送", [["报送", [["属地报表", "按属地生成报表", "行业通用实践"], ["交易报告", "大额与可疑报告", "行业通用实践"], ["持证留存", "牌照文件留存", "行业通用实践"], ["检查", "配合监管检查", "行业通用实践"]]], ["跨境", [["跨境结构", "合规跨境结构", "行业通用实践"], ["数据跨境", "数据跨境合规", "行业通用实践"], ["辖区协调", "多辖区协调", "行业通用实践"], ["制裁", "遵守制裁名单", "行业通用实践"]]], ["法务", [["条款库", "法律条款库", "行业通用实践"], ["揭示", "风险揭示", "行业通用实践"], ["争议", "争议处理", "行业通用实践"], ["培训", "合规培训", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["代币化国债与货基", "live", "将低风险资产代币化供机构持有", "机构现金管理"],
+ ["可验证储备证明", "live", "稳定币/基金储备实时可验证", "信任增强"],
+ ["白名单合规转让", "live", "以链上规则实现合规转让", "降低合规成本"],
+ ["自动收益分配", "live", "收益按规则链上自动发放", "运营提效"],
+ ["联盟链资产凭证", "live", "境内以联盟链做合规资产凭证", "境内结构化融资"],
+ ["NAV链上发布", "live", "净值定期链上发布", "透明披露"],
+ ["发行人披露中台", "live", "向持有人统一披露", "投资者关系"],
+ ["独立储备托管", "live", "储备金独立第三方托管", "隔离风险"],
+ ["跨链资产凭证", "pilot", "探索跨链资产凭证互认", "流动性扩展"],
+ ["动态合规规则", "pilot", "按辖区动态启用规则", "全球合规"],
+ ["AI合规筛查", "pilot", "AI辅助转让与对手筛查", "降本"],
+ ["预言机去中心化", "pilot", "多源去中心化喂价", "抗操纵"],
+ ["代币化私募信贷", "pilot", "私募信贷资产代币化", "资产类别扩展"],
+ ["链上投资者准入", "pilot", "合格投资者链上准入", "效率提升"],
+ ["赎回自动化", "pilot", "赎回全流程自动化", "体验提升"],
+ ["监管沙盒", "pilot", "借沙盒验证新结构", "合规先行"],
+ ["零知识合规证明", "explore", "证明合规不泄露隐私", "隐私平衡"],
+ ["资产组合代币", "explore", "一篮子公司资产组合代币", "配置工具"],
+ ["去中心化身份", "explore", "DID做投资者身份", "身份主权"],
+ ["自动评级接入", "explore", "链上接入信用评级", "风险透明"],
+ ["跨境结算网络", "explore", "多币种跨境结算", "效率提升"],
+ ["全自动审计", "explore", "审计全流程自动化", "极致透明"],
+ ["AI结构化设计", "explore", "AI辅助资产结构设计", "设计提效"],
+ ["链上违约处置", "explore", "违约自动处置机制", "风险闭环"]
+];
+const MIDS = [
+ ["发行中心", "端到端资产代币化发行", "结构设计、SPV、合约工厂"],
+ ["登记中心", "权属与持有人登记", "映射、名册、变更"],
+ ["合规中心", "属性判定与转让合规", "白名单、Howey、辖区"],
+ ["储备中心", "储备托管与审计", "独立托管、证明、披露"],
+ ["风险中心", "发行与储备风险监控", "底层、脱锚、挤兑"],
+ ["净值中心", "NAV计算与发布", "计算、复核、披露"],
+ ["收益中心", "收益归集与分配", "计算、发放、税务"],
+ ["转让中心", "合规二级流转", "合格市场、撮合、结算"],
+ ["赎回中心", "赎回与兑付", "申请、定价、注销"],
+ ["预言机中心", "可信链下数据", "喂价、事件、证明"],
+ ["审计中心", "可审计证据链", "日志、存证、导出"],
+ ["数据中枢", "透明看板与报表", "看板、报表、订阅"],
+ ["投资者中心", "合格准入与服务", "KYC、披露、查询"],
+ ["跨境中心", "多地监管协调", "报送、数据跨境、制裁"],
+ ["法务中心", "条款与争议", "条款库、揭示、培训"],
+ ["运营中心", "日常运营统筹", "调度、监控、SLA"],
+ ["安全中心", "合约与密钥安全", "审计、监控、应急"],
+ ["研究中枢", "资产与信用研究", "研究、评级、情景"]
+];
+const RULES = [
+ ["储备不独立托管", "储备与发行方混同，一旦失陷无法兑付构成欺诈"],
+ ["白名单未强制", "转让未做合格投资者校验会违规面向公众"],
+ ["属性判定错误", "将证券型误判为 utility 会触发非法发行"],
+ ["预言机被操纵", "喂价被操纵会扭曲净值与赎回定价"],
+ ["SPV未隔离", "资产未破产隔离，发行人违约拖累持有人"],
+ ["赎回脱锚", "稳定币脱锚时仍按面值赎回造成挤兑"],
+ ["审计缺失", "无定期储备审计无法向监管与持有人举证"],
+ ["私自代币融资", "境内开展代币募集直接违反九部委通知"],
+ ["权限单点", "合约管理权限单点可被挪用资产"],
+ ["披露延迟", "净值与风险披露延迟损害持有人判断"],
+ ["跨境数据违规", "数据跨境未评估违反个保法"],
+ ["合约未审计", "上链合约漏洞致资产盗失"],
+ ["留存不足", "发行到兑付资料缺失无法举证"],
+ ["合格投资者造假", "虚报资格面向不合格主体"],
+ ["冻结失效", "违规地址未能冻结致损失扩大"],
+ ["兑付违约无预案", "到期无法兑付无处置预案引发信任崩塌"]
+];
+const KPIS = [
+ ["储备指标", "储备充足率、托管独立性、审计准时率"],
+ ["合规指标", "白名单命中率、报送准时率、属性判定准确率"],
+ ["风险指标", "脱锚幅度、违约率、集中度"],
+ ["运营指标", "赎回时长、发行成功率、SLA"],
+ ["净值指标", "NAV偏差、发布准时率"],
+ ["透明指标", "披露完整度、可验证占比"],
+ ["安全指标", "合约漏洞数、权限异动数"],
+ ["商业指标", "AUM规模、持有人数、留存"]
+];
+const LIC_CN = [
+ ["2021年九部委《关于进一步防范和处置虚拟货币交易炒作风险的通知》：虚拟货币相关业务属非法金融活动", "境内不得开展代币发行融资；RWA须走合规结构化融资/联盟链资产凭证等持牌合规路径", "产品须中性专业，不得面向公众代币融资或承诺收益"],
+ ["证券法相关：证券发行须依法注册或核准", "境内证券化发行须依托持牌金融机构", "不得私自公开发行证券型代币"],
+ ["信托与私募相关法规：私募须合格投资者", "私募属性发行须合格投资者且非公开", "不得公开募集"],
+ ["反洗钱法：义务机构须履行AML", "发行与转让须履行反洗钱", "大额与可疑须报告"],
+ ["数据安全法/个人信息保护法", "投资者数据与跨境须合规", "跨境前完成评估"],
+ ["区块链信息服务备案", "境内联盟链服务须备案", "未备案不得提供"],
+ ["九部委通知：不得为虚拟货币提供定价/中介", "不得为境内用户提供代币行情中介", "行情仅服务境外"],
+ ["防范代币融资风险公告（2017/2021）", "不得开展ICO/IFO等募集", "发行类能力不对境内公众"],
+ ["金融科技与资管新规导向", "鼓励规范赋能实体经济", "不得变相金融化炒作"],
+ ["网络借贷/非法集资红线", "不得承诺保本保收益", "全文中性无收益承诺"],
+ ["外汇管理相关：跨境资金须合规", "跨境结构须合规通道", "不得私自跨境资金池"],
+ ["国资委/国企资产监管（如适用）", "国资相关资产须合规程序", "权属与评估合规"],
+ ["会计与评估准则", "资产上链须合规估值入表", "评估须有资质"],
+ ["网络安全等级保护", "系统须落实等保", "安全覆盖"],
+ ["投资者适当性管理", "须做适当性与风险揭示", "不对不合格主体开放"]
+];
+const LIC_INTL = [
+ ["美国SEC证券监管（Regulation D/S等）", "可依规向合格投资者发行证券代币", "须满足注册豁免与披露"],
+ ["欧盟MiCA与DLT试点制度", "可按试点制度发行代币化资产", "须满足披露与托管"],
+ ["新加坡PSA/DPT框架", "可申请相关牌照", "须满足AML与保护"],
+ ["瑞士DLT法案（分布式账本交易设施）", "可按DLT法发行与交易", "须满足资本与报告"],
+ ["英国FCA加密资产与沙盒", "可借沙盒验证新结构", "须满足金融促销限制"],
+ ["香港证监会代币化证券/基金指引", "可按指引发行代币化基金", "须持牌与投资者适当性"],
+ ["日本FSA加密资产监管", "须持牌运营", "须资产隔离与审计"],
+ ["制裁合规（OFAC等）", "须遵守国际制裁名单", "制裁方交易须拦截"]
+];
+const OPPS = [
+ ["代币化国债需求", "机构需链上现金管理", "代币化低风险资产"],
+ ["联盟链资产凭证", "境内需合规资产凭证", "联盟链结构化融资"],
+ ["稳定币储备透明", "信任缺口大", "可验证储备证明"],
+ ["私募信贷代币化", "资产类别扩展", "私募信贷上链"],
+ ["自动收益分配", "运营成本高", "链上自动分配"],
+ ["合格投资者服务", "准入繁琐", "链上准入与披露"],
+ ["发行人披露", "披露分散", "统一披露中台"],
+ ["独立储备托管", "隔离需求强", "第三方独立托管"],
+ ["跨境结算", "效率低", "多币种链上结算"],
+ ["监管沙盒", "新结构需验证", "借沙盒先行"],
+ ["AI合规", "合规成本高", "AI辅助筛查"],
+ ["违约处置", "风险闭环需", "链上违约处置"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：RWA / 代币化 / 白名单 / 储备金`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

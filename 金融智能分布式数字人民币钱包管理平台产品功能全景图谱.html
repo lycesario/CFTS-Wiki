@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融智能分布式数字人民币钱包管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融智能分布式数字人民币钱包管理平台全景</b>
+    <span>金融智能分布式数字人民币钱包管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融智能分布式数字人民币钱包管理平台产品功能全景图谱</h1>
+    <p>把「金融智能分布式数字人民币钱包管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。数字人民币生态的胜负手不是发币，而是在人民银行中心化框架内，把钱包运营、智能合约监管与受理生态做成可规模化的合规服务。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是一条主线：在人民银行中心化账本之上，作为生态服务方把钱包、受理与智能合约监管做成可复制、可举证的合规能力。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：钱包与账户基础</td><td>个人钱包分层、对公母子钱包、KYC、账户余额、限额额度</td><td>这一层是价值载体的入口，实名与限额决定了整个生态的合规地基</td></tr>
+<tr><td>第二层（d6–d9）：核心支付与受理</td><td>双离线支付、受理环境改造、智能合约钱包、互联互通清结算</td><td>这一层把法币支付能力真正落到场景，离线加受理覆盖决定可用性</td></tr>
+<tr><td>第三层（d10–d14）：智能合约与场景运营</td><td>红包营销、条件支付预付监管、合约模板、风控反欺诈、数据洞察</td><td>这一层把支付升级为可编程与可运营，智能合约是差异化护城河</td></tr>
+<tr><td>第四层（d15–d18）：治理与合规</td><td>合规报送、安全密钥、标准生态治理、审计对账</td><td>这一层是生命线，越接近资金越要先有合规与安全</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：①必须是生态服务方而非发币方，一切在央行中心化框架内；②钱包实名与限额体系必须先于任何营销；③智能合约须经审核且资金真实锁定，不得形成资金池。</div>
+    <div class="danger">最容易被误当成成功信号的是红包发放量与交易笔数——若不计较资金闭环、实名与合规报送，规模越大风险越大。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：凡涉及资金释放与可编程性的方向，必须先确认合规框架与监管报送能力是否到位，否则一律降优先级。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>数字人民币钱包</td><td>用户持有e-CNY的载体，分一至四类</td><td>写错会把钱包等同于银行账户，导致限额与实名设计失当</td></tr>
+<tr><td>母子钱包</td><td>企业主钱包下设子钱包的层级结构</td><td>写错会造成资金归集与授权混乱，企业财资失控</td></tr>
+<tr><td>智能合约</td><td>绑定资金的可执行条件逻辑</td><td>写错会让合约可被恶意操控，资金被挪用</td></tr>
+<tr><td>双离线交易凭证</td><td>无网无电时生成的可验证交易</td><td>写错会引入双花与重放风险</td></tr>
+<tr><td>互联互通</td><td>跨运营机构的对等连接与清结算</td><td>写错会绕开央行清算安排，触碰私自清算红线</td></tr>
+<tr><td>预付资金池</td><td>预付场景中按履约释放的资金</td><td>写错会形成违规资金池，触发监管处罚</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域监管域组合通常是：人民银行（货币发行与运营框架）、反洗钱监管机构、网信与数据监管、行业主管部门（教培住建等预付领域）四域交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：①不得为加密货币提供兑换通道，触碰九部委虚拟货币红线；②预付资金必须真实锁定不得挪用，否则构成资金池；③平台不得越位发币或承诺收益，否则涉嫌非法金融活动。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如教培预付资金监管）</li><li>第二步：建立可举证的基线（实名、限额、合约审核、资金锁定）</li><li>第三步：跑通最短闭环（开户—充值—合约锁定—履约释放—对账）</li><li>第四步：补第二个增值能力（如红包营销或对公财资）</li><li>第五步：把承诺写进合同（合规报送、资金安全SLA）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：监管科技型（面向政府与行业的预付监管SaaS）</li><li>路径 B：受理生态型（商户聚合受理与SaaS）</li><li>路径 C：对公财资型（集团母子钱包资金管理）</li><li>路径 D：营销运营型（政府消费券与红包中台）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：都依赖第一资产——在央行框架内合规运营的钱包与实名账户体系。</div>
+  </section>
+
+  <footer>
+    <p>金融智能分布式数字人民币钱包管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览与阅读主线"],
+ ["s1", "钱包与账户基础"],
+ ["s2", "核心支付与受理"],
+ ["s3", "智能合约与场景运营"],
+ ["s4", "治理与合规"],
+ ["s5", "平台形态与生态格局"],
+ ["s6", "前沿方向矩阵"],
+ ["s7", "监管与合规红线"],
+ ["s8", "中心与组织能力"],
+ ["s9", "落地路径与决策"]
+];
+const PLAYERS = [
+ ["中央银行数字货币零售钱包平台", "e-CNY、Nigeria eNaira、Bahamas Sand Dollar", "数字人民币钱包", "法定数字货币的公众持有与支付入口"],
+ ["指定运营机构银行钱包", "各国央行授权商业银行模式", "工农中建交邮储网商微众等运营机构钱包", "在央行账本上提供面向用户的钱包服务"],
+ ["预付资金监管平台", "Blackhawk、Prepaid Financial", "智能合约预付资金监管", "以条件支付锁定并释放资金"],
+ ["双离线近场支付", "部分零售CBDC具备离线能力", "数字人民币双离线支付", "在无网无电场景完成价值转移"],
+ ["互联互通清结算平台", "TCH RTP、SEPA Instant", "数字人民币互联互通平台", "跨运营机构资金清算与对等连接"],
+ ["红包与营销运营平台", "零售商礼品卡与营销平台", "数字人民币红包消费券运营", "以法定货币载体做用户增长与消费激活"]
+];
+const DOMAINS = [
+ ["d1", "个人钱包分层运营", "Individual Wallet Tiered Operation", "成熟", "按实名强度与限额分层运营个人钱包，是价值载体的用户入口", [["钱包分级体系", [["四类钱包分级", "按实名强度与余额上限分一至四类，弱实名可开二类及以上", "央行e-CNY设计规范"], ["钱包升降级", "补全实名或绑卡触发升级，限额实时调整", "行业通用实践"], ["钱包绑定管理", "绑定手机号与银行账户，支持跨运营机构互转", "行业通用实践"], ["钱包注销清退", "注销前强制余额兑回绑定账户，防止资金滞留", "行业通用实践"]]], ["钱包视图与个性化", [["余额资产总览", "聚合多钱包余额与流水，提供统一视图", "运营机构App实践"], ["钱包场景标识", "按消费场景展示钱包皮肤与标识提升识别度", "行业通用实践"], ["默认钱包设置", "设置默认付款钱包与优先受理方式", "行业通用实践"], ["家庭钱包关联", "主钱包授权家庭成员子钱包共享额度", "行业通用实践"]]], ["钱包生命周期运营", [["睡眠钱包唤醒", "对长期未活跃钱包推送激活激励与权益", "行业通用实践"], ["活跃度分层", "按交易频次分群差异化投放运营资源", "行业通用实践"], ["运营机构切换", "支持不同运营机构钱包间迁移资金", "行业通用实践"], ["挂失紧急止付", "遗失时远程挂失冻结保护资金安全", "行业通用实践"]]]]],
+ ["d2", "对公钱包与母子钱包", "Corporate Wallet & Parent-Sub", "成熟", "企业主钱包下设子钱包，分级授权与资金归集下拨", [["对公钱包体系", [["对公钱包开立", "企业实名开立，关联对公账户与法人信息", "运营机构企业钱包"], ["母子钱包结构", "主钱包下设子钱包，分级授权与额度控制", "行业通用实践"], ["钱包权限管理", "按角色分配付款、查询、审批权限", "行业通用实践"], ["对公钱包注销", "注销前完成子钱包清退与对账", "行业通用实践"]]], ["资金归集与下拨", [["资金自动归集", "按周期将子钱包余额归集至母钱包", "行业通用实践"], ["资金定向下拨", "母钱包按预算下拨至子钱包", "行业通用实践"], ["跨机构对公转账", "企业对公钱包间跨运营机构结算", "互联互通平台"], ["资金头寸视图", "实时展示集团资金分布与可用额度", "行业通用实践"]]], ["对公场景运营", [["工资代发", "企业通过钱包批量代发员工薪酬", "行业通用实践"], ["供应链付款", "按合同向供应商子钱包付款", "行业通用实践"], ["税费缴纳", "对接税务系统以钱包缴税缴费", "行业通用实践"], ["对公营销权益", "面向企业客户的专属权益与对账服务", "行业通用实践"]]]]],
+ ["d3", "钱包开立与实名KYC", "Wallet KYC", "成熟", "开户身份核验、风险准入与隐私授权，是合规地基", [["身份核验", [["手机号实名核验", "对接运营商校验手机号实名一致性", "行业通用实践"], ["银行卡四要素", "姓名卡号证件手机号四要素校验", "行业通用实践"], ["人脸活体核身", "开户人脸活体比对防冒用", "行业通用实践"], ["证件OCR识别", "身份证银行卡OCR自动录入", "行业通用实践"]]], ["风险准入", [["黑名单拦截", "命中制裁名单或失信名单拒绝开户", "行业通用实践"], ["开户频次限制", "同一身份开户数量上限防囤号", "行业通用实践"], ["反洗钱初筛", "开户即做AML基础筛查与风险评分", "行业通用实践"], ["可疑行为监控", "异常开户行为实时告警", "行业通用实践"]]], ["隐私与授权", [["最小必要采集", "仅采集开户必需信息并明示授权", "个人信息保护法"], ["授权可追溯", "用户授权记录可审计可撤回", "行业通用实践"], ["信息脱敏展示", "证件号手机号默认脱敏展示", "行业通用实践"], ["跨境身份互认", "探索与港澳居民身份核验互认", "行业通用实践"]]]]],
+ ["d4", "数字人民币账户体系与余额", "e-CNY Account & Balance", "成熟", "钱包余额与央行数字货币账本一致，处理充值兑回与账务", [["账户与账本", [["中心化账本同步", "钱包余额与央行数字货币账本保持一致", "央行数字钱包设计"], ["明细流水查询", "提供交易明细与余额变动记录", "行业通用实践"], ["余额计息策略", "明确e-CNY不计息，界面如实提示", "行业通用实践"], ["钱包账户映射", "钱包地址与用户身份映射管理", "行业通用实践"]]], ["充值与兑回", [["银行卡充值", "从绑定银行账户向钱包充值", "行业通用实践"], ["钱包兑回", "将钱包余额兑回绑定银行账户", "行业通用实践"], ["现金兑换", "指定场景支持现金与数字人民币兑换", "行业通用实践"], ["兑换限额管理", "充值兑回受钱包限额约束", "行业通用实践"]]], ["账务与对账", [["每日余额对账", "钱包侧与运营机构侧每日对账", "行业通用实践"], ["差错处理", "异常交易挂账与差错调账", "行业通用实践"], ["账务快照", "关键时点余额与流水快照留存", "行业通用实践"], ["跨机构账务", "跨运营机构交易账务清分", "互联互通平台"]]]]],
+ ["d5", "钱包限额与额度管理", "Wallet Limit & Quota", "成长", "分级限额、额度申请审批与实时监控，约束风险敞口", [["限额体系", [["分级限额配置", "按钱包类别设置余额与交易限额", "央行e-CNY设计"], ["单笔与日累计", "区分单笔、单日、年累计限额", "行业通用实践"], ["场景化限额", "按消费场景差异化限额策略", "行业通用实践"], ["限额动态调整", "依风控与实名等级动态调额", "行业通用实践"]]], ["额度申请与审批", [["提额申请", "用户提交材料申请提高限额", "行业通用实践"], ["企业额度审批", "对公分角色审批额度调整", "行业通用实践"], ["临时额度", "大促等场景发放临时额度", "行业通用实践"], ["额度用尽提示", "接近限额时提示并引导升额", "行业通用实践"]]], ["额度监控", [["实时额度占用", "交易时实时扣减与校验额度", "行业通用实践"], ["额度预警", "接近阈值触发预警与拦截", "行业通用实践"], ["异常额度行为", "突增大额交易触发复核", "行业通用实践"], ["额度报表", "额度使用统计与监管报表", "行业通用实践"]]]]],
+ ["d6", "双离线支付", "Dual Offline Payment", "成长", "无网无电时完成收付，依赖离线凭证与防双花机制", [["离线交易机制", [["收付双方离线", "无网无电时收款方与付款方均可离线", "央行数字钱包设计"], ["离线交易凭证", "生成可验证的离线交易凭证并签名", "行业通用实践"], ["有限额度离线", "设置离线可用余额上限防超额", "行业通用实践"], ["交易计数防重", "离线交易计数器防双花与重放", "行业通用实践"]]], ["离线安全保障", [["离线钱包安全", "硬件级安全区存储密钥与凭证", "行业通用实践"], ["离线签名验证", "交易恢复联网后验签入账", "行业通用实践"], ["失联风险控制", "离线交易设有效期，超时作废", "行业通用实践"], ["设备丢失保护", "丢失设备离线凭证可远程作废", "行业通用实践"]]], ["离线受理与运维", [["离线受理终端", "支持离线收款的POS与码牌", "行业通用实践"], ["离线交易回补", "联网后批量回补与对账", "行业通用实践"], ["离线场景运营", "地下商超、交通工具离线受理", "行业通用实践"], ["离线故障演练", "定期演练离线支付可用性", "行业通用实践"]]]]],
+ ["d7", "受理环境改造 POS/码牌", "Acceptance Environment", "成熟", "码牌与POS受理改造、商户入网与受理质量运营", [["码牌受理", [["主扫被扫兼容", "支持用户主扫与商户被扫两种模式", "行业通用实践"], ["聚合码牌", "一码聚合多运营机构钱包受理", "行业通用实践"], ["码牌实名制", "码牌绑定商户与经营信息", "行业通用实践"], ["动态码防截", "动态收款码防截图与替换", "行业通用实践"]]], ["POS与终端改造", [["POS固件升级", "现有POS升级支持e-CNY受理", "行业通用实践"], ["软硬钱包受理", "终端兼容软钱包与硬钱包", "行业通用实践"], ["终端密钥管理", "POS终端密钥安全注入与更新", "行业通用实践"], ["终端对账", "终端交易与后台对账", "行业通用实践"]]], ["受理运营", [["商户入网", "商户签约开通e-CNY受理", "行业通用实践"], ["受理费率配置", "按行业配置受理与服务费率", "行业通用实践"], ["受理质量监控", "受理成功率与失败原因监控", "行业通用实践"], ["受理覆盖分析", "商圈受理覆盖率与盲区分析", "行业通用实践"]]]]],
+ ["d8", "智能合约钱包", "Smart Contract Wallet", "成长", "钱包绑定可执行条件逻辑，实现资金可编程与监管", [["合约钱包形态", [["可编程钱包", "钱包绑定可执行的条件支付逻辑", "行业通用实践"], ["合约账户模型", "以合约账户承载资金与规则", "行业通用实践"], ["触发器与条件", "支持时间、事件、外部数据触发", "行业通用实践"], ["合约钱包开通", "用户按场景开通合约钱包", "行业通用实践"]]], ["资金监管", [["预付资金锁定", "预付资金锁定于合约，按履约释放", "行业通用实践"], ["条件释放", "满足约定条件自动释放资金", "行业通用实践"], ["违约处置", "违约时按规则退回或罚没", "行业通用实践"], ["监管可见", "监管方可查看合约执行状态", "行业通用实践"]]], ["合约治理", [["合约模板审核", "合约模板需经运营机构审核", "行业通用实践"], ["合约审计", "合约代码可审计防恶意逻辑", "行业通用实践"], ["合约中止", "异常时中止合约并冻结资金", "行业通用实践"], ["合约争议处理", "争议由运营机构与监管介入", "行业通用实践"]]]]],
+ ["d9", "互联互通与跨机构清结算", "Interoperability & Clearing", "成长", "跨运营机构互转、统一标识与央行框架内清结算", [["互联互通", [["跨机构互转", "不同运营机构钱包间互转资金", "互联互通平台"], ["统一受理标识", "统一商户与用户标识跨机构识别", "行业通用实践"], ["对等连接", "运营机构间点对点连接与路由", "行业通用实践"], ["互联互通目录", "维护跨机构钱包与商户目录", "行业通用实践"]]], ["清结算", [["日间清分", "按交易批次跨机构清分", "行业通用实践"], ["资金结算", "通过央行准备金账户完成结算", "央行清算安排"], ["轧差结算", "多边净额轧差降低流动性占用", "行业通用实践"], ["清算对账", "跨机构清算明细逐笔对账", "行业通用实践"]]], ["运营与争议", [["跨机构差错", "跨机构交易差错协同处理", "行业通用实践"], ["流动性管理", "结算流动性监测与预警", "行业通用实践"], ["互联互通报表", "跨机构业务量监管报表", "行业通用实践"], ["应急切换", "互联互通链路故障应急切换", "行业通用实践"]]]]],
+ ["d10", "红包营销与运营", "Red Packet Marketing", "成长", "红包消费券发放、人群定向与效果分析，资金闭环", [["红包发放", [["红包创建", "运营方配置面额数量与发放范围", "行业通用实践"], ["红包领取", "用户领取红包至e-CNY钱包", "行业通用实践"], ["消费券发放", "政府消费券定向发放核销", "行业通用实践"], ["红包裂变", "社交裂变拉新发红包", "行业通用实践"]]], ["营销运营", [["场景化营销", "按商圈节令配置营销活动", "行业通用实践"], ["人群定向", "按用户画像定向投放红包", "行业通用实践"], ["活动效果分析", "红包核销率与拉动消费分析", "行业通用实践"], ["商户联合营销", "银行与商户联合出资营销", "行业通用实践"]]], ["风控与合规", [["红包防刷", "防薅羊毛与虚假交易套现", "行业通用实践"], ["资金合规", "红包资金闭环，不得折现外流", "行业通用实践"], ["营销审计", "营销预算与发放全程审计", "行业通用实践"], ["未成年人保护", "限制未成年人红包额度", "行业通用实践"]]]]],
+ ["d11", "条件支付与预付资金监管", "Conditional Payment & Escrow", "成长", "教培消费租赁等预付资金按履约释放，防跑路", [["预付监管", [["教育培训预付", "教培资金按课时释放防跑路", "行业通用实践"], ["消费预付监管", "美容健身等预付资金监管", "行业通用实践"], ["租赁押金监管", "租房押金按合约条件释放", "行业通用实践"], ["工程款监管", "工程进度款按节点释放", "行业通用实践"]]], ["条件支付", [["时间条件支付", "到约定时间自动支付", "行业通用实践"], ["事件条件支付", "外部事件触发支付如发货", "行业通用实践"], ["多方共管支付", "多方签名确认后支付", "行业通用实践"], ["分期条件支付", "按里程碑分期支付", "行业通用实践"]]], ["监管与披露", [["资金看板", "监管方与被监管方查看资金状态", "行业通用实践"], ["异常预警", "资金异常流动预警", "行业通用实践"], ["监管报送", "预付资金监管数据报送", "行业通用实践"], ["消费者告知", "消费者可查预付资金状态", "行业通用实践"]]]]],
+ ["d12", "智能合约模板与编排", "Contract Templates & Orchestration", "成长", "场景化合约模板、可视化编排与上线前校验", [["模板库", [["场景模板库", "提供预付、分账等标准化合约模板", "行业通用实践"], ["模板参数化", "模板支持参数配置复用", "行业通用实践"], ["模板版本管理", "模板版本与灰度发布", "行业通用实践"], ["模板搜索", "按场景检索适用模板", "行业通用实践"]]], ["编排与测试", [["可视化编排", "拖拽配置条件与动作", "行业通用实践"], ["合约仿真测试", "上线前仿真验证逻辑正确", "行业通用实践"], ["形式化校验", "关键合约形式化验证", "行业通用实践"], ["沙箱试运行", "沙箱环境试运行合约", "行业通用实践"]]], ["治理", [["模板审核上架", "模板经法务与运营审核", "行业通用实践"], ["使用监控", "监控模板调用与异常", "行业通用实践"], ["合约停用", "下线模板并迁移存量合约", "行业通用实践"], ["最佳实践沉淀", "沉淀高频场景最佳实践", "行业通用实践"]]]]],
+ ["d13", "风控与反欺诈", "Risk Control & Anti-Fraud", "成熟", "实时风控决策、欺诈与洗钱防控、模型迭代运营", [["实时风控", [["交易实时决策", "每笔交易实时评分与拦截", "行业通用实践"], ["规则引擎", "可配置风控规则与阈值", "行业通用实践"], ["设备指纹", "设备指纹识别异常设备", "行业通用实践"], ["行为序列检测", "交易行为序列异常识别", "行业通用实践"]]], ["欺诈防控", [["盗刷防护", "异常登录与盗刷识别", "行业通用实践"], ["洗钱监测", "可疑交易链监测上报", "反洗钱系统实践"], ["套现识别", "虚假交易套现识别", "行业通用实践"], ["黑产情报", "接入黑产情报库对抗", "行业通用实践"]]], ["模型与运营", [["风控模型训练", "训练欺诈识别模型", "行业通用实践"], ["模型迭代", "模型漂移监控与迭代", "行业通用实践"], ["案件管理", "风控案件调查与处置", "行业通用实践"], ["风控报表", "欺诈率与拦截率报表", "行业通用实践"]]]]],
+ ["d14", "数据洞察与运营分析", "Data Insight & Analytics", "成长", "交易客群商圈分析、运营指标与决策支持", [["交易分析", [["交易漏斗分析", "分析发放到核销转化", "行业通用实践"], ["客群分析", "用户分群与价值分析", "行业通用实践"], ["商圈热力", "商圈交易热力与渗透", "行业通用实践"], ["时段分析", "交易时段与峰值分析", "行业通用实践"]]], ["运营指标", [["活跃钱包指标", "活跃钱包数与留存", "行业通用实践"], ["受理覆盖率", "商户受理覆盖率指标", "行业通用实践"], ["资金流转指标", "资金流转规模与效率", "行业通用实践"], ["营销ROI", "营销投入产出分析", "行业通用实践"]]], ["决策支持", [["经营驾驶舱", "经营指标可视化驾驶舱", "行业通用实践"], ["异常诊断", "指标异常自动诊断归因", "行业通用实践"], ["策略推荐", "推荐运营策略与动作", "行业通用实践"], ["监管报送数据", "向监管报送运营数据", "行业通用实践"]]]]],
+ ["d15", "合规与监管报送", "Compliance & Regulatory Reporting", "成长", "对接监管、报送大额可疑交易、合规与隐私管理", [["监管对接", [["监管数据报送", "按监管要求报送业务数据", "监管报送实践"], ["大额交易报告", "大额与可疑交易报告", "反洗钱法规"], ["反恐怖融资", "涉恐名单监控与报送", "反洗钱法规"], ["监管检查支持", "支持现场与非现场检查", "行业通用实践"]]], ["合规管理", [["合规政策库", "维护合规政策与解读", "行业通用实践"], ["合规审查", "产品功能上线合规审查", "行业通用实践"], ["合规培训", "员工合规培训与考核", "行业通用实践"], ["合规风险地图", "合规风险点地图管理", "行业通用实践"]]], ["隐私合规", [["个人信息保护", "落实个人信息保护要求", "个人信息保护法"], ["数据分类分级", "数据分类分级管理", "数据安全法"], ["审计日志", "操作审计日志留存", "行业通用实践"], ["跨境数据合规", "数据出境合规评估", "数据出境合规要求"]]]]],
+ ["d16", "安全与密钥管理", "Security & Key Management", "成熟", "密钥分层、钱包安全与态势监控应急", [["密钥体系", [["密钥分层管理", "根密钥母密钥终端密钥分层", "行业通用实践"], ["密钥安全注入", "密钥安全注入与更新", "行业通用实践"], ["密钥轮换", "定期密钥轮换与作废", "行业通用实践"], ["密钥备份恢复", "密钥安全备份与恢复", "行业通用实践"]]], ["钱包安全", [["安全区存储", "密钥存于硬件安全区", "行业通用实践"], ["生物识别", "指纹人脸解锁钱包", "行业通用实践"], ["交易签名", "交易硬件级签名防篡改", "行业通用实践"], ["防截屏录屏", "钱包界面防截屏录屏", "行业通用实践"]]], ["安全运营", [["安全态势监控", "安全事件实时监测", "行业通用实践"], ["渗透与演练", "定期渗透测试与攻防演练", "行业通用实践"], ["漏洞管理", "漏洞发现修复闭环", "行业通用实践"], ["事件应急", "安全事件应急响应", "行业通用实践"]]]]],
+ ["d17", "互联互通标准与生态治理", "Standards & Ecosystem Governance", "成长", "接口报文安全标准、生态准入激励与开放协同", [["标准规范", [["接口标准", "维护钱包与受理接口标准", "行业通用实践"], ["报文标准", "统一交易报文与编码", "行业通用实践"], ["安全标准", "安全标准与合规基线", "行业通用实践"], ["标准版本演进", "标准版本管理与兼容", "行业通用实践"]]], ["生态治理", [["运营机构治理", "运营机构准入与考核", "行业通用实践"], ["服务商管理", "受理服务商准入与管理", "行业通用实践"], ["商户治理", "商户准入与黑名单治理", "行业通用实践"], ["生态激励", "生态参与方激励政策", "行业通用实践"]]], ["开放与协同", [["开放API", "向合规场景开放钱包API", "行业通用实践"], ["产业协同", "与场景方共建解决方案", "行业通用实践"], ["标准对外", "参与标准制定与输出", "行业通用实践"], ["生态监测", "生态健康度监测", "行业通用实践"]]]]],
+ ["d18", "审计与资金对账", "Audit & Reconciliation", "成熟", "总分核对、跨机构对账、审计管理与档案留存", [["资金对账", [["总分核对", "钱包总额与账本总分核对", "行业通用实践"], ["交易对账", "逐笔交易与清算对账", "行业通用实践"], ["跨机构对账", "跨机构交易双边对账", "行业通用实践"], ["差异处理", "对账差异挂账与处理", "行业通用实践"]]], ["审计管理", [["操作审计", "关键操作留痕可审计", "行业通用实践"], ["资金审计", "资金流向全程可审计", "行业通用实践"], ["合约审计", "智能合约执行审计", "行业通用实践"], ["独立审计", "引入独立第三方审计", "行业通用实践"]]], ["报表与留存", [["监管报表", "按要求生成监管报表", "行业通用实践"], ["留存期限", "交易记录按期限留存", "行业通用实践"], ["档案归档", "业务档案归档管理", "行业通用实践"], ["审计报告", "定期生成审计报告", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["智能合约预付资金监管规模化", "live", "已在教培消费领域试点并规模化推广", "机会：标准化监管SaaS"],
+ ["双离线支付地铁公交场景", "live", "多地交通场景已落地离线收付", "机会：终端与清结算一体化"],
+ ["红包消费券政府发放", "live", "多地政府已常态化发放", "机会：营销运营平台"],
+ ["对公母子钱包集团资金管理", "live", "企业资金管理已应用", "机会：财资管理模块"],
+ ["互联互通跨机构互转", "live", "运营机构间已互通", "机会：统一路由服务"],
+ ["受理环境码牌聚合", "live", "聚合码牌已普及", "机会：商户SaaS"],
+ ["跨境数字人民币零售试点", "live", "港澳与周边试点零售跨境", "机会：跨境钱包"],
+ ["条件支付供应链节点付款", "live", "供应链按节点付款试点", "机会：产业金融"],
+ ["加载智能合约的工资代发", "pilot", "部分企业试点合约化代发", "机会：薪酬合规"],
+ ["农村与县域普惠受理", "pilot", "县域普惠场景拓展", "机会：普惠终端"],
+ ["数字人民币硬钱包穿戴", "pilot", "手环卡式硬钱包试点", "机会：硬件生态"],
+ ["政务缴费全场景", "pilot", "税费社保等政务缴费试点", "机会：政务中台"],
+ ["数字人民币贷款发放", "pilot", "以数字人民币发放贷款试点", "机会：信贷闭环"],
+ ["智能合约慈善捐助", "pilot", "捐助按用途释放试点", "机会：公益透明"],
+ ["线下mall会员积分打通", "pilot", "会员与钱包积分互通试点", "机会：会员运营"],
+ ["物联网设备自动支付", "pilot", "充电桩等自动扣费试点", "机会：机机支付"],
+ ["可编程货币货币政策传导", "explore", "研究条件货币对政策传导", "机会：政策工具"],
+ ["数字人民币与CBDC跨境互联", "explore", "多边桥mBridge探索", "机会：跨境清算"],
+ ["AI驱动的实时风控大模型", "explore", "探索大模型风控", "机会：智能风控"],
+ ["隐私保护合规凭证", "explore", "探索零知识凭证", "机会：隐私合规"],
+ ["数字人民币智能合约市场", "explore", "探索合约自由市场", "机会：合约交易所"],
+ ["离线支付卫星网络", "explore", "探索弱网全域覆盖", "机会：应急支付"],
+ ["数字资产与e-CNY兑换合规框架", "explore", "探索合规数字资产兑换（须严守红线）", "机会：合规桥接"],
+ ["碳普惠与数字人民币激励", "explore", "探索碳积分以e-CNY激励", "机会：绿色激励"]
+];
+const MIDS = [
+ ["钱包运营中心", "负责钱包全生命周期运营", "开户、分层、活跃运营"],
+ ["支付清结算中心", "负责交易清分与结算", "跨机构清结算"],
+ ["受理生态中心", "负责商户与终端受理", "商户入网与终端管理"],
+ ["智能合约中心", "负责合约模板与执行", "合约编排与监管"],
+ ["互联互通中心", "负责跨机构连接", "路由与目录"],
+ ["风控反欺诈中心", "负责实时风控", "决策引擎与模型"],
+ ["营销运营中心", "负责红包与活动", "投放与效果分析"],
+ ["合规报送中心", "负责监管对接", "报送与审查"],
+ ["安全密钥中心", "负责密钥与防护", "密钥管理与应急响应"],
+ ["数据洞察中心", "负责分析与决策", "指标体系与驾驶舱"],
+ ["客户服务中心", "负责用户支持", "申诉与止付"],
+ ["资金对账中心", "负责账务核对", "总分与跨机构对账"],
+ ["生态治理中心", "负责标准与准入", "标准与考核"],
+ ["技术研发中心", "负责平台研发", "钱包与合约引擎"],
+ ["产品创新中心", "负责场景创新", "场景孵化"],
+ ["法务合规中心", "负责法律合规", "合同与争议"],
+ ["应急保障中心", "负责容灾应急", "演练与切换"],
+ ["战略与生态中心", "负责生态合作", "合作与政策研究"]
+];
+const RULES = [
+ ["平台是生态服务方非发币方", "越位发币或承诺增值涉嫌非法金融活动"],
+ ["数字人民币不计息", "宣传计息或保本收益误导用户且违法"],
+ ["不得为加密货币提供兑换通道", "触碰虚拟货币交易炒作红线属非法金融"],
+ ["预付资金须真实锁定不得挪用", "挪用预付资金构成违规资金池"],
+ ["钱包实名制必须落实", "匿名也需弱实名，失实名则洗钱风险"],
+ ["大额可疑交易必须报送", "不报送构成反洗钱违规"],
+ ["跨机构清算须通过央行安排", "私自清算绕开监管"],
+ ["密钥与签名不可外包失控", "密钥失控等于资金失控"],
+ ["隐私信息最小必要采集", "过度采集违反个人信息保护法"],
+ ["智能合约须经审核方可上架", "恶意合约可挪用资金"],
+ ["红包资金须闭环不得套现", "套现破坏法定货币秩序"],
+ ["离线交易须设额度与有效期", "无限离线致双花风险"],
+ ["数据出境须合规评估", "违规出境承担法律责任"],
+ ["商户受理须实名绑定", "匿名码牌成洗钱通道"],
+ ["未成年人保护须落实", "放任未成年人大额交易风险"],
+ ["系统须具备容灾能力", "支付中断引发信任危机"]
+];
+const KPIS = [
+ ["钱包活跃度", "活跃钱包数、留存率、交易频次"],
+ ["受理覆盖", "受理商户数、覆盖率、成功率"],
+ ["交易规模", "交易笔数、金额、资金流转"],
+ ["风控效果", "欺诈率、拦截率、误拦率"],
+ ["营销转化", "红包核销率、拉动消费比"],
+ ["合规报送", "报送准时率、差错率"],
+ ["资金安全", "对账差异率、差错处理时效"],
+ ["系统稳定", "可用性、交易时延、容灾切换时长"]
+];
+const LIC_CN = [
+ ["运营机构资质：须为人民银行指定运营机构", "可开展数字人民币兑换与流通服务", "非指定机构不得开展货币发行与兑换"],
+ ["支付业务许可：非银行支付机构条例", "可开展受理与收单", "不得超范围经营"],
+ ["反洗钱义务：反洗钱法及客户身份识别", "须履行KYC与可疑报送", "不得为匿名大额交易开方便之门"],
+ ["个人信息保护法", "可依法处理用户数据", "须最小必要并获授权"],
+ ["数据安全法及分类分级", "可开展数据治理", "重要数据须境内存储"],
+ ["数据出境安全评估办法", "跨境业务须评估", "未经评估不得出境"],
+ ["预付资金监管：单用途预付卡管理办法等", "可开展预付资金监管", "不得形成资金池"],
+ ["虚拟货币红线：2021九部委防范虚拟货币交易炒作风险通知", "不得开展加密货币交易兑换", "相关业务属非法金融活动"],
+ ["反恐怖融资相关法规", "须监控涉恐名单", "须及时报送"],
+ ["金融科技创新监管工具（沙盒）", "创新业务可入盒试点", "出盒前不得全量推广"],
+ ["网络安全法及等保要求", "系统须过等保", "未过等保不得上线"],
+ ["商用密码管理条例", "可使用合规商密", "须合规使用密钥"],
+ ["金融消费者权益保护办法", "须保障知情权与资金安全", "不得误导宣传"],
+ ["征信业管理条例（如涉及）", "涉信用须持牌", "不得违规采集"],
+ ["电子签名法", "可使用可靠电子签名", "须保障签名真实"]
+];
+const LIC_INTL = [
+ ["境外CBDC对接：各司法辖区规则不同", "可参与跨境零售试点", "须遵守当地牌照与外汇管理"],
+ ["港澳跨境试点安排", "可开展港澳居民钱包", "须符合两地监管"],
+ ["欧盟MiCA加密资产市场监管", "境外合规业务可拓展", "不得触及证券型代币发行"],
+ ["美国各州货币传输牌照", "可持牌开展传输", "须州级合规"],
+ ["新加坡支付服务法PSA", "可申请PSA牌照", "须MAS监管"],
+ ["FATF旅行规则", "跨境须遵循旅行规则", "须KYC与信息共享"],
+ ["欧盟GDPR", "涉欧须合规处理", "须充分性认定或SCC"],
+ ["离岸金融中心合规框架", "可服务合规离岸场景", "须避免监管套利"]
+];
+const OPPS = [
+ ["预付资金监管", "现有监管靠人工台账", "以智能合约标准化监管SaaS切入"],
+ ["县域普惠受理", "县域受理覆盖不足", "低成本聚合码牌加轻量终端"],
+ ["对公财资管理", "企业多钱包管理分散", "母子钱包集团资金中台"],
+ ["营销运营平台", "政府消费券发放分散", "一站式红包营销中台"],
+ ["跨境钱包", "港澳居民境内支付不便", "港澳居民数字人民币钱包"],
+ ["硬钱包硬件生态", "特殊人群无智能手机", "卡式手环硬钱包"],
+ ["供应链条件支付", "供应链付款信任成本高", "按节点条件支付"],
+ ["政务缴费中台", "政务缴费渠道割裂", "统一缴费中台"],
+ ["物联网机机支付", "设备自动缴费场景少", "物联网自动扣费"],
+ ["风控大模型", "规则风控滞后", "AI实时风控模型"],
+ ["数据洞察驾驶舱", "运营缺乏统一视图", "经营驾驶舱"],
+ ["合规报送自动化", "报送靠人工", "自动报送与合规中台"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：双离线 / 智能合约 / 母子钱包 / 互联互通`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

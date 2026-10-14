@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融中心化管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融中心化管理平台全景</b>
+    <span>金融中心化管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融中心化管理平台产品功能全景图谱</h1>
+    <p>把「金融中心化管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这是去中心化治理的对照面:胜负手是账务的确定性、监管的可适配与责任主体的可追溯——中心化机构的确定性,而非功能的堆砌。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单,而是一条主线:把分散的前台业务收敛为一套确定、可审计、可追责的集中运营中台。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：账户与账务基座</td><td>统一账户总账、交易订单、资产持仓、清算对账、限额风控</td><td>这一层是账务确定性的地基,决定每一笔账是否借贷平衡、可勾对、可追责</td></tr>
+<tr><td>第二层（d6–d9）：运营中台</td><td>工作流审批、客户权限、产品定价、资金流动性</td><td>这一层把业务流与资金流组织成可控的集中运营</td></tr>
+<tr><td>第三层（d10–d14）：智能与决策</td><td>数据报表、内部审计留痕、合规报送、财务会财、风险资本</td><td>这一层提供监管适配、风险计量与内控支持,决定机构能否达标</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>安全访问控制、灾备高可用、运营监控告警、责任主体治理</td><td>这一层是责任主体与连续性的保障,决定事故可追责、业务不中断</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断:①账务必须先借贷平衡再出表;②客户资产必须先隔离再托管;③责任主体必须先明确再运营。</div>
+    <div class="danger">死亡陷阱:把「系统上线」当成成功信号——真正信号是极端日终对账零差异、监管报送零错报、事故可定位到责任人。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准:能否在不增加操作风险的前提下,提升监管适配与实时性。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>总账</td><td>全行级复式记账主体</td><td>写错会让全部报表失真、监管报送失准</td></tr>
+<tr><td>客户资产</td><td>隔离托管的客户财产</td><td>写错会发生挪用与合规事故</td></tr>
+<tr><td>对账差异</td><td>未达账与勾对结果</td><td>写错会掩盖资金缺口与舞弊</td></tr>
+<tr><td>风控拦截</td><td>实时违规拦截动作</td><td>写错会让超额或制裁交易放行</td></tr>
+<tr><td>监管报送</td><td>向监管提交的报表</td><td>写错会触发合规处罚与信任损失</td></tr>
+<tr><td>责任映射</td><td>业务到责任人的关系</td><td>写错会让事故无人可追责</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域的监管域组合:审慎监管(资本与拨备)、反洗钱 KYC、监管报送、数据安全与跨境、等保与网络安全审查在此交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线:①客户资产须隔离托管不得挪用;②监管报送须准时准确否则受罚;③责任主体必须明确,事故须可追责。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步:选定一个场景做穿(如统一总账)</li><li>第二步:建立可举证的基线(借贷平衡与对账)</li><li>第三步:跑通最短闭环(交易到清算对账)</li><li>第四步:补第二个增值能力(实时风控)</li><li>第五步:把承诺写进合同(监管报送 SLA)</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A:持牌机构统一总账中台</li><li>路径 B:实时风控与限额中台</li><li>路径 C:监管报送与 AML 平台</li><li>路径 D:内部审计留痕中台</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点:第一资产都是「确定的、可审计的账务与责任」。</div>
+  </section>
+
+  <footer>
+    <p>金融中心化管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "运营总览中枢"],
+ ["s1", "账户总账区"],
+ ["s2", "交易订单区"],
+ ["s3", "资产持仓区"],
+ ["s4", "清算对账区"],
+ ["s5", "限额风控区"],
+ ["s6", "工作流审批区"],
+ ["s7", "客户权限区"],
+ ["s8", "报表合规区"],
+ ["s9", "安全责任区"]
+];
+const PLAYERS = [
+ ["机构运营中台", "Coinbase Prime / Binance Institutional(机构侧能力)", "境内持牌金融机构中台", "统一账户、清算对账与风控的集中运营"],
+ ["统一总账系统", "核心银行系统(如 Temenos 等)", "金融机构总账", "复式记账与多币种总账"],
+ ["实时风控引擎", "行业通用实践与合规风控厂商", "金融机构风控", "限额、名单与实时拦截"],
+ ["监管报送平台", "监管科技厂商", "持牌机构报送", "标准化监管与反洗钱报送"],
+ ["资金流动性管理", "财资管理系统", "机构资金头寸", "流动性与银行关系管理"],
+ ["内部审计留痕", "GRC 平台", "审计与合规", "全量留痕与内控支持"]
+];
+const DOMAINS = [
+ ["d1", "统一账户与总账", "Unified Account & General Ledger", "核心", "统一客户账户体系与全行级总账", [["账户体系", [["统一客户视图", "一户通多产品账户", "行业通用实践"], ["账户分层", "母/子账户与子账户", "行业通用实践"], ["账户生命周期", "开户、休眠、销户流程", "行业通用实践"], ["账户权限", "细粒度权限控制", "行业通用实践"]]], ["总账管理", [["复式记账", "标准复式总账", "行业通用实践"], ["多币种总账", "多币种并行记账", "行业通用实践"], ["科目体系", "标准会计科目", "行业通用实践"], ["账期管理", "结账与账期锁定", "行业通用实践"]]], ["账务一致性", [["借贷平衡校验", "实时借贷平衡", "行业通用实践"], ["冲正机制", "错账冲正处理", "行业通用实践"], ["对账基线", "总账与明细一致", "行业通用实践"], ["账务回溯", "历史账务可查", "行业通用实践"]]]]],
+ ["d2", "交易与订单管理", "Trade & Order Management", "核心", "交易指令、订单路由与成交管理", [["订单管理", [["订单录入", "多通道订单录入", "行业通用实践"], ["订单路由", "智能订单路由", "行业通用实践"], ["订单状态", "全生命周期状态机", "行业通用实践"], ["订单修改取消", "合规修改取消", "行业通用实践"]]], ["成交处理", [["成交回报", "实时成交回报", "行业通用实践"], ["成交撮合", "内部撮合引擎", "行业通用实践"], ["滑点控制", "执行滑点控制", "行业通用实践"], ["成交复核", "成交双人复核", "行业通用实践"]]], ["指令审计", [["指令留痕", "指令全程留痕", "行业通用实践"], ["异常指令", "异常指令监测", "行业通用实践"], ["指令回溯", "指令可回溯", "行业通用实践"], ["权限分离", "下单与复核分离", "行业通用实践"]]]]],
+ ["d3", "资产与持仓管理", "Asset & Position Management", "核心", "客户资产托管、持仓与估值", [["资产托管", [["资产归集", "多账户资产归集", "行业通用实践"], ["隔离托管", "客户资产隔离", "行业通用实践"], ["托管核对", "托管与账面核对", "行业通用实践"], ["提领管理", "提领审批与限额", "行业通用实践"]]], ["持仓管理", [["实时持仓", "实时持仓计算", "行业通用实践"], ["持仓成本", "成本与盈亏计算", "行业通用实践"], ["持仓限额", "持仓额度管控", "行业通用实践"], ["持仓预警", "超限预警", "行业通用实践"]]], ["估值核算", [["市值估值", "按市价估值", "行业通用实践"], ["公允价值", "公允价值计量", "行业通用实践"], ["估值复核", "估值独立复核", "行业通用实践"], ["估值报告", "定期估值报告", "行业通用实践"]]]]],
+ ["d4", "清算与对账", "Clearing & Reconciliation", "核心", "内外部清算与多维度对账", [["内部清算", [["交易清算", "交易后清算轧差", "行业通用实践"], ["资金清算", "资金头寸清算", "行业通用实践"], ["清算批处理", "日终批清算", "行业通用实践"], ["清算差异", "清算差异处理", "行业通用实践"]]], ["外部对账", [["银行对账", "与银行流水对账", "行业通用实践"], ["交易对手对账", "与对手方对账", "行业通用实践"], ["链上对账", "与链上地址对账", "行业通用实践"], ["自动勾对", "规则自动勾对", "行业通用实践"]]], ["对账治理", [["未达账处理", "未达账跟踪", "行业通用实践"], ["对账报表", "对账差异报表", "行业通用实践"], ["差异告警", "差异超阈告警", "行业通用实践"], ["对账留痕", "对账过程留痕", "行业通用实践"]]]]],
+ ["d5", "限额与风控", "Limit & Risk Control", "核心", "限额体系、实时风控与合规拦截", [["限额体系", [["多层级限额", "客户/产品/机构限额", "行业通用实践"], ["限额配置", "限额灵活配置", "行业通用实践"], ["限额监控", "实时占用监控", "行业通用实践"], ["限额预警", "临近阈值预警", "行业通用实践"]]], ["实时风控", [["规则引擎", "可配置风控规则", "行业通用实践"], ["实时拦截", "违规实时拦截", "行业通用实践"], ["名单管理", "黑名单/制裁名单", "行业通用实践"], ["行为风控", "异常行为识别", "行业通用实践"]]], ["风险计量", [["敞口计量", "风险敞口计算", "行业通用实践"], ["压力测试", "情景压力测试", "行业通用实践"], ["VaR 计算", "风险价值估算", "行业通用实践"], ["风险报告", "风险日报", "行业通用实践"]]]]],
+ ["d6", "工作流与审批", "Workflow & Approval", "核心", "业务审批流与运营工作流引擎", [["审批流", [["可配置流", "拖拽配置审批流", "行业通用实践"], ["多级审批", "多级会签审批", "行业通用实践"], ["审批留痕", "审批全程留痕", "行业通用实践"], ["超时升级", "超时自动升级", "行业通用实践"]]], ["任务调度", [["批处理调度", "日终批调度", "行业通用实践"], ["依赖编排", "任务依赖编排", "行业通用实践"], ["失败重试", "任务失败重试", "行业通用实践"], ["调度看板", "调度状态可视", "行业通用实践"]]], ["运营协同", [["工单系统", "运营工单流转", "行业通用实践"], ["权限申请", "权限申请审批", "行业通用实践"], ["协同看板", "部门协同看板", "行业通用实践"], ["知识库", "运营知识库", "行业通用实践"]]]]],
+ ["d7", "客户与权限管理", "Customer & Access Management", "核心", "客户准入、KYC 与权限治理", [["客户准入", [["KYC 审核", "客户身份审核", "行业通用实践"], ["资质审查", "机构资质审查", "行业通用实践"], ["风险评级", "客户风险分级", "行业通用实践"], ["准入审批", "准入多级审批", "行业通用实践"]]], ["权限治理", [["RBAC 模型", "角色权限模型", "行业通用实践"], ["最小权限", "默认最小权限", "行业通用实践"], ["权限审计", "权限定期审计", "行业通用实践"], ["权限回收", "离职即回收", "行业通用实践"]]], ["客户生命周期", [["客户分层", "客户分级服务", "行业通用实践"], ["客户尽调", "持续尽调 CDD", "行业通用实践"], ["退出管理", "客户退出清算", "行业通用实践"], ["客户视图", "统一客户视图", "行业通用实践"]]]]],
+ ["d8", "产品与定价管理", "Product & Pricing", "成长", "金融产品上架、定价与费率", [["产品管理", [["产品目录", "产品目录管理", "行业通用实践"], ["上架审批", "产品上架审批", "行业通用实践"], ["产品参数", "产品参数配置", "行业通用实践"], ["产品下架", "合规下架", "行业通用实践"]]], ["定价管理", [["费率矩阵", "多维费率矩阵", "行业通用实践"], ["定价审批", "定价多级审批", "行业通用实践"], ["优惠管理", "优惠与返佣", "行业通用实践"], ["价格监控", "价格异常监控", "行业通用实践"]]], ["盈亏分析", [["产品盈亏", "产品层面盈亏", "行业通用实践"], ["客户贡献", "客户贡献度", "行业通用实践"], ["定价模拟", "定价影响模拟", "行业通用实践"], ["报表分析", "定价分析报表", "行业通用实践"]]]]],
+ ["d9", "资金与流动性管理", "Treasury & Liquidity", "成长", "机构资金头寸与流动性管理", [["资金头寸", [["头寸看板", "实时资金头寸", "行业通用实践"], ["资金调拨", "内部资金调拨", "行业通用实践"], ["头寸预测", "现金流预测", "行业通用实践"], ["闲置管理", "闲置资金配置", "行业通用实践"]]], ["流动性管理", [["流动性指标", "LCR 等监控", "行业通用实践"], ["流动性预警", "流动性预警", "行业通用实践"], ["应急流动性", "应急融资安排", "行业通用实践"], ["压力测试", "流动性压力测试", "行业通用实践"]]], ["银行关系", [["账户管理", "多银行账户管理", "行业通用实践"], ["银企直连", "直连接入", "行业通用实践"], ["资金归集", "集团资金归集", "行业通用实践"], ["银行对账", "与银行对账", "行业通用实践"]]]]],
+ ["d10", "数据与报表中台", "Data & Reporting Middle Platform", "成长", "统一数据模型与监管/管理报表", [["数据模型", [["统一数仓", "统一数据模型", "行业通用实践"], ["指标口径", "统一指标口径", "行业通用实践"], ["数据治理", "数据质量治理", "行业通用实践"], ["主数据管理", "客户/产品主数据", "行业通用实践"]]], ["报表引擎", [["报表配置", "拖拽配置报表", "行业通用实践"], ["监管报表", "监管报送报表", "行业通用实践"], ["管理报表", "管理层报表", "行业通用实践"], ["报表调度", "报表定时生成", "行业通用实践"]]], ["数据分析", [["多维分析", "自助 OLAP", "行业通用实践"], ["预警分析", "异常预警分析", "行业通用实践"], ["归因分析", "业务归因", "行业通用实践"], ["数据出口", "合规数据出口", "行业通用实践"]]]]],
+ ["d11", "内部审计与留痕", "Internal Audit & Traceability", "核心", "全业务留痕与内部审计支持", [["全量留痕", [["操作留痕", "关键操作留痕", "行业通用实践"], ["不可篡改", "日志防篡改", "行业通用实践"], ["留痕检索", "快速检索日志", "行业通用实践"], ["留痕归档", "长期归档", "行业通用实践"]]], ["审计支持", [["审计抽样", "自动抽样", "行业通用实践"], ["轨迹还原", "业务流程还原", "行业通用实践"], ["异常审计", "异常线索审计", "行业通用实践"], ["审计报告", "审计报告生成", "行业通用实践"]]], ["合规检查", [["规则检查", "合规规则检查", "行业通用实践"], ["例外管理", "例外事项管理", "行业通用实践"], ["整改跟踪", "整改闭环跟踪", "行业通用实践"], ["检查留痕", "检查过程留痕", "行业通用实践"]]]]],
+ ["d12", "合规与监管报送", "Compliance & Regulatory Reporting", "核心", "监管适配、报送与反洗钱", [["监管适配", [["监管规则库", "监管规则库", "行业通用实践"], ["合规映射", "业务映射监管", "行业通用实践"], ["变更跟踪", "监管变更跟踪", "行业通用实践"], ["合规基线", "合规基线检查", "行业通用实践"]]], ["监管报送", [["报送模板", "标准化报送模板", "行业通用实践"], ["数据准备", "报送数据准备", "行业通用实践"], ["报送审核", "报送多级审核", "行业通用实践"], ["报送留痕", "报送全程留痕", "行业通用实践"]]], ["反洗钱", [["KYC/AML", "客户尽职调查", "行业通用实践"], ["交易监测", "可疑交易监测", "行业通用实践"], ["名单筛查", "制裁名单筛查", "行业通用实践"], ["报送可疑", "可疑交易报送", "行业通用实践"]]]]],
+ ["d13", "财务与会计", "Finance & Accounting", "核心", "财务会计、税务与合并报表", [["财务会计", [["凭证管理", "会计凭证管理", "行业通用实践"], ["账簿管理", "总账明细账", "行业通用实践"], ["期末处理", "折旧摊销结账", "行业通用实践"], ["报表生成", "财务报表生成", "行业通用实践"]]], ["税务管理", [["税金计算", "多税种计算", "行业通用实践"], ["申报管理", "税务申报", "行业通用实践"], ["税务合规", "转让定价等合规", "行业通用实践"], ["税务档案", "税务档案管理", "行业通用实践"]]], ["合并报表", [["集团合并", "多主体合并", "行业通用实践"], ["内部抵消", "内部交易抵消", "行业通用实践"], ["外币折算", "外币报表折算", "行业通用实践"], ["合并分析", "合并层面分析", "行业通用实践"]]]]],
+ ["d14", "风险计量与资本", "Risk Measurement & Capital", "成长", "风险计量、资本与拨备", [["风险计量", [["信用风测", "信用风险计量", "行业通用实践"], ["市场风测", "市场风险计量", "行业通用实践"], ["操作风测", "操作风险计量", "行业通用实践"], ["集中度", "风险集中度", "行业通用实践"]]], ["资本管理", [["资本充足", "资本充足率", "行业通用实践"], ["资本规划", "资本规划", "行业通用实践"], ["压力测试", "资本压力测试", "行业通用实践"], ["资本报告", "资本报告", "行业通用实践"]]], ["拨备管理", [["减值计提", "预期信用损失计提", "行业通用实践"], ["拨备覆盖", "拨备覆盖率", "行业通用实践"], ["拨备分析", "拨备充足分析", "行业通用实践"], ["拨备报告", "拨备报告", "行业通用实践"]]]]],
+ ["d15", "安全与访问控制", "Security & Access Control", "核心", "系统安全、密钥与访问安全", [["访问控制", [["强认证", "多因子认证", "行业通用实践"], ["最小权限", "最小权限原则", "行业通用实践"], ["会话管理", "会话安全管控", "行业通用实践"], ["访问审计", "访问行为审计", "行业通用实践"]]], ["数据安全", [["加密存储", "敏感数据加密", "行业通用实践"], ["传输加密", "全链路加密", "行业通用实践"], ["密钥管理", "密钥生命周期", "行业通用实践"], ["数据脱敏", "展示脱敏", "行业通用实践"]]], ["安全防护", [["入侵检测", "入侵检测防御", "行业通用实践"], ["漏洞管理", "漏洞扫描修复", "行业通用实践"], ["安全基线", "安全配置基线", "行业通用实践"], ["安全审计", "定期安全审计", "行业通用实践"]]]]],
+ ["d16", "灾备与高可用", "Disaster Recovery & HA", "成长", "业务连续性、灾备与高可用", [["高可用", [["多活架构", "多活部署", "行业通用实践"], ["故障转移", "自动故障转移", "行业通用实践"], ["容量管理", "容量规划", "行业通用实践"], ["性能监控", "性能实时监控", "行业通用实践"]]], ["灾备", [["异地备份", "异地数据备份", "行业通用实践"], ["备份验证", "备份可恢复验证", "行业通用实践"], ["恢复演练", "定期恢复演练", "行业通用实践"], ["RTO/RPO", "设定恢复目标", "行业通用实践"]]], ["连续性", [["业务连续性", "连续性计划", "行业通用实践"], ["应急预案", "应急预案", "行业通用实践"], ["演练机制", "连续性演练", "行业通用实践"], ["复盘改进", "演练复盘", "行业通用实践"]]]]],
+ ["d17", "运营监控与告警", "Operations Monitoring & Alerting", "核心", "全链路监控、告警与值班", [["监控体系", [["指标监控", "业务指标监控", "行业通用实践"], ["日志监控", "日志集中监控", "行业通用实践"], ["链路追踪", "全链路追踪", "行业通用实践"], ["健康探测", "服务健康探测", "行业通用实践"]]], ["告警体系", [["分级告警", "告警分级", "行业通用实践"], ["告警路由", "告警精准路由", "行业通用实践"], ["告警抑制", "告警收敛抑制", "行业通用实践"], ["告警闭环", "告警闭环处理", "行业通用实践"]]], ["值班体系", [["值班排班", "值班排班", "行业通用实践"], ["事件管理", "事件管理流程", "行业通用实践"], ["故障复盘", "故障复盘", "行业通用实践"], ["知识沉淀", "故障知识库", "行业通用实践"]]]]],
+ ["d18", "责任主体与治理", "Accountability & Governance", "核心", "明确责任主体、治理与问责", [["责任体系", [["责任映射", "业务到责任人映射", "行业通用实践"], ["RACI 模型", "角色职责矩阵", "行业通用实践"], ["授权体系", "授权与转授权", "行业通用实践"], ["问责机制", "问责追溯", "行业通用实践"]]], ["治理机制", [["治理委员会", "风险/合规委员会", "行业通用实践"], ["决策留痕", "重大决策留痕", "行业通用实践"], ["政策管理", "政策制度管理", "行业通用实践"], ["治理报告", "治理报告", "行业通用实践"]]], ["持续治理", [["自我评估", "控制自我评估", "行业通用实践"], ["独立审计", "独立内审外审", "行业通用实践"], ["监管沟通", "监管沟通", "行业通用实践"], ["改进闭环", "改进闭环", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["统一总账实时化", "live", "核心系统成熟", "实时总账与快照"],
+ ["实时风控拦截", "live", "规则引擎成熟", "毫秒级拦截"],
+ ["自动对账", "live", "勾对成熟", "日终自动对账"],
+ ["监管报送标准化", "live", "报送平台成熟", "模板化报送"],
+ ["客户 KYC 自动化", "live", "KYC 工具成熟", "自动化尽调"],
+ ["多活高可用", "live", "架构成熟", "多活部署"],
+ ["权限治理 RBAC", "live", "成熟实践", "定期权限审计"],
+ ["报表自助分析", "live", "BI 成熟", "自助监管报表"],
+ ["实时清算网络", "pilot", "机构试点", "实时而非批处理"],
+ ["智能风控模型", "pilot", "ML 风控试点", "行为风险识别"],
+ ["监管科技 API", "pilot", "监管 API 探索", "直连接管"],
+ ["链上对账扩展", "pilot", "链上资产场景", "链上地址对账"],
+ ["流动性 AI 预测", "pilot", "预测试点", "现金流预测"],
+ ["自动化内部审计", "pilot", "持续审计试点", "持续控制监测"],
+ ["数据治理中台", "pilot", "数据治理试点", "统一指标口径"],
+ ["责任图谱", "pilot", "RACI 工具化", "责任可溯"],
+ ["实时资本计量", "explore", "研究阶段", "实时风险资本"],
+ ["生成式合规报告", "explore", "研究阶段", "AI 生成报送"],
+ ["全行级数字孪生", "explore", "构想阶段", "业务仿真"],
+ ["量子安全加密", "explore", "前瞻", "抗量子密钥"],
+ ["自适应风控", "explore", "研究阶段", "自学习风控"],
+ ["监管沙盒对接", "explore", "探索", "沙盒数据互通"],
+ ["全自动对账 AI", "explore", "研究阶段", "异常自动处置"],
+ ["持续合规监测", "explore", "研究阶段", "实时合规信号"]
+];
+const MIDS = [
+ ["账户中心", "统一账户总账", "账户体系、复式记账"],
+ ["交易中心", "交易订单", "订单、成交、审计"],
+ ["资产中心", "资产持仓", "托管、持仓、估值"],
+ ["清算中心", "清算对账", "清算、勾对、治理"],
+ ["风控中心", "限额风控", "限额、实时风控、计量"],
+ ["工作流中心", "工作流审批", "审批、调度、协同"],
+ ["客户中心", "客户权限", "准入、权限、生命周期"],
+ ["产品中心", "产品定价", "产品、定价、盈亏"],
+ ["资金中心", "资金流动性", "头寸、流动性、银行"],
+ ["数据中心", "数据报表", "模型、引擎、分析"],
+ ["审计中心", "内部审计留痕", "留痕、审计、合规检查"],
+ ["合规中心", "监管报送", "适配、报送、AML"],
+ ["财务中心", "财务会财", "凭证、税务、合并"],
+ ["风险资本中心", "风险计量资本", "计量、资本、拨备"],
+ ["安全中心", "安全访问控制", "认证、数据、防护"],
+ ["灾备中心", "灾备高可用", "高可用、灾备、连续性"],
+ ["监控中心", "运营监控告警", "监控、告警、值班"],
+ ["治理中心", "责任主体治理", "责任、治理、持续"]
+];
+const RULES = [
+ ["账务借贷不平即信任崩塌", "总账与明细不符则报表失真"],
+ ["对账缺失埋下巨亏", "未达账长期掩盖挪用"],
+ ["限额绕过致风险失控", "超额交易引发连锁损失"],
+ ["权限过大且未分离", "一人可完成资金全链路"],
+ ["留痕缺失则无法追责", "事故后无据可查"],
+ ["监管报送错误触合规风险", "错报漏报面临处罚"],
+ ["实时风控滞后即损失", "拦截晚于成交"],
+ ["客户资产未隔离", "机构挪用客户资产"],
+ ["灾备不可用则业务中断", "RTO 超标长时间停摆"],
+ ["密钥管理薄弱", "密钥泄露致资产失守"],
+ ["责任主体不清", "事故互相推诿难问责"],
+ ["估值无独立复核", "操纵估值掩盖亏损"],
+ ["清算差异未处理", "差异累积成大漏洞"],
+ ["名单筛查遗漏", "制裁主体交易发生"],
+ ["流动性预警缺失", "挤兑时措手不及"],
+ ["内审走过场", "内控失效未被发现"]
+];
+const KPIS = [
+ ["账务准确率", "借贷平衡与对账一致率"],
+ ["风控拦截率", "违规交易拦截占比"],
+ ["对账差异率", "未达账与差异占比"],
+ ["资本充足率", "资本与风险加权资产之比"],
+ ["流动性指标", "LCR/NSFR"],
+ ["系统可用性", "年可用率与 RTO"],
+ ["合规报送准时率", "报送准时与准确率"],
+ ["异常留痕完整率", "关键操作留痕覆盖"]
+];
+const LIC_CN = [
+ ["金融机构须持牌经营", "可开展持牌金融机构集中运营中台", "未持牌不得从事金融业务"],
+ ["商业银行/证券法等审慎监管要求", "可开展合规账务与资本管理", "须满足资本与拨备要求"],
+ ["反洗钱法要求 KYC 与可疑交易报送", "可开展客户尽调与名单筛查", "须报送可疑交易"],
+ ["数据安全法出境评估", "可开展境内数据处理", "跨境须评估"],
+ ["个人信息保护法最小化与影响评估", "可开展去标识客户数据", "不得超采"],
+ ["网络安全等级保护", "可开展按等保建设", "未定级不得入网"],
+ ["密码法合规加密", "可开展合规加密签名", "须用合规密码产品"],
+ ["监管报送要求(如 EAST/报送规范)", "可开展标准化监管报送", "须准时准确"],
+ ["关键信息基础设施保护", "可开展合规建设", "须安全审查"],
+ ["数据出境标准合同或评估", "可开展经评估跨境", "未评估不出境"],
+ ["会计法与财务制度", "可开展标准财务会计", "须合规记账"],
+ ["税收征管法", "可开展税务申报管理", "须依法纳税"],
+ ["内部审计准则", "可开展全量留痕与内审", "须独立审计"],
+ ["网络安全审查", "可开展关键系统审查", "须通过审查"],
+ ["金融消费者权益保护", "可开展客户分层与披露", "不得误导销售"]
+];
+const LIC_INTL = [
+ ["境外金融机构须持相应牌照", "可开展持牌机构运营中台", "无牌不得展业"],
+ ["巴塞尔/偿付能力监管资本要求", "可开展资本与拨备管理", "须达资本充足"],
+ ["欧盟 GDPR 数据保护", "可开展合规数据处理", "须合法依据"],
+ ["美国反洗钱 BSA/KYC 要求", "可开展机构 KYC 与报送", "须注册 MSB 等"],
+ ["数据跨境如 SCC/隐私盾", "可开展合规跨境", "须合法传输"],
+ ["萨班斯法案内控与披露", "可开展内控与留痕", "须财报内控"],
+ ["消费者保护披露要求", "可开展透明披露", "不得误导"],
+ ["网络安全与数据安全法规", "可开展本地化与审计", "须配合监管"]
+];
+const OPPS = [
+ ["统一总账实时化需求", "批处理总账滞后", "实时总账加快照"],
+ ["自动对账降本", "人工对账低效", "规则自动勾对"],
+ ["实时风控拦截", "事后风控损失大", "毫秒级拦截"],
+ ["监管报送标准化", "报送口径不一", "模板化报送平台"],
+ ["客户资产隔离合规", "挪用风险高", "隔离托管加核对"],
+ ["全量留痕审计", "事故难追责", "不可篡改留痕"],
+ ["流动性 AI 预测", "资金调度被动", "现金流预测"],
+ ["多活高可用", "单点停摆风险", "多活加灾备"],
+ ["责任图谱 RACI", "责任不清", "责任可溯"],
+ ["持续合规监测", "合规滞后", "实时合规信号"],
+ ["数据治理中台", "口径不一", "统一指标"],
+ ["自动化内部审计", "抽样审计盲点", "持续控制监测"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：总账 / 风控 / 对账 / 合规`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

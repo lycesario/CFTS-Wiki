@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>司库管理平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>司库管理平台全景</b>
+    <span>司库管理平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>司库管理平台产品功能全景图谱</h1>
+    <p>把「司库管理平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手是：能否把集团散落的账户与资金变成单一可视、可调度的现金真相，让每一笔支付都可被审批与举证。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是「能付多少钱」，而是「集团现金是否单一可视、可被调度、可被审批」——现金真相一旦分裂，闲置与缺口同时存在却无人知晓。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：账户与资金底座</td><td>银行账户、资金池、票据、收付款、主数据</td><td>这一层决定集团能否把分散账户聚成单一现金视图，是所有调度的前提</td></tr>
+<tr><td>第二层（d6–d9）：流动性与支付核心</td><td>现金流预测、头寸调度、支付工厂、对账核销</td><td>这一层把现金视图变成可支付的执行能力，是风险与成本的发生地</td></tr>
+<tr><td>第三层（d10–d14）：投融资与风险</td><td>融资、投资、外汇利率、对手方、司库合规</td><td>这一层管理资金的来源成本、收益与风险敞口</td></tr>
+<tr><td>第四层（d15–d18）：治理报告与生态</td><td>报告决策、预算计划、监管报送、平台治理</td><td>这一层把资金能力与证据交付给 CFO 与监管</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：①账户主数据单一来源必须先于一切；②支付审批与职责分离必须先于出款；③跨境额度与外汇口径必须先冻结；④审计留痕必须先于客户存在。</div>
+    <div class="danger">最容易被误当成成功信号的是「接入银行很多」——真正决定生死的是支付零重复、对账零掩盖、流动性零缺口。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：凡是能让「现金更可视、支付更可证、预测更准」的方向优先，纯概念性区块链探索次之。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>账户主数据</td><td>集团账户唯一编码与属性</td><td>重复开户让现金可视失真，闲置与缺口并存</td></tr>
+<tr><td>资金池</td><td>集团集中与调度的资金载体</td><td>池结构错配会导致归集失败与税务纠纷</td></tr>
+<tr><td>现金流预测</td><td>未来收付的滚动预测</td><td>预测失真会引发支付违约或资金低效</td></tr>
+<tr><td>支付指令</td><td>实际出款的不可撤销指令</td><td>重复或越权支付直接造成资金损失</td></tr>
+<tr><td>外汇敞口</td><td>未对冲的汇率风险暴露</td><td>敞口失控在急贬时造成巨额汇兑损失</td></tr>
+<tr><td>审计线索</td><td>全业务不可篡改操作记录</td><td>线索可改则无法举证清白，责任难厘清</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">司库领域通常有四类监管域在此交汇：支付与账户、跨境外汇、国资与上市公司披露、反洗钱与数据安全。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：①跨境资金池超外管额度；②支付职责未分离与重复支付；③外管与国资申报延误触发额度与核查风险。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个集团做穿（如一个法人的收付款到对账闭环）</li><li>第二步：建立可举证的基线（对账直通率与支付成功率）</li><li>第三步：跑通最短闭环（账户可视到支付到对账）</li><li>第四步：补第二个增值能力（现金流预测或资金池）</li><li>第五步：把支付审批与合规承诺写进服务合同</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：中小集团现金可视 SaaS（客户与商业模式）</li><li>路径 B：支付工厂即服务（向存量系统外置）</li><li>路径 C：自动对账降本（运营机器人）</li><li>路径 D：跨境资金合规工具（外管与申报）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点都是「单一现金真相」这一第一资产。</div>
+  </section>
+
+  <footer>
+    <p>司库管理平台产品功能全景图谱 · 生成于 2026-09-20 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "图谱导读：怎么读这份图谱"],
+ ["s1", "产业地图与平台形态"],
+ ["s2", "功能全景：当下主流能力"],
+ ["s3", "前沿与未来方向"],
+ ["s4", "平台化能力矩阵"],
+ ["s5", "核心业务规则暗礁"],
+ ["s6", "指标体系"],
+ ["s7", "资质与监管地图"],
+ ["s8", "市场空白与产品机会"],
+ ["s9", "如果要做从哪开始"]
+];
+const PLAYERS = [
+ ["全球司库云平台", "Kyriba", "用友司库 / 金蝶司库", "以现金可视与支付工厂统一全球账户"],
+ ["资金池与流动性平台", "Treasury4", "行业通用实践", "集团内资金集中与内部计价"],
+ ["银企直连与支付工厂", "Bottomline", "用友银企联", "统一银行连接与支付格式转换"],
+ ["外汇与利率风险管理", "Reval / ION", "行业通用实践", "敞口与套保全生命周期"],
+ ["融资与投资管理", "ICD", "行业通用实践", "闲置资金理财与融资调度"],
+ ["司库数据与分析", "SAP Treasury", "行业通用实践", "司库驾驶舱与预测"]
+];
+const DOMAINS = [
+ ["d1", "银行账户与现金可视", "Bank & Cash Visibility", "成熟", "集团账户归集、银企直连、多币种余额与交易的可视化底座。", [["账户管理", [["账户主数据", "账户唯一编码与用途分类，禁止重复开户", "SAP Treasury"], ["账户归集", "境内外账户按法人与币种归集视图", "Kyriba"], ["睡眠户治理", "长期不动户自动识别与清理", "行业通用实践"], ["账户权限", "账户操作按法人与角色隔离", "用友司库"]]], ["银企直连", [["直连接入", "直连接口加密与回执确认", "用友银企联"], ["余额可视", "多银行余额实时拉取与对齐", "Kyriba"], ["交易明细", "流水按日自动获取与归类", "Bottomline"], ["连接监控", "银行连接中断自动切换与告警", "行业通用实践"]]], ["多币种与可视", [["多币种视图", "本外币统一折算展示", "SAP Treasury"], ["现金头寸", "可用资金按日时点计算", "Kyriba"], ["可视化驾驶舱", "集团现金一图可视", "金蝶司库"], ["数据质量", "余额异常波动自动校验", "行业通用实践"]]]]],
+ ["d2", "资金池与流动性", "Cash Pooling", "核心", "资金池构建、归集下拨、内部计价与流动性预测的集中调度。", [["资金池结构", [["实体资金池", "主账户与成员单位联动收付", "用友司库"], ["虚拟资金池", "余额虚拟归集不计息转移", "Kyriba"], ["跨境资金池", "跨境池按外管额度管理", "SAP Treasury"], ["池成员管理", "入池成员准入与退出审批", "行业通用实践"]]], ["归集与下拨", [["自动归集", "日终自动上收成员余额", "用友司库"], ["计划下拨", "按支付计划下拨资金", "Kyriba"], ["透支与补足", "成员透支自动补足并设置上限", "金蝶司库"], ["归集规则", "归集比例与例外可配置", "行业通用实践"]]], ["内部计价", [["内部利率", "内部存贷利率按政策设定", "SAP Treasury"], ["计息与结息", "内部资金按日计息结息", "用友司库"], ["内部账单", "成员内部资金账单生成", "行业通用实践"], ["税务与合规", "内部计息关联交易合规处理", "Kyriba"]]]]],
+ ["d3", "票据管理", "Notes & Bills", "成熟", "开票、承兑、背书、贴现与票池的全生命周期管理。", [["开票与承兑", [["开票申请", "开票需额度与合同匹配", "用友司库"], ["承兑管理", "承兑到期与兑付提醒", "金蝶司库"], ["票据额度", "开票额度按授信控制", "行业通用实践"], ["电子票据", "电票按票交所规则处理", "SAP Treasury"]]], ["背书与贴现", [["背书流转", "背书连续性与到期校验", "用友司库"], ["贴现管理", "贴现利率与成本比对", "Kyriba"], ["转贴现", "转贴现对手与限额管理", "行业通用实践"], ["票据托收", "到期托收自动发起", "金蝶司库"]]], ["票池与风险", [["票池管理", "票据集中入池与盘活", "用友司库"], ["票据预警", "到期与瑕疵自动预警", "行业通用实践"], ["伪假票防范", "票交所查验与黑名单", "SAP Treasury"], ["票据报表", "票据存量与流转报表", "金蝶司库"]]]]],
+ ["d4", "收付款与结算", "Payables & Receivables", "成熟", "收款、付款、批量代发与跨境结算的收付主干。", [["收款管理", [["收款认领", "来款自动匹配合同与订单", "用友司库"], ["收款核销", "收款与应收自动核销", "SAP Treasury"], ["收款预警", "长账龄未达自动预警", "行业通用实践"], ["收款报表", "收款日清与账龄分析", "金蝶司库"]]], ["付款管理", [["付款审批", "付款按金额多级审批", "用友司库"], ["批量代发", "工资与供应商批量代发", "Kyriba"], ["付款排程", "付款按现金流排程优化", "SAP Treasury"], ["付款撤销", "未汇出付款可撤销，已汇出不可", "行业通用实践"]]], ["跨境结算", [["跨境收付", "跨境按外管与海关核验", "SAP Treasury"], ["结售汇", "结售汇按实时汇率与额度", "Kyriba"], ["SWIFT 对接", "SWIFT 报文标准转换", "Bottomline"], ["跨境合规", "跨境申报与反洗钱校验", "行业通用实践"]]]]],
+ ["d5", "主数据与参数", "Master & Parameters", "成熟", "客商、币种、银行、汇率与节假日的统一主数据。", [["客商主数据", [["客商档案", "客商唯一编码与黑白名单", "用友司库"], ["银行主数据", "银行与网点信息标准化", "SAP Treasury"], ["收款方校验", "收款账户与户名一致性校验", "行业通用实践"], ["风险客商", "高风险客商标注与限额", "Kyriba"]]], ["参数与汇率", [["币种管理", "币种与小数位统一", "SAP Treasury"], ["汇率源", "汇率分即期与估值源管理", "Kyriba"], ["节假日日历", "多国节假日影响清算", "行业通用实践"], ["参数治理", "参数改动审批与留痕", "用友司库"]]], ["数据质量", [["主数据校验", "客商账户必填项强校验", "行业通用实践"], ["血缘追踪", "参数变更可追溯", "SAP Treasury"], ["跨系统一致", "主数据向 ERP 广播", "用友司库"], ["失效归档", "停用主数据保留历史", "金蝶司库"]]]]],
+ ["d6", "现金流预测", "Cash Flow Forecast", "核心", "滚动现金流预测、情景分析与预测准确率的司库核心。", [["预测建模", [["滚动预测", "多周期滚动预测自动刷新", "Kyriba"], ["收付预测", "应收应付按合同时点预测", "SAP Treasury"], ["预测准确率", "预测与实际偏差考核", "用友司库"], ["人工调整", "预测支持人工修正并留痕", "行业通用实践"]]], ["情景与压力", [["情景分析", "乐观中性悲观多情景", "Treasury4"], ["压力测试", "极端流出下流动性测算", "Kyriba"], ["敏感性", "关键变量敏感性分析", "SAP Treasury"], ["预警阈值", "缺口超阈自动预警", "行业通用实践"]]], ["预测集成", [["ERP 集成", "从 ERP 拉取应付应收", "用友司库"], ["银行集成", "银行流水回灌预测", "Kyriba"], ["预测报告", "预测报告自动推送", "金蝶司库"], ["版本管理", "预测版本可对比回看", "行业通用实践"]]]]],
+ ["d7", "头寸与调度", "Position & Dispatch", "成长", "头寸中心、内部调拨与透支管理的资金调度层。", [["头寸中心", [["集团头寸", "集团可用头寸实时汇总", "Kyriba"], ["成员头寸", "成员头寸按法人隔离", "用友司库"], ["头寸预警", "头寸为负立即预警", "SAP Treasury"], ["头寸预留", "大额支付提前预留", "行业通用实践"]]], ["内部调拨", [["调拨指令", "成员间调拨按审批", "用友司库"], ["调拨计息", "调拨内部计息与对账", "SAP Treasury"], ["调拨时效", "调拨到账时效监控", "Kyriba"], ["调拨报表", "调拨明细可追溯", "金蝶司库"]]], ["透支与限额", [["透支管理", "透支额度与预警", "行业通用实践"], ["支付限额", "成员支付限额硬约束", "用友司库"], ["流动性缓冲", "保留最低现金缓冲", "Kyriba"], ["限额调整", "限额调整需审批", "SAP Treasury"]]]]],
+ ["d8", "支付工厂与银企直连", "Payment Factory", "核心", "统一支付工厂、银行连接、格式转换与重试的支付中枢。", [["支付工厂", [["支付集中", "成员支付集中到工厂出款", "Bottomline"], ["格式转换", "内部格式转银行标准格式", "用友银企联"], ["支付路由", "按成本与时效选银行通道", "Kyriba"], ["批量处理", "批量支付合并且限速", "SAP Treasury"]]], ["银行连接", [["直连管理", "多银行连接统一管理", "Bottomline"], ["指令加密", "支付指令加密与签名", "用友银企联"], ["回执匹配", "银行回执与指令匹配", "Kyriba"], ["连接容灾", "银行通道故障自动切换", "行业通用实践"]]], ["支付监控", [["支付状态", "支付全生命周期可视", "SAP Treasury"], ["异常支付", "失败支付自动重试或转人工", "用友司库"], ["重复支付", "重复支付校验拦截", "Kyriba"], ["支付审计", "支付操作全留痕", "行业通用实践"]]]]],
+ ["d9", "对账与核销", "Reconciliation", "成熟", "银行对账、自动核销与差异处理的司库运营层。", [["银行对账", [["自动对账", "银行流水与账面自动勾稽", "用友司库"], ["多维度对账", "按账户币种日期对账", "SAP Treasury"], ["未达账项", "未达账项跟踪与清理", "Kyriba"], ["对账报告", "对账结果日报生成", "金蝶司库"]]], ["自动核销", [["智能匹配", "收付按规则自动核销", "用友司库"], ["部分核销", "部分收付款精准核销", "SAP Treasury"], ["核销例外", "无法匹配转人工", "行业通用实践"], ["核销追溯", "核销关系可回溯", "Kyriba"]]], ["差异处理", [["差异分级", "差异按金额与类型分级", "行业通用实践"], ["差异追因", "差异进入例外流程追因", "用友司库"], ["调整凭证", "差异调整走凭证审批", "SAP Treasury"], ["差异分析", "差异趋势分析防复发", "Kyriba"]]]]],
+ ["d10", "融资管理", "Financing", "核心", "授信、借款、发行与还款的集团融资调度。", [["授信与额度", [["授信管理", "银行授信额度集中管理", "SAP Treasury"], ["额度分配", "授信按成员分配与占用", "用友司库"], ["担保管理", "担保与反担保登记", "Kyriba"], ["授信预警", "额度临界自动预警", "行业通用实践"]]], ["借款与发行", [["借款管理", "借款合同的还本付息计划", "用友司库"], ["债券发行", "发债节奏与募资管理", "SAP Treasury"], ["融资租赁", "租赁现金流纳入计划", "Kyriba"], ["成本比较", "多种融资渠道成本比对", "行业通用实践"]]], ["还本付息", [["还款计划", "到期还款自动提醒排程", "用友司库"], ["利息计算", "按合同利率准确计息", "SAP Treasury"], ["提前还款", "提前还款成本测算", "Kyriba"], ["融资报表", "融资结构报表输出", "金蝶司库"]]]]],
+ ["d11", "投资管理", "Investment", "成长", "闲置资金理财、结构性存款、委贷与收益的司库投资。", [["理财产品", [["产品准入", "理财产品白名单与风险评级", "用友司库"], ["购买管理", "购买按授权与限额", "SAP Treasury"], ["到期管理", "理财到期自动提醒赎回", "Kyriba"], ["收益核算", "理财收益按日计提", "行业通用实践"]]], ["结构性存款", [["结构存款", "结构存款条款与挂钩标的", "用友司库"], ["到期估值", "结构存款估值与兑付", "SAP Treasury"], ["额度控制", "投资额度硬约束", "Kyriba"], ["风险揭示", "风险揭示与适当性", "行业通用实践"]]], ["委托贷款", [["委贷管理", "委贷合同与利率管理", "用友司库"], ["委贷发放", "发放与回收按流程", "SAP Treasury"], ["委贷报表", "委贷余额与收益报表", "Kyriba"], ["合规审查", "委贷关联交易合规", "行业通用实践"]]]]],
+ ["d12", "外汇与利率风险管理", "FX & Rate Risk", "核心", "敞口识别、远期掉期、套保与敞口对冲的风险管理。", [["敞口管理", [["外汇敞口", "自然敞口与折算敞口识别", "Reval"], ["利率敞口", "重定价缺口与久期度量", "ION"], ["敞口汇总", "集团敞口按币种汇总", "SAP Treasury"], ["敞口预警", "敞口超限额预警", "Kyriba"]]], ["衍生品与套保", [["远期合约", "远期锁定汇率与到期交割", "Reval"], ["掉期交易", "利率与货币掉期管理", "ION"], ["套保有效性", "套保有效性测试留痕", "SAP Treasury"], ["对冲策略", "对冲比例与滚动策略", "Kyriba"]]], ["估值与会计", [["衍生品估值", "衍生品按公允价值计量", "Reval"], ["套期会计", "套期会计处理匹配", "ION"], ["盈亏分析", "套保盈亏与敞口对比", "SAP Treasury"], ["风险报告", "外汇利率风险报告", "Kyriba"]]]]],
+ ["d13", "信用与对手方风险", "Counterparty Risk", "成长", "交易对手评级、限额与集中度的信用风险管理。", [["对手方评级", [["评级管理", "对手方内外部评级", "SAP Treasury"], ["评级预警", "评级下调自动预警", "Kyriba"], ["黑名单", "违约对手方黑名单", "行业通用实践"], ["评级更新", "评级定期重检", "Reval"]]], ["限额管理", [["交易限额", "对手方交易限额硬约束", "SAP Treasury"], ["集中度", "单一对手方敞口集中度", "Kyriba"], ["限额监控", "限额占用实时计算", "ION"], ["限额调整", "限额调整审批留痕", "行业通用实践"]]], ["担保与抵押", [["抵押品管理", "抵押品估值与折算", "Reval"], ["担保追踪", "担保覆盖与缺口", "SAP Treasury"], ["风险敞口净额", "净额结算降低敞口", "Kyriba"], ["压力情景", "对手方违约压力测试", "ION"]]]]],
+ ["d14", "司库风险与合规", "Treasury Compliance", "成熟", "司库内控、税务、审计与合规的治理层。", [["内控与职责", [["职责分离", "付款与审批复核分离", "用友司库"], ["权限管理", "按法人与角色最小权限", "SAP Treasury"], ["操作审计", "司库操作全留痕", "Kyriba"], ["关键控制", "关键控制点定期测试", "行业通用实践"]]], ["税务与申报", [["利息税务", "利息收支税务处理", "SAP Treasury"], ["跨境税务", "跨境收付税务合规", "Kyriba"], ["税务申报", "相关税款按期申报", "行业通用实践"], ["转让定价", "内部资金转让定价合规", "用友司库"]]], ["合规报告", [["合规报表", "司库合规报表生成", "SAP Treasury"], ["监管对接", "对接监管报送要求", "Kyriba"], ["审计线索", "可追溯审计轨迹", "行业通用实践"], ["合规预警", "合规红线实时预警", "用友司库"]]]]],
+ ["d15", "司库报告与决策", "Treasury Reporting", "成长", "司库驾驶舱、KPI 与决策支持的报告层。", [["驾驶舱", [["现金驾驶舱", "集团现金一图可视", "金蝶司库"], ["流动性看板", "流动性水位实时看板", "Kyriba"], ["融资看板", "融资结构与成本看板", "SAP Treasury"], ["风险看板", "风险敞口实时展示", "Reval"]]], ["KPI 与报告", [["司库 KPI", "资金集中度与收益指标", "用友司库"], ["定期报告", "司库月报季报自动生成", "SAP Treasury"], ["管理层报告", "面向 CFO 的决策报告", "Kyriba"], ["报告下钻", "报告可下钻到凭证", "金蝶司库"]]], ["决策支持", [["资金调度建议", "基于预测的出款建议", "Kyriba"], ["投资机会", "闲资投资时点建议", "SAP Treasury"], ["风险预警", "决策前风险预警", "Reval"], ["情景模拟", "决策情景模拟对比", "行业通用实践"]]]]],
+ ["d16", "预算与计划", "Budget & Plan", "成长", "资金预算、资本计划与滚动计划的司库计划层。", [["资金预算", [["年度预算", "资金收支年度预算编制", "用友司库"], ["预算控制", "支付超预算预警", "SAP Treasury"], ["预算调整", "预算调整审批流程", "金蝶司库"], ["预算分析", "预算执行差异分析", "行业通用实践"]]], ["资本计划", [["资本支出", "资本性支出计划管理", "SAP Treasury"], ["融资计划", "融资节奏与到期衔接", "Kyriba"], ["投资计划", "投资额度与节奏", "用友司库"], ["计划协同", "计划与预测联动", "行业通用实践"]]], ["滚动计划", [["滚动编制", "多期滚动计划刷新", "Kyriba"], ["计划版本", "计划版本对比", "SAP Treasury"], ["计划预警", "计划与实际偏差预警", "用友司库"], ["计划上报", "计划按期上报集团", "金蝶司库"]]]]],
+ ["d17", "监管报送与合规", "Regulatory Reporting", "成熟", "国资委、外管、人行与披露的司库监管报送。", [["国资监管", [["国资报送", "资金与债务指标报送", "用友司库"], ["司库制度", "司库管理体系报备", "行业通用实践"], ["重大风险", "重大资金风险上报", "SAP Treasury"], ["合规自查", "司库合规定期自查", "金蝶司库"]]], ["外汇与跨境", [["外管报送", "跨境资金池外管报送", "Kyriba"], ["国际收支", "国际收支统计申报", "SAP Treasury"], ["外汇核查", "外汇业务合规核查", "行业通用实践"], ["跨境额度", "跨境额度使用报送", "Kyriba"]]], ["披露与审计", [["信息披露", "上市公司资金披露", "用友司库"], ["审计轨迹", "司库数据可追溯", "SAP Treasury"], ["迎检支持", "监管迎检包导出", "行业通用实践"], ["整改跟踪", "监管问题整改闭环", "金蝶司库"]]]]],
+ ["d18", "平台治理与集成", "Platform Governance", "成长", "权限、API、ERP 与银企集成的司库治理底座。", [["权限与审计", [["RBAC", "集团与成员分级权限", "用友司库"], ["操作审计", "敏感操作全量审计", "SAP Treasury"], ["数据脱敏", "资金数据导出脱敏", "行业通用实践"], ["密钥管理", "银行密钥轮换托管", "Kyriba"]]], ["集成与对接", [["ERP 集成", "与财务 ERP 双向同步", "用友司库"], ["银企集成", "标准化银行连接", "用友银企联"], ["开放 API", "API 鉴权与限流", "Kyriba"], ["事件总线", "关键事件广播", "SAP Treasury"]]], ["可观测与配置", [["可观测", "全链路监控追踪", "行业通用实践"], ["低代码", "支付规则可配置", "用友司库"], ["灰度发布", "变更灰度回滚", "SAP Treasury"], ["灾备", "支付灾备可切换", "Kyriba"]]]]]
+];
+const FRONTIER = [
+ ["现金可视云", "live", "集团多银行现金可视 SaaS 已普遍落地", "现金可视作为独立轻量模块输出"],
+ ["支付工厂集中化", "live", "集团支付工厂替代分散网银成熟", "支付工厂即服务"],
+ ["自动银行对账", "live", "规则化自动对账在大型集团运行", "对账机器人降本"],
+ ["现金流预测", "live", "滚动现金流预测已成司库标配", "预测准确率考核工具"],
+ ["外汇敞口管理", "live", "敞口与套保系统商品化成熟", "敞口监控独立模块"],
+ ["司库驾驶舱", "live", "CFO 视角的资金看板普及", "管理层决策报告白标"],
+ ["资金池集中", "live", "集团实体与虚拟资金池成熟", "跨境资金池合规化"],
+ ["内部计价", "live", "内部资金计息结息成熟", "内部银行模式输出"],
+ ["AI 现金流预测", "pilot", "用机器学习提升预测准确率在试点", "预测增强模型"],
+ ["智能收付款匹配", "pilot", "深度学习提升核销匹配率试点", "智能核销引擎"],
+ ["区块链票据", "pilot", "联盟链电子票据在供应链试点", "票据可信流转"],
+ ["实时流动性监控", "pilot", "盘中流动性实时监控试点", "嵌入式流动性"],
+ ["智能外汇套保", "pilot", "算法建议套保比例试点", "套保辅助决策"],
+ ["RPA 银企直连", "pilot", "RPA 补非直连银行试点", "非直连自动化"],
+ ["供应链金融嵌入", "pilot", "司库嵌入供应链金融试点", "应收融资联动"],
+ ["可持续司库", "pilot", "ESG 资金与绿色票据试点", "绿色司库报告"],
+ ["因果推断流动性", "explore", "因果模型替代相关预测在探索", "稳健预测研究"],
+ ["实时支付清算代币", "explore", "代币化资金结算沙盒探索", "实时清算"],
+ ["联邦学习与账", "explore", "跨集团联邦学习风控在探索", "数据不出域建模"],
+ ["自主代理调拨", "explore", "代理自动调拨在实验", "调拨沙盒"],
+ ["量子优化融资", "explore", "量子优化融资结构在实验", "超大规模优化"],
+ ["数字员工司库", "explore", "司库流程数字员工在概念验证", "流程自动化外包"],
+ ["跨链资金互通", "explore", "跨境资金链互通概念验证", "跨境资产互通"],
+ ["合成数据回测", "explore", "合成现金流增强预测在探索", "隐私合规数据"]
+];
+const MIDS = [
+ ["账户中心", "集团账户统一视图", "账户主数据、归集、直连"],
+ ["资金池中心", "资金集中与内部计价", "实体虚拟池、归集下拨、计息"],
+ ["收付款中心", "收付与结算", "收款认领、付款审批、跨境"],
+ ["票据中心", "票据全生命周期", "开票承兑、贴现、票池"],
+ ["预测中心", "现金流预测", "滚动预测、情景、准确率"],
+ ["头寸中心", "头寸与调度", "集团头寸、调拨、限额"],
+ ["支付中心", "支付工厂", "集中出款、格式转换、路由"],
+ ["对账中心", "银行对账核销", "自动勾稽、智能匹配、差异"],
+ ["融资中心", "集团融资", "授信、借款、还本付息"],
+ ["投资中心", "闲置资金投资", "理财、结构存款、委贷"],
+ ["风险中心", "外汇利率信用", "敞口、套保、对手方"],
+ ["合规中心", "司库内控税务", "职责分离、申报、审计"],
+ ["报告中心", "司库报告决策", "驾驶舱、KPI、决策"],
+ ["计划中心", "预算与计划", "资金预算、资本计划、滚动"],
+ ["监管中心", "监管报送", "国资、外管、披露"],
+ ["主数据中心", "单一可信源", "客商、银行、汇率"],
+ ["集成中心", "ERP 与银企对接", "双向同步、API、事件"],
+ ["治理中心", "权限与可观测", "RBAC、审计、配置"]
+];
+const RULES = [
+ ["支付前未审批", "未审批付款一旦汇出不可逆，事后追回依赖对方配合且常涉欺诈"],
+ ["重复支付", "重复付款造成直接资金损失，且跨行撤回极其困难"],
+ ["资金池合规越界", "跨境资金池超外管额度属违规，可能引发行政处罚与额度收回"],
+ ["账户重复开户", "重复账户导致现金可视失真，闲置资金无法集中形成隐性成本"],
+ ["汇率敞口失控", "外汇敞口未对冲在汇率急贬时造成巨额汇兑损失"],
+ ["对账差异掩盖", "手工平账掩盖真实资金缺口，直至流动性断裂才暴露"],
+ ["内部计息错配", "内部资金计息错配引发成员间税务与考核纠纷"],
+ ["票据伪假", "收受伪假或瑕疵票据导致到期无法托收损失"],
+ ["职责未分离", "付款与复核同一人极易发生挪用且难取证"],
+ ["现金流预测失准", "预测失真导致支付违约或闲置资金低效，损害信用"],
+ ["授信额度超占", "超授信提款被拒造成支付违约与信用降级"],
+ ["套保无效认定", "套保有效性测试缺失导致会计处理不合规与损益波动"],
+ ["密钥与脱敏缺失", "银行密钥与资金数据失控造成盗划与泄露"],
+ ["跨境申报延误", "外管申报延误触发核查与额度限制"],
+ ["流动性缓冲不足", "最低现金缓冲不足在极端流出时无法兑付"],
+ ["审计留痕可改", "操作日志可篡改则无法举证，责任无法厘清"]
+];
+const KPIS = [
+ ["规模类", "账户数、资金池规模、AUM 类可投资余额，反映司库体量"],
+ ["质量类", "对账直通率、支付成功率、预测准确率，反映运营质量"],
+ ["流动性类", "现金缓冲覆盖率、流动性缺口、集中可动用资金，反映安全水位"],
+ ["成本类", "融资成本、理财收益、银行手续费、内部资金成本，反映经济性"],
+ ["风险类", "外汇敞口、利率重定价缺口、对手方集中度，反映风险"],
+ ["效率类", "支付时效、归集效率、对账时长，反映执行效率"],
+ ["合规类", "监管报送及时率、审计问题数、职责分离覆盖率，反映合规健康"],
+ ["商业类", "资金集中度、闲置资金收益、司库降本额，反映价值"]
+];
+const LIC_CN = [
+ ["支付业务许可", "非银支付与代收付", "持牌经营，备付金与商户管理合规"],
+ ["跨境外汇资质", "跨境资金与结售汇", "须外管局登记与额度管理"],
+ ["电子票据资质", "电子商业汇票", "须接入票交所系统合规处理"],
+ ["企业集团财务公司", "内部存贷与结算", "须银保监会批准并接受监管"],
+ ["商业银行账户服务", "企业账户与现金管理", "须持牌银行提供"],
+ ["反洗钱义务", "客户与交易尽调", "须 KYC 与大额可疑报告"],
+ ["外汇登记与额度", "外债与跨境池", "须外管局登记与额度审批"],
+ ["国资监管报送", "国企资金与债务", "须按国资监管报送指标"],
+ ["增值电信与数据", "SaaS 与数据合规", "须符合数据与网络安全要求"],
+ ["上市公司信息披露", "资金与担保披露", "须按交易所时点披露"],
+ ["关联交易管理", "内部资金交易", "须识别审批与披露"],
+ ["税务合规", "利息与跨境税务", "须转让定价与申报合规"],
+ ["信息系统安全", "金融级系统安全", "须符合等保与行业要求"],
+ ["担保与抵押登记", "担保物权设立", "须依法登记方生效"],
+ ["中国人民银行账户", "基本户与专户", "须按人行账户管理办法"]
+];
+const LIC_INTL = [
+ ["SWIFT 成员", "跨境报文通信", "须 SWIFT 接入与合规"],
+ ["PCI DSS", "支付卡数据安全", "处理卡数据须认证"],
+ ["FATCA/CRS", "跨境税务申报", "须账户税务信息申报"],
+ ["SOX 内控", "在美上市内控", "须符合萨班斯内控要求"],
+ ["EMIR 衍生品", "欧洲场外衍生品", "须中央清算与报告"],
+ ["GDPR 数据保护", "欧盟客户数据", "须数据最小化与跨境合规"],
+ ["Basel 流动性", "银行系司库", "须满足流动性覆盖要求"],
+ ["IFRS9 会计", "金融资产计量", "须按预期信用损失计量"]
+];
+const OPPS = [
+ ["中小集团现金可视", "中小集团多银行可视难", "轻量现金可视 SaaS"],
+ ["支付工厂集中", "分散网银效率低风险高", "支付工厂即服务"],
+ ["自动对账降本", "对账人力成本高", "对账机器人"],
+ ["AI 预测增强", "预测准确率低", "机器学习预测"],
+ ["跨境资金合规", "跨境资金复杂", "跨境池与申报工具"],
+ ["票据数字化", "票据流转慢", "电子票据与票池"],
+ ["内部银行模式", "内部资金低效", "内部计价与调度"],
+ ["外汇风险管理", "敞口难管理", "敞口监控独立模块"],
+ ["供应链金融嵌入", "应收占用资金", "应收融资联动"],
+ ["司库驾驶舱", "管理层缺可视", "CFO 决策看板"],
+ ["监管报送自动化", "报送重复劳动", "报送即服务"],
+ ["数据安全合规", "资金数据敏感", "脱敏与密钥托管"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：资金池 / 现金流 / 票据 / 外汇`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>
