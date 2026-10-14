@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融保险机制平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融保险机制平台全景</b>
+    <span>金融保险机制平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融保险机制平台产品功能全景图谱</h1>
+    <p>把「金融保险机制平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。保险这门生意的胜负手不是流量而是风险定价的准确性与赔付运营的可控性——承保端多收一个点的风险溢价、理赔端少漏一个点的渗漏，都是纯利润。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是「风险转移机制」的全流程数字化：风险如何进来（产品与核保）、如何定价（精算）、如何存放（保单与准备金）、如何出去（理赔与再保），每个环节的可控性加总就是承保利润。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据与资产层</td><td>产品条款、客户主档、精算假设、保单契约、反欺诈情报五类数据资产</td><td>这层决定定价与风控的上限——没有干净的经验数据，一切智能化都是空中楼阁</td></tr>
+<tr><td>第二层（d6–d9）：核心业务层</td><td>产品精算定价、核保承保规则引擎、保单管理与保全、理赔运营与反欺诈</td><td>保险机制运行的主干——风险进场（核保）与风险出场（理赔）之间的全流程受控</td></tr>
+<tr><td>第三层（d10–d14）：风险经营与智能决策层</td><td>再保险分出、偿付能力与准备金、嵌入式保险分销、佣金结算、客群经营与续保</td><td>把单笔风险变成可经营的组合——资本效率与渠道效率决定盈利质量</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营层</td><td>合规适当性、财务核算与保费收付、操作风险审计、核心架构集成</td><td>保险是被强监管的生意，治理能力直接决定业务能跑多快、跑多久</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断一：报备的条款与费率必须先于销售存在，未报备的产品连灰度都不能上。先决判断二：精算假设与经验数据的治理口径必须先冻结，否则定价与准备金两套数字互相打架。先决判断三：核保与理赔的人工兜底团队必须先于自动化存在，自动化率是爬出来的不是设计出来的。</div>
+    <div class="danger">最容易被误当成成功信号的死亡陷阱：新单保费高速增长。用高费用渠道冲来的规模，可能在第十三个月继续率与赔付经验兑现时变成价值黑洞——规模增长掩盖承保亏损是行业最经典的死法。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：先看它能否压缩「核保与理赔的判定成本」，能直接省钱的（智能核保、快赔、反欺诈）排前面，只讲故事不省判定成本的往后排。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>保单</td><td>保险合同关系在系统中的唯一载体，含状态、权益与当事人结构</td><td>状态机管理混乱会导致权益错记，理赔与退保时引发法律纠纷</td></tr>
+<tr><td>核保决定</td><td>对单个投保风险的接受、加费、除外、限额或拒绝的判定记录</td><td>判定不可解释或留痕缺失，既无法抗辩投诉也无法迭代规则</td></tr>
+<tr><td>准备金</td><td>对已发生未了责任与未发生赔款的负债估计</td><td>计提不足虚增当期利润，回溯偏差超阈值直接触发监管关注</td></tr>
+<tr><td>再保合同</td><td>把超出自留能力的风险分出的法律安排，含比例与非比例结构</td><td>条款未结构化管理会导致摊回争议，风险转移变空账</td></tr>
+<tr><td>偿付能力充足率</td><td>实际资本对最低资本的覆盖倍数，监管生命线</td><td>用业务冲刺换取充足率下滑，会被限制业务甚至接管</td></tr>
+<tr><td>反欺诈评分</td><td>对投保或赔案风险程度的量化评分</td><td>阈值设置不当要么漏掉团伙欺诈，要么大规模误伤合规客户</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域的监管域组合是四个监管域交汇：偿付能力与资本监管、产品与销售行为监管、反洗钱与消费者保护、个人信息与数据安全合规。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">红线一：未报备条款费率不得销售，费率浮动超报备区间整批保单面临整改。红线二：免责条款与说明义务留痕缺失，条款不生效，理赔必败诉。红线三：健康数据的使用须单独同意且最小必要，未经授权的数据驱动定价直接违法。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选一个细分险种场景做穿（如健康险或场景险），不铺全线产品</li><li>第二步：建立可举证的基线——报备产品、核保规则、理赔时效与继续率的量化底账</li><li>第三步：跑通最短闭环——从投保、自动核保到小额快赔的端到端真实交易</li><li>第四步：补第二个增值能力——如反欺诈评分或再保自动询价，形成能力组合</li><li>第五步：把承诺写进合同——核保时效、理赔时效与误伤赔付条款对外承诺</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：向中小险企卖云原生核心与能力订阅（客户是保险公司，按订阅与用量收费）</li><li>路径 B：向场景方输出嵌入式保险中台（客户是电商出行平台，按件与保费分成）</li><li>路径 C：向再保与经纪生态输出核保理赔数据能力（客户是再保人与经纪公司）</li><li>路径 D：做智能核保与快赔的垂直SaaS（客户是所有持牌机构，按坐席与件计费）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：都依赖一张经过报备校验、可解释可回溯的产品与规则底账——它是第一资产，没有它每条路都走不远。</div>
+  </section>
+
+  <footer>
+    <p>金融保险机制平台产品功能全景图谱 · 生成于 2026-09-28 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "全景导读"],
+ ["s1", "平台形态"],
+ ["s2", "功能域地图"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "对标中心"],
+ ["s6", "致命规则"],
+ ["s7", "合规红线"],
+ ["s8", "关键指标"],
+ ["s9", "落地路径"]
+];
+const PLAYERS = [
+ ["新一代核心保险系统", "Guidewire InsuranceSuite", "中科软核心系统/易保经纬", "以保单全生命周期系统许可与实施服务收费"],
+ ["云原生SaaS保险平台", "Duck Creek OnDemand", "众安科技Graphene/栈略数据", "订阅制云服务按节点与用量计费"],
+ ["互联网保险与场景平台", "Lemonade", "水滴保/微保", "流量场景入口以佣金与技术服务费变现"],
+ ["保险科技能力中台", "Zinnia/EIS", "力码科技/南燕信息", "模块化能力输出按调用与订阅收费"],
+ ["再保险与风险转移服务", "Swiss Re RT Express/Guy Carpenter", "中再集团再保平台", "承保能力分销与风险分出撮合收费"],
+ ["嵌入式保险与API分销", "Cover Genius XCover/Slice", "泰康在线场景险", "把保障嵌入交易场景按件与保费分成计费"]
+];
+const DOMAINS = [
+ ["d1", "保险产品与条款数据", "Product & Clause Data", "核心", "产品目录、条款要素与费率表的结构化资产，是所有承保与定价的源头", [["产品目录管理", [["产品目录与险种树", "一条产品线一个主版本，条款费率报备号随版本留存可回溯", "Guidewire Product Designer"], ["产品要素结构化", "保额、免赔、责任、除外四要素结构化后才能自动生成条款与页面", "Duck Creek Product Factory"], ["条款模板与差异标注", "同模板多产品用差异清单管理差异项，禁止全量复制条款", "行业通用实践"], ["产品上下架与生命周期", "停售产品存量保单仍须延续服务，目录支持历史版本查询", "EIS Product Hub"]]], ["费率表与因子管理", [["费率表版本管理", "费率变更须与监管报备版本一一对应，禁用未报备费率", "Sapiens Rate"], ["定价因子字典", "年龄职业地域等因子全公司统一定义，禁止各系统自造口径", "Milliman 定价工具"], ["费率试算沙盒", "新费率先在影子账本回放历史业务再上线", "行业通用实践"], ["费率合规校验", "费率浮动超出报备区间时系统硬拦截", "中科软核心系统"]]], ["产品数据治理", [["产品主数据唯一源", "产品定义只在产品工厂维护，核心与渠道全量引用", "Guidewire"], ["结构化与文本一致性校验", "结构化要素与报备条款文本冲突时以报备文本为准", "行业通用实践"], ["产品变更审计", "任何要素变更留痕到人、到报备文件", "Alation 数据治理"], ["多渠道产品视图分发", "渠道只读订阅产品视图，禁止渠道自建产品副本", "Duck Creek API"]]]]],
+ ["d2", "客户与投保人主数据", "Customer Master Data", "核心", "投保人被保人受益人统一建档与关联，是承保核保与反欺诈的底座", [["客户唯一识别", [["客户主档与唯一ID", "一人一档一ID，投保人被保人受益人关系全部关联入档", "Salesforce Financial Services Cloud"], ["身份核验与实名认证", "投保实名对接官方核验通道，核验失败禁止承保", "蚂蚁链实名核验"], ["客户合并与去重", "多渠道客户合并保留合并轨迹并支持人工拆分", "Informatica MDM"], ["客户关系图谱", "家庭与企业关联关系入图，支撑继续率分析与团伙识别", "Neo4j 行业实践"]]], ["客户视图与分层", [["统一客户视图", "保单赔案缴费投诉全量入档形成客户360视图", "Adobe Real-Time CDP"], ["客户价值分层", "按边际利润而非保费规模分层，避免高保费亏损户被误判高价值", "行业通用实践"], ["客户授权与隐私", "营销授权与数据共享授权分开存储且可随时撤回", "OneTrust"], ["敏感字段脱敏", "坐席与运营按角色最小可见，敏感字段动态脱敏", "Protegrity"]]], ["客户数据运营", [["客户事件订阅", "投保保全理赔事件实时广播给下游系统消费", "Kafka 行业实践"], ["数据质量监控", "证件手机号地址等要素质量分月度考核", "Monte Carlo Data"], ["客户档案生命周期", "客户注销后档案按监管年限留存，禁止物理删除", "行业通用实践"], ["跨机构客户识别", "集团内协同共享画像以客户授权为前提", "平安集团实践"]]]]],
+ ["d3", "精算假设与经验数据", "Actuarial Data & Experience", "核心", "生命表赔付经验与费用假设的治理，是定价准确性与准备金充足的根基", [["经验数据集管理", [["赔付经验数据集", "赔案数据按事故年与报告年双口径入集", "Milliman MG-ALFA"], ["生命表与发生率表管理", "监管表与公司经验表并行维护并明确适用边界", "中国人身险生命表"], ["数据分割与信度", "细分样本不足时用信度因子与先验混合估计", "行业通用实践"], ["假设版本与追溯回测", "假设变更留存版本并回放历史业务测影响", "Moody's AXIS"]]], ["定价假设治理", [["投资收益率假设", "定价利率与投资收益假设联动管理防止利差损", "行业通用实践"], ["费用假设分摊规则", "固定与变动费用按作业动因分摊到产品", "SAP 保险业实践"], ["退保率假设", "退保假设按渠道与客群分层校准", "Milliman"], ["假设审批流程", "重大假设变更须首席精算师签署留档", "行业通用实践"]]], ["经验分析", [["持续率分析", "第十三个月继续率按月监控到渠道与产品线颗粒度", "LIMRA 行业标准"], ["经验偏差分析", "实际赔付与假设偏差超阈值自动触发假设修订评审", "RGA 经验研究"], ["赔付进展三角形", "按事故年进展三角形监控赔付发展与准备金充足性", "ChainLadder 行业标准"], ["费用杠杆分析", "单位保费费用随规模与渠道结构弹性建模", "行业通用实践"]]]]],
+ ["d4", "保单契约数据", "Policy Contract Data", "核心", "保单状态权益与受益人结构数据，是保险法律关系的数字化表达", [["保单生命周期状态机", [["保单状态机管理", "未生效生效中止终止复效全状态迁移受控可审计", "Guidewire PolicyCenter"], ["批改管理", "批改生成批单并重算保费，禁止覆盖原保单记录", "Duck Creek Policy"], ["复效与宽限期规则", "宽限期中止期复效核保规则差异化配置", "行业通用实践"], ["保单归档与法律留存", "电子保单与批单按会计档案要求长期留存", "e签宝电子签名"]]], ["权益与受益人管理", [["受益人指定与变更", "身故受益人变更须被保险人同意并全程留痕", "行业通用实践"], ["保单权益结构", "现金价值万能账户红利账户独立记账互不混同", "行业通用实践"], ["质押与债权登记", "保单质押贷款登记质权防止重复质押", "行业通用实践"], ["共保与份额管理", "共保比例份额与保费分摊规则结构化存储", "行业通用实践"]]], ["保单数据服务", [["保单多视角查询", "渠道客服监管不同视角的查询权限隔离", "行业通用实践"], ["保单级三方对账", "核心财务渠道保单级对账日清日结", "行业通用实践"], ["团单与成员管理", "团单成员增减按事件触发并生成成员凭证", "行业通用实践"], ["凭证自动化输出", "电子保单批单发票凭证自动化生成与送达", "行业通用实践"]]]]],
+ ["d5", "反欺诈与风险情报", "Fraud Intelligence", "成长", "黑灰名单设备指纹与团伙图谱构成的情报资产，决定风控精度", [["欺诈情报数据", [["黑灰名单库", "高风险代理人修理厂中介黑名单统一入库共享", "众安反欺诈实践"], ["设备与环境指纹", "投保理赔环节设备指纹与IP聚集识别团伙", "同盾科技"], ["跨机构情报交换", "按监管要求接入行业反欺诈信息交换平台", "中国银保信"], ["关系图谱团伙识别", "投保人受益人修理厂资金关系图找闭环结构", "Palantir 行业实践"]]], ["欺诈模型与规则", [["赔案欺诈评分", "赔案级评分分层触发人工核查介入", "Shift Technology"], ["规则与模型双轨", "新规则先影子运行测误伤率再灰度启用", "SAS Fraud Management"], ["骗保特征库", "短期出险高频就医异常聚集等特征持续沉淀", "行业通用实践"], ["误伤申诉通道", "拦截必须配人工复核与申诉路径，否则商誉损失致命", "行业通用实践"]]], ["情报运营", [["调查工作台", "调查任务指派证据链收集与结论全程留痕", "FRISS"], ["欺诈损失度量", "欺诈挽回金额与漏损估计双口径计量", "行业通用实践"], ["外部数据接入治理", "征信与医疗数据接入须授权且最小必要", "行业通用实践"], ["模型性能监控", "查准查全与误报率月度复盘防止规则老化", "H2O.ai"]]]]],
+ ["d6", "产品精算与定价", "Pricing & Actuarial", "核心", "从损失成本到利润测算的定价体系，决定承保端能否长期赚钱", [["定价建模", [["损失成本定价", "预期赔付加费用加风险边际逐层计算形成纯风险保费", "Milliman 定价工具"], ["经验费率定价", "大客户经验数据按信度加权修正团体险定价", "行业通用实践"], ["动态定价与逆选择防控", "健康险按行为数据调价须防逆选择螺旋恶化", "Progressive UBI 实践"], ["定价敏感性测试", "死亡率退保投资三假设的敏感性出表供决策", "Moody's AXIS"]]], ["产品利润管理", [["新业务价值评估", "NBV考核牵引价值型业务而非规模冲量", "行业精算实践"], ["费用佣金约束", "定价时锁定费用率上限防止渠道佣金吃掉价值", "行业通用实践"], ["长期利率风险定价", "利差损风险在定价阶段用久期缺口量化", "日本寿险利差损教训"], ["调价与停售决策", "继续率与赔付率双恶化触发调价或停售评审", "行业通用实践"]]], ["定价合规", [["报备定价一致性", "实际销售费率不得超出报备浮动区间", "银保监人身险费率监管要求"], ["定价文档留痕", "定价假设与审批文档供监管检查调阅", "行业通用实践"], ["公平定价审查", "性别宗教等歧视性定价因子列入禁用清单", "EU Gender Directive"], ["新产品定价评审会", "产品精算核保理赔财务四方会签后上市", "行业通用实践"]]]]],
+ ["d7", "核保与承保规则引擎", "Underwriting Rules Engine", "核心", "风险进场的守门机制，规则引擎的精度直接决定业务质量", [["核保规则体系", [["核保规则引擎", "健康财务职业规则可配置化并支持热更新", "Bestow"], ["自动核保与人工分流", "低风险直通高风险转人工，分流阈值可动态调整", "Lemonade 秒级承保"], ["医学核保知识库", "智能预问诊与体检标准异常项自动映射", "平安智能核保"], ["财务核保与反洗钱", "大额保单审查收入来源与财务能力匹配性", "FATF 建议"]]], ["承保流程管理", [["投保单校验与补件", "告知项缺失自动生成补件任务闭环跟踪", "行业通用实践"], ["体检与生存调查排程", "体检机构预约结果回传与结论回写全闭环", "行业通用实践"], ["核保决定管理", "加费除外限额延期拒保五类决定全记录可解释", "行业通用实践"], ["承保时效管理", "自动核保秒级出单人工核保时效纳入考核", "行业通用实践"]]], ["核保风险治理", [["核保权限分级", "核保权限与承保额度挂钩超额自动上收", "Swiss Re 核保手册"], ["逆选择监控", "销售人员集中投保与短险出险异常自动预警", "行业通用实践"], ["核保规则回测", "规则变更回放历史案件测算通过率与风险变化", "SAS 行业实践"], ["再保联动核保", "超额保额自动触发再保询价与分保确认", "行业通用实践"]]]]],
+ ["d8", "保单管理与保全", "Policy Administration", "核心", "保单存续期服务能力，决定客户留存与持续率", [["保全服务运营", [["保全项目自动化", "受益人地址缴费方式变更线上自服务直达", "Guidewire BillingCenter"], ["保全风险分级", "高风险保全件双人复核并全程留痕", "行业通用实践"], ["保单贷款与领取", "现金价值贷款比例自动计算与逾期自动扣回", "行业通用实践"], ["客户身份变更处理", "证件过期更名等身份变更批处理与复核", "行业通用实践"]]], ["缴费与续期", [["续期催收编排", "宽限期分层触达策略化编排挽留话术联动", "行业通用实践"], ["自动扣费与重试", "扣费失败重试策略与支付通道路由", "Stripe Billing 实践"], ["缴费方式管理", "银行代扣第三方支付多通道路由与日终对账", "行业通用实践"], ["失效保单挽回", "失效客户分层挽回活动与效果归因", "行业通用实践"]]], ["保单服务体验", [["全渠道服务一致性", "App客服柜面保全口径与时效一致", "行业通用实践"], ["保单家庭视图", "家庭保单集中展示与保障缺口提示", "众安保单管家"], ["服务请求SLA管理", "保全件超时预警与逐级升级机制", "行业通用实践"], ["退保与犹豫期管理", "犹豫期退保零损耗流程与合规劝留话术", "行业通用实践"]]]]],
+ ["d9", "理赔运营与反欺诈", "Claims & Fraud Detection", "核心", "风险出口的给付与把关，理赔体验与渗漏控制决定口碑与利润", [["理赔流程管理", [["报案与立案管理", "多渠道报案归一到统一立案工作流", "Guidewire ClaimCenter"], ["查勘智能调度", "查勘任务按技能与地理位置智能派单", "Snapsheet"], ["单证智能审核", "OCR识别与材料完整性校验自动化前置", "行业通用实践"], ["理赔决策与给付", "给付计算自动套用免赔等待期与责任条款", "行业通用实践"]]], ["理赔智能化", [["小额快赔自动化", "小额案件影像直赔秒级到账并控制单案上限", "众安乐业保"], ["图像AI定损", "车险图像定损与配件价格库联动输出维修方案", "明觉科技"], ["医疗票据识别控费", "医疗险票据解析与合理费用区间校验", "望海康信"], ["理赔反欺诈联动", "理赔环节欺诈评分自动触发调查任务", "Shift Technology"]]], ["理赔治理", [["理赔时效与体验", "结案时效与获赔率双指标考核", "J.D. Power 理赔研究"], ["拒赔说理管理", "拒赔须书面说明条款依据并经复核", "行业通用实践"], ["追偿与代位求偿", "第三者责任追偿台账与委外追偿管理", "行业通用实践"], ["理赔数据反哺定价", "赔案经验回流定价假设形成闭环", "行业通用实践"]]]]],
+ ["d10", "再保险与风险分出", "Reinsurance", "成长", "把超出自留能力的大额风险分给再保人，是资本效率与巨灾安全垫的来源", [["再保安排管理", [["再保合同台账", "比例与非比例合同条款限额结构化管理", "Swiss Re RT Express"], ["分保计划与自留额", "自留额按资本充足与风险偏好动态设定", "Guy Carpenter"], ["再保询价比价", "多再保人报价横向比较与选择理由留痕", "Aon ReSolutions"], ["巨灾超赔安排", "巨灾超赔分层设计衰减尾部风险", "Verisk 巨灾模型"]]], ["分出与结算", [["分保账单结算", "分保费与分保手续费账单周期化自动对账", "EBIX 行业实践"], ["再保赔款摊回", "摊回比例自动计算与逾期摊回催收", "行业通用实践"], ["对手方信用监控", "再保人评级监控触发抵押品要求", "S&P 再保评级"], ["分出数据质量", "分出数据与原保单一致性校验防止摊回争议", "行业通用实践"]]], ["再保价值管理", [["资本释放度量", "每单位分出保费的资本释放效率评估", "行业通用实践"], ["再保结构优化", "比例与非比例组合的成本与保护性价比优化", "Guy Carpenter Optimizer"], ["临时分保流程", "临时分保询价确认与批单全流程线上化", "行业通用实践"], ["再保经验反哺", "再保人核保理赔经验回流直保定价", "Munich Re Nathan"]]]]],
+ ["d11", "偿付能力与准备金", "Solvency & Reserving", "成长", "资本与负债的计量中枢，充足率是保险公司的生命线", [["准备金评估", [["准备金评估模型链", "未到期未决IBNR多层评估链路", "Milliman Reserving"], ["进展三角形方法", "链梯与B-F等多方法交叉验证准备金", "ChainLadder 行业标准"], ["准备金充足性回溯", "回溯偏差超监管阈值自动触发整改", "行业通用实践"], ["精算意见报告", "准备金评估报告与精算师签署留档", "SOA 行业实践"]]], ["偿付能力管理", [["偿付能力计算引擎", "按监管口径计算核心与综合充足率", "Solvas 行业实践"], ["资本压力测试", "多情景下充足率路径预测与预警线管理", "行业通用实践"], ["资产负债匹配管理", "久期缺口与现金流匹配的免疫策略", "Conning ALM"], ["资本补充决策", "增资发债分红决策与充足率预测联动", "行业通用实践"]]], ["风险偏好传导", [["风险偏好指标体系", "风险偏好向业务条线限额逐级传导", "行业通用实践"], ["集中度限额管理", "单一风险与区域集中度实时监控", "Moody's RiskFrontier"], ["经济资本模型", "内部模型与监管模型差异定期分析", "行业通用实践"], ["Orsa报告编制", "风险与偿付能力自评估年度编制与董事会审议", "IAIS ICP"]]]]],
+ ["d12", "嵌入式保险与场景分销", "Embedded Insurance", "成长", "把保障嵌入交易场景按件计费，是保险增量渗透的最快路径", [["场景嵌入产品", [["嵌入式保险API", "电商出行场景一键投保标准接口", "Cover Genius XCover"], ["场景险产品工厂", "运费险延误险碎屏险等快速上下架", "众安场景险模式"], ["动态按件定价", "按交易风险实时定价与按件计费", "Slice"], ["嵌入式合规预审", "场景销售话术与披露内容上线前合规预审", "行业通用实践"]]], ["分销渠道管理", [["渠道准入与资质", "兼业代理资质与代销协议统一管理", "行业通用实践"], ["互联网销售合规", "页面披露犹豫期回访要求系统自动校验", "互联网保险业务监管办法"], ["渠道表现监控", "件均退保率投诉率渠道画像月度考核", "行业通用实践"], ["线上线下协同", "线上引流线下转化与归因分配机制", "行业通用实践"]]], ["生态合作运营", [["平台对账与技术服务费", "按件按保费的技术服务费自动对账结算", "行业通用实践"], ["合作方数据安全", "场景方数据接入最小必要与全程脱敏", "行业通用实践"], ["场景内理赔体验", "理赔入口在场景内闭环且体验一致", "Cover Genius"], ["白标与联合品牌", "白标方案的品牌露出与责任边界管理", "Zinnia"]]]]],
+ ["d13", "佣金与渠道结算", "Commission & Settlement", "成熟", "渠道费用是保险最大成本项之一，计佣与费用治理直接决定价值留存", [["佣金计算", [["佣金计划建模", "首年续年期次各渠道差异化佣金计划", "Vlocity 行业实践"], ["佣金计算引擎", "大批量计佣批处理与计佣明细留痕", "行业通用实践"], ["递延佣金与追回", "退保追佣规则自动计算与扣回", "行业通用实践"], ["层级计佣管理", "组织架构层级计佣与考核联动", "行业通用实践"]]], ["结算与支付", [["结算三方对账", "计佣结果与财务渠道对账日清", "行业通用实践"], ["支付与税务合规", "佣金个税代扣代缴与发票合规", "行业通用实践"], ["佣金争议处理", "争议件自动冻结与仲裁流程", "行业通用实践"], ["多币种结算", "跨境渠道佣金汇率处理与合规申报", "行业通用实践"]]], ["渠道费用治理", [["费用率上限管控", "渠道费用率超限自动预警与熔断", "报备佣金率监管要求"], ["手续费竞争监测", "同业手续费水平监测防恶性竞争", "行业通用实践"], ["质量费用联动", "继续率赔付率差的渠道自动降费机制", "行业通用实践"], ["费差分析报表", "分渠道分产品费差与价值损益分析", "行业通用实践"]]]]],
+ ["d14", "客群经营与续保", "Retention & Book Management", "成熟", "保单持续率与客群质量是长期价值的复利来源", [["续保管理", [["续保率预测", "按客群与产品预测续保概率并提前干预", "行业通用实践"], ["续保策略编排", "体况变化与理赔历史差异化的续保策略", "行业通用实践"], ["自动续保授权", "扣款授权管理与到期合规提醒", "行业通用实践"], ["续保再核保", "续保时按最新体况触发再核保规则", "行业通用实践"]]], ["客群经营", [["客户生命周期旅程", "新客成长成熟流失四阶段旅程运营", "Salesforce 行业实践"], ["交叉销售与加保", "家庭保单缺口分析与加保推荐", "行业通用实践"], ["健康增值服务", "健康管理服务提升黏性并改善赔付", "Oscar CareRoutes"], ["流失预警挽留", "流失模型触发挽留动作与效果追踪", "行业通用实践"]]], ["经营分析", [["继续率指标体系", "13个月与25个月继续率分层报表", "LIMRA 标准"], ["客群利润矩阵", "分客群赔付费用与利润四象限分析", "行业通用实践"], ["渠道客群质量", "渠道承保客群的长期质量追踪", "行业通用实践"], ["NPS改进闭环", "投诉与净推荐值驱动服务改进", "行业通用实践"]]]]],
+ ["d15", "合规与适当性管理", "Compliance & Suitability", "成熟", "保险销售与经营的全流程合规机制，是业务可持续的许可证", [["销售适当性", [["适当性评估", "客户风险承受能力与产品风险等级匹配校验", "行业通用实践"], ["双录与可回溯", "线上可回溯线下双录合规留证全覆盖", "保险销售可回溯管理要求"], ["犹豫期与回访", "犹豫期回访闭环未回访影响退保权益", "行业通用实践"], ["销售误导监测", "话术抽样与投诉聚合监测触发整改", "行业通用实践"]]], ["监管报送与合规", [["监管报送一体化", "偿付能力产品费率等多类报送统一管理", "行业通用实践"], ["反洗钱监测", "大额与可疑交易监测报告自动化", "NICE Actimize"], ["消费者权益保护", "适当性信息披露与投诉处理双机制落地", "行业通用实践"], ["数据合规管理", "个人金融信息保护与跨境传输合规", "PIPL 行业实践"]]], ["合规运营", [["合规风险台账", "合规风险识别评估与缓解闭环管理", "行业通用实践"], ["制度与培训管理", "合规培训考试与岗位资格记录", "行业通用实践"], ["举报与吹哨机制", "内部举报通道与举报人保护机制", "行业通用实践"], ["监管检查应对", "检查材料准备与整改事项跟踪销号", "行业通用实践"]]]]],
+ ["d16", "财务核算与保费收付", "Financial & Premium Accounting", "成熟", "保费确认与多口径财务报告，是经营成果的最终记账", [["保费核算", [["保费确认与计提", "长期险保费收入确认与递延计提规则", "IFRS17 行业实践"], ["应收保费管理", "应收账龄监控与催收分级", "行业通用实践"], ["收付费通道管理", "支付通道聚合路由与日终对账", "Adyen for Platforms 实践"], ["退费自动化", "犹豫期退保退费自动审核与支付", "行业通用实践"]]], ["财务报告", [["IFRS17计量", "合同服务边际摊销与滚动计量", "SAP IFRS17"], ["多口径差异管理", "偿付能力财务与税务口径差异台账", "行业通用实践"], ["分红与万能结算", "红利与万能账户结算及利益演示合规", "行业通用实践"], ["业务财务对账", "核心财务再保多系统对账闭环", "行业通用实践"]]], ["成本与资金", [["作业成本法分摊", "费用按作业动因分摊到产品与渠道", "行业通用实践"], ["资金归集与头寸", "集团资金池与流动性头寸管理", "行业通用实践"], ["再保资金流计划", "分保费与摊回款的现金流计划", "行业通用实践"], ["预算与滚动预测", "产品线预算与月度滚动预测", "Anaplan"]]]]],
+ ["d17", "操作风险与审计监控", "Ops Risk & Audit", "成熟", "内部流程与人员的风险防线，案件大多从内部失守", [["操作风险管理", [["关键风险指标", "操作风险指标与损失事件库建设", "行业通用实践"], ["业务连续性管理", "核心系统RTO RPO设定与年度演练", "行业通用实践"], ["职责分离管理", "关键岗位职责分离矩阵与权限复核", "SailPoint"], ["变更管理", "生产变更审批与回滚方案强制化", "ITIL"]]], ["内部审计", [["风险导向审计计划", "三年全覆盖风险导向审计计划", "行业通用实践"], ["核保理赔专项审计", "高风险环节抽样审计与规则检视", "行业通用实践"], ["审计整改跟踪", "问题台账闭环销号与责任追究", "行业通用实践"], ["审计数据取证", "审计取证自动化与日志留痕", "行业通用实践"]]], ["反舞弊", [["内外勾结监测", "代理人与客户异常关联自动监测", "行业通用实践"], ["举报线索管理", "舞弊线索分级与调查流程管理", "行业通用实践"], ["供应商廉洁防控", "查勘公估供应商廉洁与轮换机制", "行业通用实践"], ["舞弊风险评估", "舞弊风险评估与情景压力测试", "COSO 框架"]]]]],
+ ["d18", "核心系统架构与集成", "Core Architecture & Integration", "成熟", "核心系统是保险公司的发动机，架构决定创新速度", [["核心架构", [["核心模块化解耦", "产品承保理赔财务模块化拆分独立部署", "Guidewire Cloud"], ["API-first集成", "全能力API化供渠道与生态调用", "Duck Creek OnDemand"], ["云原生多租户", "多租户弹性伸缩与独立部署选项", "EIS Cloud"], ["核心迁移工程", "双轨并行与数据迁移权益校验", "行业通用实践"]]], ["数据与集成治理", [["集成总线治理", "企业服务总线向数据网格演进", "MuleSoft"], ["事件驱动架构", "承保理赔事件总线驱动下游实时消费", "Kafka 行业实践"], ["湖仓一体的精算集市", "业务数据湖与精算数据集市分层", "Snowflake 行业实践"], ["接口安全治理", "OAuth2限流熔断与全量调用审计", "Kong 行业实践"]]], ["平台运维", [["灰度发布", "产品与规则变更灰度放量自动回滚", "行业通用实践"], ["全链路监控", "核心链路可用性与业务指标双监控", "Datadog"], ["峰值容量规划", "开门红峰值弹性扩容与压演", "行业通用实践"], ["容灾多活", "同城双活异地灾备定期切换演练", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["智能核保自动化", "live", "医学NLP解析健康告知实现自动核保覆盖率过半", "核保知识库与规则引擎产品化输出中小险企"],
+ ["小额理赔秒级直赔", "live", "小额案件影像直赔自动结案率显著提升", "小额快赔引擎独立成SaaS按件计费"],
+ ["嵌入式保险API分发", "live", "电商与出行场景按件计费投保已成主流模式", "面向场景方的一站式嵌入保障中台"],
+ ["互联网销售可回溯合规", "live", "销售页面行为留痕已是监管硬要求", "销售可回溯合规检测SaaS"],
+ ["续保智能触达", "live", "续保率预测与分层触达持续改善继续率", "继续率提升服务订阅制输出"],
+ ["电子保单与电子签名", "live", "电子保单法律效力全面落地并广泛普及", "电子凭证存证与验真服务"],
+ ["车险图像AI定损", "live", "图像定损准确率与配件价格库已经成熟", "定损能力API输出维修与理赔生态"],
+ ["反欺诈规则与模型双轨", "live", "规则加模型双轨已成行业标配", "欺诈评分按件计费的第三方服务"],
+ ["大模型核保助手", "pilot", "LLM解析体检报告与病历辅助人工核保", "核保Copilot按坐席订阅"],
+ ["大模型理赔材料审核", "pilot", "病历发票智能抽取与条款匹配进入试点", "理赔审核Copilot产品化"],
+ ["UBI车险动态定价", "pilot", "驾驶行为数据定价在试点地区落地", "UBI定价引擎能力输出"],
+ ["健康管理服务闭环", "pilot", "健管服务与赔付率改善挂钩试点", "健管加保险联合解决方案"],
+ ["参数化保险产品", "pilot", "降雨温度等指数触发型保险进入试点", "参数化保险设计与运营工具"],
+ ["监管报送自动化", "pilot", "偿付能力与产品报送数据自动校验试点", "报送数据质检与自动化平台"],
+ ["智能回访与语音质检", "pilot", "回访语音100%质检在头部公司试点", "智能质检SaaS按坐席收费"],
+ ["代理人数字助手", "pilot", "展业合规问答与产品比较助手试点", "代理人Copilot订阅服务"],
+ ["生成式条款共创", "explore", "LLM辅助条款生成与差异审阅处于探索期", "条款智能生成与审阅引擎"],
+ ["保险数字员工", "explore", "核保理赔全流程数字员工运行探索", "保险数字员工平台"],
+ ["可穿戴设备健康险", "explore", "连续体征数据用于定价与健康干预探索", "健康数据定价与干预方案"],
+ ["区块链再保对账", "explore", "再保账单与摊回多方对账探索落地于境内联盟链场景", "再保多方对账网络"],
+ ["自动驾驶保险", "explore", "责任向产品方转移的保险形态探索", "自动驾驶责任险方案与定价"],
+ ["气候巨灾参数化平台", "explore", "气象站数据触发的巨灾快速赔付探索", "参数化巨灾保障服务"],
+ ["保险业知识中枢", "explore", "精算核保理赔知识统一中枢探索", "行业知识中枢与智能问答产品"],
+ ["隐私计算联合反欺诈", "explore", "联邦学习跨机构联合建模探索", "隐私计算反欺诈联盟服务"]
+];
+const MIDS = [
+ ["产品工厂中心", "统一产品目录条款与费率表治理", "产品结构化与版本管理能力"],
+ ["产品精算中心", "统一产品定价与假设治理", "精算建模与利润分析能力"],
+ ["核保承保中心", "承保风险把关与核保规则治理", "核保规则引擎与医学知识能力"],
+ ["理赔服务中心", "理赔给付与渗漏控制", "流程编排与智能化理赔能力"],
+ ["再保险中心", "风险分出安排与资本释放", "再保结构与对手方管理能力"],
+ ["精算评估中心", "准备金评估与偿付能力管理", "评估模型与监管口径能力"],
+ ["反欺诈中心", "欺诈情报模型与调查运营", "图谱分析与调查取证能力"],
+ ["客户运营中心", "客户全生命周期经营", "客群分层与旅程运营能力"],
+ ["渠道管理中心", "渠道准入费用与质量治理", "渠道画像与佣金结算能力"],
+ ["嵌入式业务中心", "场景合作与API化分销", "生态拓展与接口标准化能力"],
+ ["合规风控中心", "监管合规销售适当性与操作风险", "合规解读与风险台账能力"],
+ ["财务核算中心", "保费核算与IFRS17报告", "计量与多口径对账能力"],
+ ["资金管理中心", "收付费通道与资金归集", "支付路由与流动性管理能力"],
+ ["客服保全中心", "保全服务与客户体验管理", "SLA管理与体验度量能力"],
+ ["技术平台中心", "核心架构集成与运维", "云原生与API治理能力"],
+ ["审计监察中心", "内部审计与反舞弊", "审计取证与整改跟踪能力"],
+ ["数据智能中心", "数据资产与模型平台运营", "特征工程与模型治理能力"],
+ ["报表绩效中心", "经营分析与KPI体系", "指标口径治理与报表自动化能力"]
+];
+const RULES = [
+ ["销售话术与条款实际责任不符", "一旦被认定销售误导，停新业务与高额罚款可直接终结一家中小机构"],
+ ["偿付能力充足率跌破监管线", "业务扩张必须先于资本准备，充足率不达标会被限制业务甚至接管"],
+ ["未按报备费率销售", "费率浮动超出报备区间属违规，整批保单面临整改与处罚"],
+ ["准备金计提不足", "虚增当期利润透支未来，回溯偏差超阈值直接触发监管关注"],
+ ["反欺诈拦截误伤合规客户", "拒赔误伤引发投诉与舆情，商誉损失远大于欺诈损失本身"],
+ ["免责条款未做明确说明", "告知与说明留痕缺失则免责条款不生效，诉讼时机构败诉"],
+ ["再保摊回依赖对手方信用", "再保人违约使风险转移落空，分出变空账"],
+ ["长期利差损在定价期固化", "高定价利率产品形成利差损后无法逆转，曾拖垮多家寿险公司"],
+ ["渠道费用超监管上限", "手续费恶性竞争被叫停业务，渠道议价反噬产品价值"],
+ ["个人信息授权缺失", "未经授权使用健康数据属违法，相关业务直接停摆"],
+ ["理赔时效超期", "监管考核与客户流失双杀，慢理赔是最大差评来源"],
+ ["核保规则一刀切误拦特定客群", "适老与带病体服务缺失会引发监管通报与客群流失"],
+ ["犹豫期回访未完成", "回访缺失客户可全额退保，销售成果瞬间清零"],
+ ["核心迁移损毁历史保单权益", "丢失权益是事故级灾难，法律纠纷经年不息"],
+ ["场景嵌入披露不足", "嵌入保险未显著披露承保主体与条款，合作双方连带受罚"],
+ ["内部人员倒卖客户数据", "一案足以吊销相关牌照与高管任职资格"]
+];
+const KPIS = [
+ ["风险与承保", "综合成本率与承保利润率衡量承保质量；目标：综合成本率稳定低于100%并逐年改善"],
+ ["增长与结构", "新单保费增速与价值业务占比；目标：新单双位数增长且新业务价值同步增长"],
+ ["客户与继续率", "13个月与25个月保单继续率；目标：13个月继续率不低于90%"],
+ ["理赔与体验", "结案时效与获赔率；目标：小额案件当天结案率过半且获赔率稳定"],
+ ["反欺诈", "欺诈挽损金额与误报率；目标：挽损覆盖调查成本且误报率持续下降"],
+ ["资本与偿付", "核心与综合偿付能力充足率；目标：充足率持续高于监管线并保留安全缓冲"],
+ ["运营与效率", "自动核保率与自动理赔率；目标：自动化率逐年提升人工只处理例外件"],
+ ["合规与风险", "监管处罚件数与操作损失金额；目标：零重大处罚且操作损失事件逐年下降"]
+];
+const LIC_CN = [
+ ["保险公司设立与业务许可：经营保险业务须取得监管部门的保险业务许可证", "人身险财产险再保险等许可范围内展业", "未经许可不得经营保险业务不得使用保险名义"],
+ ["《保险法》：保险合同订立履行与理赔的基本法律框架", "各类保险业务经营", "免责条款未明确说明不生效理赔受法定时效约束"],
+ ["偿付能力监管规则（偿二代二期）：最低资本与实际资本计量", "寿险财险与再保险经营", "资本不足将被限制业务分红与高管薪酬"],
+ ["《人身保险产品信息披露管理办法》：费率表现金价值与利益演示披露", "人身险产品销售", "利益演示不得使用过高演示利率误导客户"],
+ ["《互联网保险业务监管办法》：线上经营条件与可回溯要求", "互联网保险销售", "非持牌机构不得开展互联网保险经营"],
+ ["《保险销售行为管理办法》：销售适当性与可回溯管理", "保险销售全流程", "禁止炒停销售误导与不当捆绑搭售"],
+ ["人身险销售适当性相关要求：按客群风险承受能力匹配产品", "长期人身险销售", "老年等特定客群须强化保护与确认流程"],
+ ["反洗钱法及客户身份识别相关规定", "保费收付与理赔给付环节", "大额与可疑交易须报告且身份资料须留存"],
+ ["《个人信息保护法》与个人金融信息保护要求", "客户与健康数据采集使用", "须单独同意最小必要禁止捆绑授权"],
+ ["《健康保险管理办法》：健康管理服务与保险业务边界", "健康险与健管服务经营", "健管服务净费用占比受限"],
+ ["《保险代理人监管规定》：专业代理与兼业代理资质", "渠道分销业务", "无资质渠道不得代销保险产品"],
+ ["《再保险业务管理规定》：分出分入业务与偿付能力衔接", "再保险安排与经营", "境内优先分保与监管报告要求"],
+ ["《保险资金运用管理办法》", "保险资金投资运用", "投资范围与比例受监管限额约束"],
+ ["金融产品网络营销管理方向性要求：网络营销主体与展示规范", "线上营销推广", "营销内容与持牌机构责任绑定不得脱离持牌主体"],
+ ["数据出境安全评估与个人信息出境标准合同要求", "跨境数据传输场景", "客户数据出境须完成评估或标准合同备案"]
+];
+const LIC_INTL = [
+ ["Solvency II：欧盟保险资本与治理框架", "欧盟市场保险业务", "内部模型须经监管批准方可使用"],
+ ["IAIS保险核心原则与IGT框架", "全球保险集团经营", "系统重要性保险机构须满足更高监管要求"],
+ ["美国NAIC州级监管与产品审批体系", "美国各州保险业务", "产品须逐州报备上市周期长"],
+ ["英国FCA消费者责任规则Consumer Duty", "英国保险分销", "产品公平价值评估须定期报告"],
+ ["GDPR欧盟个人数据保护条例", "欧洲客户数据处理", "健康数据属特殊类别须明确合法基础"],
+ ["IFRS17保险合同国际财务报告准则", "保险合同财务报告", "合同服务边际计量显著改变利润呈现"],
+ ["Lloyd's市场准入与辛迪加规则", "伦敦市场承保能力", "须通过劳合社审批方可进入市场承保"],
+ ["FATF反洗钱建议在保险业的适用", "国际保费收付与给付", "寿险大额保单须强化尽职调查"]
+];
+const OPPS = [
+ ["中小险企核心云化", "老核心烟囱林立改造成本高", "以云原生SaaS订阅切入中小机构核心替换市场"],
+ ["嵌入式保险中台", "场景方接入保障的门槛高", "提供标准API与合规预审的一站式嵌入方案"],
+ ["核保智能化输出", "中小公司医学核保能力薄弱", "把核保知识库与规则引擎按订阅输出"],
+ ["跨机构反欺诈联盟", "单家数据不足以识别团伙", "以隐私计算建立跨机构联合反欺诈网络"],
+ ["健康管理服务闭环", "健康险同质化陷入价格战", "健管服务绑定赔付率改善的产品化方案"],
+ ["巨灾参数化保险", "自然灾害频发传统理赔周期长", "气象参数触发型快速赔付产品"],
+ ["监管报送自动化", "报送数据口径校验人工成本高", "报送数据质检与自动化生成平台"],
+ ["适老化保险服务", "老年客群服务缺口被监管点名", "适老投保理赔全流程改造方案"],
+ ["代理人数字助手", "代理人专业能力参差不齐", "展业合规与产品问答Copilot"],
+ ["再保账务多方对账", "分保账单对账低效易错", "再保账单标准化对账服务"],
+ ["IFRS17实施服务", "新准则计量复杂实施成本高", "计量引擎与数据底座实施服务"],
+ ["销售页面合规巡检", "线上销售页面合规风险高", "页面合规自动巡检与预警SaaS"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：核保 / 理赔 / 精算 / 再保`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

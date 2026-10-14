@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融风险控制平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融风险控制平台全景</b>
+    <span>金融风险控制平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融风险控制平台产品功能全景图谱</h1>
+    <p>把「金融风险控制平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手不是指标算得多漂亮，而是控制动作能不能长在交易路径上：事前硬拦截、事中能处置、事后可举证。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是报表工具，而是一条「敞口计量 → 限额判定 → 处置执行 → 举证复盘」的控制链路。读图谱时始终追问：这个功能在真实的下单与持仓生命周期里处于哪一环，能不能硬生效，出了事能不能拿出来看。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据与敞口底座</td><td>头寸与持仓、风险敞口台账、限额规则库、市场数据与估值、参照组合与基准</td><td>所有控制判断的输入源，口径不同源则全盘失效</td></tr>
+<tr><td>第二层（d6–d9）：事前控制</td><td>事前预检引擎、集中度与敞口限额、止损线与回撤控制、授权与交易权限矩阵</td><td>把规则变成下单路径上的硬阻断，是产品的第一价值</td></tr>
+<tr><td>第三层（d10–d14）：事中监控与处置</td><td>实时风险监控、熔断与强平引擎、降杠杆与减仓编排、对冲指令执行、流动性与压力测试</td><td>从看见风险到处置风险，动作要可编排、可回滚、可归因</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>紧急预案与演练、复盘与归因、审计与留痕、报送与风险报告</td><td>控制动作被信任的前提是可审计、可演练、可向监管举证</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：头寸与敞口必须先做到与真实持仓同源同频；限额体系必须先有业务共识再谈系统落地；每个控制动作必须先定义清楚谁有权触发、如何留痕。</div>
+    <div class="danger">最容易被误当成成功信号的是「风控看板很漂亮」。看板只负责看见，客户付钱买的是拦截与处置能力；一个拦不住违规单的漂亮看板，在验收时一文不值。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：它是否缩短了「从发现风险到执行控制」的时间差；只提升观察能力、不缩短处置链路的，优先级一律靠后。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>限额</td><td>对组合、账户、策略在单一或多维风险量上的硬上限，含分配、占用、调整与有效期</td><td>限额口径与占用计量写错，违规会静默通过</td></tr>
+<tr><td>敞口台账</td><td>全机构风险敞口的唯一事实源，按口径、归属、穿透维度组织</td><td>台账与实际持仓不同源，所有下游判定失真</td></tr>
+<tr><td>预检</td><td>委托进入交易路径前的规则检查与放行拒绝决策</td><td>预检时延超限或可被随意旁路，控制形同虚设</td></tr>
+<tr><td>熔断</td><td>风险超阈值时对交易、策略或账户的自动暂停机制</td><td>触发与恢复规则不确定，会引发二次伤害与纠纷</td></tr>
+<tr><td>强平单</td><td>按确定性规则生成的强制减仓指令，含顺序、数量与合规约束</td><td>强平顺序与执行不留痕，事后必然产生法律争议</td></tr>
+<tr><td>演练预案</td><td>可执行的风险事件处置手册，与系统动作联动并可评估</td><td>纸面预案在真事件中等于没有预案</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">证监机构监管（证监会与派出机构）、交易所与行业协会自律监管、资管产品合同与托管人约束、数据与系统安全要求，四类监管域在风控平台交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">一、风控系统自身属于核心交易系统的组成部分，其可用性与变更管理按核心系统要求执行，不能当普通IT系统对待；二、程序化交易必须按规定报告，风控参数要能与监管报备口径对得上；三、对客户的强制处置必须严格按合同与业务规则执行并留痕，否则机构自身就是被诉对象。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿——从券商自营或私募的日终限额监控切入</li><li>第二步：建立可举证的基线——头寸同源、敞口口径版本化、控制动作全程留痕</li><li>第三步：跑通最短闭环——预检硬拦截一条违规单并产出完整审计证据</li><li>第四步：补第二个增值能力——熔断强平与降杠杆减仓编排</li><li>第五步：把承诺写进合同——拦截时延、覆盖率、举证完备度写成SLA</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：卖给券商与资管的限额风控模块（项目制起步沉淀标准产品）</li><li>路径 B：私募与对冲基金的SaaS风控（轻量部署、按组合订阅）</li><li>路径 C：期货公司盯市追保强平一体化（场景深、续费稳）</li><li>路径 D：风控数据与口径中台（大机构平台化共建）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是「同源可信的敞口数据」——没有它，限额、预检、强平、报告全部空转；第一资产是口径统一且可回放的风控数据资产。</div>
+  </section>
+
+  <footer>
+    <p>金融风险控制平台产品功能全景图谱 · 生成于 2026-09-28 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览导读"],
+ ["s1", "平台形态与商业本质"],
+ ["s2", "数据与敞口底座"],
+ ["s3", "事前控制与限额"],
+ ["s4", "事中监控与处置"],
+ ["s5", "治理运营与审计"],
+ ["s6", "前沿方向"],
+ ["s7", "合规与监管"],
+ ["s8", "落地路径"],
+ ["s9", "商业机会"]
+];
+const PLAYERS = [
+ ["券商风控前置机", "Bloomberg TERP、Murex", "券商集中交易系统风控前置模块", "在交易路径上做事前硬拦截，按笔拦截违规委托"],
+ ["资管组合风险平台", "BlackRock Aladdin、Axioma Risk", "资管机构风控系统", "以组合为中心做限额、敞口与合规监控"],
+ ["期货与衍生品风控", "OpenGamma、TriOptima", "期货公司风控系统", "盯市、追保与强平的全流程控制"],
+ ["银行金融市场风控", "FIS Kondor、Calypso", "银行金融市场条线风控平台", "银行账与交易账的敞口计量与限额执行"],
+ ["私募对冲基金风控", "Bloomberg PORT、MSCI RiskMetrics", "私募机构轻量风控工具", "小团队使用的组合风控与回撤控制"],
+ ["风控中台与平台化", "Murex、Adenza", "大型机构自研风控中台", "把风控能力做成全机构共享的口径统一服务"]
+];
+const DOMAINS = [
+ ["d1", "头寸与持仓数据", "Position and Holdings Data", "核心", "全机构唯一可信头寸事实源，多源归集、实时更新、可对账可回放", [["实时头寸聚合", [["实时持仓归集", "交易、清算、托管多源头寸按同一时点聚合，延迟超阈值即告警", "Bloomberg TERP"], ["头寸快照与版本", "每个风控时点生成不可变头寸快照，限额占用按快照时点计量以便复核", "Murex"], ["日内增量更新", "逐笔委托与成交实时更新头寸，保证预检看到的永远是最新敞口", "Charles River IMS"], ["清算口径对齐", "预检占用需按T+1清算净额口径二次确认，避免在途与已成交双计", "行业通用实践"]]], ["多账本与策略拆分", [["策略与账户多账本", "同一标的按策略、账户、产品维度拆分账本，各账本独立计量与限额", "BlackRock Aladdin"], ["自营与客户隔离", "自营与客户头寸隔离计量，杜绝混同占用", "行业通用实践"], ["衍生品名义敞口映射", "期权等衍生品按Delta等希腊字母映射为名义敞口参与限额计量", "Axioma Risk"], ["跨境多币种折算", "外币头寸按监管汇率口径折算入账，汇率源必须可追溯", "行业通用实践"]]], ["头寸对账与修正", [["与登记结算对账", "每日与登记结算与TA数据对账，差异超阈值冻结相关账户预检", "行业通用实践"], ["头寸差异处置", "差异必须工单化闭环，未闭环差异不得作为限额判定输入", "行业通用实践"], ["历史头寸回放", "支持任意历史时点头寸回放，用于争议复核与监管举证", "Bloomberg PORT"], ["修正审计线", "头寸修正必须记录修改人、原因与依据，形成完整修正链", "行业通用实践"]]]]],
+ ["d2", "风险敞口台账", "Exposure Ledger", "核心", "把头寸翻译成各口径风险敞口的唯一台账，支撑穿透、归并与快照回放", [["敞口计量口径管理", [["多口径敞口定义", "市场、信用、流动性、对手方敞口分口径定义并版本化管理", "MSCI RiskMetrics"], ["口径版本化", "口径变更生成新版本并双跑观察，历史结论按历史版本可复现", "行业通用实践"], ["口径映射校验", "新产品与新标的接入时自动校验口径映射完整性，缺失即阻断接入", "Murex"], ["口径与监管对齐", "内部口径需能与监管指标口径做映射说明，支撑检查问询", "行业通用实践"]]], ["敞口归属与穿透", [["多层嵌套穿透", "资管产品与专户逐层穿透到最底层证券计量真实敞口", "BlackRock Aladdin"], ["关联方归并", "同一实控人关联账户敞口强制归并，防借道规避集中度", "行业通用实践"], ["对手方敞口计量", "场外衍生品按净额结算协议计量对手方信用敞口", "TriOptima"], ["抵押与担保扣减", "可接受抵押品按折扣系数扣减敞口，抵押品质量分级管理", "行业通用实践"]]], ["台账快照与查询", [["日终台账快照", "每日终生成全量敞口台账快照并归档，作为合规与审计基线", "行业通用实践"], ["多维敞口查询", "支持按产品、策略、行业、发行人、国别等维度即席查询敞口", "Bloomberg PORT"], ["敞口变动留痕", "敞口台账每笔变动记录触发事件，可追溯到具体成交或估值更新", "行业通用实践"], ["台账API服务", "敞口以标准API供预检、监控、报送系统消费，禁止旁路取数", "行业通用实践"]]]]],
+ ["d3", "限额规则库", "Limit Rule Repository", "核心", "承载全部限额定义、分配、占用与生命周期管理的规则中枢", [["限额体系建模", [["多层级限额树", "机构、条线、组合、策略、交易员多层级限额树统一建模", "Murex"], ["多维度限额度量", "金额、集中度、希腊字母、回撤、杠杆等多维限额类型模板化", "Axioma Risk"], ["限额生命周期", "限额的设立、审批、生效、调整、到期全程状态机管理", "行业通用实践"], ["软硬限额分级", "预警线、行动线、硬限分级定义，硬限必须触发阻断而非提示", "行业通用实践"]]], ["限额分配与再分配", [["限额分配审批", "上级限额向下分配必须走审批流，分配总和不得超过上级", "行业通用实践"], ["临时限额调整", "临时调增设置有效期与理由留痕，到期自动回收", "行业通用实践"], ["闲置额度再平衡", "周期性识别长期闲置额度并再分配，避免资源错配", "行业通用实践"], ["新组合限额初始化", "新组合上线必须先取得限额分配才允许开仓", "BlackRock Aladdin"]]], ["限额占用计量", [["实时占用计算", "每笔委托实时计算限额占用与剩余额度，作为预检判定依据", "Charles River IMS"], ["并发占用一致性", "高并发下单下占用计算保持一致，禁止超卖额度", "行业通用实践"], ["占用试算", "支持模拟委托试算限额占用，辅助交易员事前自查", "Bloomberg TERP"], ["占用归因报表", "限额占用变动按交易、估值、汇率归因，支撑月度复核", "行业通用实践"]]]]],
+ ["d4", "市场数据与估值输入", "Market Data and Valuation Input", "核心", "为风控计算提供可信行情与估值，缺口与异常可监控可降级", [["行情接入与快照", [["多源行情接入", "交易所、经纪商、数据商行情多源接入并主备切换", "Bloomberg B-PIPE"], ["风控时点快照", "风控计算统一使用打点快照行情，保证同一时点可复算", "行业通用实践"], ["异常行情标记", "停牌、涨跌停、流动性枯竭标记进入行情，估值与敞口联动处理", "行业通用实践"], ["低延时分发", "行情到风控指标计算端到端延迟有预算并持续监控", "Bloomberg TERP"]]], ["估值曲线与定价服务", [["统一估值服务", "债券与衍生品估值集中在估值服务完成，杜绝多系统估值打架", "Murex"], ["曲线与曲面管理", "收益率曲线、波动率曲面的构建、复核与版本管理", "Numerix"], ["流动性折扣调整", "低流动性持仓按规则叠加流动性折扣参与敞口与止损计算", "行业通用实践"], ["估值独立复核", "关键头寸用独立数据源定期复核估值，偏差超限告警", "行业通用实践"]]], ["数据质量监控", [["完整性监控", "行情与估值数据缺口实时监控，缺口期间相关限额保守计量", "行业通用实践"], ["异常值检测", "价格跳变与离群值自动检测，可疑数据进入人工复核队列", "Axioma Risk"], ["数据血缘追溯", "风控指标可回溯到原始行情与估值输入的数据血缘", "行业通用实践"], ["降级策略", "上游数据延迟时按降级策略用最后可信快照并显著标记", "行业通用实践"]]]]],
+ ["d5", "参照组合与基准", "Benchmark and Reference Data", "成长", "提供基准、因子与相关性等对照系数据，支撑偏离与集中度判断", [["基准与风格敞口", [["基准偏离监控", "组合相对基准的行业与风格偏离纳入限额维度", "BlackRock Aladdin"], ["风格因子敞口", "价值、成长、波动等因子敞口计量供投资决策参考", "Axioma Risk"], ["基准变更管理", "基准切换走审批并保留双基准过渡期报表", "行业通用实践"], ["跟踪误差限额", "跟踪误差作为量化产品专用限额类型接入预检", "行业通用实践"]]], ["组合静态数据管理", [["证券主数据治理", "证券主数据唯一权威源，风控依赖字段完整性定期体检", "行业通用实践"], ["发行人与行业映射", "发行人、行业、地区映射统一维护，集中度按映射归并", "MSCI"], ["产品要素管理", "产品合同中的投资限制要素化入库，直接生成限额规则", "行业通用实践"], ["静态数据影响分析", "映射变更自动评估对存量敞口与限额占用的冲击", "行业通用实践"]]], ["相关性与集中度辅助数据", [["相关性矩阵维护", "集中度与压力测试使用的相关性假设集中管理并定期校准", "Axioma Risk"], ["同涨同跌分组", "高度相关证券分组计量，防止分散假象", "行业通用实践"], ["评级联动", "信用评级下调事件触发相关限额自动收紧预案", "行业通用实践"], ["集中度热力视图", "按发行人、行业、主题的集中度热力图支撑限额审议", "Bloomberg PORT"]]]]],
+ ["d6", "事前预检引擎", "Pre-Trade Check Engine", "核心", "在交易路径上执行硬拦截的规则引擎，规则可编排、可仿真、可热更新", [["预检规则编排", [["规则引擎编排", "预检规则低代码编排，规则组合与执行顺序可配置", "Charles River IMS"], ["场景化规则集", "不同产品类型加载不同预检规则集，公募、专户、自营分套执行", "行业通用实践"], ["规则热更新", "限额与预检规则变更不停机热生效，变更留痕并支持即时回滚", "行业通用实践"], ["规则仿真验证", "新规则上线前在历史委托流上仿真，评估拦截率与误伤率", "行业通用实践"]]], ["拒单与放行决策", [["同步硬阻断", "硬限违规委托在交易路径上同步拒绝，拒绝码标准化可解释", "Bloomberg TERP"], ["软限警示放行", "软限触发可警示放行并留痕升级，升级超时自动拒绝", "行业通用实践"], ["人工复核通道", "灰区委托进入人工复核队列，复核结论与理由全留痕", "行业通用实践"], ["预检豁免管理", "豁免必须事前授权、限定范围、限时生效并逐笔留痕", "行业通用实践"]]], ["预检性能与旁路", [["时延预算管理", "预检全程时延P99有硬预算，超预算触发扩容而非降级", "行业通用实践"], ["故障降级保护", "预检系统故障时按预案切换降级模式并告警，禁止静默旁路", "行业通用实践"], ["旁路审批留痕", "紧急旁路须双人授权并限时，事后强制复盘", "行业通用实践"], ["峰值压测", "新发与大额调仓等峰值场景定期压测预检吞吐", "行业通用实践"]]]]],
+ ["d7", "集中度与敞口限额", "Concentration and Exposure Limits", "核心", "执行集中度与敞口类限额的事前控制，覆盖单一标的到跨账户归并", [["单一标的集中度", [["单一证券占比限额", "按成本与市值双口径控制单一证券占比，超限禁止继续买入", "行业通用实践"], ["法定比例模板", "公募双十等法定比例内置为模板，法规更新同步升级", "行业通用实践"], ["发行人集中度", "按发行人归并债券与贷款敞口计量集中度", "MSCI"], ["流动性加权集中度", "低流动性证券集中度按流动性折扣加权从严控制", "行业通用实践"]]], ["组合维度敞口限额", [["组合杠杆限额", "总敞口对净资本倍数设限，衍生品杠杆折算纳入", "Axioma Risk"], ["行业与主题限额", "行业、主题、国别敞口比例限额实时计量", "BlackRock Aladdin"], ["久期限额", "债券组合久期与DV01限额纳入事前检查", "Murex"], ["衍生品方向性限额", "期指与期权方向性敞口折算限额，防止用衍生品绕过现货限额", "行业通用实践"]]], ["跨账户归并限额", [["实控人归并", "同一实控人多产品账户敞口归并计量集中度", "行业通用实践"], ["集团并表敞口", "金融集团并表口径敞口限额，按监管并表要求归并", "行业通用实践"], ["策略相关性归并", "高相关策略组合视为一个风险单元计量集中敞口", "Axioma Risk"], ["借道识别", "通过通道、嵌套、转融通规避集中度的模式识别与拦截", "行业通用实践"]]]]],
+ ["d8", "止损线与回撤控制", "Stop-Loss and Drawdown Control", "核心", "把回撤纪律自动化执行的控制器，触线自动响应不可拖延", [["组合止损线监控", [["净值止损线", "产品净值触及合同约定止损线自动进入处置流程", "行业通用实践"], ["策略级止损", "策略回撤止损独立于产品净值，触线自动降仓", "行业通用实践"], ["止损线分级", "预警、减仓、清盘多级止损线分级响应", "行业通用实践"], ["止损线变更管控", "止损线调整须产品合同允许并留投资者告知证据", "行业通用实践"]]], ["回撤阶梯处置", [["回撤阶梯规则", "回撤深度对应强制仓位上限的阶梯表，触线自动执行", "行业通用实践"], ["回撤恢复机制", "回撤修复后仓位上限分步恢复，禁止一次性满仓", "行业通用实践"], ["尾部回撤预警", "用波动与尾部指标对深度回撤提前预警", "Axioma Risk"], ["回撤处置留痕", "每次阶梯处置的时间、动作与依据完整归档", "行业通用实践"]]], ["止盈与风险预算", [["风险预算管理", "按风险预算而非名义仓位控制策略规模", "BlackRock Aladdin"], ["利润保护线", "浮盈回吐比例触线自动减仓锁定收益", "行业通用实践"], ["波动率目标控制", "组合实际波动率超出目标自动降杠杆", "行业通用实践"], ["预算占用报表", "风险预算占用与消耗定期报表化", "行业通用实践"]]]]],
+ ["d9", "授权与交易权限矩阵", "Authority and Entitlement Matrix", "核心", "管理谁能交易什么的权限中枢，变更双人复核、实时生效", [["角色与权限矩阵", [["交易员权限矩阵", "可交易品种、方向、账户、额度四维权限矩阵集中管理", "Charles River IMS"], ["职责分离", "下单、复核、风控、清算岗位权限强制分离", "行业通用实践"], ["权限到期管理", "临时权限自动到期，长期权限定期复核", "行业通用实践"], ["越权告警", "越权交易尝试实时告警并计入行为审计", "行业通用实践"]]], ["交易额度授权", [["日度交易额度", "交易员日度下单额度与成交额度分设并实时扣减", "行业通用实践"], ["新策略准入授权", "新策略实盘前须通过风控准入评估取得权限包", "行业通用实践"], ["额度临时调增", "临时调额须审批留痕并限时回收", "行业通用实践"], ["代理授权管理", "休假与离职期间授权代理自动接管与回收", "行业通用实践"]]], ["权限变更与审批流", [["权限变更工作流", "权限申请、审批、生效、回收全流程线上化", "行业通用实践"], ["双人复核", "关键权限变更双人复核并留双签证据", "行业通用实践"], ["变更联动生效", "权限变更实时联动预检引擎，禁止延迟窗口", "行业通用实践"], ["权限审计报告", "权限矩阵定期出具审计快照供内审与监管检查", "行业通用实践"]]]]],
+ ["d10", "实时风险监控", "Real-Time Risk Monitoring", "核心", "让风险状态秒级可见的监控中枢，指标可解释、告警可闭环", [["实时指标计算", [["实时损益与希腊字母", "组合损益与希腊字母流式计算，秒级刷新", "Bloomberg TERP"], ["VaR与ES实时化", "日内滚动VaR与预期损失实时更新", "Axioma Risk"], ["计算与展示解耦", "指标计算与展示解耦，计算层可独立扩容", "行业通用实践"], ["指标口径注册", "所有实时指标注册口径与算法版本，禁止黑箱指标", "行业通用实践"]]], ["多维风险视图", [["风险驾驶舱", "机构到策略多层级风险驾驶舱一屏总览", "BlackRock Aladdin"], ["下钻追溯", "指标异常可逐层下钻到持仓与单笔交易", "行业通用实践"], ["事件时间轴", "行情事件与风险触发合并时间轴呈现", "Bloomberg TERP"], ["移动端视图", "关键风险视图移动端同步，保障风控员离场可见", "行业通用实践"]]], ["告警与升级", [["分级告警", "按严重度分级告警并匹配通知渠道与响应时限", "行业通用实践"], ["告警升级机制", "超时未响应自动升级到上级风控负责人", "行业通用实践"], ["告警降噪", "同类告警聚合去重，误报率纳入运维指标", "行业通用实践"], ["告警闭环跟踪", "每条告警必须有处置结论，未闭环挂账跟踪", "行业通用实践"]]]]],
+ ["d11", "熔断与强平引擎", "Circuit Breaker and Liquidation Engine", "核心", "执行熔断与强平这两类最强处置动作的自动化引擎，全程合规留痕", [["熔断触发与恢复", [["账户级熔断", "账户风险超限自动暂停新开仓，存量处置按预案执行", "行业通用实践"], ["策略级熔断", "策略行为异常如报撤单激增自动熔断策略实例", "行业通用实践"], ["熔断恢复条件", "恢复须满足冷却期与人工确认双条件，禁止自动V型恢复", "行业通用实践"], ["熔断演练触发", "熔断逻辑纳入定期演练验证，确保真实生效", "行业通用实践"]]], ["强平顺序与执行", [["确定性强平顺序", "强平顺序按预设规则如流动性与损失最小化确定性生成", "行业通用实践"], ["强平指令执行", "强平单直达交易通道并优先成交，执行结果实时回报", "行业通用实践"], ["强平限度控制", "强平数量按恢复到安全线计算，禁止过度处置", "行业通用实践"], ["强平失败兜底", "强平未成交按预案转入协议处置或后续程序", "行业通用实践"]]], ["强平合规约束", [["合同约定前置", "强平权必须在产品合同与风险揭示书中明确约定", "行业通用实践"], ["通知义务履行", "强平前按规定履行追保通知与宽限期义务", "行业通用实践"], ["强平全程留痕", "强平决策、通知、执行、成交全链路证据归档", "行业通用实践"], ["纠纷举证包", "一键导出强平完整证据包应对仲裁与监管问询", "行业通用实践"]]]]],
+ ["d12", "降杠杆与减仓编排", "Deleveraging Orchestration", "成长", "把减仓处置变成可编排流程的调度器，计划生成、协调执行、效果跟踪", [["减仓计划生成", [["最小冲击减仓", "按市场冲击模型生成最小成本减仓计划", "Axioma Risk"], ["多约束优化", "减仓同时满足流动性、集中度、跟踪误差约束", "BlackRock Aladdin"], ["分批执行计划", "大额减仓分批分时执行，避免自我踩踏", "行业通用实践"], ["减仓计划审批", "处置计划经风控负责人确认后下发执行", "行业通用实践"]]], ["跨品种减仓协调", [["期现联动减仓", "股指期货对冲与现货减仓协同编排，保持敞口一致", "行业通用实践"], ["跨账户协调", "多产品持同一标的时协调减仓顺序避免互踩", "行业通用实践"], ["融券归还编排", "融券卖出持仓纳入减仓编排统一归还计划", "行业通用实践"], ["处置工具箱", "大宗交易、协议转让等处置工具统一调度", "行业通用实践"]]], ["处置效果跟踪", [["处置进度看板", "减仓执行进度与剩余敞口实时看板", "行业通用实践"], ["成本归因", "处置成本与计划偏差归因分析", "行业通用实践"], ["处置后复核", "处置完成后复核敞口是否回到限额内并出报告", "行业通用实践"], ["处置案例库", "处置案例结构化入库供后续预案参考", "行业通用实践"]]]]],
+ ["d13", "对冲指令执行", "Hedge Execution", "成长", "连接风险决策与交易执行的桥梁，从对冲方案到效果归因闭环", [["对冲方案生成", [["缺口对冲建议", "识别净敞口缺口并生成对冲工具与手数建议", "行业通用实践"], ["成本比较", "基差、保证金占用、移仓成本多方案比较", "行业通用实践"], ["对冲审批", "对冲方案走审批后生成正式指令", "行业通用实践"], ["再平衡触发", "敞口漂移超阈值自动触发再平衡建议", "Axioma Risk"]]], ["对冲指令路由", [["算法拆单", "对冲单按VWAP等算法拆单降低冲击", "行业通用实践"], ["多通道路由", "期现多市场通道统一路由与容灾", "行业通用实践"], ["对冲单优先级", "风险处置对冲单标记最高优先级通道保障", "行业通用实践"], ["执行偏差监控", "对冲执行偏差实时监控并触发补单", "行业通用实践"]]], ["对冲效果归因", [["对冲有效性度量", "对冲后组合波动与Beta变化量化评估", "Axioma Risk"], ["基差损益分离", "基差损益与方向损益分离归因", "行业通用实践"], ["移仓成本台账", "期货移仓成本与展期收益台账化管理", "行业通用实践"], ["对冲合规确认", "对冲行为确认符合产品合同对冲目的限定", "行业通用实践"]]]]],
+ ["d14", "流动性与压力测试", "Liquidity and Stress Testing", "成长", "度量极端条件下生存能力的工作台，情景可定制、加压可叠加", [["流动性度量", [["持仓流动性分级", "按成交量、买卖价差、天数消耗对持仓分级", "Axioma Risk"], ["变现天数测算", "按日均成交量占比测算组合清仓所需天数", "行业通用实践"], ["流动性限额", "变现天数超阈值设为限额维度接入预检", "行业通用实践"], ["冲击成本模型", "大额委托市场冲击成本模型定期校准", "行业通用实践"]]], ["压力情景计算", [["历史情景库", "历次危机情景重放并计算组合损益", "MSCI RiskMetrics"], ["假设情景定制", "自定义冲击方向、幅度与相关性假设情景", "Axioma Risk"], ["单因子加压", "利率、汇率、波动率单因子阶梯加压", "Numerix"], ["全资产覆盖", "情景计算覆盖全资产类别含衍生品非线性", "行业通用实践"]]], ["极端情景加压", [["相关性崩溃情景", "强制加入相关性趋同的极端情景", "行业通用实践"], ["流动性枯竭加压", "叠加平仓期流动性不可得的加压假设", "行业通用实践"], ["追保情景", "模拟极端行情下保证金追缴现金压力", "行业通用实践"], ["生存期测算", "极端情景下组合可存续时间测算与红线", "行业通用实践"]]]]],
+ ["d15", "紧急预案与演练", "Playbook and Drills", "成长", "保证处置能力真实存在的运营体系，预案必须演练过才算存在", [["风险事件预案库", [["场景预案模板", "暴跌、违约、流动性枯竭等场景处置预案模板化", "行业通用实践"], ["预案系统联动", "预案动作映射到系统可执行操作一键下发", "行业通用实践"], ["决策权矩阵", "预案明确各级触发条件与对应决策人", "行业通用实践"], ["预案版本管理", "预案评审、修订、发布版本化管理", "行业通用实践"]]], ["演练编排与评估", [["桌面推演", "定期桌面推演检验决策链路", "行业通用实践"], ["实战演练", "真实系统环境注入模拟事件演练处置", "行业通用实践"], ["演练评估打分", "响应时延、动作正确性量化评估", "行业通用实践"], ["演练问题整改", "演练暴露问题工单化限期整改复测", "行业通用实践"]]], ["预案与系统联动", [["一键应急模式", "应急模式切换下行情源、交易权限、审批流联动调整", "行业通用实践"], ["应急通信树", "应急联络树自动唤起与应答跟踪", "行业通用实践"], ["演练数据隔离", "演练流量与生产数据严格隔离防污染", "行业通用实践"], ["预案有效性复审", "重大市场事件后强制复审预案有效性", "行业通用实践"]]]]],
+ ["d16", "复盘与归因", "Post-Mortem and Attribution", "成熟", "把风险事件变成组织记忆的闭环机制，时间线、归因、改进全程可追溯", [["风险事件时间线", [["事件自动时间轴", "行情、委托、告警、处置自动生成事件时间轴", "行业通用实践"], ["关键节点标注", "人工标注决策节点与理由，补充机器盲区", "行业通用实践"], ["多方证据汇聚", "交易、风控、清算多方记录汇聚同一事件卷宗", "行业通用实践"], ["时间轴防篡改", "事件时间轴归档后不可修改，只允许追加批注", "行业通用实践"]]], ["损失与责任归因", [["损失归因分解", "损失按市场、执行、处置延迟归因分解", "Axioma Risk"], ["控制缺陷定位", "定位是规则缺失、参数不当还是执行延误", "行业通用实践"], ["责任认定支持", "为内部问责与对外争议提供客观依据", "行业通用实践"], ["同类事件聚类", "跨产品同类事件聚类识别系统性缺陷", "行业通用实践"]]], ["改进项跟踪", [["整改工单化", "复盘结论转整改工单，责任人与期限明确", "行业通用实践"], ["整改验证闭环", "整改完成后用历史事件回放验证有效性", "行业通用实践"], ["规则沉淀", "复盘结论固化为新预检规则或限额参数", "行业通用实践"], ["复盘知识库", "复盘案例检索化，支持培训与预案迭代", "行业通用实践"]]]]],
+ ["d17", "审计与留痕", "Audit and Evidence", "核心", "让每个控制动作可举证的证据体系，防篡改、可回放、可检查", [["决策留痕", [["控制决策留痕", "每次放行、拒绝、熔断、强平均记录决策依据与执行人", "行业通用实践"], ["人工干预留痕", "人工覆盖系统结论必须记录理由与授权链", "行业通用实践"], ["决策可解释", "预检拒绝理由输出可读解释", "行业通用实践"], ["留痕完整性校验", "留痕记录完整性定期校验，缺失即告警", "行业通用实践"]]], ["不可篡改日志", [["哈希链日志", "关键日志哈希链接防止事后篡改", "行业通用实践"], ["日志异地备份", "审计日志实时异地备份防单点损毁", "行业通用实践"], ["访问审计", "对留痕数据的查询与导出本身也被审计", "行业通用实践"], ["存档年限合规", "日志存档年限满足监管与诉讼时效要求", "行业通用实践"]]], ["监管检查举证", [["一键举证包", "按检查主题一键导出完整证据包", "行业通用实践"], ["回放重算", "任意历史时点控制决策可回放重算验证", "Bloomberg TERP"], ["问询响应跟踪", "监管问询响应台账化跟踪闭环", "行业通用实践"], ["审计接口", "内审与外审权限隔离的只读审计入口", "行业通用实践"]]]]],
+ ["d18", "报送与风险报告", "Reporting and Risk Reporting", "成熟", "对接监管与治理层的输出面，报表口径与控制引擎同源", [["风控指标报表", [["日度风控报表", "限额占用、违规、敞口日度自动出表", "行业通用实践"], ["异常波动报告", "风险指标异常波动自动生成专项报告", "Bloomberg PORT"], ["报表口径一致", "报表指标与预检、监控使用同一口径引擎", "行业通用实践"], ["报表分发管控", "敏感风控报表按权限定向分发", "行业通用实践"]]], ["监管与董事会报送", [["监管报送模板", "风控指标监管报送模板化管理与自动生成", "行业通用实践"], ["程序化交易报告", "程序化交易信息按规定报告并保持更新", "行业通用实践"], ["董事会风险报告", "面向董事会的风险偏好执行情况报告", "行业通用实践"], ["报送留痕", "报送内容、时间、接收方全程留痕", "行业通用实践"]]], ["例外与整改报告", [["违规台账", "限额违规与例外事项台账化管理", "行业通用实践"], ["例外审批报告", "例外事项审批链与理由自动汇总报告", "行业通用实践"], ["整改跟踪报告", "风控整改事项进度定期向管理层报告", "行业通用实践"], ["监管指标预警", "监管指标临近边界自动预警并预演应对", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["云原生预检前置", "live", "用云原生网关重构事前预检，限额规则热更新与弹性扩容替代传统前置机", "券商前置机换代窗口"],
+ ["实时限额看板", "live", "限额占用与违规情况秒级看板化，替代日报滞后", "机构风控升级刚需"],
+ ["风控数据湖", "live", "把头寸、敞口、行情、控制记录统一入湖并口径化", "大机构风控中台建设预算"],
+ ["移动审批与告警", "live", "风控审批、熔断确认、强平复核移动端完成", "风控全天候响应诉求"],
+ ["压力测试流水线", "live", "情景库、计算、报告全流程自动化定期执行", "监管压力测试常态化要求"],
+ ["统一敞口API", "live", "敞口台账以API服务预检、报送、绩效等下游", "消除多系统口径打架"],
+ ["多账户归并风控", "live", "集团多牌照多账户敞口穿透归并视图", "金控并表监管推动"],
+ ["预检性能改造", "live", "预检时延从毫秒级向微秒级优化", "量化与高频业务扩容"],
+ ["自动减仓算法", "pilot", "按冲击成本模型自动生成并执行分批减仓计划", "处置时效敏感的中小机构"],
+ ["对冲组合优化器", "pilot", "对冲工具、手数、成本多目标优化建议", "衍生品使用度提升"],
+ ["尾部风险预警模型", "pilot", "机器学习识别波动聚集与尾部风险前兆", "替代纯阈值告警的误报问题"],
+ ["风险叙事自动生成", "pilot", "大模型生成风险报告初稿与事件叙述，人工复核签发", "报告人力成本压缩"],
+ ["演练数字孪生", "pilot", "用历史事件重放构建演练环境并自动评估", "演练常态化要求"],
+ ["限额优化建议", "pilot", "基于占用历史与闲置率建议限额再分配", "大机构额度资源错配"],
+ ["反向压力测试", "pilot", "从重大损失倒推需要的情景，暴露情景盲区", "监管问询升级"],
+ ["跨资产统一敞口", "pilot", "现货、衍生品、融券统一敞口折算计量", "衍生品绕限额的堵漏需求"],
+ ["实时组合仿真引擎", "explore", "委托级组合影响毫秒级仿真，预检从规则走向全量影响评估", "算力成本与工程化"],
+ ["处置策略强化学习", "explore", "在仿真环境训练减仓与对冲策略并人工监督使用", "可解释性与合规审查"],
+ ["隐私计算敞口共享", "explore", "跨机构在不出数前提下计量合并敞口", "集团与联合风控场景"],
+ ["处置留痕上链存证", "explore", "关键控制证据上链存证增强证据效力", "司法认定进度"],
+ ["因子级实时风险", "explore", "因子敞口日内实时计算与限额", "因子投资渗透率"],
+ ["气候与转型情景", "explore", "气候转型情景纳入长期组合压力测试", "监管议题演进"],
+ ["生成式风控助手", "explore", "自然语言查询敞口、解释违规、起草预案", "大模型能力成熟度"],
+ ["对抗性情景生成器", "explore", "自动生成覆盖盲区的对抗性压力情景", "传统情景库固化风险"]
+];
+const MIDS = [
+ ["头寸与持仓数据", "提供全机构唯一可信头寸事实源", "多源归集、实时更新、对账修正"],
+ ["风险敞口台账", "把头寸翻译成各口径风险敞口的唯一台账", "穿透归并、口径版本化、快照回放"],
+ ["限额规则库", "承载全部限额定义与生命周期的规则中枢", "限额树建模、分配审批、占用计量"],
+ ["市场数据与估值输入", "为风控计算提供可信行情与估值", "多源接入、估值服务、数据质量"],
+ ["参照组合与基准", "提供基准与相关性等对照系数据", "因子敞口、映射治理、集中度辅助"],
+ ["事前预检引擎", "在交易路径上执行硬拦截的规则引擎", "规则编排、拒单决策、性能保障"],
+ ["集中度与敞口限额", "执行集中度与敞口类限额的事前控制", "单一标的、组合杠杆、跨账户归并"],
+ ["止损线与回撤控制", "把回撤纪律自动化执行的控制器", "止损分级、阶梯处置、风险预算"],
+ ["授权与交易权限矩阵", "管理谁能交易什么的权限中枢", "权限矩阵、额度授权、变更审批"],
+ ["实时风险监控", "让风险状态秒级可见的监控中枢", "实时指标、多维视图、告警升级"],
+ ["熔断与强平引擎", "执行最强处置动作的自动化引擎", "熔断恢复、强平执行、合规约束"],
+ ["降杠杆与减仓编排", "把减仓处置变成可编排流程的调度器", "计划生成、跨品种协调、效果跟踪"],
+ ["对冲指令执行", "连接风险决策与交易执行的桥梁", "方案生成、指令路由、效果归因"],
+ ["流动性与压力测试", "度量极端条件下生存能力的工作台", "流动性分级、情景计算、极端加压"],
+ ["紧急预案与演练", "保证处置能力真实存在的运营体系", "预案库、演练评估、系统联动"],
+ ["复盘与归因", "把事件变成组织记忆的闭环机制", "时间线、归因、改进跟踪"],
+ ["审计与留痕", "让每个控制动作可举证的证据体系", "决策留痕、防篡改、检查举证"],
+ ["报送与风险报告", "对接监管与治理层的输出面", "指标报表、监管报送、例外报告"]
+];
+const RULES = [
+ ["事前硬拦截是底线，事后报警不算风控", "违规成交后的一切补救都是亏损与责任的分摊谈判"],
+ ["风控数据必须与真实持仓同源", "两套头寸源必然漂移，漂移期间所有限额判定都是自欺"],
+ ["强平顺序必须确定性规则化", "临场随意挑选平仓标的，事后必被质疑利益输送"],
+ ["风控系统必须独立于交易系统部署", "运动员兼裁判，风控永远会在关键时刻给业务让路"],
+ ["每一次人工绕行都必须留痕审批", "绕行一旦成为惯例，整套规则体系即告失效"],
+ ["止损线触达必须自动升级不可拖延", "人为犹豫是亏损从可控滑向灾难的最常见通道"],
+ ["熔断恢复必须有冷却期与人工确认", "V型反复触发熔断本身就是流动性灾难"],
+ ["压力情景必须定期校准", "用过时情景测试新组合，得到的是虚假安全感"],
+ ["预检时延必须有硬预算", "风控太慢会被业务以流动性为由要求旁路"],
+ ["限额必须有有效期与定期复核", "长期无人复核的限额会在事实上被无限突破"],
+ ["授权矩阵变更必须双人复核", "单点可改权限等于给内部人风险开门"],
+ ["敞口口径变更必须版本化并双跑", "口径漂移会无声毁掉全部历史可比性"],
+ ["风控结论必须可回放重算", "不能复现的结论既过不了监管也过不了仲裁"],
+ ["紧急预案演练过才算存在", "未演练的预案在真实事件中贡献的是混乱而非秩序"],
+ ["关联方敞口必须穿透合并", "借道与嵌套是规避集中度的第一手段"],
+ ["风控团队考核不得挂钩业务收入", "利益冲突会让最完善的规则也长出例外"]
+];
+const KPIS = [
+ ["控制有效性", "限额覆盖率、违规拦截率、旁路笔数"],
+ ["时效性", "预检时延P99、敞口更新延迟、强平响应时延"],
+ ["数据质量", "头寸对账差异率、行情完整性、估值偏差"],
+ ["告警质量", "误报率、告警闭环率、升级及时率"],
+ ["处置质量", "处置计划达成率、滑点偏差、回撤修复时长"],
+ ["治理成熟度", "演练完成率、整改闭环率、预案复审及时率"],
+ ["举证能力", "留痕完整率、回放重算成功率、检查响应时长"],
+ ["监管合规", "监管指标达标天数、报送及时率、例外事项占比"]
+];
+const LIC_CN = [
+ ["证券公司风险控制指标管理办法（证监会）", "证券公司自营与两融等业务的净资本类指标监测", "风控平台须能按监管口径计算并预警净资本类指标"],
+ ["证券公司全面风险管理规范（中证协）", "覆盖各类风险的限额管理体系建设", "限额体系须分级、可计量、可监控并有问责安排"],
+ ["公开募集证券投资基金运作管理办法", "公募基金投资比例限制", "投资限制须内置为事前硬性预检规则"],
+ ["关于规范金融机构资产管理业务的指导意见（资管新规）", "资管产品净值化与杠杆、嵌套限制", "杠杆与多层嵌套敞口须可穿透计量"],
+ ["期货和衍生品法", "场内外衍生品交易与风控合规开展", "衍生品敞口折算与保证金监控须满足法规要求"],
+ ["期货交易管理条例及期货交易所管理办法", "客户保证金监控与强行平仓业务", "追保与强平流程须严格按交易所与合同规则执行"],
+ ["期货公司风险监管指标管理办法", "期货公司风险监管指标持续达标", "须提供指标计算与临界预警能力"],
+ ["商业银行理财业务监督管理办法", "银行理财杠杆与非标比例限制", "理财组合限额与杠杆监控须产品化"],
+ ["商业银行全面风险管理指引", "银行各类风险限额管理体系的建立与运行", "限额治理架构与报告路线须匹配监管要求"],
+ ["私募证券投资基金运作指引（中基协）", "私募证券基金杠杆与集中度约束", "私募组合集中度须可穿透至底层并监控"],
+ ["证券市场程序化交易管理规定（证监会）", "程序化交易报告与差异化监管", "程序化策略风控参数须与报告口径一致并留痕"],
+ ["证券基金经营机构信息技术管理办法", "核心业务系统的信息技术治理与安全", "风控系统按核心系统标准执行变更、灾备与演练"],
+ ["网络安全等级保护制度", "系统等级保护定级备案与测评", "风控平台须完成等保定级并按级别建设"],
+ ["数据安全法与个人信息保护法", "客户与交易数据的分级分类保护", "风控数据使用须最小必要并全程留痕"],
+ ["基金管理公司内部控制指导意见", "投资、交易、风控岗位分离与授权控制", "权限矩阵与职责分离须满足内控要求"]
+];
+const LIC_INTL = [
+ ["SEC Rule 15c3-5（Market Access Rule）", "美国券商为客户提供市场接入前的风控前置", "须部署事前财务与监管风险控制后方可放行委托"],
+ ["SEC Rule 206(4)-7（Compliance Rule）", "投资顾问合规程序与年度审查", "合规控制须可检验并支撑年度审查证据"],
+ ["MiFID II / RTS 6（欧盟）", "算法交易与高频交易的风控要求", "须具备限频、限价、杀开关等事前控制"],
+ ["UCITS 指令", "欧盟公募基金投资限制", "百分之五、百分之十、百分之四十等投资限制须作为硬性预检规则"],
+ ["FINRA Rule 4210", "保证金账户维持要求", "保证金监控与追保计算须匹配规则口径"],
+ ["BCBS 239（风险数据加总与风险报告原则）", "银行风险数据加总与报告治理", "敞口数据须满足准确性、完整性、及时性与可加总性"],
+ ["IOSCO 交易风控与算法交易指导原则", "交易场所与中介风控基准", "限价、限频、熔断类控制须成体系"],
+ ["FCA SM&CR（英国高级管理人员与认证制度）", "受监管机构个人问责机制", "风控责任须落到可指名的高管并留决策证据"]
+];
+const OPPS = [
+ ["事前预检低延时化", "传统前置机架构老化、时延受限", "以云原生网关与规则热更新切入换代市场"],
+ ["限额体系咨询加实施", "多数机构限额仍在表格中管理", "从限额梳理咨询切入带动系统落地"],
+ ["强平与降杠杆编排", "处置环节大量依赖手工", "以处置自动化卖给中小私募与期货公司"],
+ ["风控留痕与举证", "监管检查时翻不出完整证据", "以可回放审计能力做差异化"],
+ ["演练即服务", "预案普遍未经演练", "打包演练场景库与评估工具"],
+ ["多账户归并风控", "集团多牌照账户割裂", "以穿透归并为核心能力切入金控与集团客户"],
+ ["对冲执行一体化", "风控决策与执行系统割裂", "从降杠杆到对冲指令的闭环能力"],
+ ["压力测试流水线", "手工跑情景费时费力", "情景工厂自动化按订阅交付"],
+ ["移动审批与告警", "风控员离场即失控", "移动端强平确认与分级告警切入"],
+ ["风控数据口径中台", "指标口径各系统不一", "统一口径数据底座平台化共建"],
+ ["AI风险叙事报告", "报告撰写人力成本高", "大模型生成初稿加人工复核签发"],
+ ["跨市场风控视图", "境内境外账户分散", "统一敞口视图切入跨境配置机构"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：限额 / 预检 / 熔断 / 敞口`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

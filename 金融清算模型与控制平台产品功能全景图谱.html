@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融清算模型与控制平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融清算模型与控制平台全景</b>
+    <span>金融清算模型与控制平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融清算模型与控制平台产品功能全景图谱</h1>
+    <p>把「金融清算模型与控制平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手不是算出一个保证金数字，而是让模型与参数的每一步变化都可控、可验证、可回滚、可举证。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是计算器，而是「模型引擎 + 参数控制面」的双层结构：下层把海量交易经轧差压缩成最小交收义务、把市场波动翻译成保证金要求，上层让参数的生产、审批、灰度、回滚全在受控轨道上。读图谱时始终追问：这个能力是算得更准，还是变更得更安全。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：模型与数据底座</td><td>清算会员头寸与交易数据、净额轧差算法引擎、结算风险度量、保证金模型（SPAN类）、压力情景库</td><td>模型的输入与核心算法层，数据不同源则一切输出不可信</td></tr>
+<tr><td>第二层（d6–d9）：模型与参数生产</td><td>参数校准工作台、模型回测与验证、情景回溯与假设分析、模型版本与批准流</td><td>把市场状态变成有证据的参数，是模型资产的生产线</td></tr>
+<tr><td>第三层（d10–d14）：参数控制与执行</td><td>清算参数控制台、灰度发布与回滚、阈值监控与告警、违约瀑布与流动性资源模型、日终轧差出金与盯市控制</td><td>参数上线与日终出清的执行面，控制的是变更风险与运行风险</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营</td><td>模型治理与文档、监管报送与披露、异常处置与应急预案、审计留痕与对账复核</td><td>模型被监管与会员信任的前提是可治理、可披露、可举证</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断：清算数据必须先做到任意历史日可完整复算；参数变更的影子验证与回滚能力必须先于参数生产存在；净额结算的法律可执行性口径必须先与法务冻结。</div>
+    <div class="danger">最容易被误当成成功信号的是「模型算得快」。清算模型的价值在于极端日子里算得对、参数改得稳；平时的速度指标掩盖不了极端日穿越率上升这个真正的失败信号。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：它是否降低了「参数变更到极端行情兑现」之间的不确定性；只让日常计算更炫、不提升极端情形覆盖与变更安全的，优先级一律靠后。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>轧差</td><td>把多边应收应付压缩为净额交收义务的算法及其法律框架</td><td>净额不可法律执行时，违约敞口按总额计，资源需求瞬间翻倍</td></tr>
+<tr><td>保证金参数</td><td>扫描区间、跨品抵扣、加成系数等决定保证金水平的模型参数</td><td>参数错误直接放大为全市场系统性风险</td></tr>
+<tr><td>压力情景</td><td>用于校准参数与测算资源的市场极端假设集合</td><td>情景覆盖有盲区，保证金在极端日集体失效</td></tr>
+<tr><td>影子运行</td><td>新参数与生产并行计算但不生效的验证机制</td><td>跳过影子直接上生产，等于拿全市场做试验</td></tr>
+<tr><td>违约瀑布</td><td>违约损失在保证金、预缴、自有与预缴资源间的吸收顺序</td><td>顺序临场变更摧毁预缴资源信任，引发挤兑式风险</td></tr>
+<tr><td>回测</td><td>保证金对实际盈亏覆盖能力的统计验证</td><td>穿越率超限不处置，等于向全市场举债补贴风险</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">期货与衍生品法规（保证金与净额的基础法律框架）、金融基础设施统筹监管（CCP与结算机构的持续监管）、交易所与登记结算业务规则（参数的执行边界）、数据与系统安全要求，四类监管域在清算模型平台交汇。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">一、保证金与净额安排必须有明确法律与业务规则依据，模型口径要与报送给监管和披露给会员的口径一致；二、参数重大变更涉及会员资金占用，须履行事前沟通或报备义务并留痕；三、违约处置与追保时限是合同与业务规则义务，系统实现不得偏离规则文本，否则自身面临问责。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿——从保证金参数的校准到发布全流程切入</li><li>第二步：建立可举证的基线——任意历史日可复算、参数变更全留痕</li><li>第三步：跑通最短闭环——一次参数变更走完影子、灰度、回滚的完整演练</li><li>第四步：补第二个增值能力——回测穿越监控与偏差归因自动化</li><li>第五步：把承诺写进合同——变更安全指标与审计响应时长写成SLA</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：卖给清算机构的参数控制台与治理平台（项目制共建）</li><li>路径 B：会员侧保证金透明化与优化SaaS（按组合订阅）</li><li>路径 C：回测与压力测试流水线订阅（模型运营外包）</li><li>路径 D：清算数据湖与报送自动化（数据平台切入）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点是「可复算、可举证的清算数据与模型资产」——没有任意日重算能力与参数全留痕，控制台、回测、报送都是空中楼阁；第一资产是模型与参数的完整证据链。</div>
+  </section>
+
+  <footer>
+    <p>金融清算模型与控制平台产品功能全景图谱 · 生成于 2026-09-28 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "总览导读"],
+ ["s1", "平台形态与商业本质"],
+ ["s2", "模型与数据底座"],
+ ["s3", "模型与参数生产"],
+ ["s4", "参数控制与执行"],
+ ["s5", "治理运营与审计"],
+ ["s6", "前沿方向"],
+ ["s7", "合规与监管"],
+ ["s8", "落地路径"],
+ ["s9", "商业机会"]
+];
+const PLAYERS = [
+ ["CCP清算模型平台", "LCH、CME、OCC(STANS)", "上清所、中金所、中国结算体系", "保证金与轧差模型即清算所核心资产"],
+ ["保证金模型服务商", "OpenGamma、OSTTRA(TriOptima)", "行业通用实践", "为机构与清算所提供保证金计算与优化服务"],
+ ["银行间结算风控", "FIS、Murex", "银行间市场清算结算体系", "券款与衍生品结算风险的度量与控制"],
+ ["券商清算结算风控", "DTCC", "证券登记结算风控体系", "证券交收资金与证券风险的量化控制"],
+ ["保证金计算SaaS", "OpenGamma Cloud、Acadia(OSTTRA)", "行业通用实践", "机构侧保证金透明化与占用优化的订阅服务"],
+ ["模型风控中台", "Adenza、Numerix", "大型清算机构自研中台", "清算模型与参数的全生命周期平台化"]
+];
+const DOMAINS = [
+ ["d1", "清算会员头寸与交易数据", "Clearing Member Positions and Trade Data", "核心", "为全部清算模型提供可信输入，多源接入、可对账、任意时点可复算", [["交易数据接入与清洗", [["成交数据接入", "场内成交数据按时序接入清算引擎，缺漏自动补齐", "DTCC"], ["报撤单流清洗", "报撤单流清洗用于会员交易行为与持仓监控", "行业通用实践"], ["场外数据接入", "场外衍生品集中报备数据接入统一清算敞口视图", "行业通用实践"], ["时点标准化", "所有接入数据打时点戳并标准化，支撑任意时点复算", "行业通用实践"]]], ["会员头寸聚合", [["会员净头寸聚合", "按会员与产品聚合净头寸，作为轧差计算的输入", "LCH"], ["子账户拆分", "会员下设子账户头寸独立聚合，支持差异化保证金", "CME"], ["跨品种头寸映射", "标的与到期映射表把不同合约头寸映射到风险单元", "Eurex"], ["头寸快照回放", "清算时点头寸快照永久留存，支持争议复算", "行业通用实践"]]], ["数据质量与对账", [["与交易所对账", "成交结算数据与交易所逐笔对账，差异阻断清算", "行业通用实践"], ["会员报送核对", "会员持仓申报与清算所计算核对，偏差超阈值告警", "行业通用实践"], ["静态数据质量", "合约要素与会员资料的静态数据质量指标化监控", "行业通用实践"], ["坏数据隔离", "坏数据进入隔离区，未修复数据不得进入模型计算", "行业通用实践"]]]]],
+ ["d2", "净额轧差算法引擎", "Netting Algorithm Engine", "核心", "把海量交易压缩为最小交收义务，轧差结果可逐笔还原、可解释", [["双边净额计算", [["双边净额轧差", "会员间双边应收应付轧差为净额，减少交收笔数与资金占用", "DTCC"], ["券款分别轧差", "证券与资金分别轧差并匹配交收路径", "行业通用实践"], ["轧差批次管理", "按交收周期组织轧差批次，批次间衔接规则明确", "行业通用实践"], ["轧差结果核验", "净额结果与总额口径交叉校验，防漏单与重复轧差", "行业通用实践"]]], ["多边净额轧差", [["中央对手方多边轧差", "以CCP为中央对手方做多边净额轧差，压缩系统性敞口", "LCH"], ["多资产合并轧差", "现金、债券、衍生品保证金与盈亏合并轧差出金", "CME"], ["轧差性能约束", "轧差引擎须在交收时限内完成全市场计算，延迟P99受控", "DTCC"], ["轧差可解释性", "每个会员净额可逐笔还原到原始交易，支撑监管问询", "行业通用实践"]]], ["终止净额与违约轧差", [["终止净额计算", "违约时按主协议对未到期交易计算终止净额敞口", "OSTTRA(TriOptima)"], ["净额法律有效性", "轧差安排须置于法律可执行的净额结算框架，否则违约敞口按总额计", "ISDA"], ["违约组合隔离", "违约会员组合隔离与快速轧差出清机制", "LCH"], ["不确定性缓冲", "终止净额完成前的替代成本不确定性设缓冲计量", "行业通用实践"]]]]],
+ ["d3", "结算风险度量模型", "Settlement Risk Measurement", "核心", "度量交收时点与结算全流程的风险，失败、敞口、流动性三类可量化", [["结算失败风险度量", [["交收失败率度量", "按券种与会员度量交收失败率并设阈值", "DTCC"], ["失败成本模型", "失败惩罚与补救成本模型化，激励按时交收", "行业通用实践"], ["失败归因分析", "资金不足、券不足、指令错误等失败原因结构化归因", "行业通用实践"], ["失败预警", "大额交收前资金与券到位预检，提前预警失败风险", "行业通用实践"]]], ["交收期敞口模型", [["货银对付敞口", "DVP模式下交收时点敞口建模，识别DVP覆盖外的风险敞口", "行业通用实践"], ["交收周期风险", "交收周期越长敞口越大，周期参数纳入风险度量", "行业通用实践"], ["时点间敞口监控", "轧差完成到交收完成之间的敞口实时监控", "DTCC"], ["参与人敞口联动", "结算参与人净额敞口与最低结算备付金联动", "行业通用实践"]]], ["结算流动性度量", [["流动性需求测算", "极端情况下为完成交收所需流动性资源测算", "行业通用实践"], ["违约流动性缺口", "会员违约情景下违约瀑布各层资源缺口测算", "LCH"], ["出金节奏控制", "出金速率与可用流动性资源联动控制", "行业通用实践"], ["流动性压力指标", "结算备付金覆盖倍数等流动性指标日度监控", "行业通用实践"]]]]],
+ ["d4", "保证金模型（SPAN类）", "Margin Model (SPAN-like)", "核心", "计算覆盖极端波动的保证金要求，扫描参数、抵扣、追保全链路", [["扫描风险参数", [["价格扫描区间", "SPAN类价格扫描区间参数按波动率与极端分位数校准", "CME SPAN"], ["跨月跨品价差", "跨月价差与跨品种抵扣参数集中治理", "LCH SPAN"], ["波动率扫描", "期权波动率扫描区间与曲线风险参数设定", "Eurex"], ["空头附加", "空头头寸额外折价参数从严设置", "行业通用实践"]]], ["跨品抵扣与净额", [["抵扣矩阵", "相关性支持的跨品种保证金抵扣矩阵定期重估", "CME SPAN"], ["组合内净额抵扣", "同标的买卖方向头寸净额抵扣计算保证金", "LCH"], ["抵扣敏感性", "抵扣参数变动对总保证金收入影响定期量化", "OpenGamma"], ["抵扣边界治理", "抵扣上限与排除规则防止过度抵扣", "行业通用实践"]]], ["最低保证金与追加", [["最低保证金底线", "模型保证金设最低底线，极端行情下有硬约束", "LCH"], ["日内追保", "盘中波动触发日内保证金追缴计算与通知", "CME"], ["多币种保证金", "多币种保证金折算与货币集中度附加", "LCH"], ["会员级汇总", "子账户到会员到集团的保证金汇总与信用额度联动", "行业通用实践"]]]]],
+ ["d5", "压力情景库", "Stress Scenario Library", "核心", "为参数校准与资源测算提供情景输入，历史、假设、前瞻全覆盖", [["历史情景维护", [["危机情景重放", "历次市场危机重放情景参数化入库并定期复核", "LCH"], ["本土特征情景", "涨跌停、流动性分层等本土市场特征情景建模", "行业通用实践"], ["情景参数版本", "情景参数版本化，历史保证金可按当时情景复现", "行业通用实践"], ["情景衰减评估", "老旧情景代表性定期评估，低代表性情景降权", "行业通用实践"]]], ["假设情景构造", [["极端假设情景", "超越历史区间的假设性极端情景构造工具", "OCC STANS"], ["相关性崩溃情景", "相关性趋同与流动性枯竭叠加的压力情景", "行业通用实践"], ["多因子联动情景", "价格、波动、流动性、汇率多因子联动冲击", "LCH"], ["前瞻情景机制", "基于当前宏观结构的前瞻性情景委员会机制", "行业通用实践"]]], ["情景覆盖度评估", [["覆盖缺口识别", "按资产与风险因子评估情景覆盖缺口", "OCC STANS"], ["对抗性测试", "主动寻找使保证金不足的对抗性情景", "行业通用实践"], ["情景库审计", "情景库完整性与覆盖度纳入模型审计范围", "行业通用实践"], ["监管情景对齐", "监管要求的情景必须纳入并保留映射关系", "ESMA"]]]]],
+ ["d6", "参数校准工作台", "Parameter Calibration Workbench", "成长", "把市场状态转成模型参数的工作台，估计可复现、试算可比对", [["波动率与相关性估计", [["波动率流水线", "多窗口波动率估计流水线并自动质检", "Numerix"], ["相关性收缩", "相关性矩阵估计与正定化收缩处理", "OpenGamma"], ["样本期治理", "估计样本期选择规则化，防止人为挑选结果", "行业通用实践"], ["稳健性检验", "参数对样本扰动的稳健性自动检验", "行业通用实践"]]], ["极端波动参数", [["极值外推", "超出历史样本的极端波动用极值理论外推", "行业通用实践"], ["压力加成", "参数在基础估计之上叠加压力加成系数", "LCH"], ["涨跌停修正", "涨跌停制度下波动截断的参数修正", "行业通用实践"], ["新合约冷启动", "新上市合约参数冷启动规则与快速校准", "行业通用实践"]]], ["参数试算与比对", [["全市场试算", "新参数对全市场保证金总量影响的试算", "CME"], ["会员影响分析", "参数变化对重点会员保证金变化的归因", "行业通用实践"], ["参数比价", "与同类清算机构同类产品参数水平定期比价", "OpenGamma"], ["试算留痕", "每次试算的输入输出留痕可查", "行业通用实践"]]]]],
+ ["d7", "模型回测与验证", "Model Backtesting and Validation", "核心", "证明模型覆盖能力的第一证据，穿越分析、独立验证、偏差归因", [["保证金回测穿越分析", [["逐日穿越率", "保证金对逐日盈亏的回测穿越率统计与阈值预警", "LCH"], ["滚动窗口回测", "滚动窗口回测识别模型恶化趋势", "行业通用实践"], ["尾部穿越分析", "极端日穿越次数单列分析，防均值掩盖", "OCC STANS"], ["强制加参", "回测穿越超限触发参数上调的硬性规则", "行业通用实践"]]], ["模型验证与独立复核", [["独立验证团队", "模型验证独立于模型开发团队", "行业通用实践"], ["替代模型基准", "用替代模型对关键输出做基准比对", "Numerix"], ["假设逐项验证", "模型假设清单化逐项验证", "行业通用实践"], ["验证报告制度", "验证结论与限制条件成文并跟踪整改", "行业通用实践"]]], ["偏差归因", [["穿越归因分解", "穿越事件按参数、情景、头寸结构归因", "行业通用实践"], ["偏差仪表盘", "模型输出与实际损益偏差持续监控", "OpenGamma"], ["系统性偏差预警", "同类产品系统性偏差自动预警", "行业通用实践"], ["归因到行动", "归因结论必须落到参数或情景修正动作", "行业通用实践"]]]]],
+ ["d8", "情景回溯与假设分析", "Scenario Replay and What-if Analysis", "成长", "回答如果当初会怎样的推演能力，沙盒、重放、冲击三件套", [["假设分析模拟", [["参数沙盒", "假设调整的沙盒环境，不触碰生产配置", "行业通用实践"], ["组合级模拟", "重点会员组合在新假设下的保证金模拟", "OpenGamma"], ["联动模拟", "保证金参数与违约瀑布资源联动模拟", "LCH"], ["方案对比", "假设方案间自动对比与决策支持报表", "行业通用实践"]]], ["历史事件重放", [["行情重放", "把历史危机日行情重放进当前参数体系", "行业通用实践"], ["参数回填测试", "当前参数在历史危机日的充分性测试", "LCH"], ["重放留档", "重放测试结果归档支撑模型审议", "行业通用实践"], ["多危机对比", "多个危机事件横截面对比找参数盲区", "行业通用实践"]]], ["参数冲击分析", [["单参数敏感性", "单参数变动对全市场保证金与会员分布的敏感性", "行业通用实践"], ["联动冲击", "多参数同时调整的联合冲击分析", "OpenGamma"], ["临界点识别", "识别会员资金链的临界冲击水平", "行业通用实践"], ["预案联动", "冲击分析结论联动流动性资源预案", "行业通用实践"]]]]],
+ ["d9", "模型版本与批准流", "Model Versioning and Approval", "核心", "保证变更有序可控的治理闸门，版本、审批、生效全程可追溯", [["模型版本管理", [["同版本管理", "模型代码、参数、文档同版本管理", "行业通用实践"], ["差异比对", "版本间参数与逻辑差异自动比对报告", "行业通用实践"], ["环境隔离", "开发、验证、生产版本环境严格隔离", "行业通用实践"], ["历史可运行", "任意历史版本可完整复现当时输出", "行业通用实践"]]], ["审批工作流", [["变更审批流", "模型与参数变更多级审批线上化", "行业通用实践"], ["委员会审议", "重大参数变更风险管理委员会审议留痕", "LCH"], ["紧急通道", "紧急调整快速通道但事后强制补审", "行业通用实践"], ["条件核验", "审批通过自动核验前置条件满足才允许发布", "行业通用实践"]]], ["生效与追溯", [["生效时点管理", "参数生效时点与市场日历对齐", "行业通用实践"], ["验证观察窗", "生效后设验证观察窗，异常自动触发回退评估", "行业通用实践"], ["全链路追溯", "任意时点输出可追溯到模型版本、参数、输入", "行业通用实践"], ["年度再确认", "模型年度再确认制度，逾期未确认降级使用", "行业通用实践"]]]]],
+ ["d10", "清算参数控制台", "Clearing Parameter Console", "核心", "保证金、轧差、阈值参数配置的唯一权威入口，权限与职责分离", [["参数配置管理", [["中央配置", "保证金、轧差、阈值参数中央配置唯一入口", "行业通用实践"], ["依赖校验", "参数间依赖与冲突自动校验", "行业通用实践"], ["参数模板", "按产品族的参数模板化下发", "CME"], ["变更工单", "一切配置变更走工单与审批", "行业通用实践"]]], ["环境与发布", [["发布流水线", "测试、仿真、生产的参数发布流水线化", "行业通用实践"], ["发布前校验", "发布前自动校验参数合法性与总量影响", "行业通用实践"], ["发布窗口", "发布窗口避开交收关键时段", "行业通用实践"], ["发布归档", "每次发布内容、审批人、时间归档", "行业通用实践"]]], ["权限与职责分离", [["配置权限矩阵", "谁能修改哪类参数的权限矩阵化管理", "行业通用实践"], ["双人复核", "关键参数双人录入复核才可生效", "行业通用实践"], ["强制职责分离", "参数制定、审批、发布角色强制分离", "行业通用实践"], ["权限复核", "配置权限季度复核与回收", "行业通用实践"]]]]],
+ ["d11", "灰度发布与回滚", "Staged Rollout and Rollback", "成长", "让变更安全的三道保险：影子运行、灰度放量、一键回滚", [["影子运行", [["影子并行计算", "新参数与生产并行计算但不生效，输出偏差报告", "行业通用实践"], ["偏差阻断", "影子与生产偏差超阈值自动阻断发布", "行业通用实践"], ["影子保真", "影子环境数据与算力接近生产保真度", "行业通用实践"], ["影子报告评审", "影子运行报告作为放行的必要材料", "行业通用实践"]]], ["灰度放量", [["按产品灰度", "新参数先在小品种或单一会员范围灰度", "行业通用实践"], ["放量阶梯", "灰度到全量的阶梯标准与回退条件预定义", "行业通用实践"], ["灰度期监控", "灰度期核心指标强化监控与日报", "行业通用实践"], ["灰度出口", "灰度失败自动退出并保留现场", "行业通用实践"]]], ["一键回滚", [["一键回滚能力", "参数与模型一键回滚到上一稳定版本", "行业通用实践"], ["回滚演练", "回滚能力定期演练验证可用性", "行业通用实践"], ["回滚影响评估", "回滚时在途计算与通知的处理预案", "行业通用实践"], ["回滚复盘", "每次回滚强制复盘并沉淀规则", "行业通用实践"]]]]],
+ ["d12", "阈值监控与告警", "Threshold Monitoring and Alerting", "核心", "让模型漂移无处藏身的监控网，输出、参数、业务三层监控", [["模型输出监控", [["总量监控", "全市场保证金总量与结构异常监控", "行业通用实践"], ["穿越率监控", "回测穿越率作为生产监控指标持续跟踪", "LCH"], ["计算失败监控", "模型计算失败与超时实时告警", "行业通用实践"], ["分布漂移监控", "模型输出分布漂移统计检验告警", "行业通用实践"]]], ["参数漂移告警", [["超期告警", "参数长期未校准自动告警", "行业通用实践"], ["校准跳变告警", "校准结果跳变超限告警并阻断自动生效", "行业通用实践"], ["市况偏离监控", "参数与实际市况偏离度持续监控", "OpenGamma"], ["分级响应", "告警分级匹配响应时限与升级路径", "行业通用实践"]]], ["业务阈值联动", [["阈值联动", "保证金参数与信用额度、出金阈值联动", "行业通用实践"], ["突破处置", "阈值突破触发预案动作而非仅告警", "行业通用实践"], ["阈值评审", "业务阈值定期评审与市场结构匹配", "行业通用实践"], ["阈值审计", "阈值变更全量审计可回溯", "行业通用实践"]]]]],
+ ["d13", "违约瀑布与流动性资源模型", "Default Waterfall and Liquidity Model", "核心", "守住极端违约下生存底线的模型，分层建模、资源测算、处置演练", [["违约瀑布分层建模", [["瀑布分层", "保证金、违约方预缴、自有资源、会员预缴分层建模", "LCH"], ["损失分配规则", "各层损失吸收顺序与上限规则化", "行业通用实践"], ["瀑布仿真引擎", "会员违约情景下瀑布逐层仿真", "LCH"], ["充足度监控", "各层资源充足度指标内部定期监控", "行业通用实践"]]], ["流动性资源测算", [["压力需求测算", "极端情景下交收所需流动性总需求测算", "行业通用实践"], ["资源池盘点", "现金、授信、抵押品资源池日度盘点", "行业通用实践"], ["变现折价假设", "抵押品变现折价与时滞假设保守化", "行业通用实践"], ["缺口预案", "缺口情景下的补足预案与决策树", "行业通用实践"]]], ["违约处置演练", [["桌面演练", "违约处置流程定期桌面演练", "LCH"], ["拍卖演练", "违约组合拍卖与对冲机制演练", "LCH"], ["跨机构联动演练", "与银行、托管、监管的联动演练", "行业通用实践"], ["演练整改", "演练缺陷闭环整改与复测", "行业通用实践"]]]]],
+ ["d14", "日终轧差出金与盯市控制", "End-of-day Netting and Mark-to-Market Control", "核心", "每天准时正确出清的执行面：盯市、追保、出金、交收指令", [["盯市与盈亏计算", [["日终盯市", "全市场日终盯市盈亏计算与校验", "行业通用实践"], ["结算价格治理", "结算价格源主备机制与异常剔除规则", "CME"], ["盈亏复核", "盈亏计算结果抽样独立复核", "行业通用实践"], ["盯市异常处置", "价格异常导致盈亏异常的冻结与重算机制", "行业通用实践"]]], ["追保通知与出金控制", [["自动追保", "保证金缺口自动生成追保通知并跟踪回执", "行业通用实践"], ["出金闸门", "保证金未达标冻结出金的闸门控制", "行业通用实践"], ["追保时限", "追保时限规则化并与违约处置衔接", "LCH"], ["追保争议", "追保争议的复核通道与处理时限", "行业通用实践"]]], ["日终轧差交收指令", [["交收指令生成", "轧差结果生成证券与资金交收指令", "DTCC"], ["指令状态跟踪", "交收指令状态全程跟踪与失败重试", "行业通用实践"], ["时点硬控制", "轧差、出金、交收各环节时点硬控制", "行业通用实践"], ["手工应急通道", "系统异常时手工轧差指令的双人复核通道", "行业通用实践"]]]]],
+ ["d15", "模型治理与文档", "Model Governance and Documentation", "成熟", "让模型长期可信的治理体系：清单、分级、假设登记、影响评估", [["模型清单与分级", [["模型全清单", "所有在用模型集中清单化管理", "行业通用实践"], ["模型分级", "按系统性影响分级匹配验证深度", "行业通用实践"], ["负责人制", "每个模型有明确负责人与备份", "行业通用实践"], ["退役管理", "退役模型停用核查与归档", "行业通用实践"]]], ["文档与假设管理", [["假设登记簿", "模型假设集中登记与定期复核", "行业通用实践"], ["文档完整性", "方法论、限制条件、验证结论文档齐备", "行业通用实践"], ["变更联动", "模型变更与文档更新强制联动", "行业通用实践"], ["文档辅助", "大模型辅助起草与一致性检查，人工审定", "行业通用实践"]]], ["变更影响评估", [["影响分析", "模型变更对会员、市场、流动性的影响评估", "LCH"], ["跨模型依赖", "模型间依赖与传导影响识别", "行业通用实践"], ["对外沟通评估", "变更对会员沟通与过渡安排评估", "行业通用实践"], ["后评估", "变更实施后效果回看制度化", "行业通用实践"]]]]],
+ ["d16", "监管报送与披露", "Regulatory Reporting and Disclosure", "成熟", "对接监管与市场的输出面：方法披露、压力报送、问询台账", [["保证金与风险披露", [["方法披露", "保证金方法与主要参数对外披露口径管理", "LCH"], ["定期披露", "清算风险资源定期披露自动化", "行业通用实践"], ["披露一致性", "披露口径与内部模型口径一致性核查", "行业通用实践"], ["披露审批", "对外披露内容审批留痕", "行业通用实践"]]], ["压力测试报送", [["压力报告", "监管要求的压力情景测试报告自动化生成", "行业通用实践"], ["报送核对", "报送数据与内部账务核对一致", "行业通用实践"], ["报送日历", "报送时点日历与自动化提醒", "行业通用实践"], ["问询台账", "监管问询与反馈台账化闭环", "行业通用实践"]]], ["监管沟通台账", [["变更报备", "重大模型与参数变更事前沟通或报备", "行业通用实践"], ["意见落地", "监管意见转整改事项跟踪", "行业通用实践"], ["国际协作", "跨境清算监管协作资料管理", "行业通用实践"], ["报送质量", "报送及时率与差错率指标化", "行业通用实践"]]]]],
+ ["d17", "异常处置与应急预案", "Exception Handling and Contingency", "成长", "极端情形下不掉链子的运行保障：计算异常、行情应急、复盘改进", [["模型异常处置", [["备用参数", "模型计算失败时的备用参数与手工流程", "行业通用实践"], ["异常熔断", "模型输出明显异常时冻结生效并人工复核", "行业通用实践"], ["异常升级", "异常分级升级到模型负责人与管理层", "行业通用实践"], ["异常知识库", "历史异常案例库辅助快速定位", "行业通用实践"]]], ["极端行情应急", [["参数预案", "极端行情下保证金参数快速调整预案", "CME"], ["盘中追保应急", "盘中大规模追保的应急流程", "LCH"], ["应急指挥", "应急指挥角色与决策权限预设", "行业通用实践"], ["通信保障", "极端行情下通讯与算力保障预案", "行业通用实践"]]], ["复盘改进", [["强制复盘", "异常与应急事件强制复盘", "行业通用实践"], ["预案迭代", "复盘结论更新预案与参数规则", "行业通用实践"], ["协同复盘", "与交易所、存管银行协同复盘机制", "行业通用实践"], ["改进验收", "改进项落地验收标准预定义", "行业通用实践"]]]]],
+ ["d18", "审计留痕与对账复核", "Audit Trail and Reconciliation", "核心", "让每个数字可举证的证据体系：变更留痕、计算可复现、审计支持", [["参数变更留痕", [["变更全留痕", "参数变更人、审批链、时间、理由全留痕", "行业通用实践"], ["留痕防篡改", "关键留痕哈希链与异地备份", "行业通用实践"], ["历史状态视图", "任意历史时点参数状态视图复现", "行业通用实践"], ["异常变更稽核", "非常规时段变更自动稽核", "行业通用实践"]]], ["计算可复现", [["任意日重算", "任意历史清算日可完整重算", "行业通用实践"], ["输入快照", "计算输入全量快照留存", "行业通用实践"], ["复现比对", "重算与原结果自动比对工具", "行业通用实践"], ["重算隔离", "重算在隔离环境执行防影响生产", "行业通用实践"]]], ["内外部审计支持", [["审计取证包", "按审计主题一键取证", "行业通用实践"], ["审计接口", "内审与外审只读审计入口", "行业通用实践"], ["发现跟踪", "审计发现问题整改闭环跟踪", "行业通用实践"], ["审计日历", "年度审计计划与准备日历", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["参数日终自动化", "live", "参数校准、试算、审批、发布全流水线自动化", "清算机构模型运营降本"],
+ ["轧差引擎性能扩容", "live", "净额轧差引擎分布式改造支撑账户与品种增长", "交收时限刚性约束"],
+ ["压力情景流水线", "live", "情景库更新、计算、报告周期自动化", "监管压力测试常态化"],
+ ["模型回测自动化", "live", "保证金回测穿越率统计与报告自动化日更", "模型治理精细化"],
+ ["参数控制台多环境", "live", "测试仿真生产参数发布流水线与全程审计", "变更风险控制刚需"],
+ ["盯市追保自动化", "live", "盯市、追保通知、出金闸门自动化", "会员服务时效提升"],
+ ["清算数据湖", "live", "清算全链路数据入湖并口径化", "审计与监管分析需求"],
+ ["监管报送自动化", "live", "保证金与风险报送报表自动生成", "报送差错率压降"],
+ ["影子计算平台", "pilot", "新模型新参数全市场影子并行计算", "变更安全的核心抓手"],
+ ["反向压力测试", "pilot", "从资源不足倒推危险情景暴露盲区", "监管深水区议题"],
+ ["违约瀑布仿真", "pilot", "多会员同时违约的瀑布承受力仿真", "极端风险治理"],
+ ["尾部流动性参数", "pilot", "机器学习辅助极端流动性参数估计", "传统估计的尾部失真"],
+ ["生成式情景构造", "pilot", "生成式模型构造覆盖盲区的情景", "情景库固化风险"],
+ ["参数敏感度工具", "pilot", "参数变动影响的可视化敏感度分析", "委员会决策支持"],
+ ["标准化保证金研究", "pilot", "SIMM类标准化保证金模型的境内适用性研究", "场外衍生品发展"],
+ ["日内动态保证金", "pilot", "盘中波动触发的动态保证金调整机制", "波动加剧市场环境"],
+ ["实时连续净额清算", "explore", "从日终批处理走向日内连续净额轧差", "实时结算基础设施演进"],
+ ["智能合约参数执行", "explore", "参数以智能合约形式自动执行与回滚", "可信自动化基础设施"],
+ ["分布式账本DvP", "explore", "DLT券款对付与清算参数联动", "结算基础设施创新"],
+ ["联邦学习联合风险度量", "explore", "不出数前提下的跨清算机构联合风险度量", "数据壁垒约束"],
+ ["气候情景纳入保证金", "explore", "转型风险情景纳入长周期参数体系", "监管议题演进"],
+ ["模型护照数字化", "explore", "模型文档、验证、批准的数字化护照体系", "跨境监管互认"],
+ ["LLM模型文档助手", "explore", "大模型维护模型文档与问询应答草稿", "文档人力成本"],
+ ["量子算法组合优化", "explore", "量子优化用于违约组合处置与拍卖机制", "远期算力演进"]
+];
+const MIDS = [
+ ["清算会员头寸与交易数据", "为全部清算模型提供可信输入", "多源接入、头寸聚合、对账治理"],
+ ["净额轧差算法引擎", "把海量交易压缩为最小交收义务", "双边多边轧差、终止净额、可解释"],
+ ["结算风险度量模型", "度量交收时点与结算全流程风险", "失败度量、交收敞口、流动性需求"],
+ ["保证金模型（SPAN类）", "计算覆盖极端波动的保证金要求", "扫描参数、跨品抵扣、追保计算"],
+ ["压力情景库", "为参数与资源测算提供情景输入", "历史情景、假设情景、覆盖评估"],
+ ["参数校准工作台", "把市场状态转成模型参数", "波动估计、极端外推、试算比对"],
+ ["模型回测与验证", "证明模型覆盖能力的第一证据", "穿越分析、独立验证、偏差归因"],
+ ["情景回溯与假设分析", "回答如果当初会怎样的推演能力", "沙盒模拟、历史重放、冲击分析"],
+ ["模型版本与批准流", "保证变更有序可控的治理闸门", "版本管理、审批流、生效追溯"],
+ ["清算参数控制台", "参数配置的唯一权威入口", "中央配置、发布流水线、职责分离"],
+ ["灰度发布与回滚", "让变更安全的三道保险", "影子运行、灰度放量、一键回滚"],
+ ["阈值监控与告警", "让模型漂移无处藏身的监控网", "输出监控、漂移告警、阈值联动"],
+ ["违约瀑布与流动性资源模型", "守住极端违约下生存底线的模型", "瀑布分层、资源测算、处置演练"],
+ ["日终轧差出金与盯市控制", "每天准时正确出清的执行面", "盯市计算、追保出金、交收指令"],
+ ["模型治理与文档", "让模型长期可信的治理体系", "模型清单、假设登记、影响评估"],
+ ["监管报送与披露", "对接监管与市场的输出面", "方法披露、压力报送、问询台账"],
+ ["异常处置与应急预案", "极端情形下不掉链子的运行保障", "计算异常、行情应急、复盘改进"],
+ ["审计留痕与对账复核", "让每个数字可举证的证据体系", "变更留痕、可复现、审计支持"]
+];
+const RULES = [
+ ["净额轧差必须置于法律可执行框架", "净额不可执行时违约敞口按总额计，资源需求瞬间翻倍"],
+ ["保证金参数变更必须先影子后生效", "错误参数直接放大为全市场系统性风险"],
+ ["压力情景必须包含相关性崩溃", "平时低相关资产危机中同跌，抵扣假设全部失效"],
+ ["回测穿越超限必须强制加参", "容忍穿越等于向全市场举债补贴风险"],
+ ["盯市价格源必须有主备与异常剔除", "错误价格引发错误追保，连锁冲击会员资金链"],
+ ["违约瀑布顺序不能临场变更", "事后改规则摧毁预缴资源的信任基础"],
+ ["模型变更必须独立验证审批", "开发自批自审是模型事故的头号来源"],
+ ["轧差时限与交收时限必须匹配", "轧差延误直接转化为交收失败与流动性缺口"],
+ ["参数回滚能力必须演练", "不能回滚的参数发布等于单向门"],
+ ["清算数据必须可回放到任意历史日", "不可复算的清算结果在争议中必然败诉"],
+ ["极端行情算力必须预留峰值余量", "越需要模型的时刻越不能算不出来"],
+ ["追保时限规则必须写进业务规则并测试", "口头宽限会演变成选择性执行纠纷"],
+ ["抵扣参数必须防止过度抵扣", "过度抵扣的保证金会在危机中集体失效"],
+ ["模型假设变更必须重新验证报批", "悄悄改假设是模型漂移的隐形通道"],
+ ["出金闸门必须与保证金状态联动", "先出后补的资金缺口会感染清算资源池"],
+ ["模型团队考核不得挂钩清算收入", "降保证金冲收入的激励会掏空模型稳健性"]
+];
+const KPIS = [
+ ["模型有效性", "回测穿越率、尾部穿越次数、加参及时率"],
+ ["时效性", "轧差耗时P99、参数生效时长、追保通知及时率"],
+ ["变更安全", "影子偏差率、灰度回滚次数、变更差错数"],
+ ["数据质量", "对账差异率、坏数据拦截量、价格源异常次数"],
+ ["资源充足性", "瀑布各层覆盖率、流动性缺口测算更新频率"],
+ ["治理成熟度", "模型验证覆盖率、文档完备率、再确认及时率"],
+ ["举证能力", "重算成功率、留痕完整率、审计响应时长"],
+ ["运行稳定", "清算日完成率、交收失败率、应急演练达标率"]
+];
+const LIC_CN = [
+ ["期货和衍生品法", "衍生品集中清算与净额结算的法律基础", "终止净额结算与履约保障安排须依托该法框架"],
+ ["期货交易管理条例及期货交易所管理办法", "保证金制度、涨跌停与强行平仓制度", "保证金模型参数须匹配交易所制度框架"],
+ ["证券登记结算管理办法", "证券与资金交收的组织与风险管理", "结算风险管理须满足货银对付与备付金要求"],
+ ["金融基础设施统筹监管要求（人民银行等部门）", "系统重要性金融基础设施的监管评估", "模型与参数治理须满足基础设施监管评估要求"],
+ ["银行间市场清算所集中清算业务规则", "集中清算与集中结算业务", "净额与保证金安排按对应业务规则执行并留痕"],
+ ["NAFMII主协议及配套制度", "银行间衍生品终止净额与履约保障", "终止净额计算须与主协议条款严格一致"],
+ ["商业银行资本管理办法", "CCP风险暴露与保证金相关资本计量", "会员侧与清算侧资本口径需可解释可对接"],
+ ["证券公司场外衍生品业务管理相关规则", "场外期权与收益互换的风险控制", "对冲与保证金安排须满足风控指标与报送要求"],
+ ["中国期货保证金监控中心相关要求", "保证金安全存管与监控", "保证金数据须按监控要求报送并核对一致"],
+ ["支付结算管理办法（人民银行）", "支付结算业务规则与备付金管理", "资金轧差与出金控制须符合结算纪律"],
+ ["证券结算风险基金与结算互保基金相关制度", "结算风险准备资源的计提与使用", "违约瀑布各层资源须匹配基金制度安排"],
+ ["数据安全法与个人信息保护法", "清算数据分级分类与安全保护", "会员与交易数据使用须最小必要并留痕"],
+ ["网络安全等级保护制度", "清算系统等保定级与测评", "模型与参数平台须按关键系统建设与演练"],
+ ["期货公司监督管理办法", "期货公司保证金管理与风控义务", "追保与强平相关计算须支撑公司履责"],
+ ["银行间债券市场交易结算相关规则（人民银行、交易商协会）", "券款对付与结算失败处置", "结算风险度量须匹配市场结算安排"]
+];
+const LIC_INTL = [
+ ["CPMI-IOSCO《金融市场基础设施原则》（PFMI）", "CCP与CSD等基础设施的国际监管标准", "保证金、压力测试、违约瀑布须按原则评估与披露"],
+ ["EMIR（欧盟）", "中央清算义务与风险管理要求", "保证金模型、回测与披露须满足EMIR及监管技术标准"],
+ ["BCBS-IOSCO《非集中清算衍生品保证金要求》", "非集中清算衍生品的双边保证金", "标准化模型与争议解决机制须匹配该框架"],
+ ["多德-弗兰克法案第八编", "支付清算结算体系的监管框架", "指定清算组织的风险管理须满足体系要求"],
+ ["CFTC监管规章（DCO风险管理）", "美国衍生品清算组织注册与运营", "保证金模型与压力测试须满足监管审查"],
+ ["巴塞尔协议III对CCP风险暴露框架", "银行对CCP暴露的资本处理", "保证金模型透明度影响会员资本占用"],
+ ["ESMA CCP压力测试指引", "欧盟CCP压力测试的监管协调", "情景与参数须满足年度压力测试要求"],
+ ["ISDA SIMM及标准初始保证金治理", "场外非清算衍生品保证金计算", "模型治理、争议与审计须匹配国际标准"]
+];
+const OPPS = [
+ ["参数治理平台化", "参数散落在表格与脚本中", "以参数控制台与审批流切入"],
+ ["影子计算即服务", "变更缺乏验证手段", "以影子并行计算降低变更风险"],
+ ["回测自动化订阅", "回测人力密集且易错", "回测流水线按订阅交付"],
+ ["违约瀑布仿真", "资源充足性论证缺工具", "瀑布仿真支撑披露与演练"],
+ ["清算数据湖", "清算数据割裂难审计", "数据入湖与口径统一切入"],
+ ["监管报送自动化", "报送差错与人力成本高", "报送流水线按监管日历自动化"],
+ ["模型文档数字化", "文档与代码两张皮", "文档代码同版本治理切入"],
+ ["行业级情景库", "中小机构无情景库能力", "情景库共建与订阅服务"],
+ ["轧差可解释工具", "争议问询响应慢", "净额逐笔还原工具切入"],
+ ["保证金优化咨询", "会员保证金占用高企", "占用优化与抵扣分析咨询加工具"],
+ ["违约演练即服务", "违约演练缺组织能力", "打包演练场景与评估服务"],
+ ["实时清算共建", "日终批处理存在时滞风险", "与基础设施共建实时净额试点"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：轧差 / 保证金 / SPAN / 回测`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

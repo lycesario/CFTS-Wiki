@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融风险保障平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融风险保障平台全景</b>
+    <span>金融风险保障平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融风险保障平台产品功能全景图谱</h1>
+    <p>把「金融风险保障平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这门生意的胜负手是「保护覆盖率与保护成本之间的量化平衡」——敢承诺赔付就敢收钱，一切从可验证的组合敞口与可执行的合约条款开始。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是「为资产与组合买保障」的方案设计与交易闭环：先看清敞口，再设计保护（期权领口、信用保障、准备金池），然后定价、执行、触发、赔付，最后用保障度量化证明每一分保护成本花得值。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：数据与资产层</td><td>组合敞口、行情波动率、信用画像、保障合约文本、风险情景库五类数据资产</td><td>这层决定保障方案的上限——算不清敞口与违约概率，任何保护都是心理安慰</td></tr>
+<tr><td>第二层（d6–d9）：方案设计与交易层</td><td>对冲保障方案设计、定价估值、交易执行、信用保障与信用增进</td><td>保护性期权与领口是方向，信用保障是纵深——这里把风险买出去</td></tr>
+<tr><td>第三层（d10–d14）：保障运营层</td><td>风险准备金池、赔付触发与结算、组合保障度量化、成本预算、证券化风险转移</td><td>保障不是签完合约就结束——触发、赔付、量化验证与成本可持续才是完整闭环</td></tr>
+<tr><td>第四层（d15–d18）：治理与运营层</td><td>合规适当性、报表归因、模型治理与压力测试、交易后处理架构</td><td>衍生保障工具强杠杆强监管，治理失效会把保护工具变成风险放大器</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">先决判断一：组合敞口底账与合约条款结构化必须先于方案设计存在，否则保护覆盖率无从谈起。先决判断二：赔付触发与资金路由能力必须先于销售承诺存在，敢卖保障就要能赔得出来。先决判断三：对手方额度与担保品管理必须先于第一笔交易存在，对手方违约会让全部保护同时落空。</div>
+    <div class="danger">最容易被误当成成功信号的死亡陷阱：保护成本收得越多越像好生意。卖出保护换取权利金的模式在平静市场里利润漂亮，但尾部行情一次就能把多年利润赔光——用平静期的盈利曲线证明保障能力是本领域最经典的自我欺骗。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：先看它能否把「触发到赔付的时间」从周级压到日级以内（如参数化触发），能压缩赔付时间与争议成本的排前面，只增加结构复杂度的往后排。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>对冲保障方案</td><td>用保护性期权、领口等结构为组合设定下行损失上限的安排</td><td>方案与组合敞口错配会导致保护覆盖率虚高，极端行情下保护失灵</td></tr>
+<tr><td>领口策略</td><td>买入看跌同时卖出看升以降低净保护成本的对冲保障结构</td><td>卖出权利金在平静期掩盖成本收益比恶化，尾部行情放大损失</td></tr>
+<tr><td>信用保障</td><td>通过CDS、担保、信用增进把违约风险转移出去的合约</td><td>触发条款定义不清会导致该赔不赔，争议拖垮客户关系</td></tr>
+<tr><td>风险准备金池</td><td>为自留风险与代偿义务预留的分层资金池</td><td>挪用或计提不足时保障承诺变成法律与信任双重违约</td></tr>
+<tr><td>保护覆盖率</td><td>目标情景下组合损失被保障覆盖的量化比例</td><td>用乐观口径包装覆盖率会误导决策层，最终酿成事故</td></tr>
+<tr><td>触发条件</td><td>保障合约中定义赔付启动的客观条件与参数</td><td>漏触发与误触发都会摧毁保障的可信度与商业口碑</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">该领域的监管域组合是四个监管域交汇：衍生品与交易场所监管、担保与信用增进监管、投资者适当性与销售监管、跨境交易与数据合规。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">红线一：无衍生品业务资格不得开展与推荐保障工具交易，卖权收租类结构可能被定性为违规经营。红线二：担保责任余额超监管放大倍数即违规，承诺的保障能力必须有资本与准备金支撑。红线三：复杂工具未做适当性匹配与风险揭示留痕，监管处罚与诉讼双重风险。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选一个组合场景做穿（如固收组合的利率信用保护），不铺全线工具</li><li>第二步：建立可举证的基线——敞口底账、保护覆盖率与准备金覆盖倍数的量化底账</li><li>第三步：跑通最短闭环——从方案设计、定价、执行到一次真实触发赔付的端到端</li><li>第四步：补第二个增值能力——如保障度仪表盘或信用保障代管，形成能力组合</li><li>第五步：把承诺写进合同——赔付时效、触发定义与争议解决条款对外承诺</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：向资管与私行输出对冲保障方案服务（客户是机构投资者，按方案费与订阅收费）</li><li>路径 B：向信贷与债券市场提供信用保障与增信撮合（客户是发行人与贷款机构，按担保费分成）</li><li>路径 C：做组合保障度量化的分析SaaS（客户是所有持牌机构，按订阅与账户收费）</li><li>路径 D：对接境外合规市场做风险证券化发行服务（客户是有大额尾部风险的机构，按发行费收费）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：都依赖一份可验证的组合敞口底账与结构化的合约条款库——它是第一资产，没有它每个方案都是拍脑袋。</div>
+  </section>
+
+  <footer>
+    <p>金融风险保障平台产品功能全景图谱 · 生成于 2026-09-28 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "全景导读"],
+ ["s1", "平台形态"],
+ ["s2", "功能域地图"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "对标中心"],
+ ["s6", "致命规则"],
+ ["s7", "合规红线"],
+ ["s8", "关键指标"],
+ ["s9", "落地路径"]
+];
+const PLAYERS = [
+ ["组合对冲咨询与方案平台", "BlackRock Aladdin", "券商风险对冲与方案服务", "以方案咨询费与风险系统订阅收费"],
+ ["期权做市与保护性工具平台", "CBOE 期权工具生态/OptionsPlay", "券商期权工具与交易所做市体系", "交易佣金与买卖价差收入"],
+ ["信用保障与信用增进平台", "LCH CDS清算/安博尔信用服务", "中债信用增进公司", "担保费与信用增进服务费收入"],
+ ["风险转移证券化服务", "Aon Securities/Swiss Re ILS", "离岸巨灾债券发行服务商", "发行承销与存续期管理费"],
+ ["风险管理SaaS与数据平台", "SimCorp Axioma/MSCI Barra", "衡泰软件风险系统", "软件许可与数据订阅收费"],
+ ["交易执行与风控一体化平台", "Bloomberg PORT/Murex", "恒生电子交易风控系统", "系统实施与席位年费收费"]
+];
+const DOMAINS = [
+ ["d1", "组合持仓与敞口数据", "Portfolio Exposure Data", "核心", "资产与信贷组合的持仓敞口底账，是一切保障方案设计的输入", [["持仓与敞口管理", [["组合持仓底账", "债券信贷股票衍生品全资产持仓唯一口径管理", "BlackRock Aladdin"], ["敞口分层计算", "按行业发行人期限与币种多维分层敞口", "MSCI Barra"], ["保证金与杠杆敞口", "融资杠杆与保证金占用纳入真实敞口计算", "行业通用实践"], ["持仓数据对账", "托管行券商内部多源持仓日终对账", "行业通用实践"]]], ["风险因子映射", [["持仓因子映射", "每笔持仓映射到利率信用波动率等风险因子", "Axioma 风险模型"], ["因子敞口聚合", "组合级因子敞口实时聚合与预警", "Barra 风险模型"], ["非线性敞口还原", "期权与含权债的希腊字母敞口还原", "行业通用实践"], ["敞口数据质量监控", "缺失价格与错配因子自动标记修复", "Monte Carlo Data"]]], ["组合场景应用", [["组合快照与版本", "保障方案设计前后的组合快照留痕对比", "BlackRock Aladdin"], ["跨组合透视", "多账户多策略组合风险集中透视", "行业通用实践"], ["持仓变动事件流", "调仓事件实时驱动保障方案再平衡提示", "Kafka 行业实践"], ["信贷组合分层视图", "信贷资产按行业区域与评级分层视图", "Moody's CreditView"]]]]],
+ ["d2", "市场行情与波动率数据", "Market & Vol Data", "核心", "价格与波动率是保障工具定价与触发的市场输入", [["行情数据管理", [["多源行情聚合", "交易所银行间场外多源行情统一接入", "Bloomberg B-PIPE"], ["波动率曲面构建", "期权隐含波动率曲面按期限行权价构建", "CBOE LiveVol"], ["指数数据管理", "标的指数与对冲指数成分及编制规则管理", "行业通用实践"], ["行情质量监控", "停牌跳点异常价格自动校验修正", "行业通用实践"]]], ["波动率与相关性", [["已实现波动率计算", "高频数据已实现波动率与隐含波动率对比", "Oxford-Man 实证数据实践"], ["相关性矩阵估计", "资产间相关性的滚动估计与稳定性监控", "Barra 风险模型"], ["波动率预测模型", "GARCH族与机器学习波动率预测并行", "行业通用实践"], ["偏度与尾部指标", "偏度峰度与尾部相关指标纳入行情画像", "CBOE SKEW 指数实践"]]], ["估值输入管理", [["利率曲线管理", "国债互换收益率曲线构建与插值", "Bloomberg CURVE"], ["信用曲线与利差", "信用利差曲线按评级期限构建", "IHS Markit 行业实践"], ["估值曲线日终固化", "估值输入日终固化保证可重演估值", "行业通用实践"], ["多币种汇率数据", "汇率曲线与即期价格纳入估值输入", "Refinitiv 数据实践"]]]]],
+ ["d3", "信用数据与发行人画像", "Credit & Issuer Data", "核心", "信用保障的前提是看清发行人与债务人的违约风险", [["信用画像", [["发行人信用档案", "财务杠杆评级现金流多维信用档案", "Moody's CreditView"], ["评级跟踪与预警", "内外部评级变动与负面事件实时预警", "S&P Capital IQ"], ["违约概率模型", "结构化与简约模型违约概率并行估计", "Moody's Analytics RiskCalc"], ["违约损失率估计", "抵押与优先级调整的违约损失率估计", "行业通用实践"]]], ["信用组合分析", [["信用组合集中度", "行业区域单一债务人集中度限额监控", "行业通用实践"], ["信用迁移矩阵", "评级迁移矩阵滚动估计与组合迁移分析", "S&P 评级迁移研究"], ["关联违约建模", "发行人间关联违约与传染效应建模", "Moody's GCorr"], ["信贷资产画像", "信贷客户还款能力与担保结构画像", "行业通用实践"]]], ["信用情报运营", [["舆情与负面事件监测", "发行人舆情新闻与诉讼自动监测", "行业通用实践"], ["外部数据接入治理", "征信与第三方信用数据授权接入最小必要", "行业通用实践"], ["信用报告自动化", "发行人与组合信用报告自动化生成", "行业通用实践"], ["信用事件历史库", "违约重组信用事件历史案例库沉淀", "ISDA 信用事件定义"]]]]],
+ ["d4", "保障合约与法律文本库", "Protection Contract Library", "成长", "期权CDS担保合约的法律条款结构化，是赔付执行的依据", [["合约要素结构化", [["合约要素模板", "保障范围触发条件名义金额期限结构化模板", "ISDA 主协议体系"], ["信用事件定义管理", "违约破产重组等信用事件定义统一采用标准定义", "ISDA 信用事件定义"], ["触发条款结构化", "期权行权条件与巨灾指数触发条款结构化", "行业通用实践"], ["合约版本与修订", "合约修订留痕与旧版本失效管理", "行业通用实践"]]], ["对手方与担保管理", [["对手方台账", "保障卖方对手方资质额度与集中度台账", "行业通用实践"], ["担保品管理", "保证金与抵押品盯市与追保流程", "LCH SwapClear 保证金实践"], ["担保合约管理", "担保函担保协议效力与期限台账管理", "中债信用增进实践"], ["净额结算条款", "主协议净额结算与终止净额条款管理", "ISDA 净额结算框架"]]], ["文本与证据治理", [["法律文本归档", "合约审批文件签署版本与传真件统一归档", "行业通用实践"], ["电子签署与存证", "合约电子签署与可信时间戳存证", "e签宝电子签名"], ["条款一致性校验", "交易系统参数与合约文本一致性校验", "行业通用实践"], ["争议证据包生成", "赔付争议时证据包一键导出", "行业通用实践"]]]]],
+ ["d5", "风险情景与压力测试库", "Risk Scenario Library", "成长", "历史与假设情景库是保障方案有效性与准备金充足性的检验场", [["情景库建设", [["历史情景库", "黑天鹅事件历史情景参数化入库", "行业通用实践"], ["假设情景生成", "利率跳升信用危机波动率冲击假设情景", "行业通用实践"], ["监管情景内置", "监管压力测试情景框架内置", "银行业压力测试监管要求"], ["情景参数版本管理", "情景假设与参数版本留痕可复演", "行业通用实践"]]], ["压力测试执行", [["组合级压力测试", "全组合多情景损益冲击批量计算", "BlackRock Aladdin"], ["对冲有效性压力测试", "极端情景下对冲保障方案失效检验", "CBOE 尾部对冲研究"], ["流动性压力测试", "极端行情下保证金与变现流动性压力", "行业通用实践"], ["反向压力测试", "寻找击穿风险承受底线的最小情景组合", "行业通用实践"]]], ["情景治理", [["情景评审机制", "情景库年度评审与新增情景专家会签", "行业通用实践"], ["回测偏差分析", "情景预测与实际损益偏差定期回溯", "行业通用实践"], ["情景覆盖度评估", "风险类型与因子覆盖缺口地图", "行业通用实践"], ["结果分发与整改", "压力测试结果分发限额与整改跟踪", "行业通用实践"]]]]],
+ ["d6", "对冲保障方案设计", "Protection Scheme Design", "核心", "保护性期权与领口等对冲保障方案的设计，是本平台的核心交付物", [["保护策略设计", [["保护性看跌方案", "持有标的加买入看跌的下行保护方案设计", "CBOE 保护性put策略实践"], ["领口策略设计", "买看跌卖看升的领口对冲保障零成本或低成本方案", "领口策略机构实践"], ["尾部风险对冲方案", "深虚值期权组合的尾部风险对冲设计", "Universa 尾部对冲实践"], ["指数与个股对冲选择", "beta对冲与单一持仓对冲的成本效益比较", "行业通用实践"]]], ["方案定制与匹配", [["风险偏好匹配", "回撤容忍度与保护成本的匹配建模", "行业通用实践"], ["期限与展期设计", "保护期限滚动展期与成本摊平设计", "行业通用实践"], ["组合分层保护", "核心仓与弹性仓差异化保护分层设计", "行业通用实践"], ["信贷组合保护方案", "信用违约互换与担保组合的信用保护设计", "CDS 组合对冲实践"]]], ["方案有效性验证", [["保护覆盖率验证", "目标下行损失上限与方案保护覆盖率验证", "行业通用实践"], ["情景回测验证", "历史情景下方案损益回测与失效复盘", "BlackRock Aladdin"], ["基差与跟踪误差分析", "对冲工具与标的基差及跟踪误差分析", "行业通用实践"], ["方案文档与留痕", "方案假设边界与免责说明文档化留痕", "行业通用实践"]]]]],
+ ["d7", "保障方案定价与估值", "Pricing & Valuation", "核心", "保障工具的定价与持续估值，决定方案成本与损益透明度", [["定价模型体系", [["期权定价引擎", "BS二叉树与蒙特卡洛多模型定价交叉验证", "Murex 定价引擎"], ["波动率报价选择", "买卖波动率价差与流动性调整的保守定价", "行业通用实践"], ["CDS定价模型", "信用利差模型与违约概率加损失率定价", "行业通用实践"], ["担保费定价", "担保风险敞口乘风险费率加成本加成的定价", "中债信用增进实践"]]], ["估值与盯市", [["每日盯市估值", "保障头寸日终估值与损益归因", "Bloomberg PORT"], ["模型校准管理", "波动率曲面与信用曲线的日度校准", "Numerix"], ["估值不确定性与偏差区间", "模型参数不确定性给出估值区间", "行业通用实践"], ["独立估值验证", "第三方或内部独立团队估值交叉验证", "行业通用实践"]]], ["成本管理", [["保护成本计量", "权利金担保费与展期成本全周期计量", "行业通用实践"], ["成本分摊规则", "保护成本按组合与策略分摊规则", "行业通用实践"], ["买卖价差成本核算", "交易价差冲击成本事后核算", "行业通用实践"], ["成本效益复盘", "保护成本与实际减损的性价比复盘", "行业通用实践"]]]]],
+ ["d8", "保障工具交易执行", "Trade Execution", "成熟", "期权CDS等保障工具的执行与流动性获取能力", [["交易前分析", [["流动性探测", "期权与CDS市场深度和买卖价差事前探测", "行业通用实践"], ["执行成本预估", "冲击成本与滑点的交易前预估", "VWAP/TCA 行业实践"], ["大宗与场外通道选择", "场内大宗场外询价的通道选择策略", "CBOE 场内与场外实践"], ["交易合规预检", "额度权限与适当性交易前合规预检", "行业通用实践"]]], ["执行管理", [["算法拆单执行", "大额保护头寸拆单减少市场冲击", "行业通用实践"], ["询价与报价管理", "场外期权与CDS多对手方询价比价", "Tradeweb"], ["执行确认与核对", "成交确认单与系统成交自动核对", "行业通用实践"], ["执行留痕与最优执行证明", "执行路径全留痕满足最优执行举证", "MiFID II 最优执行要求"]]], ["对手方管理", [["对手方额度管理", "保障卖方信用额度与集中度实时控制", "行业通用实践"], ["中央清算通道", "可清算CDS与期权接入中央对手方清算", "LCH/上清所实践"], ["对手方违约预案", "对手方违约时的头寸与担保品处置预案", "行业通用实践"], ["交易对手关系复盘", "对手方执行质量与报价竞争力定期复盘", "行业通用实践"]]]]],
+ ["d9", "信用保障与信用增进", "Credit Protection", "核心", "CDS担保与信用增进构成的信用风险转移机制", [["信用保障工具", [["CDS交易管理", "单一名称与指数CDS买卖头寸管理", "CDX/iTraxx 指数实践"], ["担保增信管理", "债务发行担保增信的额度与费率管理", "中债信用增进公司实践"], ["风险缓释工具", "信用风险缓释凭证等境内工具管理", "银行间市场 CRM 工具"], ["总收益互换管理", "总收益互换的信用风险转移应用", "ISDA TRS 实践"]]], ["信用事件处理", [["信用事件裁定流程", "信用事件的决定委员会裁定与公告流程", "ISDA 信用决定委员会"], ["CDS拍卖结算", "信用事件后拍卖结算参与与现金交割管理", "ISDA 拍卖机制"], ["担保代偿流程", "担保代偿触发与追偿流程管理", "融资担保行业实践"], ["赔付争议管理", "保障范围争议的法律与证据管理", "行业通用实践"]]], ["信用保障组合", [["信用保护组合策略", "CDX指数与单名CDS的组合保护结构", "行业通用实践"], ["信用限额与对冲缺口", "信用敞口与已购保护的缺口实时监控", "行业通用实践"], ["信用保障成本预算", "信用保障费率与预算约束管理", "行业通用实践"], ["对手方信用再评估", "保障卖方评级下调时头寸再评估与替换", "行业通用实践"]]]]],
+ ["d10", "风险准备金池管理", "Risk Reserve Pool", "成长", "为自留风险与代偿义务预留的准备金池，是保障承诺的底气", [["准备金池设计", [["准备金计提规则", "按风险敞口与历史损失率计提准备金规则", "融资担保监管要求"], ["分层准备金结构", "风险准备金一般风险准备与超额损失分层", "行业通用实践"], ["目标准备金水平", "目标准备金覆盖倍数与资本充足联动", "行业通用实践"], ["准备金使用审批", "动用准备金的分级审批与留痕", "行业通用实践"]]], ["池化资金运营", [["安全资产配置", "准备金高流动性安全资产配置约束", "行业通用实践"], ["资金占用与挪用防控", "准备金专户管理与挪用预警", "融资担保监管要求"], ["再平衡与补充机制", "准备金低于阈值自动触发补充计划", "行业通用实践"], ["准备金收益管理", "准备金资产收益与安全性平衡", "行业通用实践"]]], ["准备金验证", [["损失率回溯验证", "历史损失与计提充分性定期回溯", "行业通用实践"], ["压力情景下充足性", "极端情景下准备金充足性压力测试", "行业通用实践"], ["第三方审计验证", "准备金计提与使用的外部审计", "行业通用实践"], ["信息披露口径", "准备金规模与覆盖倍数披露口径统一", "行业通用实践"]]]]],
+ ["d11", "赔付触发与结算", "Payout Trigger & Settlement", "成长", "保障方案从触发到到账的赔付执行，决定保障承诺是否兑现", [["触发监测", [["触发条件自动监测", "期权行权信用事件指数触发条件自动监测", "行业通用实践"], ["参数化触发引擎", "降雨利率等客观参数触发的自动化引擎", "参数化保险实践"], ["触发证据固化", "触发时点市场数据快照与证据固化", "行业通用实践"], ["漏触发与误触发复盘", "应赔未赔与不应赔已赔的复盘机制", "行业通用实践"]]], ["赔付执行", [["赔付计算引擎", "名义金额与触发程度自动计算赔付金额", "行业通用实践"], ["赔付审批流", "赔付金额分级审批与双人复核", "行业通用实践"], ["赔付资金路由", "赔付支付通道与到账时效管理", "行业通用实践"], ["赔付通知与确认", "赔付到账通知与客户确认回执", "行业通用实践"]]], ["结算与追偿", [["保证金与轧差结算", "场外保障头寸保证金轧差日终结算", "LCH 保证金实践"], ["代偿后追偿管理", "担保代偿后对债务人的追偿台账", "融资担保行业实践"], ["多头保障分摊", "多份保障重叠时的按比例分摊规则", "行业通用实践"], ["结算争议处理", "结算金额争议的仲裁与证据流程", "行业通用实践"]]]]],
+ ["d12", "组合保障度量化", "Protection Analytics", "成长", "组合被保护程度的量化度量，是保障方案有效性的体检表", [["保障度指标体系", [["下行保护覆盖率", "在目标损失情景下组合损失被对冲保障覆盖的比例", "行业通用实践"], ["最大回撤控制目标", "对冲保障后组合回撤上限达标率", "行业通用实践"], ["信用保护比例", "信用敞口中已有信用保障覆盖的比例", "行业通用实践"], ["对冲有效性指标", "对冲头寸与风险敞口的Beta与久期匹配度", "行业通用实践"]]], ["归因与评估", [["保护损益归因", "对冲保障头寸损益与标的损失对冲归因", "BlackRock Aladdin"], ["压力情景达标检验", "压力情景下保障后损失是否低于目标", "行业通用实践"], ["保障缺口预警", "新增敞口未匹配保障时自动预警", "行业通用实践"], ["保障成本收益率", "每单位保护成本的减损效益比", "行业通用实践"]]], ["报告与决策支持", [["保障度仪表盘", "管理层组合保障度实时仪表盘", "BlackRock Aladdin"], ["保障方案季度复盘", "方案有效性成本与调整建议季度报告", "行业通用实践"], ["投资决策嵌入", "新投资决策的保障成本纳入定价评估", "行业通用实践"], ["客户保障报告输出", "面向出资人与监管的保障报告自动生成", "行业通用实践"]]]]],
+ ["d13", "保障成本与预算管理", "Protection Cost Management", "成熟", "保护不是免费的，成本预算管理决定保障方案可持续", [["预算管理", [["年度保护预算", "对冲保障与信用保障年度预算编制与审批", "行业通用实践"], ["预算执行监控", "保护成本支出与预算偏差监控", "行业通用实践"], ["成本上限熔断", "保护成本超预算上限自动熔断并升级审批", "行业通用实践"], ["跨期成本摊销", "保护成本跨会计期间摊销规则", "行业通用实践"]]], ["成本优化", [["展期时点优化", "期权展期时点与波动率环境优化降本", "行业通用实践"], ["卖出保护对冲成本", "领口等卖出权利降低净保护成本的优化", "领口策略实践"], ["场内场外成本比较", "场内期权与场外定制的成本效率比较", "CBOE 与场外市场实践"], ["批量采购与规模效应", "组合内保护需求集中批量执行降本", "行业通用实践"]]], ["成本核算", [["成本分摊到组合", "保护成本按受益组合公摊核算", "行业通用实践"], ["隐性成本识别", "展期滑点与保证金占用的隐性成本识别", "行业通用实践"], ["成本透明化报告", "委托人视角保护成本透明报告", "行业通用实践"], ["成本基准对标", "同类策略市场成本基准对标", "行业通用实践"]]]]],
+ ["d14", "证券化风险转移", "Securitized Risk Transfer", "成长", "把风险打包成证券转移给资本市场，是保障能力的天花板扩展", [["风险证券化结构", [["巨灾债券结构", "巨灾风险证券化触发结构与分层设计", "Swiss Re ILS 实践"], ["风险分层与档级", "从优先到劣后的风险档级切割设计", "Aon Securities 实践"], ["特殊目的机构安排", "SPRV结构隔离破产风险的法律安排", "行业通用实践"], ["触发型与补偿型选择", "参数触发与实亏触发的结构选择权衡", "行业通用实践"]]], ["发行与存续", [["发行定价与路演", "风险证券定价模型与投资人路演", "行业通用实践"], ["评级支持", "证券化风险分层的外部评级支持", "S&P ILS 评级实践"], ["存续期报告", "触发监测与损失报告存续期披露", "行业通用实践"], ["到期与续发管理", "到期结算与续发衔接管理", "行业通用实践"]]], ["市场与生态", [["ILS投资人生态", "巨灾基金与ILS投资人关系管理", "CatFund 数据实践"], ["再保与证券化比价", "再保分出与证券化转移的成本比价", "Guy Carpenter 实践"], ["监管与离岸安排", "离岸发行监管安排与跨境合规", "百慕大IITA 监管实践"], ["二级市场流动性", "风险证券二级转让与流动性管理", "行业通用实践"]]]]],
+ ["d15", "合规与交易适当性", "Compliance & Suitability", "成熟", "衍生保障工具的强监管属性要求合规前置", [["交易资质与授权", [["衍生品交易资质", "衍生品业务资格与交易额度授权管理", "行业通用实践"], ["交易权限分级", "交易员品种与额度权限矩阵", "行业通用实践"], ["跨境交易合规", "跨境衍生品交易监管规则遵守", "行业通用实践"], ["交易所与经纪准入", "交易所席位与经纪通道准入管理", "行业通用实践"]]], ["适当性与投资者保护", [["产品适当性匹配", "保障工具风险等级与客户承受能力匹配", "行业通用实践"], ["销售文档与风险揭示", "高风险工具的风险揭示书签署留痕", "行业通用实践"], ["复杂产品冷静期", "复杂衍生工具的冷静期与二次确认机制", "行业通用实践"], ["投诉与纠纷处理", "保障交易投诉处理与先行赔付机制", "行业通用实践"]]], ["监管报送与合规治理", [["衍生品监管报送", "持仓与交易数据按监管要求报送", "行业通用实践"], ["反洗钱审查", "保障交易受益所有人与资金来源审查", "FATF 建议"], ["市场操纵防控", "异常交易与操纵市场行为监测", "行业通用实践"], ["合规台账与培训", "合规风险台账与交易人员培训记录", "行业通用实践"]]]]],
+ ["d16", "报表与保障绩效归因", "Reporting & Attribution", "成熟", "向管理层与委托人证明保障方案在花钱但值", [["绩效归因", [["保护减损归因", "对冲保障减损金额与无保护假想对比归因", "行业通用实践"], ["成本收益归因矩阵", "保护成本与减损收益的组合矩阵", "行业通用实践"], ["择时贡献分析", "保护建仓时点的择时贡献分析", "行业通用实践"], ["失效案例复盘报告", "对冲失效案例的深度复盘与改进", "行业通用实践"]]], ["报表体系", [["保障度定期报表", "组合保障度与缺口定期报表", "行业通用实践"], ["准备金充足率报表", "准备金覆盖倍数与变动报表", "行业通用实践"], ["对手方集中度报表", "保障卖方集中度与信用报表", "行业通用实践"], ["监管口径报表", "监管报送口径与管理口径差异报表", "行业通用实践"]]], ["数据与分发", [["指标口径治理", "保障类指标统一定义与口径治理", "行业通用实践"], ["报表自动化生成", "报表ETL与自动化生成免人工拼表", "行业通用实践"], ["多终端分发", "仪表盘移动端与定期邮件分发", "Tableau 行业实践"], ["数据留痕与审计线索", "报表数字可下钻到交易明细的审计线索", "行业通用实践"]]]]],
+ ["d17", "审计压力测试与模型治理", "Model Governance", "成熟", "定价模型与准备金假设的治理失效是隐性炸弹", [["模型验证", [["定价模型验证", "期权与信用模型假设偏差与回测验证", "SR 11-7 模型风险管理框架"], ["模型分级与变更管理", "模型分级与重大变更评审机制", "行业通用实践"], ["独立价格验证", "估值模型独立验证与偏差记录", "行业通用实践"], ["模型绩效监控", "预测误差与回测偏差持续监控", "行业通用实践"]]], ["内部审计", [["保障业务专项审计", "对冲交易与赔付流程专项审计", "行业通用实践"], ["授权与越权检查", "交易越权与超限操作审计检查", "行业通用实践"], ["准备金真实性审计", "准备金计提与使用的真实性审计", "行业通用实践"], ["整改闭环跟踪", "审计问题整改销号跟踪", "行业通用实践"]]], ["压力与韧性", [["年度压力测试计划", "全组合年度压力测试计划执行", "行业通用实践"], ["极端联动情景", "股债汇与流动性联动极端情景测试", "行业通用实践"], ["业务连续性演练", "交易与结算连续性切换演练", "行业通用实践"], ["第三方依赖评估", "数据与清算渠道依赖的韧性评估", "行业通用实践"]]]]],
+ ["d18", "系统架构与交易后处理", "Architecture & Post-Trade", "成熟", "交易后处理与系统架构是保障平台稳定运行的底盘", [["交易后处理", [["清算交收管理", "场内清算与场外交收流程管理", "上清所/LCH 实践"], ["保证金计算与追保", "SPAN或风险基准保证金计算与追保", "CME SPAN 保证金实践"], ["头寸与损益核算", "保障头寸日终损益核算与台账", "行业通用实践"], ["失败交易处理", "结算失败的处理与补救流程", "行业通用实践"]]], ["系统集成", [["行情交易风控数据一体化", "行情交易风控系统数据贯通", "Murex 一体化实践"], ["托管与PB对接", "托管行与主经纪商系统对接", "行业通用实践"], ["API化能力输出", "保障度查询与报价能力API化输出", "行业通用实践"], ["事件驱动与消息总线", "触发与结算事件总线驱动下游", "Kafka 行业实践"]]], ["平台运维", [["交易时段高可用", "交易时段高可用与故障切换", "行业通用实践"], ["低延迟行情处理", "行情处理延迟监控与优化", "行业通用实践"], ["灾备与数据备份", "同城灾备与交易数据备份恢复演练", "行业通用实践"], ["全链路监控告警", "系统与业务指标双链路监控告警", "Datadog"]]]]]
+];
+const FRONTIER = [
+ ["参数化对冲保障", "live", "指数触发型快速赔付的参数化结构已在实践应用", "参数化对冲保障设计工具"],
+ ["领口策略工具化", "live", "领口等低成本对冲保障方案在券商与私行广泛落地", "领口策略在线设计与执行工具"],
+ ["组合风险仪表盘", "live", "组合敞口与保障缺口实时仪表盘已成机构标配", "保障度分析SaaS按订阅收费"],
+ ["信用风险缓释工具", "live", "境内CRM等信用保障工具在银行间市场常态化运用", "信用保障交易与管理服务"],
+ ["期权做市与保护性工具", "live", "交易所期权工具生态支持常态化保护性交易", "面向机构的保护性期权工具包"],
+ ["压力测试常态化", "live", "监管压力测试与内部压力测试已成制度性要求", "压力测试自动化平台"],
+ ["合约电子化与存证", "live", "保障合约电子签署与可信存证广泛普及", "合约结构化与存证服务"],
+ ["交易成本分析TCA", "live", "执行成本分析用于保障工具最优执行已成实践", "TCA执行分析服务"],
+ ["信用保障定价引擎", "pilot", "CDS与担保费定价模型化进入试点深化", "信用保障定价引擎能力输出"],
+ ["AI信用预警", "pilot", "大模型解读财报与舆情辅助信用预警试点", "AI信用预警订阅服务"],
+ ["保障方案智能推荐", "pilot", "基于组合特征自动推荐对冲保障结构试点", "方案推荐Copilot"],
+ ["保证金优化引擎", "pilot", "组合保证金优化降低占用进入试点", "保证金优化服务"],
+ ["准备金动态计提", "pilot", "基于实时敞口的准备金动态计提试点", "准备金动态管理平台"],
+ ["监管报送自动化", "pilot", "衍生品持仓报送数据自动校验试点", "报送合规自动化工具"],
+ ["尾部对冲产品化", "pilot", "深虚值期权组合的尾部保护产品化试点", "尾部风险对冲方案服务"],
+ ["ESG风险情景库", "pilot", "气候转型情景纳入压力测试试点", "ESG情景与保障方案"],
+ ["实时组合保障度引擎", "explore", "日内实时保障度计算与再平衡建议探索", "实时对冲保障中枢"],
+ ["生成式保障方案助手", "explore", "LLM辅助起草保障方案与合约条款探索", "方案起草与审查Copilot"],
+ ["气候风险证券化", "explore", "气候与巨灾风险证券化结构探索", "气候风险转移发行服务"],
+ ["跨机构担保品共享网络", "explore", "担保品跨机构池化与复用探索", "担保品管理网络"],
+ ["自动驾驶式再平衡", "explore", "保障头寸自动展期与再平衡的托管式执行探索", "自动展期托管服务"],
+ ["因果推断损失归因", "explore", "用因果推断量化对冲保障真实减损探索", "减损归因分析工具"],
+ ["数字货币保证金场景", "explore", "合规框架下新型保证金资产探索限定境外合规市场", "多元化保证金管理"],
+ ["隐私计算联合信用评估", "explore", "跨机构联邦学习联合信用建模探索", "隐私计算信用评估联盟"]
+];
+const MIDS = [
+ ["组合数据中心", "持仓敞口与风险因子的统一底账管理", "敞口计算与数据对账能力"],
+ ["市场数据中心", "行情波动率与估值曲线的数据服务", "多源数据聚合与质量治理能力"],
+ ["信用研究中心", "发行人画像与违约风险研究", "违约模型与信用迁移分析能力"],
+ ["合约法务中心", "保障合约条款与法律文本治理", "ISDA条款结构化与证据管理能力"],
+ ["情景压力中心", "情景库建设与压力测试执行", "情景设计与组合冲击计算能力"],
+ ["方案设计中心", "对冲保障方案的设计与验证", "保护策略设计与回测验证能力"],
+ ["定价估值中心", "保障工具定价模型与盯市估值", "多模型定价与独立验证能力"],
+ ["交易执行中心", "保障工具交易执行与流动性获取", "算法执行与最优执行举证能力"],
+ ["信用保障中心", "CDS担保与信用增进安排管理", "信用事件处理与对手方管理能力"],
+ ["准备金管理中心", "风险准备金池计提使用与验证", "计提模型与压力充足性评估能力"],
+ ["赔付结算中心", "触发监测赔付执行与结算追偿", "触发引擎与资金路由能力"],
+ ["保障度分析中心", "组合保障度量化与归因报告", "保护覆盖率度量与损益归因能力"],
+ ["成本管理中心", "保障预算成本优化与核算", "成本分摊与展期优化能力"],
+ ["证券化服务中心", "风险证券化结构与发行存续", "结构设计与投资人生态能力"],
+ ["合规风控中心", "交易资质适当性与监管报送", "衍生品合规与交易监测能力"],
+ ["报表归因中心", "绩效归因与保障度报表体系", "指标口径治理与自动化报表能力"],
+ ["模型治理中心", "模型验证审计与压力韧性治理", "模型风险管理与整改跟踪能力"],
+ ["平台工程中心", "交易后处理与系统架构运维", "清算结算与高可用工程能力"]
+];
+const RULES = [
+ ["对冲保障方案在极端行情下失效", "保护覆盖率虚高会在真正需要时失灵，尾部损失直接击穿组合与声誉"],
+ ["准备金挪用或计提不足", "代偿义务来临时无钱可赔，保障承诺变成法律与信任双重违约"],
+ ["对手方集中度过高", "保障卖方违约让全部保护同时落空，风险转移变风险集中"],
+ ["信用事件裁定争议", "触发条款定义不清导致该赔不赔，诉讼会拖垮客户关系"],
+ ["卖出期权收取权利金伪装成保障", "卖权收租类产品在尾部行情造成巨额亏损，监管定性为违规经营"],
+ ["估值模型校准失效", "盯市估值失真让损失被系统性低估，风险在报表下持续累积"],
+ ["交易越权与超限执行", "越权对冲交易放大敞口，历史上多起衍生巨亏皆源于此"],
+ ["保证金追保流动性断裂", "极端行情下追保无力补足被迫平仓，保护在最需要时被强平"],
+ ["风险揭示与适当性缺失", "未充分揭示杠杆与尾部风险的保障产品面临监管处罚与集体诉讼"],
+ ["压力测试情景脱离现实", "用不痛的情景自欺，真实危机情景下准备金与限额同时击穿"],
+ ["多头保障重复与分摊不清", "同一风险重复投保或分摊规则缺失，赔付结算陷入多方纠纷"],
+ ["净额结算法律效力不确定", "终止净额条款在个别辖区效力存疑，对手方违约时风险敞口翻倍"],
+ ["跨境数据与结算合规缺口", "跨境衍生品与数据传输违规，交易通道随时被切断"],
+ ["担保物权登记瑕疵", "担保未有效登记或质押物被重复质押，代偿后追偿落空"],
+ ["报表口径操纵保障度数字", "用乐观口径包装保障度，决策层误判风险最终酿成事故"],
+ ["内部人员利用保障头寸利益输送", "交易对手选择与报价倾斜的利益输送足以触发刑事追责"]
+];
+const KPIS = [
+ ["保护有效性", "下行保护覆盖率与压力情景达标率；目标：目标情景下保障后损失低于既定损失上限"],
+ ["信用保障覆盖", "信用敞口已有保障覆盖比例；目标：目标信用保护比例不低于内部限额且缺口及时预警"],
+ ["准备金充足度", "准备金余额对潜在代偿义务覆盖倍数；目标：目标覆盖倍数不低于内部阈值且压力情景下仍充足"],
+ ["保障成本效率", "保护成本占组合规模比例与减损效益比；目标：目标成本占比控制在预算内且减损效益比大于1"],
+ ["执行质量", "执行滑点与最优执行达标率；目标：目标执行滑点优于事前预估且留痕可举证"],
+ ["赔付时效与准确率", "触发后赔付到账时效与金额准确率；目标：目标参数化触发案件T+1内到账且准确率100%"],
+ ["对手方风险", "保障卖方集中度与对手方信用评级分布；目标：目标单一对手方集中度低于限额且无低评级裸敞口"],
+ ["合规与审计", "越权交易件数与监管处罚件数；目标：目标零越权零处罚且审计问题按期销号"]
+];
+const LIC_CN = [
+ ["衍生品交易业务资格：开展场内场外衍生品业务须取得相应业务资格或备案", "期权互换等衍生工具交易", "无资格不得开展衍生品交易与推荐"],
+ ["银行间市场信用风险缓释工具业务规则", "信用风险缓释凭证等信用保障工具", "须成为核心交易商或通过合格机构参与"],
+ ["《期货和衍生品法》：衍生品交易履约保障与终止净额的法律框架", "衍生品交易与结算", "交易须在依法设立的场所或按规则进行"],
+ ["融资担保公司监督管理条例：担保增信业务资质与放大倍数", "融资担保与信用增进业务", "担保责任余额不得超过监管倍数限制"],
+ ["《保险法》与保险资金参与金融衍生产品相关规定", "保险资金运用对冲", "衍生品用途限于风险管理且比例受限"],
+ ["《证券期货投资者适当性管理办法》", "保障工具销售与推荐", "风险等级不匹配的客户不得销售复杂工具"],
+ ["反洗钱法及客户尽职调查相关规定", "保障交易对手识别与资金审查", "大额可疑交易须报告并留存资料"],
+ ["《个人信息保护法》与数据安全相关要求", "客户与组合数据采集使用", "须授权最小必要且重要数据出境须评估"],
+ ["《私募投资基金监督管理条例》相关要求", "私募组合的对冲保障安排", "不得向不特定对象募集与宣传"],
+ ["跨境衍生品交易与结算的方向性监管要求", "跨境对冲与CDS类交易", "须通过合规通道并满足报告要求"],
+ ["《银行保险机构操作风险管理办法》方向性要求", "交易运营与结算环节", "操作损失与外包管理纳入监管框架"],
+ ["金融产品网络营销方向性要求", "保障方案线上营销", "营销内容与持牌机构责任绑定"],
+ ["债券市场担保品管理相关规则", "回购与担保品业务", "担保品须合格且登记有效"],
+ ["征信业务管理办法方向性要求", "外部信用数据接入", "企业征信数据使用须合规授权"],
+ ["重要数据出境安全评估要求", "跨境数据传输场景", "重要数据出境须申报安全评估"]
+];
+const LIC_INTL = [
+ ["ISDA主协议与信用衍生定义体系", "场外衍生品与CDS交易", "合约须采用标准定义否则结算争议风险高"],
+ ["EMIR与Dodd-Frank强制清算与报告要求", "欧美市场衍生品交易", "合格交易须中央清算并向交易报告库报告"],
+ ["MiFID II最优执行与交易报告规则", "欧盟市场交易执行", "须留存最优执行证据"],
+ ["Solvency II对保险资金衍生品运用的约束", "欧盟保险机构对冲", "衍生品用途与敞口比例受监管限制"],
+ ["巴塞尔协议III交易账簿与对手方信用风险资本规则", "银行对冲与交易账簿", "保障头寸影响资本占用计量"],
+ ["GDPR与数据保护法规", "欧洲客户数据处理", "交易与画像数据须合法基础与最小化"],
+ ["UCITS与AIFMD对基金对冲策略的约束", "欧盟基金对冲保障安排", "卖空与衍生品敞口受限"],
+ ["FATF反洗钱建议在交易环节的适用", "国际交易对手尽调", "受益所有人与资金来源须穿透审查"]
+];
+const OPPS = [
+ ["组合保障度量化空白", "多数机构说不清自己被保护到什么程度", "以保障度仪表盘与覆盖率指标切入机构风控预算"],
+ ["信用保障服务化", "中小机构难以直接参与CDS与担保市场", "提供信用保障申购与代管的一站式服务"],
+ ["参数化快速赔付", "传统赔付流程慢且争议多", "参数化触发引擎实现T+1到账的保障产品"],
+ ["尾部风险对冲产品化", "极端行情反复教育市场需求", "深虚值期权组合的标准尾部保护方案产品"],
+ ["准备金动态管理", "静态计提与现实敞口脱节", "基于实时敞口的准备金动态计提平台"],
+ ["担保品运营优化", "保证金占用与担保品效率低", "组合保证金优化与担保品池化服务"],
+ ["AI信用预警", "人工信用跟踪覆盖不足", "财报舆情大模型预警的订阅服务"],
+ ["保障成本透明化", "委托人看不清保护花的钱值不值", "保护成本收益透明报告工具"],
+ ["监管报送自动化", "衍生品报送口径复杂人工易错", "报送数据质检与自动化生成"],
+ ["再平衡托管服务", "保护头寸展期管理人力成本高", "自动展期与再平衡的托管式执行"],
+ ["压力测试自动化", "监管压力测试频次提升人力承压", "情景库内置的压力测试自动化平台"],
+ ["风险证券化通道", "境内机构风险转移工具单一", "对接境外合规市场的风险证券化发行服务"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：对冲保障 / 信用保障 / 领口 / 准备金`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>

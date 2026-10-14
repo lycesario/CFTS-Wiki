@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金融资产模型平台产品功能全景图谱</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#ffffff;--ink:#14181f;--ink-2:#414b5a;--ink-3:#6b7684;
+  --line:#e3e7ec;--line-2:#eef1f5;--brand:#1b4d8f;--brand-2:#2f7fd1;--brand-soft:#eef5fd;
+  --teal:#0f7b74;--teal-soft:#e9f6f4;--amber:#9a6412;--amber-soft:#fdf4e3;
+  --rose:#a8324b;--rose-soft:#fdeef1;--violet:#5b46a8;--violet-soft:#f0edfb;
+  --slate-soft:#f1f3f7;--radius:10px;--mono:"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{display:flex;align-items:flex-start;max-width:1520px;margin:0 auto}
+.side{width:250px;flex:0 0 250px;position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 0 60px}
+.side-brand{padding:0 20px 16px;border-bottom:1px solid var(--line-2);margin-bottom:12px}
+.side-brand b{display:block;font-size:15px;letter-spacing:.2px}
+.side-brand span{display:block;font-size:11px;color:var(--ink-3);letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+.side-search{padding:0 16px 12px}
+.side-search input{width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:7px;font-size:12.5px;background:var(--bg);color:var(--ink);outline:none;font-family:inherit}
+.side-search input:focus{border-color:var(--brand-2);background:#fff}
+.side nav a{display:block;padding:6px 20px;font-size:13px;color:var(--ink-2);border-left:2px solid transparent}
+.side nav a:hover{background:var(--brand-soft);color:var(--brand);text-decoration:none}
+.side nav a.on{border-left-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:600}
+.main{flex:1;min-width:0;padding:0 40px 100px}
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+.hero .eyebrow{font-size:11px;letter-spacing:2px;color:var(--brand-2);text-transform:uppercase;font-weight:600}
+.hero h1{font-size:33px;line-height:1.24;margin:12px 0 14px;letter-spacing:-.5px}
+.hero p{margin:0;max-width:800px;color:var(--ink-2);font-size:14.5px}
+.hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:11.5px;padding:3px 10px;border-radius:20px;background:var(--slate-soft);color:var(--ink-2);border:1px solid var(--line)}
+.pill.b{background:var(--brand-soft);color:var(--brand);border-color:#d3e4f7}
+.pill.t{background:var(--teal-soft);color:var(--teal);border-color:#cfe9e5}
+.pill.a{background:var(--amber-soft);color:var(--amber);border-color:#f2e0bd}
+.pill.v{background:var(--violet-soft);color:var(--violet);border-color:#ddd6f5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0 0}
+.stat{background:var(--panel);padding:14px 16px}
+.stat b{display:block;font-size:24px;font-weight:700;font-family:var(--mono);letter-spacing:-1px;color:var(--brand)}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+section{padding:44px 0 8px;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:none}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.3px;scroll-margin-top:20px}
+h2 .num{font-family:var(--mono);font-size:12px;color:var(--brand-2);margin-right:9px;vertical-align:2px}
+.lead{color:var(--ink-2);margin:0 0 22px;max-width:830px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:14px 0 18px;overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;background:#fcfcfd}
+.card-h b{font-size:15.5px}
+.card-h em{font-style:normal;font-size:11px;color:var(--ink-3);font-family:var(--mono);letter-spacing:.3px}
+.card-h .sp{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-family:var(--mono)}
+.card-d{padding:12px 18px 0;color:var(--ink-2);font-size:13px}
+.card-b{padding:6px 18px 16px}
+.cluster{margin:14px 0 0}
+.cluster>h4{display:flex;align-items:center;gap:9px;padding-bottom:6px;margin-bottom:8px;border-bottom:1px dashed var(--line);color:var(--brand);font-size:13px;font-weight:650}
+.cluster>h4::before{content:"";width:3px;height:13px;background:var(--brand-2);border-radius:2px}
+table{width:100%;border-collapse:collapse;font-size:12.8px}
+th{text-align:left;font-weight:600;color:var(--ink-3);font-size:11px;letter-spacing:.6px;text-transform:uppercase;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+td{padding:6px 10px 6px 0;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:520;width:24%}
+td:nth-child(2){width:56%}
+td:last-child{width:20%;color:var(--ink-3);font-size:12px}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;margin:16px 0 8px}
+.f{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--brand-2)}
+.f.live{border-top-color:var(--teal)}
+.f.pilot{border-top-color:var(--amber)}
+.f.explore{border-top-color:var(--violet)}
+.f h4{font-size:13.5px;margin-bottom:5px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.f h4 s{text-decoration:none;font-size:10px;font-family:var(--mono);color:var(--ink-3);white-space:nowrap}
+.f p{margin:0 0 7px;font-size:12.4px;color:var(--ink-2);line-height:1.6}
+.f .opp{font-size:12px;color:var(--teal);border-top:1px dashed var(--line);padding-top:7px}
+.f .opp b{color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:1180px){.grid2{grid-template-columns:1fr}}
+.note{background:var(--brand-soft);border-left:3px solid var(--brand-2);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+.danger{background:var(--rose-soft);border-left:3px solid var(--rose);padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);margin:16px 0}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:3px 0;color:var(--ink-2);font-size:13px}
+code{font-family:var(--mono);font-size:12px;background:var(--slate-soft);padding:1px 5px;border-radius:4px;color:var(--brand)}
+.hidden{display:none!important}
+.nores{padding:40px;text-align:center;color:var(--ink-3);font-size:13.5px}
+footer{padding:34px 0 0;color:var(--ink-3);font-size:12px}
+@media(max-width:900px){.side{display:none}.main{padding:0 20px 80px}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+  <div class="side-brand">
+    <b>金融资产模型平台全景</b>
+    <span>金融资产模型平台 Atlas</span>
+  </div>
+  <div class="side-search"><input id="q" type="search" placeholder="搜索功能点 / 关键词…"></div>
+  <nav id="nav"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="eyebrow">Product Landscape · 2026</div>
+    <h1>金融资产模型平台产品功能全景图谱</h1>
+    <p>把「金融资产模型平台」的产品能力全貌拆成 <b>18 个功能域 / 54 个功能簇 / 216 个功能点</b>。这个生意的胜负手是可信：一笔估值要经得起独立复算、审计追问与监管检查，错一个曲线口径或漏一个模型验证，错的就是报表与资本。</p>
+    <div class="meta"><span class="pill b">18 个功能域</span><span class="pill t">24 个前沿方向</span><span class="pill a">18 类中台能力</span><span class="pill v">16 条业务规则</span><span class="pill">生成日期 2026-09-18</span></div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <section id="s0">
+    <h2><span class="num">00</span>怎么读这份图谱</h2>
+    <p class="lead">这套产品的本质不是功能清单，而是一条「定价可信化」的主线：把市场数据变成曲线与波动率面，用定价与估值引擎算出数字，再用验证、模型风险管理与审计追踪证明这个数字值得被写进报表与监管报送。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>四层结构</h4>
+      <table>
+        <thead><tr><th style="width:22%">层级</th><th style="width:46%">这一层包含什么</th><th>产品本质</th></tr></thead>
+        <tbody><tr><td>第一层（d1–d5）：输入与资产层</td><td>市场数据与曲线输入、金融工具主数据、模型资产库、波动率与情景数据、估值结果数据</td><td>把报价、条款、模型与结果沉淀为可复现、可追溯的定价资产</td></tr>
+<tr><td>第二层（d6–d9）：核心定价层</td><td>收益率曲线构建、期权定价模型、信用模型、估值引擎与批量估值</td><td>从曲线到蒙特卡洛的定价生产线，是平台的算力与专业密度所在</td></tr>
+<tr><td>第三层（d10–d14）：验证与风险层</td><td>模型验证与回测、模型风险管理、敏感性与希腊字母、情景分析与压力测试、风险价值与资本计量</td><td>回答模型可不可信、风险有多大、最坏会怎样、资本该留多少</td></tr>
+<tr><td>第四层（d15–d18）：治理与对接层</td><td>模型版本与发布管理、计算资源与性能、文档与审计追踪、会计与监管对接</td><td>保证模型受控上线、可复算举证，并最终落到报表与报送</td></tr></tbody>
+      </table>
+    </div></div></div>
+    <div class="note">三条先决判断：一、模型清单与验证口径必须先于任何估值能力对外交付；二、多曲线口径（贴现与预测分离、基准转换规则）必须先冻结，这是错价的最大来源；三、输入快照、参数与随机种子的存档机制必须先于第一笔正式估值存在，否则永远无法复现。</div>
+    <div class="danger">最容易被误当成成功信号的事：模型算得出价格、跑得快。算得出不等于算得对，没有独立验证、复算一致率与偏差回测支撑的价格，越快生产越快放大错误。</div>
+  </section>
+
+  <section id="s1">
+    <h2><span class="num">01</span>产业地图与平台形态</h2>
+    <p class="lead">同一套能力，在不同形态下商业本质完全不同。入场前先选形态，再谈功能。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>平台形态对照</h4>
+      <table id="t-players">
+        <thead><tr><th style="width:19%">平台形态</th><th style="width:25%">全球代表</th><th style="width:25%">中国代表</th><th>商业本质</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div></div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span>功能全景（当下主流）</h2>
+    <p class="lead">18 个功能域按四层排序。每条功能点都带关键规则与对标产品，搜索框可直接定位。</p>
+    <div id="domains"></div>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">03</span>前沿与未来</h2>
+    <p class="lead">按落地程度分三档：已落地（live）有成熟商业案例，试点中（pilot）路径明确但未规模化，探索期（explore）技术与标准仍在成形。</p>
+    <div class="fg" id="frontier"></div>
+    <div class="warn">判断前沿方向优先级的一条标准：优先做能提高估值可复现性与验证效率的方向（快照、复算、自动化验证）；纯加速类优化若不与口径一致性绑定，价值有限。</div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span>平台化能力矩阵</h2>
+    <p class="lead">单点功能拼不成平台。下面是横切所有功能域的中台能力，以及最不能出错的六个核心对象。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>通用中台中心</h4>
+      <table id="t-mid">
+        <thead><tr><th style="width:19%">中心</th><th style="width:33%">核心职责</th><th>关键能力</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>六个核心对象</h4>
+      <table>
+        <thead><tr><th style="width:18%">对象</th><th style="width:40%">定义</th><th>为什么不能错</th></tr></thead>
+        <tbody><tr><td>收益率曲线</td><td>贴现与预测用的利率结构，分币种分基准构建</td><td>贴现与预测混用或插值口径漂移，全组合价格系统性错位</td></tr>
+<tr><td>定价模型</td><td>带版本、参数与验证状态的可复现定价实现</td><td>运行实例与版本脱钩，事后无法回答当天用哪版模型</td></tr>
+<tr><td>波动率曲面</td><td>期限与行权价维度的隐含波动率结构</td><td>套利面入价或外推无边界，报价被市场反向套利</td></tr>
+<tr><td>估值快照</td><td>估值结果与输入、参数、种子的绑定存档</td><td>缺快照的估值在审计与争议中无法复算自证</td></tr>
+<tr><td>模型清单</td><td>全量模型的登记、分级与验证状态台账</td><td>漏登或超范围使用让模型风险管理形同虚设</td></tr>
+<tr><td>估值调整</td><td>XVA 等独立成账的调整项</td><td>遗漏或不可解释的调整直接扭曲报表与决策</td></tr></tbody>
+      </table>
+    </div></div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span>核心业务规则（暗礁）</h2>
+    <p class="lead">这一领域的致命规则大多与「不可逆的信任或资金损失」有关。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十六条暗礁</h4>
+      <table id="t-rules"></table>
+    </div></div>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span>指标体系</h2>
+    <p class="lead">指标设计的核心原则：所有质量指标必须能拆到可归因、可举证的一层，否则都是自嗨数字。</p>
+    <div class="grid2" id="kpis"></div>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span>资质与监管地图</h2>
+    <p class="lead">会计准则（公允价值计量）、模型风险监管（验证与治理）、衍生品业务监管与数据合规四个监管域在此交汇，估值能力每一层都要对得上口径。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>中国大陆</h4>
+      <table id="t-lic-cn"></table>
+    </div></div>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>国际市场</h4>
+      <table id="t-lic-intl"></table>
+    </div></div>
+    <div class="warn">三条最常被低估的合规红线：一、未经验证或超验证范围的模型用于正式估值与资本计量，检查必败；二、公允价值层级与不可观察输入披露失实，会引发审计调整与重述；三、第三方估值盲用无独立判断，错价责任无法转嫁。</div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span>市场空白与产品机会点</h2>
+    <p class="lead">机会集中在客户最愿意为确定性付费、而现有方案最不可信的地带。</p>
+    <div class="card"><div class="card-b"><div class="cluster">
+      <h4>十二个机会点</h4>
+      <table id="t-opps"></table>
+    </div></div>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span>如果要做，从哪开始</h2>
+    <p class="lead">链路长、环节多，冷启动的关键是用一个场景把主线跑通，再放大。</p>
+    <div class="grid2">
+      <div class="card"><div class="card-h"><b>收敛步骤</b></div><div class="card-d"><ul class="tight"><li>第一步：选定一个场景做穿（如利率衍生品的曲线到日终估值闭环），把多曲线口径与快照机制做扎实</li><li>第二步：建立可举证的基线（估值绑定版本、独立复算一致、差异可解释）</li><li>第三步：跑通最短闭环（一类工具从市场输入到公允价值入账全程可复现）</li><li>第四步：补第二个增值能力（敏感性或情景压力，覆盖风险管理场景）</li><li>第五步：把承诺写进合同（口径、复算一致率、时限 SLA 明文约定）</li></ul></div></div>
+      <div class="card"><div class="card-h"><b>候选路径</b></div><div class="card-d"><ul class="tight"><li>路径 A：面向银行与券商的定价与估值系统输出（许可 + 实施）</li><li>路径 B：面向资管与理财的估值与对账服务（按量订阅）</li><li>路径 C：面向风险与合规的模型风险管理平台（SaaS 订阅）</li><li>路径 D：面向市场的定价 API 与曲线数据服务（计量计费）</li></ul></div></div>
+    </div>
+    <div class="note">四条路径的共同点：第一资产都是「可复现可举证的定价证据链」，它是审计、监管与客户共同采信的理由。</div>
+  </section>
+
+  <footer>
+    <p>金融资产模型平台产品功能全景图谱 · 生成于 2026-09-28 · 共 <span id="fcount">—</span> 条功能点 · 用于产品规划与竞品对标，不构成投资或法律意见</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ================= 数据层（由 factory 注入） ================= */
+const SECTIONS = [
+ ["s0", "图谱总览"],
+ ["s1", "平台形态"],
+ ["s2", "功能域全景"],
+ ["s3", "前沿方向"],
+ ["s4", "核心对象"],
+ ["s5", "致命规则"],
+ ["s6", "核心指标"],
+ ["s7", "合规资质"],
+ ["s8", "机会缺口"],
+ ["s9", "起步路径"]
+];
+const PLAYERS = [
+ ["综合定价与风险平台", "Numerix、F3 (Zeliade)", "衡泰技术、兆尹科技", "以定价库与算子授权加年度订阅收费"],
+ ["交易与风险一体化前台", "Murex、Calypso（Adenza）", "恒生电子、赢时胜", "以机构前中台一体化系统许可与实施收费"],
+ ["第三方估值服务", "Bloomberg BVAL、Markit", "中债估值中心、中证估值", "以估值数据与基准服务订阅收费"],
+ ["模型验证与模型风险平台", "Moody's Analytics、GARP 生态工具", "银行业普遍自建模型风险平台", "以模型清单验证流程与文档管理支撑模型风险管理"],
+ ["开源定价库生态", "QuantLib、OpenGamma Strata", "开源社区与高校实验室", "以开源库聚生态，企业级支持与商业模块变现"],
+ ["云端定价算力服务", "Numerix 云定价、AWS HPC 网格", "行业云算力实践", "按估值任务量计费的弹性定价算力"]
+];
+const DOMAINS = [
+ ["d1", "市场数据与曲线输入", "Market Data and Curve Inputs", "成熟", "定价的一切起点：报价的采集、清洗与组织成可用输入", [["市场报价采集与清洗", [["多源市场报价采集", "多源报价须带时间戳与来源，冲突按可信源优先级仲裁", "Bloomberg、Refinitiv、Wind"], ["报价异常清洗", "对越界、跳变与陈旧报价自动剔除并留痕，脏输入会污染整条曲线", "行业通用实践"], ["采集任务与时效监控", "采集延迟与缺口实时告警，日终前须补齐关键输入", "行业通用实践"], ["输入快照冻结", "日终估值须绑定输入快照，事后可复现当日估值", "行业通用实践"]]], ["曲线输入点管理", [["存款回购与利率互换输入点", "各期限输入点按基准利率与信用层次分组管理，混层会导致曲线套利", "ISDA 标准实践、行业通用实践"], ["期货与远期输入点", "利率期货与远期输入映射到曲线节点须显式建模", "行业通用实践"], ["跨币种基准价差输入", "交叉货币基差与隔夜指数互换基差单独建曲线，禁止混用单一基准", "基准利率改革 ARR 实践"], ["信用与股权输入点", "CDS 曲线与期权隐含波动率输入独立管理并校验", "IHS Markit、行业通用实践"]]], ["数据质量与缺口处理", [["输入点完整性校验", "关键期限缺失须阻断估值或按制度插补并标注", "行业通用实践"], ["输入点套利检查", "输入报价间的静态套利检查，异常输入须人工确认", "行业通用实践"], ["陈旧数据识别与替代", "长期未更新报价标记陈旧并按制度选择替代源", "行业通用实践"], ["输入数据血缘记录", "每个估值结果的输入来源全程可追溯，审计必备", "行业通用实践"]]]]],
+ ["d2", "金融工具主数据", "Instrument Reference Data", "成熟", "工具条款是定价的合同文本，条款错一个字段价格就错一个方向", [["工具定义与条款管理", [["利率衍生品条款建模", "名义、重置、日计、调整规则等条款字段完整建模，字段缺失即估值错误", "FpML 标准、行业通用实践"], ["期权与奇异条款建模", "障碍、敲入敲出、界限观测方式等条款须精确表达，观测口径错则价格天差地别", "ISDA 定义、行业通用实践"], ["信用衍生品条款建模", "参考实体、信用事件、结算方式按 ISDA 信用衍生品定义建模", "ISDA 信用定义、行业通用实践"], ["条款变更版本管理", "条款修订须版本化并关联估值影响，禁止原地覆盖", "行业通用实践"]]], ["产品类型扩展", [["新产品接入流程", "新工具类型接入须走建模评审与定价验证流程，未验证产品不得投产", "行业通用实践"], ["结构化产品条款模板", "常见结构（鲨鱼鳍、雪球、双向敲出）模板化管理，条款生成与校验一体", "行业通用实践"], ["嵌套与组合工具支持", "内嵌期权的结构化负债须支持工具嵌套定价", "行业通用实践"], ["静态校验规则库", "条款逻辑冲突（如障碍方向与敲出规则矛盾）静态拦截", "行业通用实践"]]], ["静态数据与生命周期", [["日计与营业日规则库", "日计惯例、日历与营业日滚动规则统一维护，规则错则现金流全错", "行业通用实践"], ["现金流计划生成与核对", "从条款生成现金流计划并与交易系统核对", "行业通用实践"], ["事件与行权处理", "行权、提前赎回、信用事件等生命周事件触发估值状态变更", "行业通用实践"], ["主数据质量看板", "条款完整性与一致性持续打分，低分工具进入修复队列", "行业通用实践"]]]]],
+ ["d3", "模型资产库", "Model Inventory and Repository", "成长", "模型是有生命的资产：登记、分级、版本与用途构成模型风险管理的基础设施", [["模型登记与目录", [["模型登记台账", "所有在用模型登记入库，含用途、假设、所有人与状态，未登记模型不得投产", "SR 11-7 模型清单要求"], ["模型分级管理", "按重要性与风险分级（高、中、低），等级决定验证强度与复审频率", "SR 11-7 模型分级实践"], ["模型用途边界标注", "每个模型标注已验证用途，超范围使用即违规", "SR 11-7 有效用途边界"], ["模型依赖关系图谱", "模型间依赖（曲线模型供定价模型使用）显式成图，上游变更影响可追踪", "行业通用实践"]]], ["模型代码与参数库", [["模型代码版本管理", "模型实现代码入库版本化，运行实例绑定具体版本", "GitLab、行业通用实践"], ["参数集与校准结果管理", "校准日期、数据窗口与参数值打包存档，估值可复现依赖参数存档", "行业通用实践"], ["多实现对照库", "同一模型保留参考实现与生产实现，用于独立复算", "QuantLib 参考实现实践"], ["模型环境可复现化", "模型运行环境容器化锁定，多年后仍能复跑历史估值", "Docker、行业通用实践"]]], ["模型分级与用途标签", [["验证状态标签管理", "验证中、已验证、有条件通过、停用等状态显式流转", "SR 11-7 治理实践"], ["监管用途映射", "模型与资本、会计、报送等监管用途映射，用途缺失即报送风险", "行业通用实践"], ["到期复审提醒", "按分级设置复审到期自动提醒，逾期模型禁止新增业务", "行业通用实践"], ["模型资产报告", "模型清单全貌与逾期、未验证统计定期报告管理层", "SR 11-7 治理实践"]]]]],
+ ["d4", "波动率与情景数据", "Volatility Surface and Scenario Data", "成长", "波动率面与情景库是期权定价与压力测试的共同燃料", [["波动率曲面构建", [["隐含波动率插值与外推", "期限与行权价双维插值须连续无套利，外推须有制度依据", "SVI 参数化、SABR 实践"], ["波动率面套利检查", "蝶式与日历套利自动检查，套利面不得用于定价", "行业通用实践"], ["局部波动率与随机波动率校准", "Dupire 局部波动率与 Heston 等随机波动率模型校准，校准失败须报警禁用", "Heston 模型实践、QuantLib"], ["曲面版本与快照", "曲面每日快照存档，历史估值可回溯当日曲面", "行业通用实践"]]], ["相关性与情景库", [["相关性矩阵管理", "多资产定价相关性与相关性时变处理显式建模，相关性假设错误会系统性错价", "行业通用实践"], ["历史情景库构建", "按历史危机事件构建情景（含完整相关性结构），情景须标注假设", "行业通用实践"], ["假设情景设计流程", "假设情景由风险部门设计、评审、版本化管理", "行业通用实践"], ["情景复用与共享", "情景跨模型跨部门复用，口径一致才能横向比较", "行业通用实践"]]], ["利率与信用情景生成", [["利率路径生成", "按随机模型生成利率路径用于蒙特卡洛估值，路径数与种子须记录", "Hull-White、LMM 实践"], ["信用迁移与违约情景", "按评级迁移矩阵生成信用情景，迁移矩阵来源须可追溯", "评级机构数据、行业通用实践"], ["极端情景生成方法", "用极值理论与历史压力放大生成尾部情景", "EVT 实践、行业通用实践"], ["情景校准与合理性复核", "情景参数定期复核，防止情景漂移为不现实的假设", "行业通用实践"]]]]],
+ ["d5", "估值结果数据", "Valuation Results Store", "成熟", "估值结果、敞口与差异解释的存档，是审计、披露与争议解决的最终依据", [["估值结果存储与快照", [["日终估值快照存档", "每日估值结果带输入与模型版本快照存档，长期不可篡改", "WORM 存储实践、行业通用实践"], ["估值结果多维检索", "按组合、工具、模型、日期多维检索历史估值", "Snowflake、ClickHouse"], ["估值结果权限管理", "估值结果按组合与角色授权访问，敏感头寸防泄露", "行业通用实践"], ["结果数据服务化", "估值结果以标准 API 供报表、风险与会计消费", "行业通用实践"]]], ["敞口与现金流数据", [["未来敞口曲线存储", "潜在未来敞口（PFE、EPE）曲线存档，供 XVA 与限额使用", "ISDA SA-CCR 实践、行业通用实践"], ["现金流计划存档", "衍生品全生命周期现金流计划存档并与实收核对", "行业通用实践"], ["抵押品与保证金数据", "保证金占用与抵押品估值联动存储", "ISDA 保证金实践、行业通用实践"], ["敞口聚合视图", "跨组合跨资产类别敞口聚合，防止重复计算或漏算", "行业通用实践"]]], ["估值差异与解释数据", [["估值差异逐日对比", "逐日估值变动分解为市场变动、现金流与模型调整，差异不可解释即预警", "PnL 解释实践、行业通用实践"], ["多源估值差异分析", "自估、经纪商报价与第三方估值三方比对，差异超阈值须解释", "经纪商报价实践、行业通用实践"], ["估值调整台账", "估值调整（XVA、流动性调整等）单独成账并定期复核", "行业通用实践"], ["差异处置闭环", "差异解释结论留痕并驱动模型或数据修复", "行业通用实践"]]]]],
+ ["d6", "收益率曲线构建", "Yield Curve Construction", "核心", "所有利率类定价的地基：曲线错一分，全组合价格错一片", [["曲线构建方法", [["多曲线自举构建", "按 OIS 贴现与各基准预测曲线分离构建，贴现与预测混用是基准转换期最常见错价源", "ISDA 多曲线实践、QuantLib"], ["插值方法管理", "期限插值方法（线性、三次样条、单调）显式选择并披露，方法跳变会造成价格跳变", "Hagan 实践、行业通用实践"], ["外推规则治理", "超出最长期限的插值外推须有制度边界，禁止隐式外推", "行业通用实践"], ["曲线构建并行加速", "多币种多曲线批量构建并行化，日终时限内完成", "行业通用实践"]]], ["多币种多基准曲线", [["多币种收益率曲线管理", "各币种收益率曲线族与共同参数集中管理，币种错配是典型错价源", "行业通用实践"], ["基准利率转换支持", "IBOR 向 ARR 转换期间双基准并行与价差调整，转换规则须显式配置", "ARR 基准转换实践"], ["交叉货币基差曲线", "交叉货币基差单独建模并定期校准，忽略基差会低估外币融资成本", "行业通用实践"], ["通胀与季节性曲线", "通胀挂钩与季节性现金流曲线独立构建并校验", "RPI/CPI 曲线实践、行业通用实践"]]], ["曲线套利检查与平滑", [["远期利率合理性检查", "远期利率负值或跳变自动检出，异常须解释或修正", "行业通用实践"], ["静态套利检查", "离散输入点间的静态套利检查纳入日终流程", "行业通用实践"], ["平滑度与稳定性监控", "曲线平滑度逐日监控，构建方法变更前后须对照", "行业通用实践"], ["曲线方法论变更流程", "构建方法变更须验证、审批并做新旧对照期", "SR 11-7 变更管理实践"]]]]],
+ ["d7", "期权定价模型", "Option Pricing Models", "核心", "从解析到数值的定价工具箱：模型选错或校准错，报价即错", [["解析定价模型", [["Black-Scholes 与 Bachelier 定价", "解析模型适用边界显式标注，负利率环境下 Bachelier 口径不可缺", "BS 模型、Bachelier 修订实践"], ["Black-76 与期货期权定价", "期货与利率期权按 Black-76 口径定价，波动率口径（对数正态/正态）须显式", "Black-76、CME SRT 实践"], ["解析近似与边界情形", "美式近似、 barriers 解析解的适用条件文档化，超边界须转数值法", "Barone-Adesi-Whaley 实践"], ["封闭解希腊字母", "解析希腊字母与数值差分希腊字母交叉验证", "QuantLib、行业通用实践"]]], ["数值定价方法", [["蒙特卡洛路径定价", "路径数、方差缩减与收敛标准显式设定，随机种子须存档保证可复现", "Longstaff-Schwartz 实践、QuantLib"], ["二叉树与 PDE 定价", "树与有限差分方法用于美式与障碍类，网格收敛性须验证", "Crank-Nicolson 实践、QuantLib"], ["长步式与 LSM 美式期权定价", "美式多期行权用最小二乘蒙特卡洛，回归基与路径数影响收敛须披露", "Longstaff-Schwartz 模型"], ["GPU 加速数值定价", "大规模路径计算 GPU 加速，结果须与 CPU 口径对齐", "NVIDIA CUDA 实践、行业通用实践"]]], ["隐含波动率反推与校准", [["隐含波动率反解", "从市场价反解隐含波动率并标注求解失败情形，失败价不得直接入面", "行业通用实践"], ["模型参数联合校准", "多产品同时校准避免局部最优，校准误差与迭代须报告", "Heston 校准实践、Numerix 校准"], ["校准结果有效性监控", "校准残差与稳定性逐日监控，残差突增提示市场结构变化", "行业通用实践"], ["校准自动重跑与告警", "市场大波动自动重校准并告警，防止旧参数继续报价", "行业通用实践"]]]]],
+ ["d8", "信用模型", "Credit Risk Models", "成长", "违约概率、回收与迁移的量化体系，信用定价与减值的共同地基", [["违约概率模型", [["评级与统计 PD 模型", "评级映射与统计违约模型并行，PD 估计须报告置信区间", "穆迪、标普违约研究实践"], ["时点与周期 PD 口径", "时点与贯穿周期口径显式区分，混用会同时扭曲定价与减值", "IFRS 9 实践、行业通用实践"], ["PD 模型区分度验证", "用 KS、AR 等指标做区分度与稳定性回测，退化模型须复审", "Basel 内评验证实践"], ["低违约组合处理", "低违约组合的外部映射与保守调整制度化管理", "Basel LCD 实践、行业通用实践"]]], ["违约损失与回收模型", [["LGD 模型与回收估计", "按担保、优先级与经济周期建模 LGD，回收假设乐观即低估损失", "行业通用实践"], ["估值折价回收口径", "市场折价与最终回收口径区分并披露", "Moody's Ultimate Recovery 实践"], ["抵押品价值波动模型", "抵押品价值与违约时点的相关性建模，防高估缓释效果", "行业通用实践"], ["LGD 回测与分布检验", "用实际回收数据回测 LGD 分布而非仅均值", "行业通用实践"]]], ["信用迁移与组合信用", [["评级迁移矩阵模型", "迁移矩阵按期间与周期条件化，矩阵时变影响组合信用分布", "Markov 链实践、行业通用实践"], ["组合违约相关性建模", "违约相关性用共同因子结构建模，忽略相关会低估组合尾部", "Vasicek 单因子、行业通用实践"], ["信用组合损失分布", "组合损失分布模拟供资本与限额使用", "CreditMetrics、CreditRisk+ 实践"], ["信用迁移情景联动压力", "压力情景下迁移矩阵条件化调整，与压力测试口径一致", "行业通用实践"]]]]],
+ ["d9", "估值引擎与批量估值", "Valuation Engine and Batch Pricing", "核心", "把定价能力变成每天能跑完、跑对、跑可查的工厂", [["单品定价服务", [["定价 API 服务化", "单工具定价以标准 API 提供，输入输出契约版本化", "Numerix 算子服务实践、行业通用实践"], ["what-if 实时报价", "改参数即时报价支持产品设计与询价，实时口径须与日终一致", "行业通用实践"], ["定价输入自动装配", "按工具类型自动装配曲线、曲面与参数，装配日志留痕", "行业通用实践"], ["定价异常自诊断", "定价失败自动归类原因（输入缺失、收敛失败、条款非法）并路由处理", "行业通用实践"]]], ["批量估值与日终流程", [["日终批量估值编排", "估值任务 DAG 编排、依赖管理与断点续跑", "Airflow、行业通用实践"], ["弹性算力调度", "批量估值弹性扩缩容，吞吐满足日终时限", "Kubernetes、云端网格实践"], ["估值结果三级校验", "估值后自动做区间、环比与套利校验，越界结果不得直接入账", "行业通用实践"], ["日终时限 SLA 管理", "估值完成时限监控与瓶颈定位，逾期自动升级", "行业通用实践"]]], ["估值校验与市场一致性", [["经纪商报价比对", "自估值与多家经纪商报价比对，差异超阈值须书面解释", "经纪商月度报价实践、行业通用实践"], ["独立复算抽查", "用参考实现独立复算抽样工具，一致性是模型风险的最后防线", "SR 11-7 独立验证实践"], ["静态组合估值漂移监控", "静态组合在无市场变动时的估值漂移监控，漂移即模型或数据问题", "行业通用实践"], ["市场一致性检验", "按市场一致口径校验组合估值（如远期升贴水合理性）", "行业通用实践"]]]]],
+ ["d10", "模型验证与回测", "Model Validation and Backtesting", "成长", "用独立证据回答模型可不可信，是模型风险管理的核心动作", [["模型验证测试", [["概念健全性评审", "模型假设与理论依据独立评审，假设与用途不匹配即否决", "SR 11-7 概念健全性"], ["基准对照测试", "生产模型与业界基准模型结果对照，偏差须解释", "QuantLib 基准实践、行业通用实践"], ["输入敏感性与边界测试", "极端输入与边界条件测试，模型不得在边界产出荒谬价格", "行业通用实践"], ["独立性保障机制", "验证团队与开发团队组织与汇报线独立，自验证无效", "SR 11-7 独立性要求"]]], ["定价回测与偏差监控", [["预测对实现回测", "定价预测与后续市场实现比对（PLS），系统性偏差须归因", "Bloomberg PLS 实践、行业通用实践"], ["希腊字母对冲回测", "按希腊字母对冲的损益残差回测模型质量", "行业通用实践"], ["偏差趋势监控", "定价偏差趋势逐周监控，趋势恶化触发模型复审", "行业通用实践"], ["回测结果驱动模型迭代", "回测结论回流模型改进并闭环记录", "SR 11-7 持续监控实践"]]], ["假设检验与稳健性", [["假设稳健性分析", "关键假设逐项放宽测试，脆弱假设须在文档中声明", "行业通用实践"], ["样本外检验", "模型在未参与开发的样本上检验，样本外退化须说明", "行业通用实践"], ["过拟合与自由度审查", "模型参数自由度与数据量匹配审查，防止曲线拟合", "行业通用实践"], ["模型验证报告与跟踪", "验证报告存档并跟踪缺陷整改，未闭环不得扩大使用", "SR 11-7 报告要求"]]]]],
+ ["d11", "模型风险管理", "Model Risk Management", "成长", "SR 11-7 式的治理体系：让每个数字背后都有一个被管理的模型", [["模型清单与分级", [["模型全量清单治理", "模型定义宽口径（含 AI 与启发式规则）全量入清单，漏登即盲区", "SR 11-7 模型定义"], ["风险分级体系", "按金额、复杂性与用途三级分类，分级决定验证深度与复审频率", "SR 11-7 分级实践"], ["AI 模型纳入管理", "机器学习模型按可解释性与数据风险单列管理要求", "SR 11-7 与监管 AI 指引实践"], ["清单与系统联动", "清单状态与生产系统联动，未验证模型技术上有闸门", "行业通用实践"]]], ["模型生命周期治理", [["开发验证投产复审退役全流程", "生命周期各阶段角色、门禁与文档显式定义", "SR 11-7 生命周期"], ["模型变更管理", "假设、数据与代码变更均触发重新验证评估，禁止静默变更", "行业通用实践"], ["模型使用监控", "对模型用途、覆盖与例外持续监控，例外须审批并限期整改", "SR 11-7 使用监控"], ["模型有效性结论管理", "验证结论（有效、有效有条件、无效）动态维护并影响业务准入", "行业通用实践"]]], ["治理架构与报告", [["三道防线职责界定", "业务、风险、审计在模型风险中的职责书面化", "三道防线实践、SR 11-7"], ["模型风险委员会机制", "重大模型决策上会审议，会议与决议留痕", "行业通用实践"], ["模型风险量化报告", "模型风险敞口（含潜在错价影响）定期向管理层与董事会报告", "行业通用实践"], ["政策与监管映射管理", "内部政策与监管指引逐条映射，新规落地有跟踪", "行业通用实践"]]]]],
+ ["d12", "敏感性与希腊字母", "Sensitivities and Greeks", "成长", "把估值对风险的暴露翻译成可对冲、可限额的数字", [["希腊字母计算", [["一阶与二阶希腊字母", "Delta、Gamma、Vega、Theta、Rho 全套计算，数值法扰动步长须验证收敛", "QuantLib、Numerix"], ["曲线与曲面敏感性", "对曲线各节点的 bucketed 敏感性与跨节点聚合口径统一，口径混乱会让对冲失效", "行业通用实践"], ["交叉Gamma与高阶风险", "交叉 gamma 与高阶暴露对多资产组合单独计量", "行业通用实践"], ["希腊字母一致性校验", "解析法与数值法希腊字母交叉校验，差异超阈值告警", "行业通用实践"]]], ["情景敏感性分析", [["逐节点与逐因子敏感性", "按曲线节点与风险因子逐项打点，定位风险集中点", "行业通用实践"], ["即时情景估值", "对任意情景即时重估组合，支持交互式分析", "行业通用实践"], ["敏感性聚合与穿透", "跨组合跨层级敏感性聚合可穿透到工具明细", "行业通用实践"], ["敏感性数据服务化", "敏感性以标准接口供限额、对冲与报送消费", "FRTB 敏感性实践、行业通用实践"]]], ["风险对冲方案测算", [["对冲组合优化测算", "按成本与残差风险权衡生成对冲方案并模拟验证", "行业通用实践"], ["对冲再平衡策略测算", "不同再平衡频率的成本与残差对比，支持执行决策", "行业通用实践"], ["动态对冲回放验证", "用历史路径回放对冲方案残差分布", "行业通用实践"], ["对冲方案审计留痕", "对冲测算与采纳结论留痕，责任可追溯", "行业通用实践"]]]]],
+ ["d13", "情景分析与压力测试", "Scenario Analysis and Stress Testing", "成长", "回答「最坏的时候会怎样」，监管与内部资本的共同语言", [["历史与假设情景", [["历史情景重估", "按历史危机日期的完整市场状态重估组合，含曲线与相关性全量重置", "行业通用实践"], ["假设情景管理", "假设情景的设计、评审与版本化全流程管理", "行业通用实践"], ["即时情景重估服务", "面向前台与风控的即时情景重估 API", "行业通用实践"], ["情景结果穿透分析", "情景损失穿透到工具与因子归因，损失来源可解释", "行业通用实践"]]], ["压力测试与监管情景", [["监管情景执行", "按监管下发情景口径执行并按时报送，口径偏差即报送风险", "压力测试监管要求、行业通用实践"], ["逆周期与综合压力测试", "多因子同时恶化的综合情景与逆周期假设管理", "行业通用实践"], ["流动性压力联动", "市场价格压力与流动性折价联动建模，防止单价压力低估损失", "行业通用实践"], ["压力结果限额联动", "压力结果与业务限额、资本预算联动，超限须业务响应", "行业通用实践"]]], ["反向压力测试", [["反向情景搜索", "搜索导致既定损失阈值的情景组合，暴露直觉之外的脆弱点", "行业通用实践"], ["脆弱点归因分析", "反向情景结果归因到因子与业务线，驱动风险偏好修订", "行业通用实践"], ["情景库反馈迭代", "反向发现的新脆弱情景纳入常规情景库", "行业通用实践"], ["反向测试定期演练", "反向压力测试定期执行并向治理层报告", "行业通用实践"]]]]],
+ ["d14", "风险价值与资本计量", "VaR and Capital Measurement", "成长", "把估值与敏感性浓缩成 VaR、ES 与资本数字，供限额与资本管理使用", [["VaR 与 ES 计算", [["历史模拟 VaR", "历史窗口与全量重估口径须固定，窗口变更须留痕", "历史模拟法实践、行业通用实践"], ["蒙特卡洛与参数法 VaR", "蒙特卡洛 VaR 复用估值引擎路径，随机种子须存档可复现", "行业通用实践"], ["预期尾部损失 ES", "ES 在尾部超过 VaR 的部分单独计量，口径与监管定义一致", "FRTB ES 实践、行业通用实践"], ["VaR 回测与例外检验", "用覆盖检验监控 VaR 例外数，例外超标须模型复审", "Basel 交通灯检验实践、行业通用实践"]]], ["资本与限额供数", [["经济资本计量", "经济资本按损失分布分位数计量，口径须与风险偏好挂钩", "行业通用实践"], ["监管资本供数", "市场与信用风险资本计量供数须与监管规则一致，口径错即报送错", "Basel 与资本管理要求、行业通用实践"], ["风险限额供数与监控", "按 VaR 与敏感性为限额体系供数并实时监控占用", "行业通用实践"], ["资本分解与归因", "资本可按业务线与风险因子分解归因", "行业通用实践"]]], ["计量口径与模型治理", [["持仓期与流动性期限管理", "不同资产持仓期与流动性期限显式设定，期限错配会低估风险", "Basel 流动性期限实践、行业通用实践"], ["计量方式选择管理", "全量重估与基于敏感性方式的 选择须验证并记录，口径变更须对照", "FRTB SBM 实践、行业通用实践"], ["计量结果与压力情景衔接", "VaR 与压力测试结果衔接使用，防止只看单一指标", "行业通用实践"], ["计量模型入清单治理", "VaR 与资本计量模型纳入模型清单接受验证与复审", "SR 11-7 实践、行业通用实践"]]]]],
+ ["d15", "模型版本与发布管理", "Model Versioning and Deployment", "成长", "模型上线像发版软件一样受控：版本、审批、灰度缺一不可", [["模型版本控制", [["模型语义化版本管理", "模型按语义版本管理，重大、次要与补丁变更定义清晰", "SemVer 实践、行业通用实践"], ["版本与估值绑定", "每笔估值结果绑定模型版本与参数快照，审计可精确复现", "行业通用实践"], ["版本兼容性说明", "版本升级的兼容性影响（结果口径变化）须书面说明", "行业通用实践"], ["多版本并存运行", "新旧版本并行运行支持对照期与回滚", "行业通用实践"]]], ["发布审批与变更管理", [["模型投产审批门禁", "验证结论、文档齐备与审批通过三重门禁，缺一不得投产", "SR 11-7 投产治理"], ["变更影响评估", "发布前评估受影响组合与报表，重大变更须演练", "行业通用实践"], ["紧急修复流程", "生产缺陷紧急修复须事后补验证与补审批", "行业通用实践"], ["发布日历与冻结期", "估值关键期（年结、报送期）发布冻结", "行业通用实践"]]], ["灰度与并行运行", [["小范围灰度验证", "新版本先限定组合或工具灰度，对照达标后扩大", "行业通用实践"], ["并行运行对照期", "新旧版本并行估值并逐笔对照，差异解释通过后切换", "行业通用实践"], ["一键回滚机制", "新版本异常一键回滚并保留现场供分析", "行业通用实践"], ["发布后观察期机制", "设固定观察期，指标异常自动告警与回退", "行业通用实践"]]]]],
+ ["d16", "计算资源与性能", "Compute and Performance Engineering", "成长", "定价是算力密集型生意，性能直接决定日终时限与业务响应", [["分布式计算调度", [["定价任务网格调度", "估值任务按依赖图并行分发，失败自动重试与转移", "Grid 工程实践、Kubernetes"], ["场景与路径并行化", "蒙特卡洛路径与情景维度并行切分，结果汇聚一致性须验证", "行业通用实践"], ["任务优先级管理", "日终、询价、研究任务优先级与抢占策略显式化", "行业通用实践"], ["算力成本可视与分摊", "按任务计量算力成本并分摊到业务线", "FinOps 实践、行业通用实践"]]], ["性能优化与加速", [["定价内核性能剖析", "热点函数剖析与向量化改造，性能基线持续跟踪", "行业通用实践"], ["GPU 与 SIMD 加速", "路径生成与矩阵运算 GPU 与 SIMD 加速，结果须与标量口径对齐", "CUDA、AVX 实践"], ["缓存与增量计算", "曲线、曲面与路径缓存复用，增量计算须保证口径不变", "行业通用实践"], ["性能回归测试", "每次模型或内核变更跑性能回归，防优化被悄悄吃掉", "行业通用实践"]]], ["容量规划与可用性", [["峰值容量测算", "日终峰值、报送期峰值容量测算并留安全余量", "行业通用实践"], ["弹性扩缩容策略", "云端弹性扩缩容策略与成本上限联动", "Kubernetes 自动伸缩实践"], ["计算资源隔离", "生产估值与研究负载资源隔离，互不挤占", "行业通用实践"], ["高可用与降级预案", "计算集群高可用部署与降级预案演练", "行业通用实践"]]]]],
+ ["d17", "文档与审计追踪", "Model Documentation and Audit Trail", "成熟", "模型风险治理的证据层：写得清楚、查得到、复算得出", [["模型文档管理", [["模型文档标准化模板", "按开发、验证、限制、监控四段标准化文档模板", "SR 11-7 文档要求"], ["文档与版本同步", "文档随模型版本同步更新，旧版本文档可查", "行业通用实践"], ["假设与限制声明", "模型假设、数据限制与适用范围在文档中强制声明", "SR 11-7 限制声明"], ["文档齐备性检查", "投产门禁自动检查文档齐备性，缺项阻断发布", "行业通用实践"]]], ["审计追踪与复算", [["全要素审计追踪", "输入、参数、版本、时间、操作人全要素留痕，任意历史估值可复算", "行业通用实践"], ["独立复算支持", "审计与验证人员可用参考实现独立复算生产结果", "SR 11-7 独立复算实践"], ["追踪不可篡改存储", "审计追踪写后不可改并定期完整性校验", "WORM 实践、行业通用实践"], ["审计查询自助化", "审计与监管检查的自助查询界面，响应从天级到分钟级", "行业通用实践"]]], ["验证留痕与证据管理", [["验证证据归档", "验证测试用例、结果与结论结构化归档", "行业通用实践"], ["缺陷跟踪闭环", "验证缺陷从提出到整改闭环可跟踪，逾期升级", "行业通用实践"], ["复审历史连续可查", "历次复审结论连续可查，模型履历完整", "行业通用实践"], ["监管检查准备包", "按监管检查清单预组装证据包，检查响应提效", "行业通用实践"]]]]],
+ ["d18", "会计与监管对接", "Accounting and Regulatory Integration", "成长", "估值能力最终落到报表与报送：口径错了，前面全白算", [["公允价值计量与披露", [["公允价值层级判定", "按输入可观察性判定公允价值层级并留证，层级错即披露错", "IFRS 13 与 ASC 820 实践"], ["第三方估值使用边界", "第三方估值作为输入或校验的边界制度化，不得盲用", "第三方估值使用指引实践"], ["估值不确定性披露", "不可观察输入的敏感性与不确定性量化披露", "IFRS 13 披露要求"], ["会计估值与风险估值口径对账", "会计口径与风险口径估值定期对账，差异须解释", "行业通用实践"]]], ["估值调整与 XVA", [["CVA 与 DVA 计算", "交易对手与自身信用调整计量，输入含对手信用曲线与敞口", "XVA 实践、行业通用实践"], ["FVA 与资金成本调整", "融资价值调整与资金成本曲线显式建模", "XVA 实践、行业通用实践"], ["MVA 与保证金成本调整", "保证金相关的初始保证金成本调整计量", "SA-CCR 与 SIMM 实践、行业通用实践"], ["估值调整台账与复核", "全部估值调整独立成账并定期独立复核", "行业通用实践"]]], ["监管报送与资本支持", [["资本计量模型支持", "内评与市场风险模型为资本计量供数，口径须与监管规则一致", "Basel 与资本管理要求、行业通用实践"], ["估值相关报送供数", "衍生品、公允价值等报表口径报送供数与勾稽校验", "监管报送实践、行业通用实践"], ["报送前数据质检", "报送数据自动质检与人工复核双保险，错报责任重大", "行业通用实践"], ["监管口径变更跟踪", "监管口径变更的识别、评估与落地跟踪机制", "行业通用实践"]]]]]
+];
+const FRONTIER = [
+ ["云端弹性估值网格", "live", "批量估值上云弹性伸缩已在头部机构落地", "按任务计费的估值网格服务"],
+ ["曲线与输入自动化", "live", "日终曲线构建与质检自动化成为标配", "曲线即服务产品"],
+ ["希腊字母实时计算", "live", "盘中实时敏感性与限额监控进入常规", "实时敏感性引擎"],
+ ["估值快照与解释看板", "live", "估值差异逐日分解可视化提升治理效率", "估值解释看板订阅"],
+ ["模型文档集中管理", "live", "模型清单与文档集中管理成为监管检查刚需", "模型风险管理系统"],
+ ["定价服务 API 化", "live", "定价能力以 API 输出给业务系统复用", "定价 API 计量计费"],
+ ["压力测试常态化", "live", "压力测试从年度动作变为日度能力", "常态化压力测试平台"],
+ ["估值偏差预警", "live", "估值差异自动预警替代人工抽查", "偏差监控服务"],
+ ["机器学习校准加速", "pilot", "ML 代理模型加速校准与路径计算开始试点", "智能校准模块"],
+ ["自动验证助手", "pilot", "验证测试用例自动生成与执行缩短验证周期", "验证自动化工具链"],
+ ["XVA 实时化", "pilot", "XVA 从日终走向盘中实时", "实时 XVA 增值模块"],
+ ["开源与商业混合定价栈", "pilot", "QuantLib 与商业库混合部署降本", "混合定价栈集成服务"],
+ ["多曲线框架升级", "pilot", "基准利率转换推动多曲线框架持续升级", "基准转换咨询服务与工具"],
+ ["智能文档生成", "pilot", "大模型辅助生成与更新模型文档", "文档助手模块"],
+ ["另类数据驱动情景", "pilot", "另类数据增强情景设计的前瞻性", "情景设计数据服务"],
+ ["云端研究协作平台", "pilot", "模型研究与评审在线协作化", "研究协作平台订阅"],
+ ["因果推断模型验证", "explore", "从相关到因果的模型验证方法探索", "因果验证工具"],
+ ["量子定价原型", "explore", "量子算法在期权定价的原型实验", "前沿算法实验室"],
+ ["联邦学习跨机构验证", "explore", "数据不出域的跨机构模型对比验证", "隐私计算验证网络"],
+ ["自主校准 Agent", "explore", "自主完成校准监控与异常处置的 Agent 早期探索", "人机协同校准助手"],
+ ["可解释定价体系", "explore", "定价结果自动生成可解释归因", "解释即服务"],
+ ["数字孪生组合估值", "explore", "组合级数字孪生持续估值演练", "孪生估值环境"],
+ ["监管科技自动报送", "explore", "估值与报送全链路自动化对接监管沙盒", "报送即服务"],
+ ["大模型模型审计", "explore", "大模型辅助阅读验证文档与代码缺陷", "模型审计助手"]
+];
+const MIDS = [
+ ["市场数据与曲线输入", "把报价变成可复现、可审计的定价输入", "多源采集、输入快照、血缘追溯"],
+ ["金融工具主数据", "保证条款与生命周期数据精确无误", "条款建模、模板管理、静态校验"],
+ ["模型资产库", "让每个模型被登记、分级、版本化地管理", "模型台账、版本绑定、依赖图谱"],
+ ["波动率与情景数据", "为定价与压力提供连续无套利的波动率面与情景库", "曲面校准、情景管理、快照存档"],
+ ["估值结果数据", "保存可复现可解释的估值结果与差异证据", "快照存档、三方比对、差异闭环"],
+ ["收益率曲线构建", "用多曲线自举与套利检查守住定价地基", "多曲线自举、插值治理、方法变更管控"],
+ ["期权定价模型", "用解析与数值方法给出正确且可校准的定价", "蒙特卡洛、波动率校准、数值验证"],
+ ["信用模型", "量化 PD、LGD 与迁移支撑信用定价与减值", "PD 建模、回收估计、迁移矩阵"],
+ ["估值引擎与批量估值", "把定价变成准时、准确、可查的日终工厂", "批量编排、三级校验、一致性比对"],
+ ["模型验证与回测", "用独立证据回答模型可不可信", "概念健全性、独立复算、偏差回测"],
+ ["模型风险管理", "按 SR 11-7 体系让每个模型被治理", "清单分级、生命周期、治理报告"],
+ ["敏感性与希腊字母", "把风险暴露翻译成可对冲可限额的数字", "希腊字母、bucketed 敏感性、对冲测算"],
+ ["情景分析与压力测试", "回答最坏情形下的损失并满足监管", "历史假设情景、监管压力、反向测试"],
+ ["模型版本与发布管理", "保证模型以受控方式上线与回退", "版本绑定、审批门禁、并行对照"],
+ ["计算资源与性能", "让定价算力满足时限且成本可控", "网格调度、GPU 加速、容量规划"],
+ ["文档与审计追踪", "让任意历史估值可复算、可举证", "标准文档、全要素追踪、证据归档"],
+ ["会计与监管对接", "把估值能力落到公允价值与监管报送", "公允层级、XVA 台账、报送质检"],
+ ["信用与会计口径治理", "保证定价口径与会计监管口径一致对账", "口径对账、边界管理、变更跟踪"]
+];
+const RULES = [
+ ["使用未经验证的模型于正式估值或报送", "数字直接错进报表与资本，监管处罚与重述风险极高"],
+ ["贴现与预测曲线混用单一基准", "基准转换期最典型错价源，全组合价格系统性偏差"],
+ ["波动率面存在套利仍用于定价", "报价可被市场反向套利，直接造成损失"],
+ ["蒙特卡洛随机种子与路径未存档", "估值不可复现，审计与争议中无法自证"],
+ ["估值结果未绑定模型与参数版本", "事后无法回答当天用哪版模型算的数"],
+ ["模型清单漏登或超验证范围使用", "模型风险管理形同虚设，检查必过不了"],
+ ["验证团队不独立或自验证通过", "验证沦为形式，模型缺陷无人发现"],
+ ["第三方估值盲用无边界", "错价传导至报表，责任无法转嫁"],
+ ["公允价值层级判定错误", "披露失实引发审计调整与声誉损失"],
+ ["静态数据条款错误（日计、调整规则）", "现金流全错，定价看似在跑实则全偏"],
+ ["模型变更未触发重新验证", "带着新缺陷继续生产数字，风险静默累积"],
+ ["估值差异长期不可解释", "问题在内部资本与对外披露中同时放大"],
+ ["压力情景忽略相关性与流动性联动", "压力测试系统性低估尾部损失"],
+ ["XVA 或估值调整遗漏", "对手信用风险未计价，报表与决策双错"],
+ ["计算结果与参考实现长期不一致", "生产实现漂移无人发现，口径失控"],
+ ["文档与代码不同步或缺限制声明", "监管检查举证失败，模型被要求停用"]
+];
+const KPIS = [
+ ["定价偏差", "预测定价与市场实现的偏差（PLS）及趋势"],
+ ["估值日终时限", "日终批量估值完成时间与达标率"],
+ ["模型覆盖率与逾期复审数", "在用模型的登记覆盖率和复审逾期数量"],
+ ["验证周期", "从验证受理到结论出具的平均时长"],
+ ["计算吞吐与性能", "单位时间完成的估值任务与峰值响应"],
+ ["独立复算一致率", "生产估值与参考实现复算一致的比例"],
+ ["估值调整计提质量", "XVA 等调整的变动可解释比例"],
+ ["报送准确率", "估值相关报送的质检通过率与差错次数"]
+];
+const LIC_CN = [
+ ["《企业会计准则第 39 号——公允价值计量》及 IFRS 趋同要求", "可开展公允价值计量与披露", "须按层级判定与披露，不可观察输入须量化敏感性"],
+ ["《商业银行资本管理办法》及内评体系要求", "可开展内评模型计量与资本申请", "模型须通过验证并获监管认可后方可用于资本计量"],
+ ["商业银行模型风险与模型验证监管导向", "可建立模型风险管理体系", "重要模型须独立验证、持续监控并保留文档"],
+ ["衍生品交易业务资格要求", "可开展衍生品估值与对账支持", "开展衍生品业务须取得相应资质并落实风控"],
+ ["银行间市场衍生品交易主协议（NAFMII）", "可开展场外衍生品估值与确认支持", "估值与净额结算安排须符合主协议与相关规则"],
+ ["资管产品估值指引与第三方估值参考", "可开展资管产品估值与核对", "须按估值指引执行，参考第三方估值须有独立判断"],
+ ["商业银行压力测试相关指引", "可开展常态化压力测试", "情景设计、执行与报告须满足监管要求"],
+ ["《数据安全法》与个人信息保护法", "可开展模型数据治理", "训练与校准数据须合规取得并分级管理"],
+ ["网络安全等级保护制度", "可开展估值系统运营", "重要金融系统须完成等保定级测评与整改"],
+ ["证券基金经营机构信息技术服务机构备案要求", "可为机构提供估值技术系统", "纳入外包管理的须按规备案并接受持续管理"],
+ ["金融机构信息外包风险管理要求", "可提供估值外包或算力服务", "外包须纳入供应商管理并制定退出预案"],
+ ["数据出境安全评估要求", "可开展跨境建模协作", "满足评估要求前不得违规向境外提供境内数据"],
+ ["反洗钱与客户身份识别要求", "可开展相关机构客户服务", "服务对象须完成实名与准入管理"],
+ ["增值电信业务许可要求", "可开展平台与接口服务", "经营性平台须取得相应许可与备案"],
+ ["境内虚拟货币相关禁令", "不得提供加密资产定价与估值服务", "相关业务活动属非法金融活动，仅限境外合规市场"]
+];
+const LIC_INTL = [
+ ["美联储 SR 11-7 模型风险管理指引", "可建立模型风险治理与验证体系", "模型定义、验证独立性、文档与监控须达标"],
+ ["IFRS 13 与 ASC 820 公允价值计量", "可开展公允价值估值与披露", "按层级计量并披露估值技术与不可观察输入"],
+ ["巴塞尔 FRTB 市场风险框架", "可支持市场风险资本计量", "敏感性口径与内部模型要求须与规则一致"],
+ ["欧盟基准条例（BMR）", "可使用与发布基准数据", "基准使用与管理须符合 BMR 要求"],
+ ["EMIR 估值报送要求", "欧盟市场可支持衍生品估值报送", "须按期以独立渠道报送估值数据"],
+ ["美国投资公司法 2a-5 估值程序规则", "可支持基金估值程序建设", "估值政策、输入与程序须留证"],
+ ["美联储 CCAR 压力测试要求", "可支持监管资本压力测试", "情景、模型与报送须满足审查要求"],
+ ["IOSCO 基准原则", "可开展基准与估值数据服务", "基准治理与利益冲突管理须符合原则"]
+];
+const OPPS = [
+ ["估值解释与差异归因工具", "估值差异靠人工翻表解释效率低", "做逐日自动分解与归因看板，成为治理刚需"],
+ ["模型风险管理 SaaS", "中小机构建不起模型风险体系", "做清单、验证、文档一体化的轻量 MRM 平台"],
+ ["验证自动化工具链", "验证测试繁重且周期长", "做测试用例库与自动执行缩短验证周期"],
+ ["多曲线与基准转换工具", "基准转换期口径混乱风险高", "做双基准并行与价差调整工具包"],
+ ["独立复算即服务", "机构缺独立复算能力", "做基于参考实现的复算与一致性报告服务"],
+ ["曲线即服务", "自建曲线体系成本高", "做高质量曲线构建与质检的订阅服务"],
+ ["XVA 计量与对账", "估值调整计算复杂易错", "做 XVA 模块与台账对账产品"],
+ ["算力成本优化咨询", "估值算力账单失控", "做性能剖析与调度优化服务"],
+ ["监管报送质检前置", "报送差错代价大", "做报送前自动质检与勾稽校验工具"],
+ ["情景设计数据服务", "优质情景设计依赖经验", "做历史情景库与设计方法论订阅"],
+ ["模型文档智能生成", "文档负担拖慢验证周期", "做大模型辅助文档起草与同步工具"],
+ ["估值 API 生态输出", "中小机构接不起定价能力", "做按量计费的定价 API 市场"]
+];
+
+/* ================= 渲染层 ================= */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const $ = s => document.querySelector(s);
+
+function countDomain(d){let n=0;d[5].forEach(c=>n+=c[1].length);return n;}
+let TOTAL_FN=0, TOTAL_CL=0;
+DOMAINS.forEach(d=>{TOTAL_FN+=countDomain(d);TOTAL_CL+=d[5].length;});
+const _fc=document.getElementById("fcount"); if(_fc) _fc.textContent=TOTAL_FN;
+
+const nav=$("#nav");
+nav.innerHTML = SECTIONS.map(([id,t])=>`<a href="#${id}" data-t="${id}">${esc(t)}</a>`).join("");
+
+$("#stats").innerHTML = [
+ [DOMAINS.length,"功能域"],
+ [TOTAL_FN,"功能点"],
+ [TOTAL_CL,"功能簇"],
+ [FRONTIER.length,"前沿方向"],
+ [MIDS.length,"中台中心"],
+ [PLAYERS.length,"细分赛道"]
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+
+$("#t-players tbody").innerHTML = PLAYERS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("");
+
+$("#domains").innerHTML = DOMAINS.map(d=>{
+  const [id,cn,en,mat,desc,clusters]=d;
+  const n=countDomain(d);
+  const badge = mat==="前沿" ? "pill v" : (mat==="成长" ? "pill a" : (mat==="矩阵" ? "pill b" : "pill t"));
+  return `<div class="card" data-dom="${id}">
+    <div class="card-h"><b>${esc(cn)}</b><em>${esc(en)}</em>
+      <span class="${badge}">${esc(mat)}</span>
+      <span class="sp">${clusters.length} 簇 · ${n} 点</span></div>
+    <div class="card-d">${esc(desc)}</div>
+    <div class="card-b">${clusters.map(c=>`
+      <div class="cluster"><h4>${esc(c[0])}</h4>
+        <table><thead><tr><th>功能点</th><th>关键规则 / 说明</th><th>对标产品</th></tr></thead>
+        <tbody>${c[1].map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody>
+        </table></div>`).join("")}
+    </div></div>`;
+}).join("");
+
+const LBL={live:"已落地",pilot:"试点中",explore:"探索期"};
+$("#frontier").innerHTML = FRONTIER.map(f=>
+ `<div class="f ${f[1]}"><h4><span>${esc(f[0])}</span><s>${LBL[f[1]]}</s></h4>
+   <p>${esc(f[2])}</p>
+   <div class="opp"><b>产品化机会 · </b>${esc(f[3])}</div></div>`).join("");
+
+$("#t-mid tbody").innerHTML = MIDS.map(r=>
+ `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+$("#t-rules").innerHTML = `<thead><tr><th>规则</th><th>为什么致命</th></tr></thead><tbody>` +
+ RULES.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("") + "</tbody>";
+
+$("#kpis").innerHTML = KPIS.map(k=>
+ `<div class="card"><div class="card-h"><b>${esc(k[0])}</b></div>
+   <div class="card-d" style="padding-bottom:16px">${esc(k[1])}</div></div>`).join("");
+
+const licTable = arr => `<thead><tr><th>资质 / 法规</th><th>可开展业务</th><th>产品约束</th></tr></thead><tbody>`+
+ arr.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+$("#t-lic-cn").innerHTML = licTable(LIC_CN);
+$("#t-lic-intl").innerHTML = licTable(LIC_INTL);
+
+$("#t-opps").innerHTML = `<thead><tr><th>机会点</th><th>缺口</th><th>切入点建议</th></tr></thead><tbody>`+
+ OPPS.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")+"</tbody>";
+
+const q=$("#q");
+let emptyEl=null;
+q.addEventListener("input",()=>{
+  const v=q.value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll("#domains .card")];
+  let vis=0;
+  cards.forEach(card=>{
+    const clusters=[...card.querySelectorAll(".cluster")];
+    clusters.forEach(cl=>{
+      const rows=[...cl.querySelectorAll("tbody tr")];
+      let rv=0;
+      rows.forEach(tr=>{
+        const hit=!v||tr.textContent.toLowerCase().includes(v);
+        tr.classList.toggle("hidden",!hit);
+        if(hit)rv++;
+      });
+      cl.classList.toggle("hidden",rv===0);
+    });
+    const any=clusters.some(cl=>!cl.classList.contains("hidden"));
+    card.classList.toggle("hidden",!any);
+    if(any)vis++;
+  });
+  if(v&&vis===0){
+    if(!emptyEl){emptyEl=document.createElement("div");emptyEl.className="nores";$("#domains").appendChild(emptyEl);}
+    emptyEl.textContent=`没有匹配「${q.value}」的功能点。试试：定价 / 蒙特卡洛 / 收益率曲线 / 模型验证`;
+    emptyEl.classList.remove("hidden");
+  }else if(emptyEl){emptyEl.classList.add("hidden");}
+});
+
+const links=[...nav.querySelectorAll("a")];
+if(typeof IntersectionObserver==="function"){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.toggle("on",a.dataset.t===e.target.id));
+      }
+    });
+  },{rootMargin:"-10% 0px -80% 0px"});
+  SECTIONS.forEach(([id])=>{const el=document.getElementById(id);if(el)io.observe(el);});
+}else{
+  links[0]&&links[0].classList.add("on");
+}
+
+</script>
+</body>
+</html>
